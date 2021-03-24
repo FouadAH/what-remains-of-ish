@@ -15,11 +15,11 @@ public class Spikes : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        player = gm.player.GetComponent<Player>();
+        //player = gm.player.GetComponent<Player>();
 
         if (collision.gameObject.tag.Equals("Player"))
         {
-            player = gm.player.GetComponent<Player>();
+            player = collision.gameObject.GetComponent<Player>();
             player.ModifyHealth(damageDealt);
             player.Respawn();
         }

@@ -51,7 +51,7 @@ public class ProjectileLauncher : MonoBehaviour
         if(!launcherSettings.UsedByAi)
             heat += heatPerShot;
 
-        launcher.Launch(this);
+        launcher.Launch();
     }
 
     private bool CanFire()

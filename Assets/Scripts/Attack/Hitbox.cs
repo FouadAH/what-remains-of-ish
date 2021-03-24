@@ -22,7 +22,11 @@ public class Hitbox : MonoBehaviour
 
     public void hitboxUpdate()
     {
-        if (_state == ColliderState.Closed) { return; }
+        if (_state == ColliderState.Closed) 
+        { 
+            return; 
+        }
+
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, hitboxSize, 0, mask);
         for (int i = 0; i < colliders.Length; i++)
         {

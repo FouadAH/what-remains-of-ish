@@ -21,7 +21,7 @@ public class MissileLauncher : MonoBehaviour, ILauncher
         attackProcessor = new AttackProcessor();
     }
 
-    public void Launch(ProjectileLauncher projectileLauncher)
+    public void Launch( )
     {
         if (firingPoint != null)
         {

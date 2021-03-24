@@ -9,6 +9,8 @@ public class Player_Input : MonoBehaviour
     public Vector2 directionalInput;
     public bool jumping { get; set; }
     public bool attacking { get; set; }
+    [SerializeField] private float attackRate = 0.1f;
+    private float nextAttackTime;
     public bool dashing { get; set; }
     public bool firing { get; set; }
     [SerializeField] private float fireRate = 0.1f;
@@ -29,20 +31,20 @@ public class Player_Input : MonoBehaviour
         {
             if (names[x].Length == 19)
             {
-                print("PS4 CONTROLLER IS CONNECTED");
+                //print("PS4 CONTROLLER IS CONNECTED");
                 PS4_Controller = 1;
                 Xbox_One_Controller = 0;
             }
             if (names[x].Length == 33)
             {
-                print("XBOX ONE CONTROLLER IS CONNECTED");
+                //print("XBOX ONE CONTROLLER IS CONNECTED");
                 PS4_Controller = 0;
                 Xbox_One_Controller = 1;
 
             }
         }
 
-        directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        directionalInput = new Vector2(Mathf.Round(Input.GetAxisRaw("Horizontal")), Mathf.Round(Input.GetAxisRaw("Vertical")));
         if (Input.GetButtonDown("Jump"))
         {
             OnJumpDown();
@@ -51,16 +53,23 @@ public class Player_Input : MonoBehaviour
         {
             OnJumpUp();
         }
-        if (Input.GetButtonDown("Attack"))
-        {
-            OnAttack();
-        }
+        //if (Input.GetButtonDown("Attack"))
+        //{
+        //    OnAttack();
+        //}
+        attacking = Input.GetButtonDown("Attack");
         firing = Input.GetButton("Fire");
         dashing = Input.GetButtonDown("Dash");
+
         if (firing && CanFire())
         {
             nextFireTime = Time.time + fireRate;
             OnFire();
+        }
+        if (attacking && CanFire())
+        {
+            nextFireTime = Time.time + attackRate;
+            OnAttack();
         }
     }
 
@@ -68,5 +77,10 @@ public class Player_Input : MonoBehaviour
     {
         return Time.time >= nextFireTime;
     }
-    
+
+    private bool CanAttack()
+    {
+        return Time.time >= nextAttackTime;
+    }
+
 }

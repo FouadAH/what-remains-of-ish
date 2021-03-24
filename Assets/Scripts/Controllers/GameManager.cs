@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
     public GameObject player;
     public GameObject drone;
+    public GameObject boomerangLauncher;
+
 
     void Awake()
     {
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
         loading = true;
         currentScene = levelToLoad;
         player.GetComponent<Player>().enabled = false;
-        drone.GetComponent<DroneAI>().enabled = false;
+        //drone.GetComponent<DroneAI>().enabled = false;
         anim.SetTrigger("FadeOut");
         this.levelToLoad = levelToLoad;
         this.levelToUnload = levelToUnload;
@@ -72,7 +74,7 @@ public class GameManager : MonoBehaviour
         {
             loading = false;
             player.GetComponent<Player>().enabled = true;
-            drone.GetComponent<DroneAI>().enabled = true;
+            //drone.GetComponent<DroneAI>().enabled = true;
             AstarPath.active.Scan();
             SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
         }
