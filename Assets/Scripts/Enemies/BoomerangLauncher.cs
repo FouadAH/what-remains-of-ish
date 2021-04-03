@@ -46,7 +46,21 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     {
         if (playerInput.PS4_Controller == 1 || playerInput.Xbox_One_Controller == 1)
         {
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(Input.GetAxisRaw("Horizontal") * -1, Input.GetAxisRaw("Vertical")) * Mathf.Rad2Deg);
+            if (Input.GetAxisRaw("RHorizontal") == 0 && Input.GetAxisRaw("RVertical") == 0)
+            {
+                if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, -90 * gm.player.transform.localScale.x);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(Input.GetAxisRaw("Horizontal") * -1, Input.GetAxisRaw("Vertical")) * Mathf.Rad2Deg);
+                }
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(Input.GetAxisRaw("RHorizontal") * -1, Input.GetAxisRaw("RVertical")) * Mathf.Rad2Deg);
+            }
         }
         else
         {

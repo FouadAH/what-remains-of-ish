@@ -31,6 +31,16 @@ public class PlayerMovement
     public bool IsSwinging { get; set; }
     public Vector2 RopeHook { get; set; }
 
+    float MAX_JUMP_ASSIST_TIME;
+    bool canJump;
+    float cayoteTimer = 0f;
+
+    int MAX_JUMP_BUFFER_TIME;
+    int jumpBufferCounter = 10;
+
+    float maxFallSpeed = -30;
+
+
     /// <summary>
     /// Constructor that takes a Transform object and a PlayerMovementSettings, 
     /// initializes player settings and handles player input events
@@ -44,10 +54,15 @@ public class PlayerMovement
         this.playerSettings = playerSettings;
         playerInput.OnJumpDown += OnJumpInputDown;
         playerInput.OnJumpUp += OnJumpInputUp;
+        playerInput.OnDash += OnDashInput;
 
         gravity = -(2 * playerSettings.MaxJumpHeight) / Mathf.Pow(playerSettings.TimeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity) * playerSettings.TimeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * playerSettings.MinJumpHeight);
+        MAX_JUMP_ASSIST_TIME = playerSettings.MaxJumpAssistanceTime;
+        MAX_JUMP_BUFFER_TIME = playerSettings.MaxJumpBufferFrames;
+        maxFallSpeed = playerSettings.MaxFallSpeed;
+        
     }
 
     /// <summary>
@@ -79,6 +94,19 @@ public class PlayerMovement
         HandleDash();
         if(!playerInput.attacking) controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
         HandleMaxSlope();
+
+        if (!controller.collitions.below)
+        {
+            cayoteTimer += Time.deltaTime;
+        }
+        else
+        {
+            cayoteTimer = 0;
+        }
+        canJump = cayoteTimer < MAX_JUMP_ASSIST_TIME;
+
+
+        HandleJumpInput();
     }
 
     /// <summary>
@@ -109,15 +137,16 @@ public class PlayerMovement
         }
     }
 
+    void OnDashInput()
+    {
+        playerDash.OnDashInput();
+    }
+
     /// <summary>
     /// Method for handling dash logic
     /// </summary>
     void HandleDash()
     {
-        if (playerInput.dashing)
-        {
-            playerDash.OnDashInput();
-        }
         playerDash.airborne = (!controller.collitions.below && !WallSliding);
         playerDash.DashController(ref velocity, playerInput, playerSettings);
     }
@@ -130,14 +159,16 @@ public class PlayerMovement
     {
         float targetVelocityX = playerSettings.MoveSpeed * playerInput.directionalInput.x;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collitions.below ? playerSettings.AccelerationTimeGrounded : playerSettings.AccelerationTimeAirborne));
-        if (playerDash.dashHover)
+        if (playerDash.isDashing)
         {
 
             velocity.y = 0;
         }
         else
         {
+           
             velocity.y += gravity * Time.deltaTime;
+            velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
         }
 
     }
@@ -202,47 +233,59 @@ public class PlayerMovement
     /// </summary>
     public void OnJumpInputDown()
     {
-        if (WallSliding)
-        {
-            if (wallDirX == playerInput.directionalInput.x)
-            {
-                velocity.x = -wallDirX * playerSettings.WallJumpclimb.x;
-                velocity.y = playerSettings.WallJumpclimb.y;
-            }
-            else if (playerInput.directionalInput.x == 0)
-            {
-                velocity.x = -wallDirX * playerSettings.WallJumpOff.x;
-                velocity.y = playerSettings.WallJumpOff.y;
-            }
-            else
-            {
-                velocity.x = -wallDirX * playerSettings.WallLeap.x;
-                velocity.y = playerSettings.WallLeap.y;
-            }
-        }
+        jumpBufferCounter = 0;
+    }
 
-        if (controller.collitions.below)
+    void HandleJumpInput()
+    {
+        if (jumpBufferCounter < MAX_JUMP_BUFFER_TIME)
         {
-            if (controller.collitions.slidingDownMaxSlope)
+            jumpBufferCounter += 1;
+            if (WallSliding)
             {
-                if (playerInput.directionalInput.x != -Mathf.Sign(controller.collitions.slopeNormal.x))
+                if (wallDirX == playerInput.directionalInput.x)
                 {
-                    velocity.y = maxJumpVelocity * controller.collitions.slopeNormal.y;
-                    velocity.x = maxJumpVelocity * controller.collitions.slopeNormal.x;
+                    velocity.x = -wallDirX * playerSettings.WallJumpclimb.x;
+                    velocity.y = playerSettings.WallJumpclimb.y;
+                }
+                else if (playerInput.directionalInput.x == 0)
+                {
+                    velocity.x = -wallDirX * playerSettings.WallJumpOff.x;
+                    velocity.y = playerSettings.WallJumpOff.y;
+                }
+                else
+                {
+                    velocity.x = -wallDirX * playerSettings.WallLeap.x;
+                    velocity.y = playerSettings.WallLeap.y;
                 }
             }
-            else
+
+            if (canJump)
             {
-                velocity.y = maxJumpVelocity;
+                Debug.Log("Jump");
+                cayoteTimer = MAX_JUMP_ASSIST_TIME;
+
+                if (controller.collitions.slidingDownMaxSlope)
+                {
+                    if (playerInput.directionalInput.x != -Mathf.Sign(controller.collitions.slopeNormal.x))
+                    {
+                        velocity.y = maxJumpVelocity * controller.collitions.slopeNormal.y;
+                        velocity.x = maxJumpVelocity * controller.collitions.slopeNormal.x;
+                    }
+                }
+                else
+                {
+                    velocity.y = maxJumpVelocity;
+                }
             }
         }
     }
-
     /// <summary>
     /// Method that handles jump logic when the player lets go of the jump button, allows the player to control the jump amount 
     /// </summary>
     public void OnJumpInputUp()
     {
+        Debug.Log("OnJumpInputUp");
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = 0;
@@ -255,7 +298,7 @@ public class PlayerMovement
     /// <param name="input">Player input</param>
     public void SetPlayerOrientation(Vector2 input)
     {
-        if (!playerDash.dashHover)
+        if (!playerDash.isDashing && !WallSliding && !IsAttacking)
         {
             playerInput.directionalInput = input;
             if (playerInput.directionalInput.x < 0)

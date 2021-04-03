@@ -20,6 +20,7 @@ public class Player_Input : MonoBehaviour
     public event Action OnAttack = delegate { };
     public event Action OnJumpUp = delegate { };
     public event Action OnJumpDown = delegate { };
+    public event Action OnDash = delegate { };
 
     public int Xbox_One_Controller = 0;
     public int PS4_Controller = 0;
@@ -59,7 +60,10 @@ public class Player_Input : MonoBehaviour
         //}
         attacking = Input.GetButtonDown("Attack");
         firing = Input.GetButton("Fire");
-        dashing = Input.GetButtonDown("Dash");
+        if (Input.GetButtonDown("Dash"))
+        {
+            OnDash();
+        }
 
         if (firing && CanFire())
         {

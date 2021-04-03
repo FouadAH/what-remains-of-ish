@@ -6,7 +6,7 @@ public class PlayerDash : MonoBehaviour
 {
     private bool dashLock;
     private bool canDash;
-    public bool dashHover;
+    public bool isDashing;
     public bool airborne;
 
     [SerializeField] private ParticleSystem afterImage;
@@ -30,12 +30,13 @@ public class PlayerDash : MonoBehaviour
     {
         if (canDash)
         {
-            if (velocity.y > 0)
+            if (velocity.y != 0)
             {
                 velocity.y = 0;
             }
 
             StartCoroutine(DashLogic(playerSettings.DashCooldown));
+            StartCoroutine(DashTime(0.15f));
 
             if (playerInput.directionalInput.x == 0)
             {
@@ -48,18 +49,23 @@ public class PlayerDash : MonoBehaviour
         }
         canDash = false;
 
-        return dashHover;
+        return isDashing;
     }
 
     public IEnumerator DashLogic(float dashCooldown)
     {
         dashLock = true;
-        dashHover = true;
+        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitWhile(() => airborne);
+        dashLock = false;
+    }
+
+    public IEnumerator DashTime(float dashCooldown)
+    {
+        isDashing = true;
         afterImage.Play();
         yield return new WaitForSeconds(dashCooldown);
         afterImage.Stop();
-        dashHover = false;
-        yield return new WaitWhile(() => airborne);
-        dashLock = false;
+        isDashing = false;
     }
 }

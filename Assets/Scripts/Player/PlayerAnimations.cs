@@ -50,7 +50,7 @@ public class PlayerAnimations
             animator.SetBool("isFalling", true);
             animator.SetBool("isJumping", false);
         }
-        if (playerMovement.Velocity.y == 0)
+        else if (playerMovement.Velocity.y == 0)
         {
             falling = false;
             animator.SetBool("isFalling", false);

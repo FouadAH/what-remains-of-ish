@@ -111,11 +111,14 @@ public class Player : MonoBehaviour, IBaseStats{
 
         Collider2D[] enemiesToAggro = Physics2D.OverlapAreaAll(upperLeft, lowerRight, enemyMask);
         for (int i = 0; i < enemiesToAggro.Length; i++)
-        {
+        {   
             bool hit = Physics2D.Linecast(transform.position, enemiesToAggro[i].transform.position, controller.collitionMask);
-            if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)  
+            if(enemiesToAggro[i].GetComponent<IEnemy>() != null)
             {
-                enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
+                if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)
+                {
+                    enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
+                }
             }
         }
     }
@@ -193,7 +196,7 @@ public class Player : MonoBehaviour, IBaseStats{
     {
         GameManager.instance.LoadScene(SceneManager.GetActiveScene().buildIndex, gm.lastCheckpointLevelIndex);
         transform.position = gm.lastCheckpointPos;
-        GameManager.instance.drone.transform.position = transform.position;
+        //GameManager.instance.drone.transform.position = transform.position;
     }
 
     /// <summary>

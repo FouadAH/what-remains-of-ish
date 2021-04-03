@@ -24,6 +24,11 @@ public class PlayerMovementSettings : ScriptableObject
     [SerializeField] private float minJumpHeight = .5f;
     [SerializeField] private float timeToJumpApex = .4f;
 
+    [SerializeField] private float maxJumpAssistanceTime = .1f;
+    [SerializeField] private int maxJumpBufferFrames = 10;
+
+    [SerializeField] private float maxFallSpeed = -30f;
+
     [SerializeField] private float moveSpeed = 6;
     [SerializeField] private float dashFactor = 10;
 
@@ -60,4 +65,7 @@ public class PlayerMovementSettings : ScriptableObject
     public float DashCooldown { get => dashCooldown; }
     public float SwingForce { get => swingForce; }
     public float AccelerationTimeSwing { get => accelerationTimeSwing; }
+    public float MaxJumpAssistanceTime { get => maxJumpAssistanceTime; set => maxJumpAssistanceTime = value; }
+    public int MaxJumpBufferFrames { get => maxJumpBufferFrames; set => maxJumpBufferFrames = value; }
+    public float MaxFallSpeed { get => maxFallSpeed; set => maxFallSpeed = value; }
 }

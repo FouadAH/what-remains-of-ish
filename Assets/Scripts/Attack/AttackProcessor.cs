@@ -69,7 +69,14 @@ public class AttackProcessor
     /// <param name="knockbackDirY">Y Knockback direction</param>
     private void ProcessKnockbackOnHit(IBaseStats attacker, int knockbackDirX, int knockbackDirY)
     {
-        attacker.KnockbackOnHit(attacker.HitKnockbackAmount, knockbackDirX, knockbackDirY);
+        if(knockbackDirY == 1)
+        {
+            attacker.KnockbackOnHit(25, knockbackDirX, knockbackDirY);
+        }
+        else
+        {
+            attacker.KnockbackOnHit(attacker.HitKnockbackAmount, knockbackDirX, knockbackDirY);
+        }
     }
 
     /// <summary>

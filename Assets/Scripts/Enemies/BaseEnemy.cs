@@ -163,7 +163,7 @@ public class BaseEnemy : IEnemy, IBaseStats
 
     public void KnockbackOnHit(int amount, int dirX, int dirY)
     {
-        AddForce(new Vector2(dirX * amount, 0));
+        //AddForce(new Vector2(dirX * amount, 0));
     }
 
     public void KnockbackOnDamage(int amount, int dirX, int dirY)
