@@ -27,8 +27,6 @@ public class ProjectileLauncher : MonoBehaviour
         else
         {
             gm = GameManager.instance;
-            gm.gunHeat = heat;
-            gm.maxGunHeat = heatMax;
             gm.player.GetComponent<Player_Input>().OnFire += Fire;
         }   
         

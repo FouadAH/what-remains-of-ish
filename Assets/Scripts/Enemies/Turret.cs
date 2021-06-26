@@ -14,6 +14,10 @@ public class Turret : FiringAI, IDamagable
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
     public int knockbackGiven { get => KnockbackGiven; set => KnockbackGiven = value; }
 
+    public bool isDamagable = true;
+    public bool isStatic = false;
+
+
     void Start()
     {
         Health = MaxHealth;
@@ -22,6 +26,16 @@ public class Turret : FiringAI, IDamagable
 
     void Update()
     {
+        if (isStatic)
+        {
+            if (CanFire())
+            {
+                nextFireTime = Time.time + fireRate;
+                RaiseOnFireEvent();
+            }
+            return;
+        }
+
         if (IsAggro)
         {
             if (targeting)
@@ -42,13 +56,16 @@ public class Turret : FiringAI, IDamagable
 
     public void ModifyHealth(int amount)
     {
-        Aggro();
-        Health -= amount;
-        RaiseOnHitEnemyEvent(Health, maxHealth);
-        SpawnDamagePoints(amount);
-        if (Health <= 0)
+        if (isDamagable)
         {
-            Destroy(gameObject);
+            Aggro();
+            Health -= amount;
+            RaiseOnHitEnemyEvent(Health, maxHealth);
+            SpawnDamagePoints(amount);
+            if (Health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

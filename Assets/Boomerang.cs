@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Boomerang : MonoBehaviour
 {
-
     public Transform boomerangSprite;
     public event Action<Collider2D> OnRangedHit = delegate { };
 
@@ -16,6 +15,8 @@ public class Boomerang : MonoBehaviour
 
     GameManager gm;
     Rigidbody2D rb;
+
+    public bool dashActive;
 
     private void Start()
     {
@@ -52,10 +53,9 @@ public class Boomerang : MonoBehaviour
 
         while (true)
         {
-            //Debug.Log("Come Back");
-            
             float AngleRad = Mathf.Atan2(gm.player.transform.position.y - transform.position.y, gm.player.transform.position.x - transform.position.x);
             float AngleDeg = (180 / Mathf.PI) * AngleRad;
+
             Quaternion q = Quaternion.AngleAxis(AngleDeg - 90, Vector3.forward);
             transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * boomerangLauncher.rotateSpeed);
             rb.velocity = transform.up * boomerangLauncher.MoveSpeed;
@@ -67,12 +67,17 @@ public class Boomerang : MonoBehaviour
             }
             yield return null;
         }
+    }
 
+    public void StopBoomerang()
+    {
+        StopAllCoroutines();
+        rb.velocity = Vector2.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacles") || collision.gameObject.layer == LayerMask.NameToLayer("Lever"))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
             back = true;
@@ -82,6 +87,13 @@ public class Boomerang : MonoBehaviour
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
             OnRangedHit.Invoke(collision);
+        }
+
+        if (collision.gameObject.GetComponent<PlayerDash>() && dashActive)
+        {
+            collision.gameObject.GetComponent<BoomerangDash>().isDashingBoomerang = false;
+            GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+            Destroy(gameObject);
         }
     }
 

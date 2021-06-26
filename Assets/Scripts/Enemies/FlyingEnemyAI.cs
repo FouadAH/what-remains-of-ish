@@ -26,6 +26,11 @@ public class FlyingEnemyAI : FiringAI, IDamagable
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
     public int knockbackGiven { get => KnockbackTaken; set => KnockbackTaken = value; }
 
+    public bool canShootProjectiles = true;
+
+    [SerializeField] private Vector2 attackPos;
+    [SerializeField] private float attackRange;
+
     private void Start()
     {
         destinationSetter = GetComponent<AIDestinationSetter>();
@@ -55,11 +60,13 @@ public class FlyingEnemyAI : FiringAI, IDamagable
         if (IsAggro)
         {
             path.endReachedDistance = 3f;
-            if (CanFire())
+
+            if (IsPlayerInAttackRange())
             {
-                nextFireTime = Time.time + fireRate;
-                RaiseOnFireEvent();
+                Shoot();
             }
+            //Shoot();
+
             StopCoroutine(AggroRange());
             StartCoroutine(AggroRange());
         }
@@ -71,21 +78,40 @@ public class FlyingEnemyAI : FiringAI, IDamagable
     
     IEnumerator UpdatePath()
     {
-        if (IsAggro == false)
+        while (true)
         {
-            target = TargetPoint.transform;
-            UpdateTarget();
+            if (IsAggro == false)
+            {
+                target = TargetPoint.transform;
+                UpdateTarget();
+            }
+            else
+            {
+                target = player;
+            }
+            destinationSetter.target = target;
+            yield return new WaitForSeconds(1f / updateRate);
         }
-        else
-        {
-            target = player;
-        }
-        destinationSetter.target = target;
-        yield return new WaitForSeconds(1f / updateRate);
-        StartCoroutine(UpdatePath());
 
     }
-    
+
+    public bool IsPlayerInAttackRange()
+    {
+        Collider2D playerCollider = Physics2D.OverlapCircle(new Vector2(transform.position.x + (attackPos.x * transform.localScale.x),
+            transform.position.y + (attackPos.y * transform.localScale.y)), attackRange, PlayerMask);
+        return (playerCollider != null);
+    }
+
+
+    void Shoot()
+    {
+        if (CanFire() && canShootProjectiles)
+        {
+            nextFireTime = Time.time + fireRate;
+            RaiseOnFireEvent();
+        }
+    }
+
     private void UpdateTarget()
     {
         Ntarget = (UnityEngine.Random.insideUnitCircle * radius) + circle;
@@ -115,5 +141,9 @@ public class FlyingEnemyAI : FiringAI, IDamagable
         Gizmos.DrawWireSphere(circle, radius);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, aggroRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(new Vector2(transform.position.x + (attackPos.x * transform.localScale.x),
+            transform.position.y + (attackPos.y * transform.localScale.y)), attackRange);
+
     }
 }

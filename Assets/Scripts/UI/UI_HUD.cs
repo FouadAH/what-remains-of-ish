@@ -48,7 +48,8 @@ public class UI_HUD : MonoBehaviour
 
     private float CalculateGunHeatPercent()
     {
-        return GameManager.instance.gunHeat / GameManager.instance.maxGunHeat;
+        return 0;
+        //return GameManager.instance.gunHeat / GameManager.instance.maxGunHeat;
     }
 
     void OnHit()

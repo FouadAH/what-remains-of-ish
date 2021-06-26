@@ -28,6 +28,7 @@ public class Hitbox : MonoBehaviour
         }
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, hitboxSize, 0, mask);
+
         for (int i = 0; i < colliders.Length; i++)
         {
             Collider2D aCollider = colliders[i];

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoomerangLauncher : MonoBehaviour, ILauncher
 {
     private GameManager gm;
+
     public GameObject boomerangPrefab;
     [SerializeField] private Transform firingPoint;
     Player_Input playerInput;
@@ -30,9 +31,16 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public int MaxRangeDamage { get => maxDamage; set => maxDamage = value; }
     public float RangedAttackMod { get => damageMod; set => damageMod = value; }
 
+    public Boomerang boomerangReference;
+
+    float fixedDeltaTime;
+
+    public SpriteRenderer crosshair;
+
     private void Awake()
     {
         attackProcessor = new AttackProcessor();
+        fixedDeltaTime = Time.fixedDeltaTime;
     }
 
     private void Start()
@@ -44,6 +52,8 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     private void Update()
     {
+        Aim();
+
         if (playerInput.PS4_Controller == 1 || playerInput.Xbox_One_Controller == 1)
         {
             if (Input.GetAxisRaw("RHorizontal") == 0 && Input.GetAxisRaw("RVertical") == 0)
@@ -71,12 +81,59 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         }
     }
 
+    bool isAiming;
+    bool hasFired = false;
+
+    public void Aim()
+    {
+        if(canFire && !isAiming && Input.GetButtonDown("Aim"))
+        {
+            playerInput.aiming = true;
+            StartCoroutine(AimTimer());
+            Time.timeScale = 0.5f;
+            crosshair.enabled = true;
+        }
+        else if(canFire && Input.GetButtonUp("Aim"))
+        {
+            StopCoroutine(AimTimer());
+            isAiming = false;
+            playerInput.aiming = false;
+
+            Launch();
+            crosshair.enabled = false;
+        }
+
+        if(!isAiming)
+        {
+            Time.timeScale = 1f;
+        }
+
+        Time.fixedDeltaTime = fixedDeltaTime * Time.timeScale;
+    }
+
+    IEnumerator AimTimer()
+    {
+        isAiming = true;
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (canFire)
+        {
+            Launch();
+            hasFired = true;
+            crosshair.enabled = false;
+        }
+        isAiming = false;
+        playerInput.aiming = false;
+    }
+
     public void Launch()
     {
         if (canFire)
         {
+            hasFired = true;
             canFire = false;
             var Boomerang = Instantiate(boomerangPrefab, firingPoint.position, firingPoint.rotation);
+            boomerangReference = Boomerang.GetComponent<Boomerang>();
             Boomerang.GetComponent<Boomerang>().OnRangedHit += RangedHit;
         }
     }

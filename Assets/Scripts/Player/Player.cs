@@ -62,19 +62,22 @@ public class Player : MonoBehaviour, IBaseStats{
     public event Action OnHit = delegate { };
 
     public CameraController cameraController;
-    public Camera camera;
+    public Camera mainCamera;
 
     Vector2 upperLeft;
     Vector2 lowerRight;
-    
+
+    public BoomerangLauncher boomerangLauncher;
+
     void Start()
     {
-        GameManager.instance.player = gameObject;
-        camera = GameManager.instance.camera;
-        cameraController = GameManager.instance.cameraController;
-        GameManager.instance.cameraController.virtualCamera.Follow = transform;
+        //GameManager.instance.player = gameObject;
+        mainCamera = GameManager.instance.playerCamera;
+        //cameraController = GameManager.instance.cameraController;
+        //GameManager.instance.cameraController.virtualCamera.Follow = transform;
 
-        transform.position = GameManager.instance.playerPosition;
+        //transform.position = GameManager.instance.playerPosition;
+
         controller = GetComponent<Controller_2D>();
         gm = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
@@ -106,8 +109,8 @@ public class Player : MonoBehaviour, IBaseStats{
         Vector2 upperLeftScreen = new Vector2(0, Screen.height);
         Vector2 lowerRightScreen = new Vector2(Screen.width, 0);
 
-        upperLeft = camera.ScreenToWorldPoint(upperLeftScreen);
-        lowerRight = camera.ScreenToWorldPoint(lowerRightScreen);
+        upperLeft = mainCamera.ScreenToWorldPoint(upperLeftScreen);
+        lowerRight = mainCamera.ScreenToWorldPoint(lowerRightScreen);
 
         Collider2D[] enemiesToAggro = Physics2D.OverlapAreaAll(upperLeft, lowerRight, enemyMask);
         for (int i = 0; i < enemiesToAggro.Length; i++)

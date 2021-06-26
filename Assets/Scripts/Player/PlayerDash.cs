@@ -6,6 +6,7 @@ public class PlayerDash : MonoBehaviour
 {
     private bool dashLock;
     private bool canDash;
+
     public bool isDashing;
     public bool airborne;
 

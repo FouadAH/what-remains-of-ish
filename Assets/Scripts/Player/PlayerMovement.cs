@@ -11,6 +11,9 @@ public class PlayerMovement
     private readonly PlayerMovementSettings playerSettings;
     private readonly Controller_2D controller;
     private readonly PlayerDash playerDash;
+    private readonly BoomerangDash boomerangDash;
+
+    BoomerangLauncher boomerangLauncher;
 
     private readonly float gravity;
 
@@ -48,21 +51,28 @@ public class PlayerMovement
     public PlayerMovement(Transform transformToMove, PlayerMovementSettings playerSettings)
     {
         this.playerInput = transformToMove.GetComponent<Player_Input>();
+
         this.transformToMove = transformToMove;
         controller = transformToMove.GetComponent<Controller_2D>();
         playerDash = transformToMove.GetComponent<PlayerDash>();
+        boomerangDash = transformToMove.GetComponent<BoomerangDash>();
+
+        boomerangLauncher = GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>();
+
         this.playerSettings = playerSettings;
         playerInput.OnJumpDown += OnJumpInputDown;
         playerInput.OnJumpUp += OnJumpInputUp;
         playerInput.OnDash += OnDashInput;
+        playerInput.OnBoomerangDash += OnBoomerangDashInput;
 
         gravity = -(2 * playerSettings.MaxJumpHeight) / Mathf.Pow(playerSettings.TimeToJumpApex, 2);
+
         maxJumpVelocity = Mathf.Abs(gravity) * playerSettings.TimeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * playerSettings.MinJumpHeight);
+
         MAX_JUMP_ASSIST_TIME = playerSettings.MaxJumpAssistanceTime;
         MAX_JUMP_BUFFER_TIME = playerSettings.MaxJumpBufferFrames;
         maxFallSpeed = playerSettings.MaxFallSpeed;
-        
     }
 
     /// <summary>
@@ -82,30 +92,15 @@ public class PlayerMovement
         }
         
         SetPlayerOrientation(playerInput.directionalInput);
-        if (!IsSwinging && !playerInput.attacking)
-        {
-            CalculateVelocity(velocityXSmoothing);
-        }
-        if (IsSwinging)
-        {
-            Swing();
-        }
+
+        CalculateVelocity(velocityXSmoothing);
+        
         HandleWallSliding(velocityXSmoothing);
         HandleDash();
-        if(!playerInput.attacking) controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
+
+        controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
+
         HandleMaxSlope();
-
-        if (!controller.collitions.below)
-        {
-            cayoteTimer += Time.deltaTime;
-        }
-        else
-        {
-            cayoteTimer = 0;
-        }
-        canJump = cayoteTimer < MAX_JUMP_ASSIST_TIME;
-
-
         HandleJumpInput();
     }
 
@@ -142,15 +137,19 @@ public class PlayerMovement
         playerDash.OnDashInput();
     }
 
-    /// <summary>
-    /// Method for handling dash logic
-    /// </summary>
     void HandleDash()
     {
         playerDash.airborne = (!controller.collitions.below && !WallSliding);
         playerDash.DashController(ref velocity, playerInput, playerSettings);
     }
 
+    void OnBoomerangDashInput()
+    {
+        if(boomerangLauncher.boomerangReference != null)
+            boomerangDash.OnBoomerangDashInput(transformToMove, ref velocity, boomerangLauncher.boomerangReference);
+    }
+
+   
     /// <summary>
     /// Method that calculates the players' velocity based on the players' speed and input 
     /// </summary>
@@ -161,12 +160,10 @@ public class PlayerMovement
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collitions.below ? playerSettings.AccelerationTimeGrounded : playerSettings.AccelerationTimeAirborne));
         if (playerDash.isDashing)
         {
-
             velocity.y = 0;
         }
         else
         {
-           
             velocity.y += gravity * Time.deltaTime;
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
         }
@@ -238,6 +235,16 @@ public class PlayerMovement
 
     void HandleJumpInput()
     {
+        if (!controller.collitions.below)
+        {
+            cayoteTimer += Time.deltaTime;
+        }
+        else
+        {
+            cayoteTimer = 0;
+        }
+        canJump = cayoteTimer < MAX_JUMP_ASSIST_TIME;
+
         if (jumpBufferCounter < MAX_JUMP_BUFFER_TIME)
         {
             jumpBufferCounter += 1;
@@ -262,7 +269,7 @@ public class PlayerMovement
 
             if (canJump)
             {
-                Debug.Log("Jump");
+                //Debug.Log("Jump");
                 cayoteTimer = MAX_JUMP_ASSIST_TIME;
 
                 if (controller.collitions.slidingDownMaxSlope)
@@ -285,7 +292,7 @@ public class PlayerMovement
     /// </summary>
     public void OnJumpInputUp()
     {
-        Debug.Log("OnJumpInputUp");
+        //Debug.Log("OnJumpInputUp");
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = 0;

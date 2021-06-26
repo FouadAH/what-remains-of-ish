@@ -7,8 +7,11 @@ using UnityEngine;
 public class Player_Input : MonoBehaviour
 {
     public Vector2 directionalInput;
+
     public bool jumping { get; set; }
     public bool attacking { get; set; }
+    public bool aiming { get; set; }
+
     [SerializeField] private float attackRate = 0.1f;
     private float nextAttackTime;
     public bool dashing { get; set; }
@@ -17,10 +20,17 @@ public class Player_Input : MonoBehaviour
     private float nextFireTime;
 
     public event Action OnFire = delegate{};
+    public event Action OnAim = delegate { };
+
     public event Action OnAttack = delegate { };
     public event Action OnJumpUp = delegate { };
     public event Action OnJumpDown = delegate { };
     public event Action OnDash = delegate { };
+    public event Action OnBoomerangDash = delegate { };
+
+    public event Action OnDetach = delegate { };
+    public event Action OnAttach = delegate { };
+
 
     public int Xbox_One_Controller = 0;
     public int PS4_Controller = 0;
@@ -30,7 +40,7 @@ public class Player_Input : MonoBehaviour
         string[] names = Input.GetJoystickNames();
         for (int x = 0; x < names.Length; x++)
         {
-            if (names[x].Length == 19)
+            if (names[x].Equals("Sony Computer Entertainment Wireless Controller"))
             {
                 //print("PS4 CONTROLLER IS CONNECTED");
                 PS4_Controller = 1;
@@ -45,7 +55,21 @@ public class Player_Input : MonoBehaviour
             }
         }
 
-        directionalInput = new Vector2(Mathf.Round(Input.GetAxisRaw("Horizontal")), Mathf.Round(Input.GetAxisRaw("Vertical")));
+        if (!aiming)
+        {
+            directionalInput = new Vector2(Mathf.Round(Input.GetAxisRaw("Horizontal")), Mathf.Round(Input.GetAxisRaw("Vertical")));
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            OnDetach();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            OnAttach();
+        }
+
         if (Input.GetButtonDown("Jump"))
         {
             OnJumpDown();
@@ -54,22 +78,24 @@ public class Player_Input : MonoBehaviour
         {
             OnJumpUp();
         }
-        //if (Input.GetButtonDown("Attack"))
-        //{
-        //    OnAttack();
-        //}
+
         attacking = Input.GetButtonDown("Attack");
-        firing = Input.GetButton("Fire");
+
         if (Input.GetButtonDown("Dash"))
         {
             OnDash();
         }
 
-        if (firing && CanFire())
+        if (Input.GetButtonDown("Interact"))
         {
-            nextFireTime = Time.time + fireRate;
+            OnBoomerangDash();
+        }
+
+        if (Input.GetButton("Fire"))
+        {
             OnFire();
         }
+
         if (attacking && CanFire())
         {
             nextFireTime = Time.time + attackRate;

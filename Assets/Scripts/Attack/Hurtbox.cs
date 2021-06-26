@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hurtbox : MonoBehaviour
 {
-    public Collider2D collider;
+    public Collider2D colliderObj;
     private AttackProcessor attackProcessor;
     public Color ColorOpen;
     public Color ColorStunned;
@@ -33,20 +33,21 @@ public class Hurtbox : MonoBehaviour
         stunned = false;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (stunned)
-        {
-            Gizmos.color = ColorStunned;
-        }
-        else
-        {
-            Gizmos.color = ColorOpen;
+    //private void OnDrawGizmos()
+    //{
+    //    if (stunned)
+    //    {
+    //        Gizmos.color = ColorStunned;
+    //    }
+    //    else
+    //    {
+    //        Gizmos.color = ColorOpen;
 
-        }
-        Gizmos.matrix = Matrix4x4.TRS(new Vector3(collider.transform.position.x + collider.offset.x * transform.localScale.x, collider.transform.position.y + collider.offset.y * transform.localScale.y),
-            collider.transform.rotation, collider.transform.localScale);
-        //Gizmos.DrawCube(Vector3.zero, new Vector3(collider., collider.size.y, 0));
-    }
+    //    }
+    //    Gizmos.matrix = Matrix4x4.TRS(new Vector3(collider.transform.position.x + collider.offset.x * transform.localScale.x, collider.transform.position.y + collider.offset.y * transform.localScale.y),
+    //        collider.transform.rotation, collider.transform.localScale);
+    //    Gizmos.DrawSphere(Vector3.zero, 1);
+    //    //Gizmos.DrawCube(Vector3.zero, new Vector3(collider., collider.size.y, 0));
+    //}
     
 }

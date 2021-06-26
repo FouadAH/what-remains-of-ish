@@ -13,12 +13,12 @@ public class GameManager : MonoBehaviour
     public GameObject drone;
     public GameObject boomerangLauncher;
 
-
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            Application.targetFrameRate = 60;
         }
         else
         {
@@ -26,20 +26,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        
+    }
+
     public float health = 10000;
     public float maxHealth = 10000;
-    public float gunHeat = 0;
-    public float maxGunHeat = 100;
+
     public int currency;
-    public Camera camera;
+    public Camera playerCamera;
+
     public Vector2 lastCheckpointPos;
     public int lastCheckpointLevelIndex;
+
     public CameraController cameraController;
     public Animator anim;
+
     private int levelToUnload;
     private int levelToLoad;
     public int currentScene;
     public bool loading = false;
+
     public Vector3 playerPosition;
     public Vector3 dronePosition;
 
@@ -57,7 +65,7 @@ public class GameManager : MonoBehaviour
         loading = true;
         currentScene = levelToLoad;
         player.GetComponent<Player>().enabled = false;
-        //drone.GetComponent<DroneAI>().enabled = false;
+
         anim.SetTrigger("FadeOut");
         this.levelToLoad = levelToLoad;
         this.levelToUnload = levelToUnload;
@@ -74,7 +82,6 @@ public class GameManager : MonoBehaviour
         {
             loading = false;
             player.GetComponent<Player>().enabled = true;
-            //drone.GetComponent<DroneAI>().enabled = true;
             AstarPath.active.Scan();
             SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
         }
@@ -91,8 +98,8 @@ public class GameManager : MonoBehaviour
     }
 
     /////////////////////////////////////////////////////////////////
-    ///                 SAVING AND LOADING                       ///
-    ///////////////////////////////////////////////////////////////                 
+    ///                 SAVING AND LOADING                       ////
+    /////////////////////////////////////////////////////////////////                 
 
     public void SaveGame()
     {

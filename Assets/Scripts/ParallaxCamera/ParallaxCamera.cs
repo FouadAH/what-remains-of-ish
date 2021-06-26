@@ -11,7 +11,7 @@ public class ParallaxCamera : MonoBehaviour
     {
         oldPosition = transform.position.x;
     }
-    void Update()
+    void LateUpdate()
     {
         if (transform.position.x != oldPosition)
         {
@@ -23,4 +23,13 @@ public class ParallaxCamera : MonoBehaviour
             oldPosition = transform.position.x;
         }
     }
+
+    //public float pixPerUnit = 10;
+    //void LateUpdate()
+    //{
+    //    transform.position = new Vector3(
+    //        Mathf.Round(transform.position.x * pixPerUnit) / pixPerUnit,
+    //        Mathf.Round(transform.position.y * pixPerUnit) / pixPerUnit,
+    //        transform.position.z);
+    //}
 }
