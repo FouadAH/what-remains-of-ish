@@ -30,7 +30,7 @@ public class Player : MonoBehaviour, IBaseStats{
     public PlayerAnimations playerAnimations;
     [SerializeField] private PlayerMovementSettings playerSettings;
 
-    public PlayerMovement PlayerMovement { get; private set; }
+    public PlayerMovement playerMovement { get; private set; }
 
     private bool staggered;
 
@@ -69,6 +69,8 @@ public class Player : MonoBehaviour, IBaseStats{
 
     public BoomerangLauncher boomerangLauncher;
 
+    TimeStop timeStop;
+
     void Start()
     {
         //GameManager.instance.player = gameObject;
@@ -82,23 +84,28 @@ public class Player : MonoBehaviour, IBaseStats{
         gm = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
         controller = GetComponent<Controller_2D>();
+        timeStop = GetComponent<TimeStop>();
         playerAnimations = new PlayerAnimations(GetComponent<Animator>(), transform);
-        PlayerMovement = new PlayerMovement(transform, playerSettings);
+        playerMovement =  GetComponent<PlayerMovement>();
+        //playerMovement = new PlayerMovement(transform, playerSettings);
     }
 
-    private void FixedUpdate()
-    {
-        if (GameManager.instance.loading)
-            return;
-        PlayerMovement.Movement();
-    }
+    //private void FixedUpdate()
+    //{
+    //    if (GameManager.instance.loading)
+    //        return;
+
+    //    playerMovement.Movement();
+    //}
+
     private void Update()
     {
         if (GameManager.instance.loading)
             return;
+
         OnDamage();
         Aggro();
-        playerAnimations.Animate(PlayerMovement);
+        playerAnimations.Animate();
     }
     
     /// <summary>
@@ -170,7 +177,7 @@ public class Player : MonoBehaviour, IBaseStats{
     /// <returns></returns>
     private IEnumerator PlayerDeath()
     {
-        PlayerMovement.isDead = true;
+        playerMovement.isDead = true;
         GetComponent<Player_Input>().enabled = false;
 
         anim.SetLayerWeight(0, 0f);
@@ -189,7 +196,7 @@ public class Player : MonoBehaviour, IBaseStats{
         anim.SetLayerWeight(3, 0f);
         gm.health = gm.maxHealth;
         GetComponent<Player_Input>().enabled = true;
-        PlayerMovement.isDead = false;
+        playerMovement.isDead = false;
     }
     
     /// <summary>
@@ -202,6 +209,10 @@ public class Player : MonoBehaviour, IBaseStats{
         //GameManager.instance.drone.transform.position = transform.position;
     }
 
+    public float changeTime = 0.05f;
+    public float restoreSpeed = 10f;
+    public float delay = 0.1f;
+
     /// <summary>
     /// Method reponsible for damaging the player
     /// </summary>
@@ -210,6 +221,11 @@ public class Player : MonoBehaviour, IBaseStats{
     {
         if (!invinsible)
         {
+            timeStop.StopTime(changeTime, restoreSpeed, delay);
+
+            //StopCoroutine(DisableInputTemp(0.1f));
+            //StartCoroutine(DisableInputTemp(0.1f));
+
             iFrames = iFrameTime;
             anim.SetTrigger("Hit");
             OnHit();
@@ -220,13 +236,39 @@ public class Player : MonoBehaviour, IBaseStats{
         }
     }
 
+    IEnumerator DisableInputTemp(float disableTime)
+    {
+        GetComponent<Player_Input>().enabled = false;
+        yield return new WaitForSecondsRealtime(disableTime);
+        GetComponent<Player_Input>().enabled = true;
+    }
+
     public void KnockbackOnHit(int amount, int dirX, int dirY)
     {
-        PlayerMovement.Knockback( new Vector3(dirX, dirY), amount);
+        playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
+        playerMovement.kockbackDistance = amount;
+
+        StopCoroutine(KnockbackRoutine());
+        StartCoroutine(KnockbackRoutine());
+        //playerMovement.Knockback( new Vector3(dirX, dirY), amount);
     }
 
     public void KnockbackOnDamage(int amount, int dirX, int dirY)
     {
-        PlayerMovement.Knockback(new Vector3(dirX, dirY), amount);
+        playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
+        playerMovement.kockbackDistance = amount;
+
+        StopCoroutine(KnockbackRoutine());
+        StartCoroutine(KnockbackRoutine());
+
+        //playerMovement.Knockback(new Vector3(dirX, dirY), amount);
+    }
+
+    IEnumerator KnockbackRoutine()
+    {
+        //Debug.Log("KnockbackRoutine");
+        playerMovement.isKnockedback = true;
+        yield return new WaitForSecondsRealtime(0.1f);
+        playerMovement.isKnockedback = false;
     }
 }

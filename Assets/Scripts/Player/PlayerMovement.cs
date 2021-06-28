@@ -4,21 +4,21 @@ using UnityEngine;
 
 /// <summary>Class responsible for handling player movement calculations</summary>
 
-public class PlayerMovement
+public class PlayerMovement : MonoBehaviour
 {
-    private readonly Player_Input playerInput;
-    private readonly Transform transformToMove;
-    private readonly PlayerMovementSettings playerSettings;
-    private readonly Controller_2D controller;
-    private readonly PlayerDash playerDash;
-    private readonly BoomerangDash boomerangDash;
+    public Player_Input playerInput;
+    private Transform transformToMove;
+    public PlayerMovementSettings playerSettings;
+    private Controller_2D controller;
+    private PlayerDash playerDash;
+    private BoomerangDash boomerangDash;
 
     BoomerangLauncher boomerangLauncher;
 
-    private readonly float gravity;
+    private float gravity;
 
-    private readonly float maxJumpVelocity;
-    private readonly float minJumpVelocity;
+    private float maxJumpVelocity;
+    private float minJumpVelocity;
 
     private float wallDirX;
 
@@ -44,22 +44,16 @@ public class PlayerMovement
     float maxFallSpeed = -30;
 
 
-    /// <summary>
-    /// Constructor that takes a Transform object and a PlayerMovementSettings, 
-    /// initializes player settings and handles player input events
-    /// </summary>
-    public PlayerMovement(Transform transformToMove, PlayerMovementSettings playerSettings)
+    private void Start()
     {
-        this.playerInput = transformToMove.GetComponent<Player_Input>();
-
-        this.transformToMove = transformToMove;
+        transformToMove = transform;
+        playerInput = transformToMove.GetComponent<Player_Input>();
         controller = transformToMove.GetComponent<Controller_2D>();
         playerDash = transformToMove.GetComponent<PlayerDash>();
         boomerangDash = transformToMove.GetComponent<BoomerangDash>();
 
         boomerangLauncher = GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>();
 
-        this.playerSettings = playerSettings;
         playerInput.OnJumpDown += OnJumpInputDown;
         playerInput.OnJumpUp += OnJumpInputUp;
         playerInput.OnDash += OnDashInput;
@@ -74,6 +68,45 @@ public class PlayerMovement
         MAX_JUMP_BUFFER_TIME = playerSettings.MaxJumpBufferFrames;
         maxFallSpeed = playerSettings.MaxFallSpeed;
     }
+
+    private void FixedUpdate()
+    {
+        if (GameManager.instance.loading)
+            return;
+
+        Movement();
+    }
+
+    /// <summary>
+    /// Constructor that takes a Transform object and a PlayerMovementSettings, 
+    /// initializes player settings and handles player input events
+    /// </summary>
+    //public PlayerMovement(Transform transformToMove, PlayerMovementSettings playerSettings)
+    //{
+    //    //this.playerInput = transformToMove.GetComponent<Player_Input>();
+
+    //    //this.transformToMove = transformToMove;
+    //    //controller = transformToMove.GetComponent<Controller_2D>();
+    //    //playerDash = transformToMove.GetComponent<PlayerDash>();
+    //    //boomerangDash = transformToMove.GetComponent<BoomerangDash>();
+
+    //    //boomerangLauncher = GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>();
+
+    //    //this.playerSettings = playerSettings;
+    //    //playerInput.OnJumpDown += OnJumpInputDown;
+    //    //playerInput.OnJumpUp += OnJumpInputUp;
+    //    //playerInput.OnDash += OnDashInput;
+    //    //playerInput.OnBoomerangDash += OnBoomerangDashInput;
+
+    //    //gravity = -(2 * playerSettings.MaxJumpHeight) / Mathf.Pow(playerSettings.TimeToJumpApex, 2);
+
+    //    //maxJumpVelocity = Mathf.Abs(gravity) * playerSettings.TimeToJumpApex;
+    //    //minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * playerSettings.MinJumpHeight);
+
+    //    //MAX_JUMP_ASSIST_TIME = playerSettings.MaxJumpAssistanceTime;
+    //    //MAX_JUMP_BUFFER_TIME = playerSettings.MaxJumpBufferFrames;
+    //    //maxFallSpeed = playerSettings.MaxFallSpeed;
+    //}
 
     /// <summary>
     /// Main movement method, responsible for calculating 
@@ -102,7 +135,17 @@ public class PlayerMovement
 
         HandleMaxSlope();
         HandleJumpInput();
+
+        //Debug.Log(isKnockedback);
+        if (isKnockedback)
+        {
+            Knockback(dirKnockback, kockbackDistance);
+        }
     }
+
+    public float kockbackDistance;
+    public Vector3 dirKnockback;
+    public bool isKnockedback;
 
     /// <summary>
     /// Method for calculating knockback 
@@ -116,6 +159,7 @@ public class PlayerMovement
         velocity.y += dir.y * kockbackDistance;
         //controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
     }
+    
 
     /// <summary>
     /// Method for handling jump logic

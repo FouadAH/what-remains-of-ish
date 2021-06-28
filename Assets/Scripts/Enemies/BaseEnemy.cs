@@ -80,6 +80,7 @@ public class BaseEnemy : IEnemy, IBaseStats
         {
             velocity.x = 0;
         }
+
         CalculateVelocity();
         controller.Move(velocity * Time.deltaTime);
         //Debug.DrawRay(transform.position, 10f * Vector2.right * transform.localScale, Color.blue);
@@ -185,4 +186,5 @@ public class BaseEnemy : IEnemy, IBaseStats
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
+
 }

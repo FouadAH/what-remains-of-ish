@@ -35,10 +35,10 @@ public class ProjectileLauncher : MonoBehaviour
     private void Update()
     {
         heat = Mathf.Max(heat - heatSink * Time.deltaTime, 0);
-        if (!launcherSettings.UsedByAi)
-        {
-            gm.gunHeat = heat;
-        }
+        //if (!launcherSettings.UsedByAi)
+        //{
+        //    gm.gunHeat = heat;
+        //}
     }
 
     public void Fire()

@@ -34,7 +34,7 @@ public class RopeSystem : MonoBehaviour
 
     private void Start()
     {
-         playerMovement = player.PlayerMovement;
+         playerMovement = player.playerMovement;
     }
 
     void Update()

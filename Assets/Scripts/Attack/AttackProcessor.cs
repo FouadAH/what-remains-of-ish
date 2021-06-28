@@ -17,7 +17,7 @@ public class AttackProcessor
         int amount = CalculateAttackAmountMelee(attacker);
         ProcessAttack(target, amount);
         ProcessKnockbackOnHit(attacker, knockbackDirX, knockbackDirY);
-        ProcessKnockbackOnDamage(target, -knockbackDirX,  -knockbackDirY);
+        ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
     }
 
     /// <summary>

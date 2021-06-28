@@ -10,9 +10,11 @@ public class PlayerAnimations
     private bool falling;
     private bool jumping;
 
+    PlayerMovement playerMovement;
     public PlayerAnimations(Animator animator, Transform player)
     {
         playerInput = player.GetComponent<Player_Input>();
+        playerMovement = player.GetComponent<PlayerMovement>();
         this.animator = animator;
         playerInput.OnJumpUp += OnJumpInputUp;
         playerInput.OnJumpDown += OnJumpInputDown;
@@ -39,10 +41,10 @@ public class PlayerAnimations
         }
     }
 
-    public void Animate(PlayerMovement playerMovement)
+    public void Animate()
     {
         animator.SetFloat("Speed", Mathf.Abs(playerInput.directionalInput.x));
-        
+
         if (playerMovement.Velocity.y < 0)
         {
             falling = true;

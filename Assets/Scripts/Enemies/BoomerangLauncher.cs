@@ -103,12 +103,12 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             crosshair.enabled = false;
         }
 
-        if(!isAiming)
-        {
-            Time.timeScale = 1f;
-        }
+        //if(!isAiming)
+        //{
+        //    Time.timeScale = 1f;
+        //}
 
-        Time.fixedDeltaTime = fixedDeltaTime * Time.timeScale;
+        //Time.fixedDeltaTime = fixedDeltaTime * Time.timeScale;
     }
 
     IEnumerator AimTimer()
