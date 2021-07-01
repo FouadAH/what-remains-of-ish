@@ -40,18 +40,10 @@ public class Player_Input : MonoBehaviour
         string[] names = Input.GetJoystickNames();
         for (int x = 0; x < names.Length; x++)
         {
-            if (names[x].Equals("Sony Computer Entertainment Wireless Controller"))
+            if (names[x].Contains("Wireless Controller"))
             {
-                //print("PS4 CONTROLLER IS CONNECTED");
                 PS4_Controller = 1;
                 Xbox_One_Controller = 0;
-            }
-            if (names[x].Length == 33)
-            {
-                //print("XBOX ONE CONTROLLER IS CONNECTED");
-                PS4_Controller = 0;
-                Xbox_One_Controller = 1;
-
             }
         }
 

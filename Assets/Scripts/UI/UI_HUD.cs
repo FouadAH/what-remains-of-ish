@@ -29,7 +29,6 @@ public class UI_HUD : MonoBehaviour
     private void Start()
     {
         GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
-
     }
 
     void Update()

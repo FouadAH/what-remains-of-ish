@@ -13,6 +13,8 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private ParticleSystem afterImage;
 
     public ParticleSystem AfterImage { get => afterImage; set => afterImage = value; }
+    public ParticleSystem dashRechargeEffect;
+
 
     void Start()
     {
@@ -57,6 +59,7 @@ public class PlayerDash : MonoBehaviour
     {
         dashLock = true;
         yield return new WaitForSeconds(dashCooldown);
+        dashRechargeEffect.Play();
         yield return new WaitWhile(() => airborne);
         dashLock = false;
     }

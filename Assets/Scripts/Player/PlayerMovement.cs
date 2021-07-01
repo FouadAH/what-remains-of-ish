@@ -43,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
 
     float maxFallSpeed = -30;
 
+    public bool hasDashAbility = false;
+    public bool hasTeleportAbility = false;
+
 
     private void Start()
     {
@@ -76,37 +79,6 @@ public class PlayerMovement : MonoBehaviour
 
         Movement();
     }
-
-    /// <summary>
-    /// Constructor that takes a Transform object and a PlayerMovementSettings, 
-    /// initializes player settings and handles player input events
-    /// </summary>
-    //public PlayerMovement(Transform transformToMove, PlayerMovementSettings playerSettings)
-    //{
-    //    //this.playerInput = transformToMove.GetComponent<Player_Input>();
-
-    //    //this.transformToMove = transformToMove;
-    //    //controller = transformToMove.GetComponent<Controller_2D>();
-    //    //playerDash = transformToMove.GetComponent<PlayerDash>();
-    //    //boomerangDash = transformToMove.GetComponent<BoomerangDash>();
-
-    //    //boomerangLauncher = GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>();
-
-    //    //this.playerSettings = playerSettings;
-    //    //playerInput.OnJumpDown += OnJumpInputDown;
-    //    //playerInput.OnJumpUp += OnJumpInputUp;
-    //    //playerInput.OnDash += OnDashInput;
-    //    //playerInput.OnBoomerangDash += OnBoomerangDashInput;
-
-    //    //gravity = -(2 * playerSettings.MaxJumpHeight) / Mathf.Pow(playerSettings.TimeToJumpApex, 2);
-
-    //    //maxJumpVelocity = Mathf.Abs(gravity) * playerSettings.TimeToJumpApex;
-    //    //minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * playerSettings.MinJumpHeight);
-
-    //    //MAX_JUMP_ASSIST_TIME = playerSettings.MaxJumpAssistanceTime;
-    //    //MAX_JUMP_BUFFER_TIME = playerSettings.MaxJumpBufferFrames;
-    //    //maxFallSpeed = playerSettings.MaxFallSpeed;
-    //}
 
     /// <summary>
     /// Main movement method, responsible for calculating 
@@ -197,19 +169,22 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDashInput()
     {
-        playerDash.OnDashInput();
+        if(hasDashAbility)
+            playerDash.OnDashInput();
     }
 
     void HandleDash()
     {
         playerDash.airborne = (!controller.collitions.below && !WallSliding);
+        boomerangDash.airborne = (!controller.collitions.below && !WallSliding);
+
         playerDash.DashController(ref velocity, playerInput, playerSettings);
     }
 
     void OnBoomerangDashInput()
     {
-        if(boomerangLauncher.boomerangReference != null)
-            boomerangDash.OnBoomerangDashInput(transformToMove, ref velocity, boomerangLauncher.boomerangReference);
+        if(hasTeleportAbility && boomerangLauncher.boomerangReference != null)
+            boomerangDash.OnTeleportInput(transformToMove, ref velocity, boomerangLauncher.boomerangReference);
     }
 
    

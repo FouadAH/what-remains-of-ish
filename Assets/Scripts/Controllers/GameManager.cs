@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
     public GameObject player;
     public GameObject drone;
-    public GameObject boomerangLauncher;
+    [HideInInspector] public GameObject boomerangLauncher;
 
     void Awake()
     {
@@ -24,11 +24,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        boomerangLauncher = player.GetComponentInChildren<BoomerangLauncher>().gameObject;
     }
 
-    private void Update()
+    private void Start()
     {
-        
+        //boomerangLauncher = player.GetComponentInChildren<BoomerangLauncher>().gameObject;
     }
 
     public float health = 10000;
