@@ -28,7 +28,11 @@ public class BoomerangDash : MonoBehaviour
         boomerangPos = boomerang.transform.position;
         boomerang.StopBoomerang();
 
+        Vector2 dir = (boomerangPos - (Vector2)transformToMove.position).normalized;
+        boostDir = dir;
+
         transformToMove.position = boomerangPos;
+        StartCoroutine(BoomerangDashBoost(0.1f));
         velocity.y = 0;
     }
 
@@ -37,6 +41,16 @@ public class BoomerangDash : MonoBehaviour
         afterImage.Play();
         yield return new WaitForSeconds(timer);
         afterImage.Stop();
+    }
+
+    public bool doBoost = false;
+    public Vector2 boostDir = Vector2.zero;
+
+    public IEnumerator BoomerangDashBoost(float timer)
+    {
+        doBoost = true;
+        yield return new WaitForSeconds(timer);
+        doBoost = false;
     }
 
 }

@@ -123,7 +123,21 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
             return;
         }
-        
+
+        if (isKnockedback)
+        {
+            Knockback(dirKnockback, kockbackDistance);
+            controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
+            return;
+        }
+
+        if (boomerangDash.doBoost)
+        {
+            BoomerandBoost();
+            controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
+            return;
+        }
+
         SetPlayerOrientation(playerInput.directionalInput);
 
         CalculateVelocity(velocityXSmoothing);
@@ -135,12 +149,6 @@ public class PlayerMovement : MonoBehaviour
 
         HandleMaxSlope();
         HandleJumpInput();
-
-        //Debug.Log(isKnockedback);
-        if (isKnockedback)
-        {
-            Knockback(dirKnockback, kockbackDistance);
-        }
     }
 
     public float kockbackDistance;
@@ -159,7 +167,18 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += dir.y * kockbackDistance;
         //controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
     }
-    
+
+    public float boostForceX = 5f;
+    public float boostForceY = 5f;
+
+
+    public void BoomerandBoost()
+    {
+        velocity = Vector3.zero;
+        velocity.x += boomerangDash.boostDir.x * boostForceX;
+        velocity.y += boomerangDash.boostDir.y * boostForceY;
+    }
+
 
     /// <summary>
     /// Method for handling jump logic

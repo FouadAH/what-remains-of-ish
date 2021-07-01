@@ -34,6 +34,8 @@ public class Player : MonoBehaviour, IBaseStats{
 
     private bool staggered;
 
+    [Header("Player Values")]
+
     [SerializeField] private int minMeleeDamage;
     [SerializeField] private int maxMeleeDamage;
     [SerializeField] private float meleeAttackMod;
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour, IBaseStats{
 
     [SerializeField] private int hitKnockbackAmount;
     [SerializeField] private int damageKnockbackAmount;
+
 
     public int MinMeleeDamage { get => minMeleeDamage; set => minMeleeDamage = value; }
     public int MaxMeleeDamage { get => maxMeleeDamage; set => maxMeleeDamage = value; }
@@ -61,6 +64,7 @@ public class Player : MonoBehaviour, IBaseStats{
 
     public event Action OnHit = delegate { };
 
+    [Header("Camera")]
     public CameraController cameraController;
     public Camera mainCamera;
 
@@ -68,6 +72,9 @@ public class Player : MonoBehaviour, IBaseStats{
     Vector2 lowerRight;
 
     public BoomerangLauncher boomerangLauncher;
+
+    [Header("Effects")]
+    public ParticleSystem dustParticles;
 
     TimeStop timeStop;
 
@@ -106,6 +113,7 @@ public class Player : MonoBehaviour, IBaseStats{
         OnDamage();
         Aggro();
         playerAnimations.Animate();
+
     }
     
     /// <summary>
@@ -209,6 +217,7 @@ public class Player : MonoBehaviour, IBaseStats{
         //GameManager.instance.drone.transform.position = transform.position;
     }
 
+    [Header("Time Stop")]
     public float changeTime = 0.05f;
     public float restoreSpeed = 10f;
     public float delay = 0.1f;
@@ -268,7 +277,7 @@ public class Player : MonoBehaviour, IBaseStats{
     {
         //Debug.Log("KnockbackRoutine");
         playerMovement.isKnockedback = true;
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(0.25f);
         playerMovement.isKnockedback = false;
     }
 }
