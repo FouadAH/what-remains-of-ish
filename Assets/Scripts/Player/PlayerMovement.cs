@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     public bool hasDashAbility = false;
     public bool hasTeleportAbility = false;
 
+    public bool isPaused = false;
 
     private void Start()
     {
@@ -88,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void Movement()
     {
-        if (isDead)
+        if (isDead || isPaused)
         {
             velocity.x = 0;
             velocity.y += gravity * Time.deltaTime;

@@ -71,6 +71,8 @@ public class PauseMenu : MonoBehaviour
         optionMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
         GameManager.instance.player.GetComponent<Player_Input>().enabled = true;
+        GameManager.instance.player.GetComponent<PlayerMovement>().isPaused = false;
+
         Time.timeScale = 1f;
         gameIsPaused = false;
     }
@@ -149,6 +151,7 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         GameManager.instance.player.GetComponent<Player_Input>().enabled = false;
+        GameManager.instance.player.GetComponent<PlayerMovement>().isPaused = true;
         pauseMenu.SetActive(true);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
         Time.timeScale = 0f;

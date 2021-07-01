@@ -64,11 +64,11 @@ public class GameManager : MonoBehaviour
     
     public void LoadScene(int levelToUnload, int levelToLoad)
     {
+        anim.SetTrigger("FadeOut");
         loading = true;
         currentScene = levelToLoad;
         player.GetComponent<Player>().enabled = false;
 
-        anim.SetTrigger("FadeOut");
         this.levelToLoad = levelToLoad;
         this.levelToUnload = levelToUnload;
     }
@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
         {
             loading = false;
             player.GetComponent<Player>().enabled = true;
-            AstarPath.active.Scan();
             SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
         }
     }
@@ -93,10 +92,16 @@ public class GameManager : MonoBehaviour
     {
         if (obj.isDone)
         {
-            anim.SetTrigger("FadeIn");
+            StartCoroutine(FadeIn());
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(levelToLoad));
-            //AstarPath.active.Scan();
+            AstarPath.active.Scan();
         }
+    }
+
+    IEnumerator FadeIn()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        anim.SetTrigger("FadeIn");
     }
 
     /////////////////////////////////////////////////////////////////
