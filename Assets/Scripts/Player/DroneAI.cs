@@ -34,8 +34,6 @@ public class DroneAI : MonoBehaviour
 
     private void Start()
     {
-        GameManager.instance.drone = gameObject;
-        transform.position = GameManager.instance.dronePosition;
         target = GameManager.instance.player.transform;
         playerInput = GameManager.instance.player.GetComponent<Player_Input>();
         seeker = GetComponent<Seeker>();

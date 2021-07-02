@@ -7,7 +7,7 @@ public class Missile : MonoBehaviour
 {
     public LayerMask hittable;
     public GameObject bulletEffect;
-    public event Action<Collider2D> OnRangedHit = delegate { };
+    public event Action<Collider2D, Vector2> OnRangedHit = delegate { };
 
     [SerializeField] Transform Target;
     [SerializeField] float MoveSpeed = 350f;
@@ -34,7 +34,8 @@ public class Missile : MonoBehaviour
     {
         if (IsInLayerMask(collision.gameObject.layer, hittable))
         {
-            OnRangedHit.Invoke(collision);
+            Vector2 hitPos = transform.position;
+            OnRangedHit.Invoke(collision, hitPos);
             Instantiate(bulletEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

@@ -25,10 +25,11 @@ public class AttackProcessor
     /// </summary>
     /// <param name="attacker">Game object that is attacking</param>
     /// <param name="target">Game object being attacked</param>
-    public void ProcessRanged(ILauncher attacker, IDamagable target)
+    public void ProcessRanged(ILauncher attacker, IDamagable target, int knockbackDirX, int knockbackDirY)
     {
         int amount = CalculateAttackAmountRanged(attacker);
         ProcessAttack(target, amount);
+        ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
     }
 
     /// <summary>

@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
     public GameObject player;
-    public GameObject drone;
     [HideInInspector] public GameObject boomerangLauncher;
 
     void Awake()
@@ -125,11 +124,6 @@ public class GameManager : MonoBehaviour
         playerPosition.x = data.playerPosition[0];
         playerPosition.y = data.playerPosition[1];
         playerPosition.z = data.playerPosition[2];
-
-        Vector3 dronePosition;
-        dronePosition.x = data.dronePosition[0];
-        dronePosition.y = data.dronePosition[1];
-        dronePosition.z = data.dronePosition[2];
 
         Vector2 checkpointPosition;
         checkpointPosition.x = data.lastCheckpointPos[0];

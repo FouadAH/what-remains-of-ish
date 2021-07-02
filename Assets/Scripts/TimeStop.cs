@@ -6,6 +6,7 @@ public class TimeStop : MonoBehaviour
 {
     float speed;
     bool restoreTime = false;
+    public bool timeStopIsActive = false;
 
     void Update()
     {
@@ -19,6 +20,7 @@ public class TimeStop : MonoBehaviour
             {
                 Time.timeScale = 1f;
                 GetComponent<Player_Input>().enabled = true;
+                timeStopIsActive = false;
 
                 restoreTime = false;
             }
@@ -27,6 +29,7 @@ public class TimeStop : MonoBehaviour
 
     public void StopTime(float changeTime, float restoreSpeed, float delay)
     {
+        timeStopIsActive = true;
         speed = restoreSpeed;
 
         if (delay > 0)

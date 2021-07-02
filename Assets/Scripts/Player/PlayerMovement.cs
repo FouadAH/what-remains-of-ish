@@ -294,11 +294,6 @@ public class PlayerMovement : MonoBehaviour
                     velocity.x = -wallDirX * playerSettings.WallJumpclimb.x;
                     velocity.y = playerSettings.WallJumpclimb.y;
                 }
-                else if (playerInput.directionalInput.x == 0)
-                {
-                    velocity.x = -wallDirX * playerSettings.WallJumpOff.x;
-                    velocity.y = playerSettings.WallJumpOff.y;
-                }
                 else
                 {
                     velocity.x = -wallDirX * playerSettings.WallLeap.x;

@@ -6,10 +6,11 @@ using UnityEngine;
 public class Boomerang : MonoBehaviour
 {
     public Transform boomerangSprite;
-    public event Action<Collider2D> OnRangedHit = delegate { };
+    public event Action<Collider2D, Vector2> OnRangedHit = delegate { };
 
     Vector3 startPostion;
     private bool back;
+    private bool instantCallback;
 
     BoomerangLauncher boomerangLauncher;
 
@@ -42,7 +43,15 @@ public class Boomerang : MonoBehaviour
         }
 
         rb.velocity = Vector2.zero;
-        StartCoroutine(Callback());
+
+        if (instantCallback)
+        {
+            CallbackImediate();
+        }
+        else
+        {
+            StartCoroutine(Callback());
+        }
         
     }
 
@@ -50,7 +59,18 @@ public class Boomerang : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         yield return new WaitForSecondsRealtime(boomerangLauncher.boomerangHoverTime);
+        StartCoroutine(Recall());
+    }
 
+    private void CallbackImediate()
+    {
+        rb.velocity = Vector2.zero;
+        instantCallback = false;
+        StartCoroutine(Recall());
+    }
+
+    IEnumerator Recall()
+    {
         while (true)
         {
             float AngleRad = Mathf.Atan2(gm.player.transform.position.y - transform.position.y, gm.player.transform.position.x - transform.position.x);
@@ -63,6 +83,7 @@ public class Boomerang : MonoBehaviour
             if (Vector2.Distance(transform.position, gm.player.transform.position) <= 0.8f)
             {
                 gm.boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+                //Debug.Log("Destroyed boomerang");
                 Destroy(gameObject);
             }
             yield return null;
@@ -80,13 +101,16 @@ public class Boomerang : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacles") || collision.gameObject.layer == LayerMask.NameToLayer("Lever"))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+
+            instantCallback = true;
             back = true;
         }
 
         if (IsInLayerMask(collision.gameObject.layer, boomerangLauncher.damagable))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
-            OnRangedHit.Invoke(collision);
+            Vector2 hitPos = transform.position;
+            OnRangedHit.Invoke(collision, hitPos);
         }
 
         if (collision.gameObject.GetComponent<PlayerDash>() && dashActive)

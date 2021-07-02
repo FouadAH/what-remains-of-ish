@@ -37,6 +37,8 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     public SpriteRenderer crosshair;
 
+    TimeStop timeStop;
+
     private void Awake()
     {
         attackProcessor = new AttackProcessor();
@@ -47,7 +49,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     {
         gm = GameManager.instance;
         playerInput = GameManager.instance.player.GetComponent<Player_Input>();
-        gm.player.GetComponent<Player_Input>().OnFire += Launch;
+        timeStop = GameManager.instance.player.GetComponent<TimeStop>();
     }
 
     private void Update()
@@ -64,7 +66,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
                 {
                     transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(Input.GetAxisRaw("Horizontal") * -1, Input.GetAxisRaw("Vertical")) * Mathf.Rad2Deg);
                 }
-           
         }
         else
         {
@@ -78,26 +79,30 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     bool isAiming;
     bool hasFired = false;
 
+    Coroutine aimTimer;
+
     public void Aim()
     {
         if(canFire && !isAiming && Input.GetButtonDown("Aim"))
         {
             playerInput.aiming = true;
-            StartCoroutine(AimTimer());
+
+            aimTimer = StartCoroutine(AimTimer());
+
             Time.timeScale = 0.5f;
             crosshair.enabled = true;
         }
-        else if(canFire && Input.GetButtonUp("Aim"))
+        else if(isAiming && canFire && Input.GetButtonUp("Aim"))
         {
-            StopCoroutine(AimTimer());
-            isAiming = false;
-            playerInput.aiming = false;
+            if (aimTimer != null)
+                StopCoroutine(aimTimer);
 
             Launch();
-            crosshair.enabled = false;
+            isAiming = false;
+            playerInput.aiming = false;
         }
 
-        if (!isAiming)
+        if (!isAiming && !timeStop.timeStopIsActive)
         {
             Time.timeScale = 1f;
         }
@@ -113,15 +118,19 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         if (canFire)
         {
             Launch();
-            hasFired = true;
-            crosshair.enabled = false;
+            Debug.Log("Launch AimTimer");
         }
+
         isAiming = false;
         playerInput.aiming = false;
+
+        yield return null;
     }
 
     public void Launch()
     {
+        crosshair.enabled = false;
+
         if (canFire)
         {
             hasFired = true;
@@ -132,11 +141,14 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         }
     }
 
-    public void RangedHit(Collider2D collider)
+    public void RangedHit(Collider2D collider, Vector2 pos)
     {
         if (IsInLayerMask(collider.gameObject.layer, damagable) && collider.GetComponent<IDamagable>() != null)
         {
-            attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>());
+            //attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>());
+
+            Vector2 direction = (pos - (Vector2)collider.transform.position).normalized;
+            attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>(), Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
         }
     }
 

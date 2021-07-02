@@ -52,16 +52,6 @@ public class Player_Input : MonoBehaviour
             directionalInput = new Vector2(Mathf.Round(Input.GetAxisRaw("Horizontal")), Mathf.Round(Input.GetAxisRaw("Vertical")));
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            OnDetach();
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            OnAttach();
-        }
-
         if (Input.GetButtonDown("Jump"))
         {
             OnJumpDown();
@@ -70,8 +60,6 @@ public class Player_Input : MonoBehaviour
         {
             OnJumpUp();
         }
-
-        attacking = Input.GetButtonDown("Attack");
 
         if (Input.GetButtonDown("Dash"))
         {
@@ -83,21 +71,12 @@ public class Player_Input : MonoBehaviour
             OnBoomerangDash();
         }
 
-        if (Input.GetButton("Fire"))
+        attacking = Input.GetButtonDown("Attack");
+        if (attacking && CanAttack())
         {
-            OnFire();
-        }
-
-        if (attacking && CanFire())
-        {
-            nextFireTime = Time.time + attackRate;
+            nextAttackTime = Time.time + attackRate;
             OnAttack();
         }
-    }
-
-    private bool CanFire()
-    {
-        return Time.time >= nextFireTime;
     }
 
     private bool CanAttack()

@@ -25,11 +25,6 @@ public class PlayerData
         playerPosition[1] = gm.player.transform.position.y;
         playerPosition[2] = gm.player.transform.position.z;
 
-        dronePosition = new float[3];
-        dronePosition[0] = gm.drone.transform.position.x;
-        dronePosition[1] = gm.drone.transform.position.y;
-        dronePosition[2] = gm.drone.transform.position.z;
-
         lastCheckpointPos = new float[2];
         lastCheckpointPos[0] = gm.lastCheckpointPos.x;
         lastCheckpointPos[1] = gm.lastCheckpointPos.y;

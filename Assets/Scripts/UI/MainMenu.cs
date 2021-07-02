@@ -141,7 +141,7 @@ public class MainMenu : MonoBehaviour
     {
         if (obj.isDone)
         {
-            SceneManager.LoadSceneAsync("Level_1", LoadSceneMode.Additive).completed += MainMenu_completed;
+            SceneManager.LoadSceneAsync("Level_0", LoadSceneMode.Additive).completed += MainMenu_completed;
         }
     }
 
@@ -201,13 +201,6 @@ public class MainMenu : MonoBehaviour
         playerPosition.z = data.playerPosition[2];
         GameManager.instance.playerPosition = playerPosition;
 
-
-        Vector3 dronePosition;
-        dronePosition.x = data.dronePosition[0];
-        dronePosition.y = data.dronePosition[1];
-        dronePosition.z = data.dronePosition[2];
-        GameManager.instance.dronePosition = dronePosition;
-
         Vector2 checkpointPosition;
         checkpointPosition.x = data.lastCheckpointPos[0];
         checkpointPosition.y = data.lastCheckpointPos[1];
@@ -223,7 +216,6 @@ public class MainMenu : MonoBehaviour
         GameManager.instance.maxHealth = 100;
         GameManager.instance.currency = 0;
         GameManager.instance.playerPosition = new Vector3(-12f, 105f);
-        GameManager.instance.dronePosition = new Vector3(-12f, 105f);
         GameManager.instance.lastCheckpointPos = new Vector3(-12f, 105f);
         GameManager.instance.lastCheckpointLevelIndex = 3;
         GameManager.instance.currentScene = 3;
