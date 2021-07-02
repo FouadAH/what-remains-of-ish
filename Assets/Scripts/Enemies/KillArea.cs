@@ -19,7 +19,7 @@ public class KillArea : MonoBehaviour {
         {
             player = collision.gameObject.GetComponent<Player>();
             player.ModifyHealth(damageDealt);
-            player.Respawn();
+            GameManager.instance.Respawn();
         }
     }
 }

@@ -21,6 +21,9 @@ public class BoomerangDash : MonoBehaviour
 
     public void OnTeleportInput(Transform transformToMove, ref Vector2 velocity, Boomerang boomerang)
     {
+        if (!boomerang.IsAccesable())
+            return;
+
         if (!teleportLock)
         {
             canTeleport = true;
@@ -45,8 +48,8 @@ public class BoomerangDash : MonoBehaviour
             boostDir = dir;
 
             StartCoroutine(TeleportEffect(0.8f));
-            StartCoroutine(Teleport(transformToMove, 0.08f));
-
+            StartCoroutine(Teleport(transformToMove, boomerangLauncher, 0.08f));
+          
             if(boomerang != null)
             {
                 Destroy(boomerang.gameObject);
@@ -56,9 +59,20 @@ public class BoomerangDash : MonoBehaviour
     }
 
 
-    public IEnumerator Teleport(Transform transformToMove, float timer)
+    public IEnumerator Teleport(Transform transformToMove, Transform boomerangLauncher, float timer)
     {
         yield return new WaitForSeconds(timer);
+
+        RaycastHit2D[] hits = Physics2D.LinecastAll(boomerangLauncher.position, boomerangPos, GameManager.instance.player.GetComponent<Player>().enemyMask);
+        foreach (RaycastHit2D hit in hits)
+        {
+            IDamagable damagable = hit.collider.GetComponent<IDamagable>();
+            if (damagable != null)
+            {
+                damagable.ModifyHealth(10);
+            }
+        }
+
         transformToMove.position = boomerangPos;
         StartCoroutine(BoomerangDashBoost(0.1f));
     }

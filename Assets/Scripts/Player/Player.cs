@@ -195,7 +195,7 @@ public class Player : MonoBehaviour, IBaseStats{
         anim.SetBool("isDead", true);
 
         yield return new WaitForSeconds(2f);
-        Respawn();
+        GameManager.instance.Respawn();
 
         anim.SetBool("isDead", false);
         anim.SetLayerWeight(0, 1f);
@@ -212,9 +212,7 @@ public class Player : MonoBehaviour, IBaseStats{
     /// </summary>
     public void Respawn()
     {
-        GameManager.instance.LoadScene(SceneManager.GetActiveScene().buildIndex, gm.lastCheckpointLevelIndex);
-        transform.position = gm.lastCheckpointPos;
-        //GameManager.instance.drone.transform.position = transform.position;
+        GameManager.instance.Respawn();
     }
 
     [Header("Time Stop")]

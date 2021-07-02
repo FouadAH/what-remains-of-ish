@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
     public bool loading = false;
 
     public Vector3 playerPosition;
-    public Vector3 dronePosition;
 
     private void OnDrawGizmos()
     {
@@ -60,16 +59,42 @@ public class GameManager : MonoBehaviour
             Gizmos.DrawWireSphere(lastCheckpointPos, 2);
         }
     }
-    
+
+    bool isRespawning = false;
+    bool isLoading = false;
+    public void Respawn()
+    {
+        if (!isRespawning)
+        {
+            isRespawning = true;
+            isLoading = true;
+            StartCoroutine(WaitForLevelLoad());
+            LoadScene(SceneManager.GetActiveScene().buildIndex, lastCheckpointLevelIndex);
+        }
+    }
+
+    IEnumerator WaitForLevelLoad()
+    {
+        while (isLoading)
+        {
+            yield return null;
+        }
+        player.transform.position = lastCheckpointPos;
+        playerCamera.transform.position = player.transform.position;
+        boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+
+        isRespawning = false;
+    }
     public void LoadScene(int levelToUnload, int levelToLoad)
     {
-        anim.SetTrigger("FadeOut");
         loading = true;
         currentScene = levelToLoad;
         player.GetComponent<Player>().enabled = false;
 
         this.levelToLoad = levelToLoad;
         this.levelToUnload = levelToUnload;
+
+        anim.Play("Fade_Out");
     }
 
     public void OnFadeComplete()
@@ -82,6 +107,8 @@ public class GameManager : MonoBehaviour
         if (obj.isDone)
         {
             loading = false;
+            isLoading = false;
+
             player.GetComponent<Player>().enabled = true;
             SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
         }
@@ -100,7 +127,7 @@ public class GameManager : MonoBehaviour
     IEnumerator FadeIn()
     {
         yield return new WaitForSecondsRealtime(0.2f);
-        anim.SetTrigger("FadeIn");
+        anim.Play("Fade_in");
     }
 
     /////////////////////////////////////////////////////////////////

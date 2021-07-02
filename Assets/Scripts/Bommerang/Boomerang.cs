@@ -125,4 +125,21 @@ public class Boomerang : MonoBehaviour
     {
         return layermask == (layermask | (1 << layer));
     }
+
+    public LayerMask obstacles;
+    public bool IsAccesable()
+    {
+        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 1, obstacles);
+        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 1, obstacles);
+
+        return (hitUp.collider == null) && (hitDown.collider == null);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.up);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down);
+
+    }
 }
