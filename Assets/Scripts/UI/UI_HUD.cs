@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UI_HUD : MonoBehaviour
 {
-    public Slider healthSlider;
-    public Slider healthSliderGhost;
-    public Slider gunHeatSlider;
     public TMPro.TMP_Text currencyText;
     public static UI_HUD instance;
-    private float previousHealthPercent;
     [SerializeField] private Animator anim;
+
+    public Transform heartBar;
+    public GameObject heartPrefab;
 
     void Awake()
     {
@@ -22,37 +21,43 @@ public class UI_HUD : MonoBehaviour
         {
             instance = this;
         }
-        previousHealthPercent = 1;
         
     }
 
     private void Start()
     {
         GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
+        RefrechHealth();
     }
 
     void Update()
     {
-        gunHeatSlider.value = CalculateGunHeatPercent();
         currencyText.SetText(GameManager.instance.currency.ToString());
-        healthSlider.value = CalculateHealthPercent();
-        healthSliderGhost.value = Mathf.MoveTowards(previousHealthPercent, CalculateHealthPercent(), (1f / 5f) * Time.deltaTime);
-        previousHealthPercent = healthSliderGhost.value;
     }
 
-    private float CalculateHealthPercent()
+    public void RefrechHealth()
     {
-        return GameManager.instance.health / GameManager.instance.maxHealth;
+        for (int i = 0; i < heartBar.childCount; i++)
+        {
+            Destroy(heartBar.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < GameManager.instance.health; i++)
+        {
+            Instantiate(heartPrefab, heartBar);
+        }
     }
 
-    private float CalculateGunHeatPercent()
-    {
-        return 0;
-        //return GameManager.instance.gunHeat / GameManager.instance.maxGunHeat;
-    }
-
-    void OnHit()
+    void OnHit(int amount)
     {
         anim.SetTrigger("Hit");
+        for (int i = 0; i < amount; i++)
+        {
+            if (heartBar.transform.childCount >0)
+            {
+                Transform heart = heartBar.transform.GetChild(heartBar.transform.childCount - 1);
+                Destroy(heart.gameObject);
+            }
+        }
     }
 }

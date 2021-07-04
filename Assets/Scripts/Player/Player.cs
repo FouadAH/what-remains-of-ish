@@ -62,7 +62,7 @@ public class Player : MonoBehaviour, IBaseStats{
     public int HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
     public int knockbackGiven { get => damageKnockbackAmount; set => damageKnockbackAmount= value; }
 
-    public event Action OnHit = delegate { };
+    public event Action<int> OnHit = delegate { };
 
     [Header("Camera")]
     public CameraController cameraController;
@@ -80,10 +80,10 @@ public class Player : MonoBehaviour, IBaseStats{
 
     void Start()
     {
-        //GameManager.instance.player = gameObject;
+        GameManager.instance.player = gameObject;
         mainCamera = GameManager.instance.playerCamera;
-        //cameraController = GameManager.instance.cameraController;
-        //GameManager.instance.cameraController.virtualCamera.Follow = transform;
+        cameraController = GameManager.instance.cameraController;
+        GameManager.instance.cameraController.virtualCamera.Follow = transform;
 
         //transform.position = GameManager.instance.playerPosition;
 
@@ -96,14 +96,6 @@ public class Player : MonoBehaviour, IBaseStats{
         playerMovement =  GetComponent<PlayerMovement>();
         //playerMovement = new PlayerMovement(transform, playerSettings);
     }
-
-    //private void FixedUpdate()
-    //{
-    //    if (GameManager.instance.loading)
-    //        return;
-
-    //    playerMovement.Movement();
-    //}
 
     private void Update()
     {
@@ -202,7 +194,10 @@ public class Player : MonoBehaviour, IBaseStats{
         anim.SetLayerWeight(1, 1f);
         anim.SetLayerWeight(2, 1f);
         anim.SetLayerWeight(3, 0f);
+
         gm.health = gm.maxHealth;
+        UI_HUD.instance.RefrechHealth();
+
         GetComponent<Player_Input>().enabled = true;
         playerMovement.isDead = false;
     }
@@ -235,7 +230,7 @@ public class Player : MonoBehaviour, IBaseStats{
 
             iFrames = iFrameTime;
             anim.SetTrigger("Hit");
-            OnHit();
+            OnHit(amount);
             anim.SetBool("invinsible", true);
             invinsible = true;
             gm.health -= amount;

@@ -89,7 +89,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
             aimTimer = StartCoroutine(AimTimer());
 
-            Time.timeScale = 0.5f;
+            Time.timeScale = 0.3f;
             crosshair.enabled = true;
         }
         else if(isAiming && canFire && Input.GetButtonUp("Aim"))

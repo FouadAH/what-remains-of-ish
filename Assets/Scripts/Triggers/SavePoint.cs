@@ -1,7 +1,7 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class Checkpoint: MonoBehaviour {
+public class SavePoint: MonoBehaviour {
 
     [SerializeField]private Animator prompt;
     private int levelIndex;
@@ -22,8 +22,12 @@ public class Checkpoint: MonoBehaviour {
     {
         if (Input.GetButtonDown("Interact"))
         {
+            GameManager.instance.lastSavepointLevelIndex = levelIndex;
+            GameManager.instance.lastSavepointPos = transform.position;
+
             GameManager.instance.lastCheckpointLevelIndex = levelIndex;
             GameManager.instance.lastCheckpointPos = transform.position;
+
             GameManager.instance.SaveGame();
         }
     }

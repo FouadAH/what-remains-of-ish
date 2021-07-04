@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
     public Vector2 lastCheckpointPos;
     public int lastCheckpointLevelIndex;
 
+    public Vector2 lastSavepointPos;
+    public int lastSavepointLevelIndex;
+
     public CameraController cameraController;
     public Animator anim;
 
@@ -64,24 +67,47 @@ public class GameManager : MonoBehaviour
     bool isLoading = false;
     public void Respawn()
     {
+        Debug.Log("Hard Respawn");
         if (!isRespawning)
         {
             isRespawning = true;
             isLoading = true;
-            StartCoroutine(WaitForLevelLoad());
-            LoadScene(SceneManager.GetActiveScene().buildIndex, lastCheckpointLevelIndex);
+            StartCoroutine(HardRespawnRoutine());
+            LoadScene(SceneManager.GetActiveScene().buildIndex, lastSavepointLevelIndex);
         }
     }
 
-    IEnumerator WaitForLevelLoad()
+    public void SoftRespawn()
     {
-        while (isLoading)
-        {
-            yield return null;
-        }
+        Debug.Log("Soft Respawn");
+        StartCoroutine(SoftRespawnRoutine());
+    }
+
+    IEnumerator SoftRespawnRoutine()
+    {
+        anim.Play("Fade_Out");
+        player.GetComponent<Player>().enabled = false;
+        yield return new WaitForSecondsRealtime(1f);
+
+        anim.Play("Fade_in");
+
+        player.GetComponent<Player>().enabled = true;
         player.transform.position = lastCheckpointPos;
         playerCamera.transform.position = player.transform.position;
         boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+    }
+
+    IEnumerator HardRespawnRoutine()
+    {
+        while (isLoading)
+        {
+            player.GetComponent<Player>().enabled = false;
+            yield return null;
+        }
+        player.transform.position = lastSavepointPos;
+        playerCamera.transform.position = player.transform.position;
+        boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+        player.GetComponent<Player>().enabled = true;
 
         isRespawning = false;
     }
@@ -94,13 +120,21 @@ public class GameManager : MonoBehaviour
         this.levelToLoad = levelToLoad;
         this.levelToUnload = levelToUnload;
 
-        anim.Play("Fade_Out");
+        StartCoroutine(LoadSceneRoutine());
+        
     }
 
-    public void OnFadeComplete()
+    IEnumerator LoadSceneRoutine()
     {
+        anim.Play("Fade_Out");
+        yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completed;
+
     }
+    //public void OnFadeComplete()
+    //{
+    //    SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completed;
+    //}
 
     private void LoadScene_completed(AsyncOperation obj)
     {
@@ -108,9 +142,10 @@ public class GameManager : MonoBehaviour
         {
             loading = false;
             isLoading = false;
+            SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
 
             player.GetComponent<Player>().enabled = true;
-            SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
+
         }
     }
 
