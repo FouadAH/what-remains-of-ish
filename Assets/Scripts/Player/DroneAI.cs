@@ -94,7 +94,7 @@ public class DroneAI : MonoBehaviour
 
     void Update()
     {
-        if (playerInput.PS4_Controller == 1  || playerInput.Xbox_One_Controller == 1)
+        if (playerInput.controllerConnected)
         {
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(Input.GetAxisRaw("RHorizontal") * -1, Input.GetAxisRaw("RVertical")) * Mathf.Rad2Deg);
         }

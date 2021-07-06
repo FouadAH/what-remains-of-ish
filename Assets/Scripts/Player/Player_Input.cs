@@ -32,18 +32,18 @@ public class Player_Input : MonoBehaviour
     public event Action OnAttach = delegate { };
 
 
-    public int Xbox_One_Controller = 0;
-    public int PS4_Controller = 0;
+    public bool controllerConnected = false;
+
 
     private void Update()
     {
         string[] names = Input.GetJoystickNames();
-        for (int x = 0; x < names.Length; x++)
+        controllerConnected = false;
+        foreach (string item in names)
         {
-            if (names[x].Contains("Wireless Controller"))
+            if (!item.Equals(""))
             {
-                PS4_Controller = 1;
-                Xbox_One_Controller = 0;
+                controllerConnected = true;
             }
         }
 
@@ -68,6 +68,7 @@ public class Player_Input : MonoBehaviour
 
         if (Input.GetButtonDown("Interact"))
         {
+            Debug.Log("Teleport input");
             OnBoomerangDash();
         }
 

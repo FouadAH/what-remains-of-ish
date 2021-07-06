@@ -12,26 +12,6 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     [HideInInspector] public GameObject boomerangLauncher;
 
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            Application.targetFrameRate = 60;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        boomerangLauncher = player.GetComponentInChildren<BoomerangLauncher>().gameObject;
-    }
-
-    private void Start()
-    {
-        //boomerangLauncher = player.GetComponentInChildren<BoomerangLauncher>().gameObject;
-    }
-
     public float health = 10000;
     public float maxHealth = 10000;
 
@@ -53,18 +33,38 @@ public class GameManager : MonoBehaviour
     public bool loading = false;
 
     public Vector3 playerPosition;
+    AstarPath astarPath;
 
-    private void OnDrawGizmos()
+    [Header("Player Abilities")]
+    public bool hasDashAbility = true;
+    public bool hasWallJump = false;
+    public bool hasTeleportAbility = false;
+
+    public bool isRespawning = false;
+    bool isLoading = false;
+
+    void Awake()
     {
-        if(lastCheckpointPos != null)
+        if (instance == null)
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(lastCheckpointPos, 2);
+            instance = this;
+            Application.targetFrameRate = 60;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        boomerangLauncher = player.GetComponentInChildren<BoomerangLauncher>().gameObject;
+        DontDestroyOnLoad(this);
     }
 
-    bool isRespawning = false;
-    bool isLoading = false;
+    private void Start()
+    {
+        astarPath = FindObjectOfType<AstarPath>();
+        boomerangLauncher = player.GetComponentInChildren<BoomerangLauncher>().gameObject;
+    }
+
     public void Respawn()
     {
         Debug.Log("Hard Respawn");
@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
 
         isRespawning = false;
     }
+
     public void LoadScene(int levelToUnload, int levelToLoad)
     {
         loading = true;
@@ -121,7 +122,6 @@ public class GameManager : MonoBehaviour
         this.levelToUnload = levelToUnload;
 
         StartCoroutine(LoadSceneRoutine());
-        
     }
 
     IEnumerator LoadSceneRoutine()
@@ -155,7 +155,8 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(FadeIn());
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(levelToLoad));
-            AstarPath.active.Scan();
+            astarPath = FindObjectOfType<AstarPath>();
+            astarPath.Scan();
         }
     }
 
@@ -195,5 +196,14 @@ public class GameManager : MonoBehaviour
         lastCheckpointLevelIndex = data.lastCheckpointLevelIndex;
 
         currentScene = data.currentScene;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (lastCheckpointPos != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(lastCheckpointPos, 2);
+        }
     }
 }

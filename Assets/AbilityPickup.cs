@@ -6,6 +6,8 @@ public class AbilityPickup : MonoBehaviour
 {
     public bool isDashPickup = false;
     public bool isTeleportPickup = false;
+    public bool isWallJumpPickup = false;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,11 +16,15 @@ public class AbilityPickup : MonoBehaviour
         {
             if (isDashPickup)
             {
-                playerMovement.hasDashAbility = true;
+                GameManager.instance.hasDashAbility = true;
             }
             else if (isTeleportPickup)
             {
-                playerMovement.hasTeleportAbility = true;
+                GameManager.instance.hasTeleportAbility = true;
+            }
+            else if (isWallJumpPickup)
+            {
+                GameManager.instance.hasWallJump = true;
             }
 
             Destroy(gameObject);

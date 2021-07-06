@@ -27,12 +27,15 @@ public class CrusherTrap : MonoBehaviour
 
     void Crush()
     {
-        Sequence mySequence = DOTween.Sequence();
-        mySequence.AppendInterval(pauseTimeBegin);
-        mySequence.Append(transform.DOMoveY(endValue, startDuration));
-        mySequence.AppendInterval(pauseTimeEnd);
-        mySequence.Append(transform.DOMoveY(startValue, endDuration));
-        mySequence.SetLoops(-1, LoopType.Restart);
+        if (transform != null)
+        {
+            Sequence mySequence = DOTween.Sequence();
+            mySequence.AppendInterval(pauseTimeBegin);
+            mySequence.Append(transform.DOMoveY(endValue, startDuration));
+            mySequence.AppendInterval(pauseTimeEnd);
+            mySequence.Append(transform.DOMoveY(startValue, endDuration));
+            mySequence.SetLoops(-1, LoopType.Restart);
+        }
         //mySequence.PrependInterval(initialPause);
     }
 

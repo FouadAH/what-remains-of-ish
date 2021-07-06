@@ -10,10 +10,13 @@ public class ChaseBehaviour : BaseEnemyFSM
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        hit = Physics2D.Raycast(animator.transform.position + Vector3.right / 2f * directionX, Vector3.down, .5f + animator.transform.localScale.y, controller.collitionMask);
-        directionX = (animator.transform.position.x < player.transform.position.x) ? 1 : -1;
-        CalculateVelocity();
-        HandleMaxSlope();
+        if (player != null)
+        {
+            hit = Physics2D.Raycast(animator.transform.position + Vector3.right / 2f * directionX, Vector3.down, .5f + animator.transform.localScale.y, controller.collitionMask);
+            directionX = (animator.transform.position.x < player.transform.position.x) ? 1 : -1;
+            CalculateVelocity();
+            HandleMaxSlope();
+        }
     }
 
     void CalculateVelocity()

@@ -64,10 +64,7 @@ public class Player : MonoBehaviour, IBaseStats{
 
     public event Action<int> OnHit = delegate { };
 
-    [Header("Camera")]
-    public CameraController cameraController;
-    public Camera mainCamera;
-
+    Camera mainCamera;
     Vector2 upperLeft;
     Vector2 lowerRight;
 
@@ -81,20 +78,21 @@ public class Player : MonoBehaviour, IBaseStats{
     void Start()
     {
         GameManager.instance.player = gameObject;
+        GameManager.instance.playerCamera = Camera.main;
+        GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
+        GameManager.instance.boomerangLauncher = GetComponentInChildren<BoomerangLauncher>().gameObject;
+
         mainCamera = GameManager.instance.playerCamera;
-        cameraController = GameManager.instance.cameraController;
         GameManager.instance.cameraController.virtualCamera.Follow = transform;
 
-        //transform.position = GameManager.instance.playerPosition;
+        UI_HUD.instance.enabled = true;
 
         controller = GetComponent<Controller_2D>();
         gm = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
-        controller = GetComponent<Controller_2D>();
         timeStop = GetComponent<TimeStop>();
         playerAnimations = new PlayerAnimations(GetComponent<Animator>(), transform);
         playerMovement =  GetComponent<PlayerMovement>();
-        //playerMovement = new PlayerMovement(transform, playerSettings);
     }
 
     private void Update()
@@ -179,13 +177,14 @@ public class Player : MonoBehaviour, IBaseStats{
     {
         playerMovement.isDead = true;
         GetComponent<Player_Input>().enabled = false;
-
+        
         anim.SetLayerWeight(0, 0f);
         anim.SetLayerWeight(1, 0f);
         anim.SetLayerWeight(2, 0f);
         anim.SetLayerWeight(3, 1f);
         anim.SetBool("isDead", true);
 
+        UI_HUD.instance.enabled = false;
         yield return new WaitForSeconds(2f);
         GameManager.instance.Respawn();
 
@@ -221,12 +220,9 @@ public class Player : MonoBehaviour, IBaseStats{
     /// <param name="amount"></param>
     public void ModifyHealth(int amount)
     {
-        if (!invinsible)
+        if (!invinsible && gm.health > 0 && !gm.isRespawning)
         {
             timeStop.StopTime(changeTime, restoreSpeed, delay);
-
-            //StopCoroutine(DisableInputTemp(0.1f));
-            //StartCoroutine(DisableInputTemp(0.1f));
 
             iFrames = iFrameTime;
             anim.SetTrigger("Hit");

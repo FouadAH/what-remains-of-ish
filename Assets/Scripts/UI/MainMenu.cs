@@ -22,12 +22,11 @@ public class MainMenu : MonoBehaviour
     Resolution[] resolutions;
     private int currentScene;
 
-    private void Awake()
-    {
-        //GameManager.instance.cameraController.virtualCamera.transform.position = lookat.position;
-    }
     public void Start()
     {
+        lookat.GetComponent<Animator>().Play("camera");
+        GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
+        GameManager.instance.cameraController.virtualCamera.transform.position = lookat.position;
         GameManager.instance.cameraController.virtualCamera.Follow = lookat;
 
         resolutions = Screen.resolutions;
@@ -131,9 +130,9 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.instance.loading = true;
         LoadDataNewGame();
-        GameManager.instance.anim.SetTrigger("FadeD");
+        GameManager.instance.anim.Play("Fade_Out");
         SceneManager.LoadSceneAsync("AStar", LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive).completed += Base_completed_initial;
+        SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
         yield return null;
     }
 
@@ -141,34 +140,39 @@ public class MainMenu : MonoBehaviour
     {
         if (obj.isDone)
         {
-            SceneManager.LoadSceneAsync("Level_0", LoadSceneMode.Additive).completed += MainMenu_completed;
+            SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
     }
 
-    private void Base_completed(AsyncOperation obj)
+    private void LoadBaseSceneComplete(AsyncOperation obj)
     {
         if (obj.isDone)
         {
-            SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive).completed += MainMenu_completed;
+            GameManager.instance.playerCamera = Camera.main;
+            GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
+
+            GameManager.instance.player.transform.position = GameManager.instance.playerPosition;
+
+            SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
     }
 
-    private void MainMenu_completed(AsyncOperation obj)
+    private void LoadLevelComplete(AsyncOperation obj)
     {
         if(obj.isDone)
         {
             AstarPath.active.Scan();
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
             GameManager.instance.loading = false;
-            SceneManager.UnloadSceneAsync("MainMenu").completed += UnloadScene_completed;
+            GameManager.instance.anim.Play("Fade_in");
         }
     }
 
-    private void UnloadScene_completed(AsyncOperation obj)
+    private void MainMenuUnloadComplete(AsyncOperation obj)
     {
         if (obj.isDone)
         {
-            GameManager.instance.anim.SetTrigger("FadeIn");
+            SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive).completed += LoadBaseSceneComplete;
         }
     }
 
@@ -178,7 +182,8 @@ public class MainMenu : MonoBehaviour
         GameManager.instance.loading = true;
         GameManager.instance.anim.SetTrigger("FadeD");
         SceneManager.LoadSceneAsync("AStar", LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive).completed += Base_completed;
+        SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
+    
         yield return null;
     }
     
@@ -212,14 +217,18 @@ public class MainMenu : MonoBehaviour
 
     public void LoadDataNewGame()
     {
-        GameManager.instance.health = 100;
-        GameManager.instance.maxHealth = 100;
+        GameManager.instance.health = 5;
+        GameManager.instance.maxHealth = 5;
         GameManager.instance.currency = 0;
-        GameManager.instance.playerPosition = new Vector3(-12f, 105f);
-        GameManager.instance.lastCheckpointPos = new Vector3(-12f, 105f);
-        GameManager.instance.lastCheckpointLevelIndex = 3;
-        GameManager.instance.currentScene = 3;
-        currentScene = 3;
+        GameManager.instance.playerPosition = new Vector3(-40f, 5f);
+
+        GameManager.instance.lastSavepointPos = new Vector3(-40f, 5f);
+        GameManager.instance.lastSavepointLevelIndex = 4;
+
+        GameManager.instance.lastCheckpointPos = new Vector3(-40f, 5f);
+        GameManager.instance.lastCheckpointLevelIndex = 4;
+        GameManager.instance.currentScene = 4;
+        currentScene = 4;
     }
 
 }

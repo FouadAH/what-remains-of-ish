@@ -21,6 +21,7 @@ public class BoomerangDash : MonoBehaviour
 
     public void OnTeleportInput(Transform transformToMove, ref Vector2 velocity, Boomerang boomerang)
     {
+        Debug.Log("OnTeleportInput");
         if (!boomerang.IsAccesable())
             return;
 

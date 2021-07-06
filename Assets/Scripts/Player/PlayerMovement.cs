@@ -43,9 +43,6 @@ public class PlayerMovement : MonoBehaviour
 
     float maxFallSpeed = -30;
 
-    public bool hasDashAbility = false;
-    public bool hasTeleportAbility = false;
-
     public bool isPaused = false;
 
     private void Start()
@@ -107,12 +104,12 @@ public class PlayerMovement : MonoBehaviour
         if (boomerangDash.doBoost)
         {
             BoomerandBoost();
+            HandleWallSliding(velocityXSmoothing);
             controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
             return;
         }
 
         SetPlayerOrientation(playerInput.directionalInput);
-
         CalculateVelocity(velocityXSmoothing);
         
         HandleWallSliding(velocityXSmoothing);
@@ -170,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDashInput()
     {
-        if(hasDashAbility)
+        if(GameManager.instance.hasDashAbility)
             playerDash.OnDashInput();
     }
 
@@ -184,8 +181,10 @@ public class PlayerMovement : MonoBehaviour
 
     void OnBoomerangDashInput()
     {
-        if(hasTeleportAbility && boomerangLauncher.boomerangReference != null)
-            boomerangDash.OnTeleportInput(transformToMove, ref velocity, boomerangLauncher.boomerangReference);
+        Boomerang boomerang = GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>().boomerangReference;
+
+        if (GameManager.instance.hasTeleportAbility && boomerang != null)
+            boomerangDash.OnTeleportInput(transformToMove, ref velocity, boomerang);
     }
 
    
@@ -287,7 +286,7 @@ public class PlayerMovement : MonoBehaviour
         if (jumpBufferCounter < MAX_JUMP_BUFFER_TIME)
         {
             jumpBufferCounter += 1;
-            if (WallSliding)
+            if (WallSliding && GameManager.instance.hasWallJump)
             {
                 if (wallDirX == playerInput.directionalInput.x)
                 {

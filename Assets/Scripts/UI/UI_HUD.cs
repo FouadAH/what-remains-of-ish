@@ -30,6 +30,17 @@ public class UI_HUD : MonoBehaviour
         RefrechHealth();
     }
 
+    private void OnEnable()
+    {
+        GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
+        RefrechHealth();
+    }
+
+    private void OnDisable()
+    {
+        GameManager.instance.player.GetComponent<Player>().OnHit -= OnHit;
+    }
+
     void Update()
     {
         currencyText.SetText(GameManager.instance.currency.ToString());

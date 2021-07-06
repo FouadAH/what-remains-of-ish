@@ -48,24 +48,24 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     private void Start()
     {
         gm = GameManager.instance;
-        playerInput = GameManager.instance.player.GetComponent<Player_Input>();
-        timeStop = GameManager.instance.player.GetComponent<TimeStop>();
+        playerInput = GetComponentInParent<Player_Input>();
+        timeStop = GetComponentInParent<TimeStop>();
     }
 
     private void Update()
     {
         Aim();
 
-        if (playerInput.PS4_Controller == 1 || playerInput.Xbox_One_Controller == 1)
+        if (playerInput.controllerConnected)
         {
-                if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
-                {
-                    transform.rotation = Quaternion.Euler(0, 0, -90 * gm.player.transform.localScale.x);
-                }
-                else
-                {
-                    transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(Input.GetAxisRaw("Horizontal") * -1, Input.GetAxisRaw("Vertical")) * Mathf.Rad2Deg);
-                }
+            if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -90 * gm.player.transform.localScale.x);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(Input.GetAxisRaw("Horizontal") * -1, Input.GetAxisRaw("Vertical")) * Mathf.Rad2Deg);
+            }
         }
         else
         {
