@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
     public GameObject player;
-    [HideInInspector] public GameObject boomerangLauncher;
 
     public float health = 10000;
     public float maxHealth = 10000;
@@ -55,14 +54,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        boomerangLauncher = player.GetComponentInChildren<BoomerangLauncher>().gameObject;
         DontDestroyOnLoad(this);
     }
 
     private void Start()
     {
         astarPath = FindObjectOfType<AstarPath>();
-        boomerangLauncher = player.GetComponentInChildren<BoomerangLauncher>().gameObject;
+        anim = gameObject.GetComponent<Animator>();
     }
 
     public void Respawn()
@@ -94,7 +92,7 @@ public class GameManager : MonoBehaviour
         player.GetComponent<Player>().enabled = true;
         player.transform.position = lastCheckpointPos;
         playerCamera.transform.position = player.transform.position;
-        boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+        player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
     }
 
     IEnumerator HardRespawnRoutine()
@@ -106,7 +104,7 @@ public class GameManager : MonoBehaviour
         }
         player.transform.position = lastSavepointPos;
         playerCamera.transform.position = player.transform.position;
-        boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+        player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
         player.GetComponent<Player>().enabled = true;
 
         isRespawning = false;

@@ -18,8 +18,8 @@ public class EnemyUI : MonoBehaviour
     void Awake()
     {
         previousHealthPercent = 1;
-        enemy = GetComponent<IEnemy>().transform;
-        GetComponent<IEnemy>().OnHitEnemy += OnHitEnemy;
+        enemy = GetComponent<Entity>().transform;
+        GetComponent<Entity>().OnHitEnemy += OnHitEnemy;
         canvas.enabled = false;
     }
 

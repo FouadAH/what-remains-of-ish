@@ -22,7 +22,7 @@ public class Boomerang : MonoBehaviour
     private void Start()
     {
         gm = GameManager.instance;
-        boomerangLauncher = gm.boomerangLauncher.GetComponent<BoomerangLauncher>();
+        boomerangLauncher = gm.player.GetComponent<Player>().boomerangLauncher;
         rb = GetComponent<Rigidbody2D>();
         startPostion = transform.position;
         StartCoroutine(BommerangBehaviour());
@@ -82,7 +82,7 @@ public class Boomerang : MonoBehaviour
 
             if (Vector2.Distance(transform.position, gm.player.transform.position) <= 0.8f)
             {
-                gm.boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+                boomerangLauncher.canFire = true;
                 //Debug.Log("Destroyed boomerang");
                 Destroy(gameObject);
             }
@@ -116,7 +116,7 @@ public class Boomerang : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerDash>() && dashActive)
         {
             collision.gameObject.GetComponent<BoomerangDash>().isDashingBoomerang = false;
-            GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+            boomerangLauncher.canFire = true;
             Destroy(gameObject);
         }
     }

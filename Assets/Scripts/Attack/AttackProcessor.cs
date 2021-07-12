@@ -20,6 +20,12 @@ public class AttackProcessor
         ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
     }
 
+    public void ProcessCollisionDamage(int damageAmount, IDamagable target, int knockbackDirX, int knockbackDirY)
+    {
+        ProcessAttack(target, damageAmount);
+        ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
+    }
+
     /// <summary>
     /// Method for processing ranged attacks 
     /// </summary>
@@ -39,7 +45,7 @@ public class AttackProcessor
     /// <returns></returns>
     private int CalculateAttackAmountMelee(IBaseStats attacker)
     {
-        return (int)(Random.Range(attacker.MinMeleeDamage, attacker.MaxMeleeDamage + 1) * attacker.MeleeAttackMod);
+        return attacker.MeleeDamage;
     }
 
     /// <summary>

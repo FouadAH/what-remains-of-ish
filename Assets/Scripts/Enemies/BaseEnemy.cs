@@ -35,7 +35,7 @@ public class BaseEnemy : IEnemy, IBaseStats
     private float velocityXSmoothing;
     private float velocityYSmoothing;
 
-    public int MinMeleeDamage { get => minMeleeDamage; set => minMeleeDamage = value; }
+    public int MeleeDamage { get => minMeleeDamage; set => minMeleeDamage = value; }
     public int MaxMeleeDamage { get => maxMeleeDamage; set => maxMeleeDamage = value; }
     public float MeleeAttackMod { get => meleeAttackMod; set => meleeAttackMod = value; }
 

@@ -49,7 +49,7 @@ public class Player : MonoBehaviour, IBaseStats{
     [SerializeField] private int damageKnockbackAmount;
 
 
-    public int MinMeleeDamage { get => minMeleeDamage; set => minMeleeDamage = value; }
+    public int MeleeDamage { get => minMeleeDamage; set => minMeleeDamage = value; }
     public int MaxMeleeDamage { get => maxMeleeDamage; set => maxMeleeDamage = value; }
     public float MeleeAttackMod { get => meleeAttackMod; set => meleeAttackMod = value; }
 
@@ -75,16 +75,21 @@ public class Player : MonoBehaviour, IBaseStats{
 
     TimeStop timeStop;
 
-    void Start()
+    void Awake()
     {
         GameManager.instance.player = gameObject;
-        GameManager.instance.playerCamera = Camera.main;
-        GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
-        GameManager.instance.boomerangLauncher = GetComponentInChildren<BoomerangLauncher>().gameObject;
 
+        GameManager.instance.playerCamera = Camera.main;
         mainCamera = GameManager.instance.playerCamera;
+
+        GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
         GameManager.instance.cameraController.virtualCamera.Follow = transform;
 
+        boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
+    }
+
+    void Start()
+    {
         UI_HUD.instance.enabled = true;
 
         controller = GetComponent<Controller_2D>();
@@ -176,6 +181,7 @@ public class Player : MonoBehaviour, IBaseStats{
     private IEnumerator PlayerDeath()
     {
         playerMovement.isDead = true;
+        UI_HUD.instance.enabled = false;
         GetComponent<Player_Input>().enabled = false;
         
         anim.SetLayerWeight(0, 0f);
@@ -184,7 +190,6 @@ public class Player : MonoBehaviour, IBaseStats{
         anim.SetLayerWeight(3, 1f);
         anim.SetBool("isDead", true);
 
-        UI_HUD.instance.enabled = false;
         yield return new WaitForSeconds(2f);
         GameManager.instance.Respawn();
 

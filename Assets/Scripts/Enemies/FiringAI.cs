@@ -12,7 +12,12 @@ public abstract class FiringAI : IEnemy
     public float nextFireTime;
 
     public event Action OnFire = delegate { };
-    
+
+    private void Start()
+    {
+        target = GameManager.instance.player.transform;        
+    }
+
     protected void RaiseOnFireEvent()
     {
         var eh = OnFire;

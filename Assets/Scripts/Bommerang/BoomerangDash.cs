@@ -19,6 +19,12 @@ public class BoomerangDash : MonoBehaviour
     public ParticleSystem teleportRechargeEffect;
     public TrailRenderer teleportTrail;
 
+    BoomerangLauncher boomerangLauncher;
+
+    private void Start()
+    {
+        boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
+    }
     public void OnTeleportInput(Transform transformToMove, ref Vector2 velocity, Boomerang boomerang)
     {
         Debug.Log("OnTeleportInput");
@@ -43,18 +49,18 @@ public class BoomerangDash : MonoBehaviour
             boomerangPos = boomerang.transform.position;
             boomerang.StopBoomerang();
 
-            Transform boomerangLauncher = transformToMove.GetComponentInChildren<BoomerangLauncher>().transform;
+            Transform boomerangLauncherTransform = boomerangLauncher.transform;
 
-            Vector2 dir = (boomerangPos - (Vector2)boomerangLauncher.position).normalized;
+            Vector2 dir = (boomerangPos - (Vector2)boomerangLauncherTransform.position).normalized;
             boostDir = dir;
 
             StartCoroutine(TeleportEffect(0.8f));
-            StartCoroutine(Teleport(transformToMove, boomerangLauncher, 0.08f));
+            StartCoroutine(Teleport(transformToMove, boomerangLauncherTransform, 0.08f));
           
             if(boomerang != null)
             {
                 Destroy(boomerang.gameObject);
-                GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>().canFire = true;
+                boomerangLauncher.canFire = true;
             }
         }
     }

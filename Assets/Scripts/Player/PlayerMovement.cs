@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>Class responsible for handling player movement calculations</summary>
-
 public class PlayerMovement : MonoBehaviour
 {
     public Player_Input playerInput;
@@ -53,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         playerDash = transformToMove.GetComponent<PlayerDash>();
         boomerangDash = transformToMove.GetComponent<BoomerangDash>();
 
-        boomerangLauncher = GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>();
+        boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
 
         playerInput.OnJumpDown += OnJumpInputDown;
         playerInput.OnJumpUp += OnJumpInputUp;
@@ -90,6 +89,8 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.x = 0;
             velocity.y += gravity * Time.deltaTime;
+            velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
+
             controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
             return;
         }
@@ -97,6 +98,11 @@ public class PlayerMovement : MonoBehaviour
         if (isKnockedback)
         {
             Knockback(dirKnockback, kockbackDistance);
+            HandleWallSliding(velocityXSmoothing);
+
+            velocity.y += gravity * Time.deltaTime;
+            velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
+
             controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
             return;
         }
@@ -181,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnBoomerangDashInput()
     {
-        Boomerang boomerang = GameManager.instance.boomerangLauncher.GetComponent<BoomerangLauncher>().boomerangReference;
+        Boomerang boomerang = boomerangLauncher.boomerangReference;
 
         if (GameManager.instance.hasTeleportAbility && boomerang != null)
             boomerangDash.OnTeleportInput(transformToMove, ref velocity, boomerang);

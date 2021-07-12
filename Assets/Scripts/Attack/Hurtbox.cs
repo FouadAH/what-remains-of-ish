@@ -26,6 +26,15 @@ public class Hurtbox : MonoBehaviour
         }
     }
 
+    public void collisionDamage(int damageAmount, int knockbackDirX, int knockbackDirY)
+    {
+        if (!stunned)
+        {
+            StartCoroutine(StunTimer());
+            attackProcessor.ProcessCollisionDamage(damageAmount, GetComponent<IDamagable>(), knockbackDirX, knockbackDirY);
+        }
+    }
+
     private IEnumerator StunTimer()
     {
         stunned = true;
