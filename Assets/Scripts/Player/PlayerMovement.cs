@@ -44,6 +44,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isPaused = false;
 
+    [Header("Effects")]
+    public ParticleSystem dustParticles;
+
     private void Start()
     {
         transformToMove = transform;
@@ -309,6 +312,7 @@ public class PlayerMovement : MonoBehaviour
             if (canJump)
             {
                 //Debug.Log("Jump");
+                dustParticles.Play();
                 cayoteTimer = MAX_JUMP_ASSIST_TIME;
 
                 if (controller.collitions.slidingDownMaxSlope)

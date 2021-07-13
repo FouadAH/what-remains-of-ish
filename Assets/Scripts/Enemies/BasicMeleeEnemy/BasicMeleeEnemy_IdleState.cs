@@ -13,6 +13,7 @@ public class BasicMeleeEnemy_IdleState : IdleState
     public override void Enter()
     {
         base.Enter();
+        entity.SetVelocity(0);
     }
 
     public override void Exit()
@@ -37,5 +38,6 @@ public class BasicMeleeEnemy_IdleState : IdleState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        entity.SetVelocity(0);
     }
 }

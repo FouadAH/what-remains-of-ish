@@ -42,8 +42,8 @@ public class BasicEnemy : Entity, IBaseStats
 
         moveState = new BasicMeleeEnemy_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new BasicMeleeEnemy_IdleState(this, stateMachine, "idle", idleStateData, this);
-        playerDetectedState = new BasicMeleeEnemy_PlayerDetectedState(this, stateMachine, "playerDetected", playerDetectedData, this);
-        lookForPlayerState = new BasicMeleeEnemy_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerStateData, this);
+        playerDetectedState = new BasicMeleeEnemy_PlayerDetectedState(this, stateMachine, "move", playerDetectedData, this);
+        lookForPlayerState = new BasicMeleeEnemy_LookForPlayerState(this, stateMachine, "idle", lookForPlayerStateData, this);
         meleeAttackState = new BasicMeleeEnemy_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
         stunState = new BasicMeleeEnemy_StunState(this, stateMachine, "stun", stunStateData, this);
         deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);

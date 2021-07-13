@@ -126,11 +126,18 @@ public class Player : MonoBehaviour, IBaseStats{
         for (int i = 0; i < enemiesToAggro.Length; i++)
         {   
             bool hit = Physics2D.Linecast(transform.position, enemiesToAggro[i].transform.position, controller.collitionMask);
-            if(enemiesToAggro[i].GetComponent<IEnemy>() != null)
+            //if(enemiesToAggro[i].GetComponent<IEnemy>() != null)
+            //{
+            //    if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)
+            //    {
+            //        enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
+            //    }
+            //}
+            if (enemiesToAggro[i].GetComponent<Entity>() != null)
             {
-                if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)
+                if (enemiesToAggro[i].GetComponent<Entity>().CheckPlayerInMinAgroRange() && !hit && !enemiesToAggro[i].GetComponent<Entity>().IsAggro)
                 {
-                    enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
+                    enemiesToAggro[i].GetComponent<Entity>().Aggro();
                 }
             }
         }

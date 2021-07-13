@@ -25,7 +25,7 @@ public class BasicMeleeEnemy_MoveState : MoveState
     {
         base.LogicUpdate();
 
-        if (isPlayerInMinAgroRange)
+        if (entity.IsAggro)
         {
             stateMachine.ChangeState(enemy.playerDetectedState);
         }

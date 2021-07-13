@@ -29,12 +29,13 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(enemy.meleeAttackState);
         }
-        else if (!isPlayerInMaxAgroRange)
+        else if (!entity.IsAggro)
         {
             stateMachine.ChangeState(enemy.lookForPlayerState);
         }
         else if (!isDetectingLedge)
         {
+            entity.IsAggro = false;
             entity.Flip();
             stateMachine.ChangeState(enemy.moveState);
         }
@@ -44,5 +45,11 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+
+        int directionX = (entity.transform.position.x < GameManager.instance.player.transform.position.x) ? 1 : -1;
+        if(entity.facingDirection != directionX){
+            entity.Flip();
+        }
+        entity.SetVelocity(stateData.chaseSpeed);
     }
 }

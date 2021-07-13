@@ -33,11 +33,21 @@ public class Boomerang : MonoBehaviour
         boomerangSprite.transform.Rotate(Vector3.forward * (boomerangLauncher.rotateSpeed * Time.deltaTime));
     }
 
+    private Vector2 velocityXSmoothing;
+    public float accelerationTimeGrounded = 0.05f;
+
+    void SetVelocity()
+    {
+        Vector2 targetVelocity = transform.up * boomerangLauncher.MoveSpeed;
+        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocityXSmoothing, accelerationTimeGrounded);
+    }
+
     private IEnumerator BommerangBehaviour()
     {
         while(!back)
         {
-            rb.velocity = transform.up * boomerangLauncher.MoveSpeed;
+            //rb.velocity = transform.up * boomerangLauncher.MoveSpeed;
+            SetVelocity();
             back = Vector2.Distance(startPostion, transform.position) > boomerangLauncher.distance;
             yield return null;
         }

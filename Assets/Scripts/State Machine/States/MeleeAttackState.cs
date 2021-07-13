@@ -50,11 +50,11 @@ public class MeleeAttackState : AttackState
     {
         base.TriggerAttack();
 
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.whatIsPlayer);
+        //Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.whatIsPlayer);
 
-        foreach (Collider2D collider in detectedObjects)
-        {
-            collider.transform.SendMessage("Damage", attackDetails);
-        }
+        //foreach (Collider2D collider in detectedObjects)
+        //{
+        //    collider.transform.SendMessage("Damage", attackDetails);
+        //}
     }
 }

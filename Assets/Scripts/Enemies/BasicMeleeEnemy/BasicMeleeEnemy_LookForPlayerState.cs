@@ -43,5 +43,6 @@ public class BasicMeleeEnemy_LookForPlayerState : LookForPlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        entity.SetVelocity(0);
     }
 }

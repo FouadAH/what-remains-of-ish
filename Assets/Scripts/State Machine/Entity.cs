@@ -77,9 +77,15 @@ public class Entity : MonoBehaviour, IDamagable
         stateMachine.currentState.PhysicsUpdate();
     }
 
+    private float velocityXSmoothing = 0;
+    public float accelerationTimeGrounded = 0.05f;
+
     public virtual void SetVelocity(float velocity)
     {
-        velocityWorkspace.Set(facingDirection * velocity, rb.velocity.y);
+        float targetVelocity = velocity * facingDirection;
+        velocityWorkspace.x = Mathf.SmoothDamp(velocityWorkspace.x, targetVelocity, ref velocityXSmoothing, accelerationTimeGrounded);
+        velocityWorkspace.y = rb.velocity.y;
+
         rb.velocity = velocityWorkspace;
     }
 
@@ -207,28 +213,6 @@ public class Entity : MonoBehaviour, IDamagable
             Aggro();
             SpawnDamagePoints(amount);
             anim.SetTrigger("Hit");
-        }
-    }
-
-    private IEnumerator Die()
-    {
-        anim.SetLayerWeight(0, 0f);
-        anim.SetLayerWeight(1, 0f);
-        anim.SetLayerWeight(2, 1f);
-        anim.SetBool("isDead", true);
-        CoinSpawner();
-        GetComponent<Collider2D>().enabled = false;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        gameObject.SetActive(false);
-    }
-
-    public GameObject coinPrefab;
-    public int coinDrop;
-    public void CoinSpawner()
-    {
-        for (int i = 0; i < coinDrop; i++)
-        {
-            GameObject.Instantiate(coinPrefab, transform.position, Quaternion.identity);
         }
     }
 

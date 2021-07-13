@@ -35,7 +35,6 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState
     {
         base.LogicUpdate();
 
-        Debug.Log(isAnimationFinished);
         if (isAnimationFinished)
         {
             if (isPlayerInMinAgroRange)
@@ -52,6 +51,7 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        entity.SetVelocity(0);
     }
 
     public override void TriggerAttack()

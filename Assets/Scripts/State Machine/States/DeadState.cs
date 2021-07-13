@@ -31,7 +31,7 @@ public class DeadState : State
         entity.anim.SetLayerWeight(0, 0f);
         entity.anim.SetLayerWeight(1, 0f);
         entity.anim.SetLayerWeight(2, 1f);
-        entity.anim.SetBool("isDead", true);
+        entity.anim.SetBool("dead", true);
         CoinSpawner();
         entity.gameObject.GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(entity.anim.GetCurrentAnimatorStateInfo(0).length);
