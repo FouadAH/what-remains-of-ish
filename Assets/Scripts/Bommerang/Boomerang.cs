@@ -36,19 +36,41 @@ public class Boomerang : MonoBehaviour
     private Vector2 velocityXSmoothing;
     public float accelerationTimeGrounded = 0.05f;
 
+    Vector2 targetVelocity;
+    bool isReflecting = false;
     void SetVelocity()
     {
-        Vector2 targetVelocity = transform.up * boomerangLauncher.MoveSpeed;
+        if(!isReflecting)
+            targetVelocity = transform.up * boomerangLauncher.MoveSpeed;
+
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocityXSmoothing, accelerationTimeGrounded);
+    }
+
+    public float boomerangAirTime = 2f;
+    public float boomerangAirTimeBonus = 0f;
+
+    Coroutine timer;
+    IEnumerator BoomerangTimer()
+    {
+        back = false;
+        yield return new WaitForSecondsRealtime(boomerangAirTime);
+        yield return new WaitForSecondsRealtime(boomerangAirTimeBonus);
+        back = true;
+        timer = null;
+        yield return null;
     }
 
     private IEnumerator BommerangBehaviour()
     {
-        while(!back)
+        boomerangAirTimeBonus = 0;
+        while (!back)
         {
+            yield return new WaitForEndOfFrame();
             //rb.velocity = transform.up * boomerangLauncher.MoveSpeed;
             SetVelocity();
-            back = Vector2.Distance(startPostion, transform.position) > boomerangLauncher.distance;
+            if(timer == null)
+                timer = StartCoroutine(BoomerangTimer());
+            //back = Vector2.Distance(startPostion, transform.position) > boomerangLauncher.distance;
             yield return null;
         }
 
@@ -89,7 +111,6 @@ public class Boomerang : MonoBehaviour
             Quaternion q = Quaternion.AngleAxis(AngleDeg - 90, Vector3.forward);
             transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * boomerangLauncher.rotateSpeed);
             rb.velocity = transform.up * boomerangLauncher.MoveSpeed;
-
             if (Vector2.Distance(transform.position, gm.player.transform.position) <= 0.8f)
             {
                 boomerangLauncher.canFire = true;
@@ -106,9 +127,23 @@ public class Boomerang : MonoBehaviour
         rb.velocity = Vector2.zero;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacles") || collision.gameObject.layer == LayerMask.NameToLayer("Lever"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
+        {
+            Vector2 inDirection = GetComponent<Rigidbody2D>().velocity;
+            Vector2 normal = collision.GetContact(0).normal;
+            Vector2 reflectionVelocity = Vector2.Reflect(inDirection, normal);
+            rb.velocity = Vector2.zero;
+            Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+            boomerangAirTimeBonus += 0.1f;
+            isReflecting = true;
+            targetVelocity = reflectionVelocity.normalized * boomerangLauncher.MoveSpeed;
+            //instantCallback = true;
+            //back = true;
+        }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Lever"))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
 
@@ -120,12 +155,40 @@ public class Boomerang : MonoBehaviour
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
             Vector2 hitPos = transform.position;
-            OnRangedHit.Invoke(collision, hitPos);
+            OnRangedHit.Invoke(collision.collider, hitPos);
         }
 
         if (collision.gameObject.GetComponent<PlayerDash>() && dashActive)
         {
             collision.gameObject.GetComponent<BoomerangDash>().isDashingBoomerang = false;
+            boomerangLauncher.canFire = true;
+            Destroy(gameObject);
+        }
+
+    }
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        //ContactPoint2D[] contactPoint2D = null;
+        //collider.GetContacts(contactPoint2D);/
+
+        //if (collider.gameObject.layer == LayerMask.NameToLayer("Obstacles") || collider.gameObject.layer == LayerMask.NameToLayer("Lever"))
+        //{
+        //    Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+
+        //    instantCallback = true;
+        //    back = true;
+        //}
+
+        if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.damagable))
+        {
+            Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+            Vector2 hitPos = transform.position;
+            OnRangedHit.Invoke(collider, hitPos);
+        }
+
+        if (collider.gameObject.GetComponent<PlayerDash>() && dashActive)
+        {
+            collider.gameObject.GetComponent<BoomerangDash>().isDashingBoomerang = false;
             boomerangLauncher.canFire = true;
             Destroy(gameObject);
         }
