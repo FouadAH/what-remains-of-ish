@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BasicMeleeEnemy_LookForPlayerState : LookForPlayerState
 {
-    private BasicEnemy enemy;
+    private BasicMeleeAttackEnemy enemy;
 
-    public BasicMeleeEnemy_LookForPlayerState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_LookForPlayer stateData, BasicEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
+    public BasicMeleeEnemy_LookForPlayerState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_LookForPlayer stateData, BasicMeleeAttackEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }
@@ -30,7 +30,7 @@ public class BasicMeleeEnemy_LookForPlayerState : LookForPlayerState
     {
         base.LogicUpdate();
 
-        if (isPlayerInMinAgroRange)
+        if (entity.IsAggro)
         {
             stateMachine.ChangeState(enemy.playerDetectedState);
         }

@@ -14,8 +14,6 @@ public class Player : MonoBehaviour, IBaseStats{
     public Vector3 velocity;
    
     public LayerMask enemyMask;
-    public Vector2 swordKnockback;
-    public Vector2 damageKnockback;
 
     float iFrames = 0f;
     float iFrameTime = 0.5f;
@@ -47,6 +45,11 @@ public class Player : MonoBehaviour, IBaseStats{
 
     [SerializeField] private int hitKnockbackAmount;
     [SerializeField] private int damageKnockbackAmount;
+
+
+    public float knockbackOnDamageTimer = 0.4f;
+    public float knockbackOnHitTimer = 0.25f;
+
 
 
     public int MeleeDamage { get => minMeleeDamage; set => minMeleeDamage = value; }
@@ -253,17 +256,17 @@ public class Player : MonoBehaviour, IBaseStats{
         GetComponent<Player_Input>().enabled = true;
     }
 
-    public void KnockbackOnHit(int amount, int dirX, int dirY)
+    public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
         playerMovement.kockbackDistance = amount;
 
-        StopCoroutine(KnockbackRoutine());
-        StartCoroutine(KnockbackRoutine());
+        StopCoroutine(KnockbackOnHitRoutine());
+        StartCoroutine(KnockbackOnHitRoutine());
         //playerMovement.Knockback( new Vector3(dirX, dirY), amount);
     }
 
-    public void KnockbackOnDamage(int amount, int dirX, int dirY)
+    public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
         playerMovement.kockbackDistance = amount;
@@ -278,7 +281,14 @@ public class Player : MonoBehaviour, IBaseStats{
     {
         //Debug.Log("KnockbackRoutine");
         playerMovement.isKnockedback = true;
-        yield return new WaitForSecondsRealtime(0.25f);
+        yield return new WaitForSecondsRealtime(knockbackOnDamageTimer);
+        playerMovement.isKnockedback = false;
+    }
+    IEnumerator KnockbackOnHitRoutine()
+    {
+        //Debug.Log("KnockbackRoutine");
+        playerMovement.isKnockedback = true;
+        yield return new WaitForSecondsRealtime(knockbackOnHitTimer);
         playerMovement.isKnockedback = false;
     }
 }

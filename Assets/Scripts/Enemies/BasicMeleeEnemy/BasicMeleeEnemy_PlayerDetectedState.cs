@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
 {
-    private BasicEnemy enemy;
+    private BasicMeleeAttackEnemy enemy;
 
-    public BasicMeleeEnemy_PlayerDetectedState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetected stateData, BasicEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
+    public BasicMeleeEnemy_PlayerDetectedState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetected stateData, BasicMeleeAttackEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }
@@ -33,11 +33,11 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(enemy.lookForPlayerState);
         }
-        else if (!isDetectingLedge)
+        else if (!isDetectingLedge || isDetectingWall)
         {
             entity.IsAggro = false;
             entity.Flip();
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.lookForPlayerState);
         }
         
     }

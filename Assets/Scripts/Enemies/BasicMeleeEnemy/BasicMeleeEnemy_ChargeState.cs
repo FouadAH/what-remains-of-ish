@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BasicMeleeEnemy_ChargeState : ChargeState
 {
-    private BasicEnemy enemy;
+    private BasicMeleeAttackEnemy enemy;
 
-    public BasicMeleeEnemy_ChargeState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData, BasicEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
+    public BasicMeleeEnemy_ChargeState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData, BasicMeleeAttackEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }

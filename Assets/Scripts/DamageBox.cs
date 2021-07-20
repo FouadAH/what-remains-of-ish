@@ -10,10 +10,26 @@ public class DamageBox : MonoBehaviour
         {
             Hurtbox hurtbox = collision.gameObject.GetComponent<Hurtbox>();
 
-            Vector2 direction = transform.position - hurtbox.transform.position;
-            direction = direction.normalized;
+            Vector2 dir = Vector2.zero;
 
-            hurtbox?.collisionDamage(1, Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
+            if (hurtbox != null)
+            {
+                Vector2 direction = (hurtbox.transform.position - transform.position).normalized;
+
+                if (direction.x > 0.1)
+                {
+                    dir.x = -1;
+                }
+                else if (direction.x < -0.1)
+                {
+                    dir.x = 1;
+                }
+
+                dir.y = direction.y;
+            }
+
+            //Debug.Log("Knockback Dir: X:" + (dir.x) + " Y: " + (dir.y));
+            hurtbox?.collisionDamage(1, dir.x, -dir.y);
         }
 
     }

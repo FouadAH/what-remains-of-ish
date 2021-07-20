@@ -5,7 +5,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Seeker))]
-public class FlyingEnemyAI : FiringAI, IDamagable
+public class FlyingEnemyAI : Entity, FiringAI, IDamagable
 {
     public float updateRate = 0.5f;
 
@@ -22,23 +22,28 @@ public class FlyingEnemyAI : FiringAI, IDamagable
     public int maxHealth;
     public int KnockbackTaken = 10;
 
-    public float Health { get; set; }
-    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
-    public int knockbackGiven { get => KnockbackTaken; set => KnockbackTaken = value; }
+    public float fireRate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public float nextFireTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     public bool canShootProjectiles = true;
 
     [SerializeField] private Vector2 attackPos;
     [SerializeField] private float attackRange;
 
-    private void Start()
+    public event Action OnFire = delegate { };
+
+    Transform player;
+    Transform target;
+    float rotateSpeed;
+
+    public override void Start()
     {
+        base.Start();
         destinationSetter = GetComponent<AIDestinationSetter>();
         rb = GetComponent<Rigidbody2D>();
         path = GetComponent<AIPath>();
 
         player = GameManager.instance.player.transform;
-
         target = TargetPoint.transform;
 
         circle.x = transform.position.x;
@@ -50,13 +55,16 @@ public class FlyingEnemyAI : FiringAI, IDamagable
         StartCoroutine(UpdatePath());
     }
 
-    void FixedUpdate()
+    public override void FixedUpdate()
     {
+        base.FixedUpdate();
         Rotation();
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
+
         if (IsAggro)
         {
             path.endReachedDistance = 3f;
@@ -65,7 +73,6 @@ public class FlyingEnemyAI : FiringAI, IDamagable
             {
                 Shoot();
             }
-            //Shoot();
 
             StopCoroutine(AggroRange());
             StartCoroutine(AggroRange());
@@ -75,7 +82,15 @@ public class FlyingEnemyAI : FiringAI, IDamagable
             path.endReachedDistance = 0.2f;
         }
     }
-    
+
+    public void Rotation()
+    {
+        float AngleRad = Mathf.Atan2(target.transform.position.y - transform.position.y, target.transform.position.x - transform.position.x);
+        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        Quaternion q = Quaternion.AngleAxis(AngleDeg - 90, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotateSpeed);
+    }
+
     IEnumerator UpdatePath()
     {
         while (true)
@@ -135,8 +150,9 @@ public class FlyingEnemyAI : FiringAI, IDamagable
         rb.velocity = new Vector2(amount * dirX, amount * dirY);
     }
 
-    private void OnDrawGizmos()
+    private void  OnDrawGizmos()
     {
+        base.OnDrawGizmos();
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(circle, radius);
         Gizmos.color = Color.yellow;
@@ -145,5 +161,15 @@ public class FlyingEnemyAI : FiringAI, IDamagable
         Gizmos.DrawWireSphere(new Vector2(transform.position.x + (attackPos.x * transform.localScale.x),
             transform.position.y + (attackPos.y * transform.localScale.y)), attackRange);
 
+    }
+
+    public void RaiseOnFireEvent()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool CanFire()
+    {
+        throw new NotImplementedException();
     }
 }

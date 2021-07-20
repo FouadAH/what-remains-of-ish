@@ -52,19 +52,35 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         timeStop = GetComponentInParent<TimeStop>();
     }
 
+    float currentAngleVelocity;
+    float digitalAngle = 0;
+    float inputDeadZone = 0.19f;
     private void Update()
     {
         Aim();
 
         if (playerInput.controllerConnected)
         {
-            if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
+            Vector2 leftStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if (leftStickInput.x == 0 && leftStickInput.y == 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, -90 * gm.player.transform.localScale.x);
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(Input.GetAxisRaw("Horizontal") * -1, Input.GetAxisRaw("Vertical")) * Mathf.Rad2Deg);
+
+                if(leftStickInput.magnitude < inputDeadZone)
+                {
+                    leftStickInput = Vector2.zero;
+                }
+                else
+                {
+                    leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
+                }
+
+                float analogAngle = Mathf.Atan2(leftStickInput.x * -1, leftStickInput.y) * Mathf.Rad2Deg;
+                digitalAngle = Mathf.SmoothDampAngle(digitalAngle, analogAngle, ref currentAngleVelocity, 0.02f);
+                transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
             }
         }
         else

@@ -88,6 +88,18 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void Movement()
     {
+        if (isKnockedback)
+        {
+            Knockback(dirKnockback, kockbackDistance);
+            HandleWallSliding(velocityXSmoothing);
+
+            //velocity.y += gravity * Time.deltaTime;
+            //velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
+
+            controller.Move(velocity * Time.deltaTime, new Vector2(dirKnockback.x, dirKnockback.y));
+            return;
+        }
+
         if (isDead || isPaused)
         {
             velocity.x = 0;
@@ -98,17 +110,6 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (isKnockedback)
-        {
-            Knockback(dirKnockback, kockbackDistance);
-            HandleWallSliding(velocityXSmoothing);
-
-            velocity.y += gravity * Time.deltaTime;
-            velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
-
-            controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
-            return;
-        }
 
         if (boomerangDash.doBoost)
         {
@@ -120,9 +121,9 @@ public class PlayerMovement : MonoBehaviour
 
         SetPlayerOrientation(playerInput.directionalInput);
         CalculateVelocity(velocityXSmoothing);
-        
-        HandleWallSliding(velocityXSmoothing);
         HandleDash();
+
+        HandleWallSliding(velocityXSmoothing);
 
         controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
 
@@ -142,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
     public void Knockback(Vector3 dir, float kockbackDistance)
     {
         velocity = Vector3.zero;
-        velocity.x += dir.x * kockbackDistance;
+        velocity.x += dir.x * kockbackDistance * 1.5f;
         velocity.y += dir.y * kockbackDistance;
         //controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
     }
@@ -185,7 +186,9 @@ public class PlayerMovement : MonoBehaviour
         playerDash.airborne = (!controller.collitions.below && !WallSliding);
         boomerangDash.airborne = (!controller.collitions.below && !WallSliding);
 
-        playerDash.DashController(ref velocity, playerInput, playerSettings);
+        if ((!controller.collitions.left || !controller.collitions.right)){
+            playerDash.DashController(ref velocity, playerInput, playerSettings);
+        }
     }
 
     void OnBoomerangDashInput()
@@ -342,6 +345,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void OnAttackStart()
+    {
+        IsAttacking = true;
+    }
+
+    public void OnAttackEnd()
+    {
+        IsAttacking = false;
+    }
     /// <summary>
     /// Method for setting the players' orientation based on input
     /// </summary>

@@ -12,7 +12,7 @@ public class AttackProcessor
     /// <param name="target">Game object being attacked</param>
     /// <param name="knockbackDirX">X Knockback direction</param>
     /// <param name="knockbackDirY">Y Knockback direction</param>
-    public void ProcessMelee(IBaseStats attacker, IDamagable target, int knockbackDirX, int knockbackDirY)
+    public void ProcessMelee(IBaseStats attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
         int amount = CalculateAttackAmountMelee(attacker);
         ProcessAttack(target, amount);
@@ -20,7 +20,7 @@ public class AttackProcessor
         ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
     }
 
-    public void ProcessCollisionDamage(int damageAmount, IDamagable target, int knockbackDirX, int knockbackDirY)
+    public void ProcessCollisionDamage(int damageAmount, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
         ProcessAttack(target, damageAmount);
         ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
@@ -74,7 +74,7 @@ public class AttackProcessor
     /// <param name="attacker">Attacker object</param>
     /// <param name="knockbackDirX">X Knockback direction</param>
     /// <param name="knockbackDirY">Y Knockback direction</param>
-    private void ProcessKnockbackOnHit(IBaseStats attacker, int knockbackDirX, int knockbackDirY)
+    private void ProcessKnockbackOnHit(IBaseStats attacker, float knockbackDirX, float knockbackDirY)
     {
         if(knockbackDirY == 1)
         {
@@ -92,7 +92,7 @@ public class AttackProcessor
     /// <param name="attacker">Target object</param>
     /// <param name="knockbackDirX">X Knockback direction</param>
     /// <param name="knockbackDirY">Y Knockback direction</param>
-    private void ProcessKnockbackOnDamage(IDamagable target, int knockbackDirX, int knockbackDirY)
+    private void ProcessKnockbackOnDamage(IDamagable target, float knockbackDirX, float knockbackDirY)
     {
         target.KnockbackOnDamage(target.knockbackGiven, knockbackDirX, knockbackDirY);
     }

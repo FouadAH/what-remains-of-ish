@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemy : Entity, IBaseStats
+public class BasicMeleeAttackEnemy : Entity, IBaseStats
 {
     public IdleState idleState { get; private set; }
     public MoveState moveState { get; private set; }
@@ -52,10 +52,20 @@ public class BasicEnemy : Entity, IBaseStats
 
     }
 
+    public float gravity = -1;
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        //if (!CheckGround())
+        //{
+        //    SetVelocityY(rb.velocity.y + gravity * Time.deltaTime);
+        //}
+    }
+
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
-
+        Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
     }
 
@@ -72,7 +82,7 @@ public class BasicEnemy : Entity, IBaseStats
         }
     }
 
-    public void KnockbackOnHit(int amount, int dirX, int dirY)
+    public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
         Debug.Log("KnockbackOnHit");
     }

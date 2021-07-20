@@ -17,7 +17,7 @@ public class Hurtbox : MonoBehaviour
         attackProcessor = new AttackProcessor();
     }
 
-    public void getHitBy(IBaseStats attacker, int knockbackDirX, int knockbackDirY)
+    public void getHitBy(IBaseStats attacker, float knockbackDirX, float knockbackDirY)
     {
         if (!stunned)
         {
@@ -26,7 +26,7 @@ public class Hurtbox : MonoBehaviour
         }
     }
 
-    public void collisionDamage(int damageAmount, int knockbackDirX, int knockbackDirY)
+    public void collisionDamage(int damageAmount, float knockbackDirX, float knockbackDirY)
     {
         if (!stunned)
         {

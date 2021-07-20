@@ -5,5 +5,5 @@ public interface IBaseStats : IDamagable
 {
     int MeleeDamage { get; set; }
     int HitKnockbackAmount { get; set; }
-    void KnockbackOnHit(int amount, int dirX, int dirY);
+    void KnockbackOnHit(int amount, float dirX, float dirY);
 }

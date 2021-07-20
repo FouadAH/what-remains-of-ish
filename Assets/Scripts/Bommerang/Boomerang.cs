@@ -130,7 +130,7 @@ public class Boomerang : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Bounce Area") || collision.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
         {
             Vector2 inDirection = GetComponent<Rigidbody2D>().velocity;
             Vector2 normal = collision.GetContact(0).normal;

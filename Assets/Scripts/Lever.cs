@@ -50,7 +50,7 @@ public class Lever : MonoBehaviour, IDamagable
         door.SetState(isOpen);
     }
 
-    public void KnockbackOnDamage(int amount, int dirX, int dirY)
+    public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         
     }

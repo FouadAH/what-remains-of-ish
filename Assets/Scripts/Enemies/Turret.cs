@@ -3,25 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : FiringAI, IDamagable
+public class Turret :  MonoBehaviour, FiringAI
 {
     public bool targeting;
-
-    public int maxHealth;
-    public int KnockbackGiven = 0;
-
-    public float Health { get; set; }
-    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
-    public int knockbackGiven { get => KnockbackGiven; set => KnockbackGiven = value; }
 
     public bool isDamagable = true;
     public bool isStatic = false;
 
+    public float rotateSpeed;
+    [HideInInspector] public Transform target;
+
+    public float fireRate = 1f;
+    public float nextFireTime;
+
+    float FiringAI.fireRate { get => fireRate; set => value = fireRate; }
+    float FiringAI.nextFireTime { get => nextFireTime; set => value = nextFireTime; }
+
+    public event Action OnFire = delegate { };
 
     void Start()
     {
-        Health = MaxHealth;
-        player = target = GameManager.instance.player.transform;
+        target = GameManager.instance.player.transform;
     }
 
     void Update()
@@ -36,42 +38,46 @@ public class Turret : FiringAI, IDamagable
             return;
         }
 
-        if (IsAggro)
+        if (targeting)
         {
-            if (targeting)
-            {
-                Rotation();
-            }
-            else
-            {
-                RotationNoTarget();
-            }
-            if (CanFire())
-            {
-                nextFireTime = Time.time + fireRate;
-                RaiseOnFireEvent();
-            }
+            Rotation();
         }
+        else
+        {
+            RotationNoTarget();
+        }
+        if (CanFire())
+        {
+            nextFireTime = Time.time + fireRate;
+            RaiseOnFireEvent();
+        }
+
     }
 
-    public void ModifyHealth(int amount)
+    public void RaiseOnFireEvent()
     {
-        if (isDamagable)
-        {
-            Aggro();
-            Health -= amount;
-            RaiseOnHitEnemyEvent(Health, maxHealth);
-            SpawnDamagePoints(amount);
-            if (Health <= 0)
-            {
-                Destroy(gameObject);
-            }
-        }
+        var eh = OnFire;
+        if (eh != null)
+            OnFire();
     }
 
-    public void KnockbackOnDamage(int amount, int dirX, int dirY)
+    public void Rotation()
     {
-        //no knockback
+        float AngleRad = Mathf.Atan2(target.transform.position.y - transform.position.y, target.transform.position.x - transform.position.x);
+        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        Quaternion q = Quaternion.AngleAxis(AngleDeg - 90, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotateSpeed);
     }
+
+    public void RotationNoTarget()
+    {
+        transform.Rotate(Vector3.forward * (rotateSpeed * Time.deltaTime));
+    }
+
+    public bool CanFire()
+    {
+        return Time.time >= nextFireTime;
+    }
+
 
 }

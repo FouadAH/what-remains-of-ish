@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BasicMeleeEnemy_StunState : StunState
 {
-    private BasicEnemy enemy;
+    private BasicMeleeAttackEnemy enemy;
 
-    public BasicMeleeEnemy_StunState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_StunState stateData, BasicEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
+    public BasicMeleeEnemy_StunState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_StunState stateData, BasicMeleeAttackEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }

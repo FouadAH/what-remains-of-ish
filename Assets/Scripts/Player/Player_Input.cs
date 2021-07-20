@@ -34,7 +34,7 @@ public class Player_Input : MonoBehaviour
 
     public bool controllerConnected = false;
 
-
+    float inputDeadZone = 0.19f;
     private void Update()
     {
         string[] names = Input.GetJoystickNames();
@@ -49,7 +49,17 @@ public class Player_Input : MonoBehaviour
 
         if (!aiming)
         {
-            directionalInput = new Vector2(Mathf.Round(Input.GetAxisRaw("Horizontal")), Mathf.Round(Input.GetAxisRaw("Vertical")));
+            Vector2 leftStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            if (leftStickInput.magnitude < inputDeadZone)
+            {
+                leftStickInput = Vector2.zero;
+            }
+            else
+            {
+                leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
+            }
+            directionalInput = new Vector2(Mathf.Round(leftStickInput.x), Mathf.Round(leftStickInput.y));
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -77,6 +87,7 @@ public class Player_Input : MonoBehaviour
         {
             nextAttackTime = Time.time + attackRate;
             OnAttack();
+            
         }
     }
 

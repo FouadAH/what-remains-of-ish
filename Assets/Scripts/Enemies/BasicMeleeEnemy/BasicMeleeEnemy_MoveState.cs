@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BasicMeleeEnemy_MoveState : MoveState
 {
-    private BasicEnemy enemy;
+    private BasicMeleeAttackEnemy enemy;
 
-    public BasicMeleeEnemy_MoveState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData, BasicEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
+    public BasicMeleeEnemy_MoveState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData, BasicMeleeAttackEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }

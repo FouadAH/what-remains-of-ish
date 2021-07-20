@@ -48,8 +48,11 @@ public class Attack : MonoBehaviour, IHitboxResponder
             {
                 dir.x = 1;
             }
+
+            dir.y = direction.y;
         }
 
-        hurtbox?.getHitBy(gameObject.GetComponent<IBaseStats>(), Mathf.RoundToInt(dir.x), Mathf.RoundToInt(dir.y));
+        //Debug.Log("Knockback Dir: X:" + (dir.x) + " Y: " + (dir.y));
+        hurtbox?.getHitBy(gameObject.GetComponent<IBaseStats>(), (dir.x), (-dir.y));
     }
 }

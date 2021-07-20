@@ -89,6 +89,12 @@ public class Entity : MonoBehaviour, IDamagable
         rb.velocity = velocityWorkspace;
     }
 
+    public void SetVelocityY(float velocity)
+    {
+        velocityWorkspace.Set(velocityWorkspace.x, velocity);
+        rb.velocity = velocityWorkspace;
+    }
+
     public virtual void SetVelocity(float velocity, Vector2 angle, int direction)
     {
         angle.Normalize();
@@ -128,8 +134,8 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual void DamageHop(float velocity)
     {
-        //velocityWorkspace.Set(rb.velocity.x, velocity);
-        //rb.velocity = velocityWorkspace;
+        velocityWorkspace.Set(-velocity, rb.velocity.y);
+        rb.velocity = velocityWorkspace;
     }
 
     public virtual void ResetStunResistance()
@@ -216,7 +222,7 @@ public class Entity : MonoBehaviour, IDamagable
         }
     }
 
-    public void KnockbackOnDamage(int amount, int dirX, int dirY)
+    public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         DamageHop(entityData.damageHopSpeed);
     }

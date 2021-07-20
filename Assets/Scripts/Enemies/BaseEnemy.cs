@@ -162,12 +162,12 @@ public class BaseEnemy : IEnemy, IBaseStats
         velocity.y = Mathf.SmoothDamp(velocity.y, force.y, ref velocityYSmoothing, 0);
     }
 
-    public void KnockbackOnHit(int amount, int dirX, int dirY)
+    public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
         //AddForce(new Vector2(dirX * amount, 0));
     }
 
-    public void KnockbackOnDamage(int amount, int dirX, int dirY)
+    public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         AddForce(new Vector2(dirX * amount, 0));
     }

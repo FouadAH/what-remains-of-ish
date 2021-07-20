@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BasicMeleeEnemy_IdleState : IdleState
 {
-    private BasicEnemy enemy;
-    public BasicMeleeEnemy_IdleState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData, BasicEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
+    private BasicMeleeAttackEnemy enemy;
+    public BasicMeleeEnemy_IdleState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData, BasicMeleeAttackEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BasicMeleeEnemy_DeadState : DeadState
 {
-    private BasicEnemy enemy;
+    private BasicMeleeAttackEnemy enemy;
 
-    public BasicMeleeEnemy_DeadState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_DeadState stateData, BasicEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
+    public BasicMeleeEnemy_DeadState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_DeadState stateData, BasicMeleeAttackEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }
@@ -34,5 +34,6 @@ public class BasicMeleeEnemy_DeadState : DeadState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        entity.SetVelocity(0);
     }
 }
