@@ -15,7 +15,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public GameObject hitEffect;
     public float rotateSpeed = 2000f;
     public float MoveSpeed = 1f;
-    public float distance = 0.5f;
 
     public float boomerangHoverTime = 1f;
     public float aimSnapTime = 0.02f;
