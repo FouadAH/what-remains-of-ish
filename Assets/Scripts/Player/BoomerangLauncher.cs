@@ -18,7 +18,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public float distance = 0.5f;
 
     public float boomerangHoverTime = 1f;
-
+    public float aimSnapTime = 0.02f;
     public LayerMask damagable;
 
     [SerializeField] private int minDamage = 1;
@@ -64,7 +64,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             Vector2 leftStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             if (leftStickInput.x == 0 && leftStickInput.y == 0)
             {
-                transform.rotation = Quaternion.Euler(0, 0, -90 * gm.player.transform.localScale.x);
+                //transform.rotation = Quaternion.Euler(0, 0, -90 * gm.player.transform.localScale.x);
             }
             else
             {
@@ -76,11 +76,11 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
                 else
                 {
                     leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
+                    float analogAngle = Mathf.Atan2(leftStickInput.x * -1, leftStickInput.y) * Mathf.Rad2Deg;
+                    digitalAngle = Mathf.SmoothDampAngle(digitalAngle, analogAngle, ref currentAngleVelocity, aimSnapTime);
+                    transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
                 }
 
-                float analogAngle = Mathf.Atan2(leftStickInput.x * -1, leftStickInput.y) * Mathf.Rad2Deg;
-                digitalAngle = Mathf.SmoothDampAngle(digitalAngle, analogAngle, ref currentAngleVelocity, 0.02f);
-                transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
             }
         }
         else

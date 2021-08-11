@@ -11,6 +11,11 @@ public class UI_HUD : MonoBehaviour
     public Transform heartBar;
     public GameObject heartPrefab;
 
+    public GameObject healingPodPrefab;
+    public Transform healingPodsBar;
+
+    public List<HealingPod> healingFlasks = new List<HealingPod>();
+
     void Awake()
     {
         if (instance != null)
@@ -21,24 +26,32 @@ public class UI_HUD : MonoBehaviour
         {
             instance = this;
         }
-        
-    }
-
-    private void Start()
-    {
-        GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
-        RefrechHealth();
     }
 
     private void OnEnable()
     {
         GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
+        GameManager.instance.player.GetComponent<Player>().OnHeal += OnHeal;
+
         RefrechHealth();
+        RefrechHealingPods();
     }
 
     void Update()
     {
         currencyText.SetText(GameManager.instance.currency.ToString());
+    }
+
+    public void RefillFlask(float amount)
+    {
+        foreach (HealingPod flask in healingFlasks)
+        {
+            if (flask.fillAmount < 100)
+            {
+                flask.Refill(amount);
+                break;
+            }
+        }
     }
 
     public void RefrechHealth()
@@ -51,12 +64,21 @@ public class UI_HUD : MonoBehaviour
         for (int i = 0; i < GameManager.instance.health; i++)
         {
             Instantiate(heartPrefab, heartBar);
+
+        }
+    }
+
+    public void RefrechHealingPods()
+    {
+        foreach (HealingPod flask in healingFlasks)
+        {
+            flask.InitFlask();
         }
     }
 
     void OnHit(int amount)
     {
-        anim.SetTrigger("Hit");
+        anim.SetTrigger("OnHit");
         for (int i = 0; i < amount; i++)
         {
             if (heartBar.transform.childCount >0)
@@ -65,5 +87,31 @@ public class UI_HUD : MonoBehaviour
                 Destroy(heart.gameObject);
             }
         }
+    }
+    void OnHeal(int amount)
+    {
+        anim.SetTrigger("OnHeal");
+
+        //Adding hearts to health bar 
+        for (int i = 0; i < amount; i++)
+        {
+            Instantiate(heartPrefab, heartBar);
+        }
+
+        //Empty the first Flask
+        healingFlasks[0].EmptyFlask();
+
+        //Trickel down health
+        for (int i = 1; i < healingFlasks.Count; i++)
+        {
+            if(healingFlasks[i].fillAmount > 0)
+            {
+                float newFillAmount = healingFlasks[i].fillAmount;
+                healingFlasks[i-1].fillAmount = newFillAmount;
+                healingFlasks[i].fillAmount = 0;
+            }
+        }
+
+        RefrechHealingPods();
     }
 }

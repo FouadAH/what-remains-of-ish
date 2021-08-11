@@ -244,6 +244,9 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="velocityXSmoothing"></param>    
     void HandleWallSliding(float velocityXSmoothing)
     {
+        if (!GameManager.instance.hasWallJump)
+            return;
+
         wallDirX = (controller.collitions.left) ? -1 : 1;
         WallSliding = false;
         if ((controller.collitions.left || controller.collitions.right) && !controller.collitions.below && velocity.y < 0)

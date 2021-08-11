@@ -134,12 +134,19 @@ public class Boomerang : MonoBehaviour
         {
             Vector2 inDirection = GetComponent<Rigidbody2D>().velocity;
             Vector2 normal = collision.GetContact(0).normal;
-            Vector2 reflectionVelocity = Vector2.Reflect(inDirection, normal);
+            Vector2 reflectionVelocity = Vector2.Reflect(inDirection, normal).normalized;
+
             rb.velocity = Vector2.zero;
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
-            boomerangAirTimeBonus += 0.1f;
-            isReflecting = true;
-            targetVelocity = reflectionVelocity.normalized * boomerangLauncher.MoveSpeed;
+            boomerangAirTimeBonus += 0.15f;
+            //isReflecting = true;
+
+            float angle = Mathf.Atan2(reflectionVelocity.y, reflectionVelocity.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+
+
+            //rb.velocity = reflectionVelocity.normalized * boomerangLauncher.MoveSpeed;
+            //targetVelocity = reflectionVelocity.normalized * boomerangLauncher.MoveSpeed;
             //instantCallback = true;
             //back = true;
         }

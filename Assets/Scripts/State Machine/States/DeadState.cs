@@ -6,6 +6,7 @@ using UnityEngine;
 public class DeadState : State
 {
     protected D_DeadState stateData;
+    public event Action EnemyDeath = delegate { };
 
     public DeadState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_DeadState stateData) : base(etity, stateMachine, animBoolName)
     {
@@ -27,6 +28,7 @@ public class DeadState : State
 
     private IEnumerator Die()
     {
+        //GameManager.instance.
         entity.SetVelocity(0);
         entity.anim.SetLayerWeight(0, 0f);
         entity.anim.SetLayerWeight(1, 0f);

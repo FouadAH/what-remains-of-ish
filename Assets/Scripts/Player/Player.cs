@@ -29,6 +29,7 @@ public class Player : MonoBehaviour, IBaseStats{
     [SerializeField] private PlayerMovementSettings playerSettings;
 
     public PlayerMovement playerMovement { get; private set; }
+    Player_Input playerInput;
 
     private bool staggered;
 
@@ -41,16 +42,11 @@ public class Player : MonoBehaviour, IBaseStats{
     [SerializeField] private float rangedAttackMod;
     [SerializeField] private int baseRangeDamage;
 
-    [SerializeField] private int maxHealth;
-
     [SerializeField] private int hitKnockbackAmount;
     [SerializeField] private int damageKnockbackAmount;
 
-
     public float knockbackOnDamageTimer = 0.4f;
     public float knockbackOnHitTimer = 0.25f;
-
-
 
     public int MeleeDamage { get => minMeleeDamage; set => minMeleeDamage = value; }
     public int MaxMeleeDamage { get => maxMeleeDamage; set => maxMeleeDamage = value; }
@@ -59,13 +55,14 @@ public class Player : MonoBehaviour, IBaseStats{
     public float RangedAttackMod { get => rangedAttackMod; set => rangedAttackMod = value; }
     public int BaseRangeDamage { get => baseRangeDamage; set => baseRangeDamage = value; }
 
-    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+    public int MaxHealth { get; set; }
     public float Health { get; set; }
 
     public int HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
     public int knockbackGiven { get => damageKnockbackAmount; set => damageKnockbackAmount= value; }
 
     public event Action<int> OnHit = delegate { };
+    public event Action<int> OnHeal = delegate { };
 
     Camera mainCamera;
     Vector2 upperLeft;
@@ -101,6 +98,8 @@ public class Player : MonoBehaviour, IBaseStats{
         timeStop = GetComponent<TimeStop>();
         playerAnimations = new PlayerAnimations(GetComponent<Animator>(), transform);
         playerMovement =  GetComponent<PlayerMovement>();
+        playerInput = GetComponent<Player_Input>();
+        playerInput.OnHeal += Heal;
     }
 
     private void Update()
@@ -228,6 +227,26 @@ public class Player : MonoBehaviour, IBaseStats{
     public float changeTime = 0.05f;
     public float restoreSpeed = 10f;
     public float delay = 0.1f;
+
+    public void Heal(int amount)
+    {
+        Debug.Log("Heal function");
+        HealingPod flask = UI_HUD.instance.healingFlasks[0];
+
+        if (flask.fillAmount >= 100 && gm.health < gm.maxHealth)
+        {
+            flask.EmptyFlask();
+            float previousHP = gm.health;
+            gm.health = Mathf.Clamp(gm.health + amount, 0, gm.maxHealth);
+
+            int amountHealed = (int)(gm.health - previousHP);
+            Debug.Log(amount);
+            Debug.Log(amountHealed);
+            OnHeal(amountHealed);
+        }
+        
+
+    }
 
     /// <summary>
     /// Method reponsible for damaging the player

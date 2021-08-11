@@ -11,12 +11,18 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
     public GameObject player;
 
-    public float health = 10000;
-    public float maxHealth = 10000;
+    [Header("Player Stats")]
+    public float health = 5;
+    public float maxHealth = 5;
+
+    public int healingPodAmount = 3;
+    public int healingAmount = 2;
+    public HealingPod[] healingFlasks;
 
     public int currency;
     public Camera playerCamera;
 
+    [Header("Checkpoints")]
     public Vector2 lastCheckpointPos;
     public int lastCheckpointLevelIndex;
 
@@ -62,6 +68,18 @@ public class GameManager : MonoBehaviour
         astarPath = FindObjectOfType<AstarPath>();
         anim = gameObject.GetComponent<Animator>();
     }
+
+    //public void RefillFlask(float amount)
+    //{
+    //    foreach(HealingPod flask in healingFlasks)
+    //    {
+    //        if(flask.fillAmount < 100)
+    //        {
+    //            flask.Refill(amount);
+    //            break;
+    //        }
+    //    }
+    //}
 
     public void Respawn()
     {

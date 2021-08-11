@@ -14,10 +14,6 @@ public class Player_Input : MonoBehaviour
 
     [SerializeField] private float attackRate = 0.1f;
     private float nextAttackTime;
-    public bool dashing { get; set; }
-    public bool firing { get; set; }
-    [SerializeField] private float fireRate = 0.1f;
-    private float nextFireTime;
 
     public event Action OnFire = delegate{};
     public event Action OnAim = delegate { };
@@ -27,10 +23,10 @@ public class Player_Input : MonoBehaviour
     public event Action OnJumpDown = delegate { };
     public event Action OnDash = delegate { };
     public event Action OnBoomerangDash = delegate { };
+    public event Action<int> OnHeal = delegate { };
 
     public event Action OnDetach = delegate { };
     public event Action OnAttach = delegate { };
-
 
     public bool controllerConnected = false;
 
@@ -66,6 +62,7 @@ public class Player_Input : MonoBehaviour
         {
             OnJumpDown();
         }
+
         if(Input.GetButtonUp("Jump"))
         {
             OnJumpUp();
@@ -80,6 +77,15 @@ public class Player_Input : MonoBehaviour
         {
             Debug.Log("Teleport input");
             OnBoomerangDash();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("Heal Input");
+            if (GameManager.instance.healingPodAmount > 0)
+            {
+                OnHeal(GameManager.instance.healingAmount);
+            }
         }
 
         attacking = Input.GetButtonDown("Attack");
