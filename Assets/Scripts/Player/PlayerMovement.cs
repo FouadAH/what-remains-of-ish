@@ -46,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Effects")]
     public ParticleSystem dustParticles;
+    public GameObject jumpTrailParent;
+
 
     private void Start()
     {
@@ -288,6 +290,21 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleJumpInput()
     {
+        if(velocity.y <= 0)
+        {
+            foreach (TrailRenderer jumpTrail in jumpTrailParent.GetComponentsInChildren<TrailRenderer>())
+            {
+                jumpTrail.emitting = false;
+            }
+        }
+        else
+        {
+            foreach (TrailRenderer jumpTrail in jumpTrailParent.GetComponentsInChildren<TrailRenderer>())
+            {
+                jumpTrail.emitting = true;
+            }
+        }
+
         if (!controller.collitions.below)
         {
             cayoteTimer += Time.deltaTime;
@@ -317,8 +334,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (canJump)
             {
-                //Debug.Log("Jump");
-                dustParticles.Play();
                 cayoteTimer = MAX_JUMP_ASSIST_TIME;
 
                 if (controller.collitions.slidingDownMaxSlope)

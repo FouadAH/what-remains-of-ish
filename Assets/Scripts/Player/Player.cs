@@ -112,6 +112,11 @@ public class Player : MonoBehaviour, IBaseStats{
         playerAnimations.Animate();
 
     }
+
+    public void EmitRunParticle()
+    {
+        dustParticles.Play();
+    }
     
     /// <summary>
     /// Method for handling enemy aggro

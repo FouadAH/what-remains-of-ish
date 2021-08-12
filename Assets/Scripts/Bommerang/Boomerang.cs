@@ -141,8 +141,6 @@ public class Boomerang : MonoBehaviour
 
     void BounceOffWall()
     {
-        Collider2D collider = Physics2D.OverlapCircle((Vector2)wallDetection.position, 2f, obstacles);
-
         RaycastHit2D hit = Physics2D.Raycast((Vector2)wallDetection.position + new Vector2(0.3f, 0.3f), transform.up, 1f, obstacles); 
 
         if(hit.collider != null && !back)
@@ -208,6 +206,34 @@ public class Boomerang : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        //ContactPoint2D[] contactPoint2D = null;
+        //collider.GetContacts(contactPoint2D);/
+
+        //if (collider.gameObject.layer == LayerMask.NameToLayer("Obstacles") || collider.gameObject.layer == LayerMask.NameToLayer("Lever"))
+        //{
+        //    Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+
+        //    instantCallback = true;
+        //    back = true;
+        //}
+
+        if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.damagable))
+        {
+            Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+            Vector2 hitPos = transform.position;
+            OnRangedHit.Invoke(collider, hitPos);
+        }
+
+        if (collider.gameObject.GetComponent<PlayerDash>() && dashActive)
+        {
+            collider.gameObject.GetComponent<BoomerangDash>().isDashingBoomerang = false;
+            boomerangLauncher.canFire = true;
+            Destroy(gameObject);
+        }
     }
 
     public static bool IsInLayerMask(int layer, LayerMask layermask)
