@@ -7,6 +7,8 @@ using UnityEngine;
 public class Player_Input : MonoBehaviour
 {
     public Vector2 directionalInput;
+    public Vector2 rightStickInput;
+
 
     public bool jumping { get; set; }
     public bool attacking { get; set; }
@@ -58,6 +60,9 @@ public class Player_Input : MonoBehaviour
             directionalInput = new Vector2(Mathf.Round(leftStickInput.x), Mathf.Round(leftStickInput.y));
         }
 
+        rightStickInput = new Vector2(Input.GetAxisRaw("RHorizontal"), Input.GetAxisRaw("RVertical"));
+        
+
         if (Input.GetButtonDown("Jump"))
         {
             OnJumpDown();
@@ -79,7 +84,7 @@ public class Player_Input : MonoBehaviour
             OnBoomerangDash();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetButtonDown("Heal"))
         {
             Debug.Log("Heal Input");
             if (GameManager.instance.healingPodAmount > 0)

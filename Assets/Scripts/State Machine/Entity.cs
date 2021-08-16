@@ -16,9 +16,7 @@ public class Entity : MonoBehaviour, IDamagable
     public Animator anim { get; private set; }
     public GameObject aliveGO { get; private set; }
     public int lastDamageDirection { get; private set; }
-
-    [SerializeField] private int maxHealth;
-    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+    public int MaxHealth { get; set; }
     public float Health { get; set; }
     public int knockbackGiven { get => (int)entityData.damageHopSpeed; set => knockbackGiven = value; }
 
@@ -47,6 +45,8 @@ public class Entity : MonoBehaviour, IDamagable
     {
         facingDirection = 1;
         currentHealth = entityData.maxHealth;
+        MaxHealth = (int)currentHealth;
+
         currentStunResistance = entityData.stunResistance;
 
         Health = MaxHealth;

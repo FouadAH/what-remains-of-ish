@@ -110,7 +110,7 @@ public class Player : MonoBehaviour, IBaseStats{
         OnDamage();
         Aggro();
         playerAnimations.Animate();
-
+        Look();
     }
 
     public void EmitRunParticle()
@@ -273,6 +273,34 @@ public class Player : MonoBehaviour, IBaseStats{
         }
     }
 
+    float cameraOffsetTarget = 0f;
+
+    void Look()
+    {
+        CinemachineCameraOffset cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
+        if (playerMovement.Velocity == Vector2.zero)
+        {
+            if(playerInput.rightStickInput.y <= -0.5)
+            {
+                cameraOffsetTarget = -8f;
+
+            }
+            else if(playerInput.rightStickInput.y >= 0.5)
+            {
+                cameraOffsetTarget = 8f;
+            }
+            else
+            {
+                cameraOffsetTarget = 0f;
+            }
+        }
+        else
+        {
+            cameraOffsetTarget = 0f;
+        }
+
+        cameraOffset.m_Offset.y = Mathf.Lerp(cameraOffset.m_Offset.y, cameraOffsetTarget, 0.1f);
+    }
     IEnumerator DisableInputTemp(float disableTime)
     {
         GetComponent<Player_Input>().enabled = false;
