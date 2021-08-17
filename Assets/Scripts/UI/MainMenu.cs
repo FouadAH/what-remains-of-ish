@@ -172,7 +172,7 @@ public class MainMenu : MonoBehaviour
     {
         if (obj.isDone)
         {
-            SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive).completed += LoadBaseSceneComplete;
+            SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive).completed += LoadBaseSceneComplete;
         }
     }
 

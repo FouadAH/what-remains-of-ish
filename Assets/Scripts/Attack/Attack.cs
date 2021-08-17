@@ -38,6 +38,11 @@ public class Attack : MonoBehaviour, IHitboxResponder
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         if (hurtbox != null)
         {
+            if(dir.y == 1)
+            {
+                hurtbox?.getHitBy(gameObject.GetComponent<IBaseStats>(), (dir.x), (dir.y));
+                return;
+            }
             Vector2 direction = (hurtbox.transform.position - transform.position).normalized;
 
             if (direction.x > 0)
