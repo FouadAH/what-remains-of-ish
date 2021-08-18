@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 [RequireComponent(typeof(Controller_2D))]
 
@@ -261,8 +262,9 @@ public class Player : MonoBehaviour, IBaseStats{
     {
         if (!invinsible && gm.health > 0 && !gm.isRespawning)
         {
+            CinemachineImpulseSource impulseListener = GetComponent<CinemachineImpulseSource>();
+            impulseListener.GenerateImpulse();
             timeStop.StopTime(changeTime, restoreSpeed, delay);
-
             iFrames = iFrameTime;
             anim.SetTrigger("Hit");
             OnHit(amount);
