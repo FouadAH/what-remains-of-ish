@@ -3,19 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HedgehogCorruptedEnemy : Entity, FiringAI, IBaseStats
+public class HedgehogCorruptedEnemy : Entity, FiringAI
 {
     public IdleState idleState { get; private set; }
     public MoveState moveState { get; private set; }
     public PlayerDetectedState playerDetectedState { get; private set; }
     public DeadState deadState { get; private set; }
+    float FiringAI.fireRate { get => fireRate; set => _ = fireRate; }
+    float FiringAI.nextFireTime { get => nextFireTime; set => _ = nextFireTime; }
 
-    [SerializeField] private int meleeDamage;
-    [SerializeField] private int hitKnockbackAmount;
-    public int MeleeDamage { get => meleeDamage; set => meleeDamage = value; }
-    public int HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
-    public float fireRate { get; set; }
-    public float nextFireTime { get; set; }
+    [Header("Projectile Firing Settings")]
+    public float fireRate;
+    [HideInInspector] public float nextFireTime;
+    public event Action OnFire = delegate { };
+
+    [HideInInspector] public bool isProtected = false;
 
     [Header("States")]
     [SerializeField] private D_IdleState idleStateData;
@@ -35,10 +37,6 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI, IBaseStats
         stateMachine.Initialize(moveState);
 
     }
-
-    public bool isProtected = false;
-
-    public event Action OnFire = delegate { };
 
     public override void ModifyHealth(int amount)
     {
