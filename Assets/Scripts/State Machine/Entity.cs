@@ -39,7 +39,25 @@ public class Entity : MonoBehaviour, IDamagable
     protected bool isStunned;
     protected bool isDead;
 
+    [Header("Debug")]
     public TMP_Text stateDebugText;
+
+    [Header("Aggro Settings")]
+    [SerializeField] public float AggroTime;
+    public float aggroRange = 2f;
+    [SerializeField] public LayerMask PlayerMask;
+    [HideInInspector] public bool IsAggro;
+
+    [Header("Hit Effects")]
+    [SerializeField] private GameObject damageNumberPrefab;
+
+    public event Action<float, float> OnHitEnemy = delegate { };
+
+    private IEnumerator aggroRangeRoutine;
+
+    [Header("Movement Settings")]
+    public float accelerationTimeGrounded = 0.05f;
+    private float velocityXSmoothing = 0;
 
     public virtual void Start()
     {
@@ -76,9 +94,6 @@ public class Entity : MonoBehaviour, IDamagable
     {
         stateMachine.currentState.PhysicsUpdate();
     }
-
-    private float velocityXSmoothing = 0;
-    public float accelerationTimeGrounded = 0.05f;
 
     public virtual void SetVelocity(float velocity)
     {
@@ -144,15 +159,7 @@ public class Entity : MonoBehaviour, IDamagable
         currentStunResistance = entityData.stunResistance;
     }
 
-    [SerializeField] public bool IsAggro;
-    [SerializeField] public float AggroTime;
-    [SerializeField] public LayerMask PlayerMask;
-    [SerializeField] private GameObject damageNumberPrefab;
-    public float aggroRange = 2f;
-
-    public event Action<float, float> OnHitEnemy = delegate { };
-
-    private IEnumerator aggroRangeRoutine;
+    
 
     protected void RaiseOnHitEnemyEvent(float health, float maxHealth)
     {

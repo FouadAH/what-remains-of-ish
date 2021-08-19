@@ -14,6 +14,7 @@ public class HedgehogCorruptedEnemy_PlayerDetectedState : PlayerDetectedState
     {
         base.Enter();
         enemy.isProtected = true;
+        firstTake = true;
     }
 
     public override void Exit()
@@ -22,17 +23,30 @@ public class HedgehogCorruptedEnemy_PlayerDetectedState : PlayerDetectedState
         enemy.isProtected = false;
     }
 
+    float initialWaitTime = 0.5f;
+    float lastDetectedTime;
+    float waitTime = 1f;
+    bool firstTake = true;
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (enemy.CanFire())
+        if (firstTake)
+        {
+            enemy.nextFireTime = Time.time + initialWaitTime;
+            firstTake = false;
+        }
+
+        if (CanFire())
         {
             enemy.nextFireTime = Time.time + enemy.fireRate;
             enemy.RaiseOnFireEvent();
         }
-
-        if (!entity.CheckPlayerInMinAgroRange())
+        if (entity.CheckPlayerInMinAgroRange())
+        {
+            lastDetectedTime = Time.time;
+        }
+        else if (!entity.CheckPlayerInMinAgroRange() && lastDetectedTime + waitTime <= Time.time)
         {
             stateMachine.ChangeState(enemy.moveState);
         }
@@ -42,5 +56,10 @@ public class HedgehogCorruptedEnemy_PlayerDetectedState : PlayerDetectedState
     {
         base.PhysicsUpdate();
         entity.SetVelocity(0);
+    }
+
+    public bool CanFire()
+    {
+        return Time.time >= enemy.nextFireTime;
     }
 }
