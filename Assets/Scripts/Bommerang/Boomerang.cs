@@ -162,52 +162,6 @@ public class Boomerang : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Bounce Area") || collision.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
-        {
-            //Vector2 inDirection = GetComponent<Rigidbody2D>().velocity;
-            //Vector2 normal = collision.GetContact(0).normal;
-            //Vector2 reflectionVelocity = Vector2.Reflect(inDirection, normal).normalized;
-
-            //rb.velocity = Vector2.zero;
-            //Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
-            //boomerangAirTimeBonus += 0.15f;
-            ////isReflecting = true;
-
-            //float angle = Mathf.Atan2(reflectionVelocity.y, reflectionVelocity.x) * Mathf.Rad2Deg;
-            //transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-
-
-            //rb.velocity = reflectionVelocity.normalized * boomerangLauncher.MoveSpeed;
-            //targetVelocity = reflectionVelocity.normalized * boomerangLauncher.MoveSpeed;
-            //instantCallback = true;
-            //back = true;
-        }
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Lever"))
-        {
-            Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
-
-            instantCallback = true;
-            back = true;
-        }
-
-        if (IsInLayerMask(collision.gameObject.layer, boomerangLauncher.damagable))
-        {
-            Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
-            Vector2 hitPos = transform.position;
-            OnRangedHit.Invoke(collision.collider, hitPos);
-        }
-
-        if (collision.gameObject.GetComponent<PlayerDash>() && dashActive)
-        {
-            collision.gameObject.GetComponent<BoomerangDash>().isDashingBoomerang = false;
-            boomerangLauncher.canFire = true;
-            Destroy(gameObject);
-        }
-
-    }
-
     private void OnTriggerEnter2D(Collider2D collider)
     {
         //ContactPoint2D[] contactPoint2D = null;
@@ -220,6 +174,13 @@ public class Boomerang : MonoBehaviour
         //    instantCallback = true;
         //    back = true;
         //}
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Lever"))
+        {
+            Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+
+            instantCallback = true;
+            back = true;
+        }
 
         if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.damagable))
         {

@@ -276,11 +276,11 @@ public class Player : MonoBehaviour, IBaseStats{
     }
 
     float cameraOffsetTarget = 0f;
-
+    Vector2 lookVelocityTreshhold = new Vector2(0.2f, 0.2f);
     void Look()
     {
         CinemachineCameraOffset cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
-        if (playerMovement.Velocity == Vector2.zero)
+        if (Mathf.Abs(playerMovement.Velocity.x) <= lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) <= lookVelocityTreshhold.y)
         {
             if(playerInput.rightStickInput.y <= -0.5)
             {
@@ -296,7 +296,7 @@ public class Player : MonoBehaviour, IBaseStats{
                 cameraOffsetTarget = 0f;
             }
         }
-        else
+        else if(Mathf.Abs(playerMovement.Velocity.x) > lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) > lookVelocityTreshhold.y)
         {
             cameraOffsetTarget = 0f;
         }

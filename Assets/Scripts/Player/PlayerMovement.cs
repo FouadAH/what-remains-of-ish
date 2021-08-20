@@ -79,6 +79,14 @@ public class PlayerMovement : MonoBehaviour
         if (GameManager.instance.loading)
             return;
 
+        controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
+    }
+
+    private void FixedUpdate()
+    {
+        if (GameManager.instance.loading)
+            return;
+
         Movement();
     }
 
@@ -98,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             //velocity.y += gravity * Time.deltaTime;
             //velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
 
-            controller.Move(velocity * Time.smoothDeltaTime, new Vector2(dirKnockback.x, dirKnockback.y));
+            //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(dirKnockback.x, dirKnockback.y));
             return;
         }
 
@@ -108,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
             velocity.y += gravity * Time.deltaTime;
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
 
-            controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
+            //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
             return;
         }
 
@@ -117,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
         {
             BoomerandBoost();
             HandleWallSliding(velocityXSmoothing);
-            controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
+            //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
             return;
         }
 
@@ -127,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
 
         HandleWallSliding(velocityXSmoothing);
 
-        controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
+        //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
 
         HandleMaxSlope();
         HandleJumpInput();
