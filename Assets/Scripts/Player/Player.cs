@@ -75,6 +75,7 @@ public class Player : MonoBehaviour, IBaseStats{
     public ParticleSystem dustParticles;
 
     TimeStop timeStop;
+    ColouredFlash flashEffect;
 
     void Awake()
     {
@@ -101,6 +102,7 @@ public class Player : MonoBehaviour, IBaseStats{
         playerMovement =  GetComponent<PlayerMovement>();
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
+        flashEffect = GetComponent<ColouredFlash>();
     }
 
     private void Update()
@@ -165,7 +167,6 @@ public class Player : MonoBehaviour, IBaseStats{
             else
             {
                 invinsible = false;
-                anim.SetBool("invinsible", false);
             }
         }
     }
@@ -266,9 +267,8 @@ public class Player : MonoBehaviour, IBaseStats{
             impulseListener.GenerateImpulse();
             timeStop.StopTime(changeTime, restoreSpeed, delay);
             iFrames = iFrameTime;
-            anim.SetTrigger("Hit");
+            flashEffect.Flash(Color.white);
             OnHit(amount);
-            anim.SetBool("invinsible", true);
             invinsible = true;
             gm.health -= amount;
             CheckDeath();

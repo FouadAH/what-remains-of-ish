@@ -54,6 +54,7 @@ public class Entity : MonoBehaviour, IDamagable
     public float accelerationTimeGrounded = 0.05f;
     private float velocityXSmoothing = 0;
 
+    ColouredFlash colouredFlash;
     public virtual void Start()
     {
         facingDirection = 1;
@@ -68,6 +69,7 @@ public class Entity : MonoBehaviour, IDamagable
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
         atsm = aliveGO.GetComponent<AnimationToStatemachine>();
+        colouredFlash = GetComponent<ColouredFlash>();
         stateMachine = new FiniteStateMachine();
     }
 
@@ -187,6 +189,10 @@ public class Entity : MonoBehaviour, IDamagable
     {
         Health -= amount;
         RaiseOnHitEnemyEvent(Health, MaxHealth);
+        if (colouredFlash != null)
+        {
+            colouredFlash.Flash(Color.white);
+        }
         if (Health <= 0)
         {
             isDead = true;

@@ -145,7 +145,7 @@ public class Boomerang : MonoBehaviour
 
         if(hit.collider != null && !back)
         {
-            Debug.Log("Obstacle detected");
+
             Vector2 inDirection = GetComponent<Rigidbody2D>().velocity;
             Vector2 normal = hit.normal;
             Vector2 reflectionVelocity = Vector2.Reflect(inDirection, normal).normalized;
