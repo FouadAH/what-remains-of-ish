@@ -36,6 +36,13 @@ public class FlyingEnemyAI : Entity, FiringAI, IDamagable
     Transform target;
     float rotateSpeed;
 
+    [Header("Aggro Settings")]
+    [SerializeField] public float AggroTime;
+    [SerializeField] public LayerMask PlayerMask;
+    [HideInInspector] public bool IsAggro;
+    private IEnumerator aggroRangeRoutine;
+
+
     public override void Start()
     {
         base.Start();
@@ -81,6 +88,34 @@ public class FlyingEnemyAI : Entity, FiringAI, IDamagable
         {
             path.endReachedDistance = 0.2f;
         }
+    }
+
+    public virtual IEnumerator AggroRange()
+    {
+        Collider2D player = Physics2D.OverlapCircle(transform.position, aggroRange, PlayerMask);
+        if (player == null)
+        {
+            yield return new WaitForSeconds(AggroTime);
+            IsAggro = false;
+            StopCoroutine(aggroRangeRoutine);
+        }
+        yield return new WaitForSeconds(0.5f);
+        if (aggroRangeRoutine != null)
+            StopCoroutine(aggroRangeRoutine);
+
+        aggroRangeRoutine = AggroRange();
+        StartCoroutine(aggroRangeRoutine);
+    }
+
+
+    public void Aggro()
+    {
+        IsAggro = true;
+        if (aggroRangeRoutine != null)
+            StopCoroutine(aggroRangeRoutine);
+
+        aggroRangeRoutine = AggroRange();
+        StartCoroutine(aggroRangeRoutine);
     }
 
     public void Rotation()

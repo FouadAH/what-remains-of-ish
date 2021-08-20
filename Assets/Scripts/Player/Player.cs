@@ -109,7 +109,7 @@ public class Player : MonoBehaviour, IBaseStats{
             return;
 
         OnDamage();
-        Aggro();
+        //Aggro();
         playerAnimations.Animate();
         Look();
     }
@@ -124,31 +124,31 @@ public class Player : MonoBehaviour, IBaseStats{
     /// </summary>
     public void Aggro()
     {
-        Vector2 upperLeftScreen = new Vector2(0, Screen.height);
-        Vector2 lowerRightScreen = new Vector2(Screen.width, 0);
+        //Vector2 upperLeftScreen = new Vector2(0, Screen.height);
+        //Vector2 lowerRightScreen = new Vector2(Screen.width, 0);
 
-        upperLeft = mainCamera.ScreenToWorldPoint(upperLeftScreen);
-        lowerRight = mainCamera.ScreenToWorldPoint(lowerRightScreen);
+        //upperLeft = mainCamera.ScreenToWorldPoint(upperLeftScreen);
+        //lowerRight = mainCamera.ScreenToWorldPoint(lowerRightScreen);
 
-        Collider2D[] enemiesToAggro = Physics2D.OverlapAreaAll(upperLeft, lowerRight, enemyMask);
-        for (int i = 0; i < enemiesToAggro.Length; i++)
-        {   
-            bool hit = Physics2D.Linecast(transform.position, enemiesToAggro[i].transform.position, controller.collitionMask);
-            //if(enemiesToAggro[i].GetComponent<IEnemy>() != null)
-            //{
-            //    if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)
-            //    {
-            //        enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
-            //    }
-            //}
-            if (enemiesToAggro[i].GetComponent<Entity>() != null)
-            {
-                if (enemiesToAggro[i].GetComponent<Entity>().CheckPlayerInMinAgroRange() && !hit && !enemiesToAggro[i].GetComponent<Entity>().IsAggro)
-                {
-                    enemiesToAggro[i].GetComponent<Entity>().Aggro();
-                }
-            }
-        }
+        //Collider2D[] enemiesToAggro = Physics2D.OverlapAreaAll(upperLeft, lowerRight, enemyMask);
+        //for (int i = 0; i < enemiesToAggro.Length; i++)
+        //{   
+        //    bool hit = Physics2D.Linecast(transform.position, enemiesToAggro[i].transform.position, controller.collitionMask);
+        //    //if(enemiesToAggro[i].GetComponent<IEnemy>() != null)
+        //    //{
+        //    //    if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)
+        //    //    {
+        //    //        enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
+        //    //    }
+        //    //}
+        //    if (enemiesToAggro[i].GetComponent<Entity>() != null)
+        //    {
+        //        if (enemiesToAggro[i].GetComponent<Entity>().CheckPlayerInMinAgroRange() && !hit && !enemiesToAggro[i].GetComponent<Entity>().IsAggro)
+        //        {
+        //            enemiesToAggro[i].GetComponent<Entity>().Aggro();
+        //        }
+        //    }
+        //}
     }
 
     /// <summary>

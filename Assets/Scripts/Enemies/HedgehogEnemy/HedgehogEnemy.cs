@@ -51,7 +51,7 @@ public class HedgehogEnemy : Entity, IBaseStats
         }
         else
         {
-            Aggro();
+            //Aggro();
             SpawnDamagePoints(amount);
             anim.SetTrigger("Hit");
         }

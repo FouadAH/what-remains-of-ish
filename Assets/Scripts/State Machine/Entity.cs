@@ -42,18 +42,13 @@ public class Entity : MonoBehaviour, IDamagable
     [Header("Debug")]
     public TMP_Text stateDebugText;
 
-    [Header("Aggro Settings")]
-    [SerializeField] public float AggroTime;
-    public float aggroRange = 2f;
-    [SerializeField] public LayerMask PlayerMask;
-    [HideInInspector] public bool IsAggro;
-
     [Header("Hit Effects")]
     [SerializeField] private GameObject damageNumberPrefab;
 
     public event Action<float, float> OnHitEnemy = delegate { };
 
-    private IEnumerator aggroRangeRoutine;
+    [Header("Aggro Settings")]
+    public float aggroRange = 5f;
 
     [Header("Movement Settings")]
     public float accelerationTimeGrounded = 0.05f;
@@ -147,6 +142,11 @@ public class Entity : MonoBehaviour, IDamagable
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
     }
 
+    public virtual bool CheckPlayerInAggroRange()
+    {
+        return Physics2D.OverlapCircle(playerCheck.position, aggroRange, entityData.whatIsPlayer);
+    }
+
     public virtual void DamageHop(float velocity)
     {
         velocityWorkspace.Set(-velocity, rb.velocity.y);
@@ -159,41 +159,11 @@ public class Entity : MonoBehaviour, IDamagable
         currentStunResistance = entityData.stunResistance;
     }
 
-    
-
     protected void RaiseOnHitEnemyEvent(float health, float maxHealth)
     {
         var eh = OnHitEnemy;
         if (eh != null)
             OnHitEnemy(health, maxHealth);
-    }
-
-    public virtual IEnumerator AggroRange()
-    {
-        Collider2D player = Physics2D.OverlapCircle(transform.position, aggroRange, PlayerMask);
-        if (player == null)
-        {
-            yield return new WaitForSeconds(AggroTime);
-            IsAggro = false;
-            StopCoroutine(aggroRangeRoutine);
-        }
-        yield return new WaitForSeconds(0.5f);
-        if (aggroRangeRoutine != null)
-            StopCoroutine(aggroRangeRoutine);
-
-        aggroRangeRoutine = AggroRange();
-        StartCoroutine(aggroRangeRoutine);
-    }
-
-
-    public void Aggro()
-    {
-        IsAggro = true;
-        if (aggroRangeRoutine != null)
-            StopCoroutine(aggroRangeRoutine);
-
-        aggroRangeRoutine = AggroRange();
-        StartCoroutine(aggroRangeRoutine);
     }
 
     public void SpawnDamagePoints(int damage)
@@ -223,7 +193,7 @@ public class Entity : MonoBehaviour, IDamagable
         }
         else
         {
-            Aggro();
+            //Aggro();
             SpawnDamagePoints(amount);
             anim.SetTrigger("Hit");
         }
@@ -237,7 +207,7 @@ public class Entity : MonoBehaviour, IDamagable
     public virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, aggroRange);
+        Gizmos.DrawWireSphere(playerCheck.transform.position, aggroRange);
 
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
