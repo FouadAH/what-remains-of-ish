@@ -72,6 +72,7 @@ public class BasicMeleeAttackEnemy : Entity, IBaseStats
     public override void ModifyHealth(int amount)
     {
         base.ModifyHealth(amount);
+        
         if (isDead)
         {
             stateMachine.ChangeState(deadState);

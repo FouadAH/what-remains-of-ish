@@ -52,7 +52,7 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
         }
         else
         {
-            Aggro();
+            //Aggro();
             SpawnDamagePoints(amount);
             anim.SetTrigger("Hit");
         }

@@ -75,6 +75,7 @@ public class Player : MonoBehaviour, IBaseStats{
     public ParticleSystem dustParticles;
 
     TimeStop timeStop;
+    ColouredFlash flashEffect;
 
     void Awake()
     {
@@ -101,6 +102,7 @@ public class Player : MonoBehaviour, IBaseStats{
         playerMovement =  GetComponent<PlayerMovement>();
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
+        flashEffect = GetComponent<ColouredFlash>();
     }
 
     private void Update()
@@ -109,7 +111,7 @@ public class Player : MonoBehaviour, IBaseStats{
             return;
 
         OnDamage();
-        Aggro();
+        //Aggro();
         playerAnimations.Animate();
         Look();
     }
@@ -124,31 +126,31 @@ public class Player : MonoBehaviour, IBaseStats{
     /// </summary>
     public void Aggro()
     {
-        Vector2 upperLeftScreen = new Vector2(0, Screen.height);
-        Vector2 lowerRightScreen = new Vector2(Screen.width, 0);
+        //Vector2 upperLeftScreen = new Vector2(0, Screen.height);
+        //Vector2 lowerRightScreen = new Vector2(Screen.width, 0);
 
-        upperLeft = mainCamera.ScreenToWorldPoint(upperLeftScreen);
-        lowerRight = mainCamera.ScreenToWorldPoint(lowerRightScreen);
+        //upperLeft = mainCamera.ScreenToWorldPoint(upperLeftScreen);
+        //lowerRight = mainCamera.ScreenToWorldPoint(lowerRightScreen);
 
-        Collider2D[] enemiesToAggro = Physics2D.OverlapAreaAll(upperLeft, lowerRight, enemyMask);
-        for (int i = 0; i < enemiesToAggro.Length; i++)
-        {   
-            bool hit = Physics2D.Linecast(transform.position, enemiesToAggro[i].transform.position, controller.collitionMask);
-            //if(enemiesToAggro[i].GetComponent<IEnemy>() != null)
-            //{
-            //    if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)
-            //    {
-            //        enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
-            //    }
-            //}
-            if (enemiesToAggro[i].GetComponent<Entity>() != null)
-            {
-                if (enemiesToAggro[i].GetComponent<Entity>().CheckPlayerInMinAgroRange() && !hit && !enemiesToAggro[i].GetComponent<Entity>().IsAggro)
-                {
-                    enemiesToAggro[i].GetComponent<Entity>().Aggro();
-                }
-            }
-        }
+        //Collider2D[] enemiesToAggro = Physics2D.OverlapAreaAll(upperLeft, lowerRight, enemyMask);
+        //for (int i = 0; i < enemiesToAggro.Length; i++)
+        //{   
+        //    bool hit = Physics2D.Linecast(transform.position, enemiesToAggro[i].transform.position, controller.collitionMask);
+        //    //if(enemiesToAggro[i].GetComponent<IEnemy>() != null)
+        //    //{
+        //    //    if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)
+        //    //    {
+        //    //        enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
+        //    //    }
+        //    //}
+        //    if (enemiesToAggro[i].GetComponent<Entity>() != null)
+        //    {
+        //        if (enemiesToAggro[i].GetComponent<Entity>().CheckPlayerInMinAgroRange() && !hit && !enemiesToAggro[i].GetComponent<Entity>().IsAggro)
+        //        {
+        //            enemiesToAggro[i].GetComponent<Entity>().Aggro();
+        //        }
+        //    }
+        //}
     }
 
     /// <summary>
@@ -165,7 +167,6 @@ public class Player : MonoBehaviour, IBaseStats{
             else
             {
                 invinsible = false;
-                anim.SetBool("invinsible", false);
             }
         }
     }
@@ -266,9 +267,8 @@ public class Player : MonoBehaviour, IBaseStats{
             impulseListener.GenerateImpulse();
             timeStop.StopTime(changeTime, restoreSpeed, delay);
             iFrames = iFrameTime;
-            anim.SetTrigger("Hit");
+            flashEffect.Flash(Color.white);
             OnHit(amount);
-            anim.SetBool("invinsible", true);
             invinsible = true;
             gm.health -= amount;
             CheckDeath();
@@ -276,11 +276,11 @@ public class Player : MonoBehaviour, IBaseStats{
     }
 
     float cameraOffsetTarget = 0f;
-
+    Vector2 lookVelocityTreshhold = new Vector2(0.2f, 0.2f);
     void Look()
     {
         CinemachineCameraOffset cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
-        if (playerMovement.Velocity == Vector2.zero)
+        if (Mathf.Abs(playerMovement.Velocity.x) <= lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) <= lookVelocityTreshhold.y)
         {
             if(playerInput.rightStickInput.y <= -0.5)
             {
@@ -296,7 +296,7 @@ public class Player : MonoBehaviour, IBaseStats{
                 cameraOffsetTarget = 0f;
             }
         }
-        else
+        else if(Mathf.Abs(playerMovement.Velocity.x) > lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) > lookVelocityTreshhold.y)
         {
             cameraOffsetTarget = 0f;
         }

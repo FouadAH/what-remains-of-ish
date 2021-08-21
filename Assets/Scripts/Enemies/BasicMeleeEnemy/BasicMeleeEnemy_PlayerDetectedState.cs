@@ -29,13 +29,12 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(enemy.meleeAttackState);
         }
-        else if (!entity.IsAggro)
+        else if (!entity.CheckPlayerInMinAgroRange() && !entity.CheckPlayerInAggroRange())
         {
             stateMachine.ChangeState(enemy.lookForPlayerState);
         }
         else if (!isDetectingLedge || isDetectingWall)
         {
-            entity.IsAggro = false;
             entity.Flip();
             stateMachine.ChangeState(enemy.lookForPlayerState);
         }
