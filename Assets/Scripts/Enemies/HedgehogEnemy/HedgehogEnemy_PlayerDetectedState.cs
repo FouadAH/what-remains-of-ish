@@ -23,11 +23,23 @@ public class HedgehogEnemy_PlayerDetectedState : PlayerDetectedState
         enemy.isProtected = false;
     }
 
+    float lastDetectedTime;
+    float waitTime = 1f;
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
         if (!entity.CheckPlayerInMinAgroRange())
+        {
+            stateMachine.ChangeState(enemy.moveState);
+        }
+
+        if (entity.CheckPlayerInMinAgroRange())
+        {
+            lastDetectedTime = Time.time;
+        }
+        else if (!entity.CheckPlayerInMinAgroRange() && lastDetectedTime + waitTime <= Time.time)
         {
             stateMachine.ChangeState(enemy.moveState);
         }

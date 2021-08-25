@@ -27,7 +27,7 @@ public class HedgehogEnemy : Entity, IBaseStats
 
         moveState = new HedgehogEnemy_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new HedgehogEnemy_IdleState(this, stateMachine, "idle", idleStateData, this);
-        playerDetectedState = new HedgehogEnemy_PlayerDetectedState(this, stateMachine, "move", playerDetectedData, this);
+        playerDetectedState = new HedgehogEnemy_PlayerDetectedState(this, stateMachine, "block", playerDetectedData, this);
         deadState = new HedgehogEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(moveState);
@@ -48,6 +48,8 @@ public class HedgehogEnemy : Entity, IBaseStats
         if (Health <= 0)
         {
             isDead = true;
+            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
+
         }
         else
         {
