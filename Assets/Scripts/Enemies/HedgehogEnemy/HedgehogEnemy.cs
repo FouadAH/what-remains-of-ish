@@ -48,6 +48,8 @@ public class HedgehogEnemy : Entity, IBaseStats
         if (Health <= 0)
         {
             isDead = true;
+            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
+
         }
         else
         {

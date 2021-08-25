@@ -30,7 +30,6 @@ public class Entity : MonoBehaviour, IDamagable
     [SerializeField]
     private Transform groundCheck;
 
-    private float currentHealth;
     private float currentStunResistance;
     private float lastDamageTime;
 
@@ -58,8 +57,7 @@ public class Entity : MonoBehaviour, IDamagable
     public virtual void Start()
     {
         facingDirection = 1;
-        currentHealth = entityData.maxHealth;
-        MaxHealth = (int)currentHealth;
+        MaxHealth = (int)entityData.maxHealth;
 
         currentStunResistance = entityData.stunResistance;
 
@@ -196,6 +194,7 @@ public class Entity : MonoBehaviour, IDamagable
         if (Health <= 0)
         {
             isDead = true;
+            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
         }
         else
         {
