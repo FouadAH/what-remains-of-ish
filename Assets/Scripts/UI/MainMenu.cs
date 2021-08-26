@@ -215,17 +215,18 @@ public class MainMenu : MonoBehaviour
         currentScene = data.currentScene;
     }
 
+
     public void LoadDataNewGame()
     {
         GameManager.instance.health = 5;
         GameManager.instance.maxHealth = 5;
         GameManager.instance.currency = 0;
-        GameManager.instance.playerPosition = new Vector3(-40f, 5f);
+        GameManager.instance.playerPosition = GameManager.instance.playerPosition;
 
-        GameManager.instance.lastSavepointPos = new Vector3(-40f, 5f);
+        GameManager.instance.lastSavepointPos = GameManager.instance.playerPosition;
         GameManager.instance.lastSavepointLevelIndex = 4;
 
-        GameManager.instance.lastCheckpointPos = new Vector3(-40f, 5f);
+        GameManager.instance.lastCheckpointPos = GameManager.instance.playerPosition;
         GameManager.instance.lastCheckpointLevelIndex = 4;
         GameManager.instance.currentScene = 4;
         currentScene = 4;
