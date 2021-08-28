@@ -69,10 +69,41 @@ public class BasicMeleeAttackEnemy : Entity, IBaseStats
         Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
     }
 
+    [Header("Aggro Settings")]
+    [SerializeField] public float AggroTime;
+    private IEnumerator aggroRangeRoutine;
+    public bool IsAggro = false;
+
+    public virtual IEnumerator AggroRange()
+    {
+        Collider2D player = Physics2D.OverlapCircle(transform.position, aggroRange, entityData.whatIsPlayer);
+        if (player == null)
+        {
+            yield return new WaitForSeconds(AggroTime);
+            IsAggro = false;
+            StopCoroutine(aggroRangeRoutine);
+        }
+        yield return new WaitForSeconds(0.5f);
+        if (aggroRangeRoutine != null)
+            StopCoroutine(aggroRangeRoutine);
+
+        aggroRangeRoutine = AggroRange();
+        StartCoroutine(aggroRangeRoutine);
+    }
+
+    public void Aggro()
+    {
+        IsAggro = true;
+        if (aggroRangeRoutine != null)
+            StopCoroutine(aggroRangeRoutine);
+
+        aggroRangeRoutine = AggroRange();
+        StartCoroutine(aggroRangeRoutine);
+    }
     public override void ModifyHealth(int amount)
     {
         base.ModifyHealth(amount);
-        
+        Aggro();
         if (isDead)
         {
             stateMachine.ChangeState(deadState);

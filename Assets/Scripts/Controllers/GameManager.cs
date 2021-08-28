@@ -140,6 +140,19 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadSceneRoutine());
     }
 
+    Vector3 newPlayerPos;
+    public void LoadScene(int levelToUnload, int levelToLoad, Vector3 playerPos)
+    {
+        loading = true;
+        currentScene = levelToLoad;
+        player.GetComponent<Player>().enabled = false;
+        newPlayerPos = playerPos;
+        this.levelToLoad = levelToLoad;
+        this.levelToUnload = levelToUnload;
+
+        StartCoroutine(LoadSceneRoutine());
+    }
+
     IEnumerator LoadSceneRoutine()
     {
         anim.Play("Fade_Out");
@@ -156,9 +169,15 @@ public class GameManager : MonoBehaviour
     {
         if (obj.isDone)
         {
+            SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
+
+            if (!isRespawning)
+            {
+                player.transform.position = newPlayerPos;
+            }
+
             loading = false;
             isLoading = false;
-            SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
 
             player.GetComponent<Player>().enabled = true;
 
@@ -172,7 +191,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(FadeIn());
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(levelToLoad));
             astarPath = FindObjectOfType<AstarPath>();
-            astarPath.Scan();
+            //astarPath.Scan();
         }
     }
 

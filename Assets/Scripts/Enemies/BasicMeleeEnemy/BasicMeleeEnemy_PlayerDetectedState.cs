@@ -36,7 +36,7 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
         else if (!isDetectingLedge || isDetectingWall)
         {
             entity.Flip();
-            stateMachine.ChangeState(enemy.lookForPlayerState);
+            stateMachine.ChangeState(enemy.idleState);
         }
         
     }
