@@ -38,6 +38,8 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     TimeStop timeStop;
 
+    CinemachineCameraOffset cameraOffset;
+
     private void Awake()
     {
         attackProcessor = new AttackProcessor();
@@ -49,6 +51,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         gm = GameManager.instance;
         playerInput = GetComponentInParent<Player_Input>();
         timeStop = GetComponentInParent<TimeStop>();
+        cameraOffset = GameManager.instance.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
     }
 
     float currentAngleVelocity;
@@ -91,35 +94,40 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         }
     }
 
-    bool isAiming;
-    bool hasFired = false;
-
+    bool slowDown;
+    public float slowDownTime = 0.6f;
+    public float cameraZoom = 15f;
     Coroutine aimTimer;
-
     public void Aim()
     {
-        if(canFire && !isAiming && Input.GetButtonDown("Aim"))
+        if (slowDown && !timeStop.timeStopIsActive)
+        {
+            Time.timeScale = 0.3f;
+            cameraOffset.m_Offset.z = Mathf.Lerp(cameraOffset.m_Offset.z, cameraZoom, 0.05f);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            if (cameraOffset.m_Offset.z != 0)
+            {
+                cameraOffset.m_Offset.z = Mathf.Lerp(cameraOffset.m_Offset.z, 0, 0.1f);
+            }
+        }
+
+        if (canFire && Input.GetButtonDown("Aim"))
         {
             playerInput.aiming = true;
-
             aimTimer = StartCoroutine(AimTimer());
-
-            Time.timeScale = 0.3f;
             crosshair.enabled = true;
         }
-        else if(isAiming && canFire && Input.GetButtonUp("Aim"))
+        else if(canFire && Input.GetButtonUp("Aim"))
         {
             if (aimTimer != null)
                 StopCoroutine(aimTimer);
 
             Launch();
-            isAiming = false;
+            slowDown = false;
             playerInput.aiming = false;
-        }
-
-        if (!isAiming && !timeStop.timeStopIsActive)
-        {
-            Time.timeScale = 1f;
         }
 
         Time.fixedDeltaTime = fixedDeltaTime * Time.timeScale;
@@ -127,16 +135,10 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     IEnumerator AimTimer()
     {
-        isAiming = true;
-        yield return new WaitForSecondsRealtime(0.5f);
+        slowDown = true;
+        yield return new WaitForSecondsRealtime(slowDownTime);
+        slowDown = false;
 
-        if (canFire)
-        {
-            Launch();
-            Debug.Log("Launch AimTimer");
-        }
-
-        isAiming = false;
         playerInput.aiming = false;
 
         yield return null;
@@ -148,7 +150,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
         if (canFire)
         {
-            hasFired = true;
             canFire = false;
             var Boomerang = Instantiate(boomerangPrefab, firingPoint.position, firingPoint.rotation);
             boomerangReference = Boomerang.GetComponent<Boomerang>();

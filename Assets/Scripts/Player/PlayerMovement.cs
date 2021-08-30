@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem dustParticles;
     public GameObject jumpTrailParent;
 
+    public PlayerAnimations playerAnimations;
 
     private void Start()
     {
@@ -72,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
         MAX_JUMP_ASSIST_TIME = playerSettings.MaxJumpAssistanceTime;
         MAX_JUMP_BUFFER_TIME = playerSettings.MaxJumpBufferFrames;
         maxFallSpeed = playerSettings.MaxFallSpeed;
+
+        playerAnimations = new PlayerAnimations(GetComponent<Animator>(), transform);
     }
 
     private void LateUpdate()
@@ -79,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         if (GameManager.instance.loading)
             return;
 
-        controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
+        //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
     }
 
     private void FixedUpdate()
@@ -88,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         Movement();
+        controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
+        playerAnimations.Animate();
     }
 
     /// <summary>
@@ -101,12 +106,7 @@ public class PlayerMovement : MonoBehaviour
         if (isKnockedback)
         {
             Knockback(dirKnockback, kockbackDistance);
-            HandleWallSliding(velocityXSmoothing);
-
-            //velocity.y += gravity * Time.deltaTime;
-            //velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
-
-            //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(dirKnockback.x, dirKnockback.y));
+            HandleWallSliding();
             return;
         }
 
@@ -115,8 +115,6 @@ public class PlayerMovement : MonoBehaviour
             velocity.x = 0;
             velocity.y += gravity * Time.deltaTime;
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
-
-            //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
             return;
         }
 
@@ -124,21 +122,18 @@ public class PlayerMovement : MonoBehaviour
         if (boomerangDash.doBoost)
         {
             BoomerandBoost();
-            HandleWallSliding(velocityXSmoothing);
-            //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
+            HandleWallSliding();
             return;
         }
 
         SetPlayerOrientation(playerInput.directionalInput);
-        CalculateVelocity(velocityXSmoothing);
+        CalculateVelocity();
+
         HandleDash();
-
-        HandleWallSliding(velocityXSmoothing);
-
-        //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
-
+        HandleWallSliding();
         HandleMaxSlope();
         HandleJumpInput();
+
     }
 
     public float kockbackDistance;
@@ -155,7 +150,6 @@ public class PlayerMovement : MonoBehaviour
         velocity = Vector3.zero;
         velocity.x += dir.x * kockbackDistance * 1.5f;
         velocity.y += dir.y * kockbackDistance;
-        //controller.Move(velocity * Time.deltaTime, new Vector2(-1, playerInput.directionalInput.y));
     }
 
     public float boostForceX = 5f;
@@ -167,22 +161,6 @@ public class PlayerMovement : MonoBehaviour
         velocity = Vector3.zero;
         velocity.x += boomerangDash.boostDir.x * boostForceX;
         velocity.y += boomerangDash.boostDir.y * boostForceY;
-    }
-
-
-    /// <summary>
-    /// Method for handling jump logic
-    /// </summary>
-    void HandleJump()
-    {
-        if (playerInput.jumping)
-        {
-            OnJumpInputDown();
-        }
-        else if(!playerInput.jumping && !IsSwinging)
-        {
-            OnJumpInputUp();
-        }
     }
 
     void OnDashInput()
@@ -214,14 +192,21 @@ public class PlayerMovement : MonoBehaviour
     /// Method that calculates the players' velocity based on the players' speed and input 
     /// </summary>
     /// <param name="velocityXSmoothing"></param>
-    public void CalculateVelocity(float velocityXSmoothing)
+    public void CalculateVelocity()
     {
         float targetVelocityX = playerSettings.MoveSpeed * playerInput.directionalInput.x;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collitions.below ? playerSettings.AccelerationTimeGrounded : playerSettings.AccelerationTimeAirborne));
+
+        currentJumpHeight = transform.position.y - initialHeight;
         if (playerDash.isDashing)
         {
             velocity.y = 0;
         }
+        //else if(currentJumpHeight >= playerSettings.MaxJumpHeight)
+        //{
+        //    //Debug.Log("reached apex");
+        //    //velocity.y += (gravity *0.8f) * Time.deltaTime;
+        //}
         else
         {
             velocity.y += gravity * Time.deltaTime;
@@ -252,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
     /// Method that handles wall sliding logic
     /// </summary>
     /// <param name="velocityXSmoothing"></param>    
-    void HandleWallSliding(float velocityXSmoothing)
+    void HandleWallSliding()
     {
         if (!GameManager.instance.hasWallJump)
             return;
@@ -288,14 +273,40 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    float currentJumpHeight;
+    float initialHeight;
     /// <summary>
     /// Method that handles jump logic and amount when the jump button is pressed down
     /// </summary>
     public void OnJumpInputDown()
     {
         jumpBufferCounter = 0;
+        initialHeight = transform.position.y;
     }
 
+    /// <summary>
+    /// Method that handles jump logic when the player lets go of the jump button, allows the player to control the jump amount 
+    /// </summary>
+    public void OnJumpInputUp()
+    {
+        if (velocity.y > minJumpVelocity)
+        {
+            velocity.y = minJumpVelocity;
+        }
+    }
+
+    /// <summary>
+    /// Method for handling jump logic
+    /// </summary>
+    void HandleJump()
+    {
+        if(!playerInput.jumping)
+        {
+            OnJumpInputUp();
+        }
+    }
+
+    float targetVelocityY;
     void HandleJumpInput()
     {
         if(velocity.y <= 0)
@@ -359,17 +370,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    /// <summary>
-    /// Method that handles jump logic when the player lets go of the jump button, allows the player to control the jump amount 
-    /// </summary>
-    public void OnJumpInputUp()
-    {
-        //Debug.Log("OnJumpInputUp");
-        if (velocity.y > minJumpVelocity)
-        {
-            velocity.y = 0;
-        }
-    }
+
 
     public void OnAttackStart()
     {
@@ -380,6 +381,7 @@ public class PlayerMovement : MonoBehaviour
     {
         IsAttacking = false;
     }
+
     /// <summary>
     /// Method for setting the players' orientation based on input
     /// </summary>

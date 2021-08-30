@@ -77,6 +77,10 @@ public class Player : MonoBehaviour, IBaseStats{
     TimeStop timeStop;
     ColouredFlash flashEffect;
 
+    [Header("Debug Settings")]
+    public bool playerDebugMode;
+    public TrailRenderer playerPath;
+
     void Awake()
     {
         GameManager.instance.player = gameObject;
@@ -103,6 +107,12 @@ public class Player : MonoBehaviour, IBaseStats{
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
         flashEffect = GetComponent<ColouredFlash>();
+
+        if (playerDebugMode)
+        {
+            playerPath.emitting = true;
+        }
+            
     }
 
     private void Update()
@@ -112,7 +122,7 @@ public class Player : MonoBehaviour, IBaseStats{
 
         OnDamage();
         //Aggro();
-        playerAnimations.Animate();
+        //playerAnimations.Animate();
         Look();
     }
 
@@ -344,5 +354,29 @@ public class Player : MonoBehaviour, IBaseStats{
         playerMovement.isKnockedback = true;
         yield return new WaitForSecondsRealtime(knockbackOnHitTimer);
         playerMovement.isKnockedback = false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Collider2D collider = GetComponent<Collider2D>();
+        Vector3 colliderCenter = collider.bounds.center;
+        Vector3 colliderExtents = collider.bounds.extents;
+
+        Vector3 startPos = new Vector3(colliderCenter.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawWireSphere(startPos, playerSettings.MaxJumpHeight);
+
+        Gizmos.color = Color.red;
+        startPos = new Vector3(colliderCenter.x, colliderCenter.y + colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawLine(startPos, new Vector3(startPos.x, startPos.y + playerSettings.MaxJumpHeight, startPos.z));
+
+        Gizmos.color = Color.yellow;
+
+        startPos = new Vector3(colliderCenter.x + colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawLine(startPos, new Vector3(startPos.x + playerSettings.MoveSpeed, startPos.y, startPos.z));
+
+        startPos = new Vector3(colliderCenter.x - colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawLine(startPos, new Vector3(startPos.x - playerSettings.MoveSpeed, startPos.y, startPos.z));
+
     }
 }

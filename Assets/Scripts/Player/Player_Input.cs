@@ -65,11 +65,13 @@ public class Player_Input : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            jumping = true;
             OnJumpDown();
         }
 
         if(Input.GetButtonUp("Jump"))
         {
+            jumping = false;
             OnJumpUp();
         }
 
