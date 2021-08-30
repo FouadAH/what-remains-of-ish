@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
+
+using UnityEngine.Rendering.Universal;
 
 public class BoomerangLauncher : MonoBehaviour, ILauncher
 {
@@ -39,6 +42,8 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     TimeStop timeStop;
 
     CinemachineCameraOffset cameraOffset;
+    private Volume volume;
+    private ChromaticAberration chromaticAberration;
 
     private void Awake()
     {
@@ -52,6 +57,9 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         playerInput = GetComponentInParent<Player_Input>();
         timeStop = GetComponentInParent<TimeStop>();
         cameraOffset = GameManager.instance.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
+
+        volume = FindObjectOfType<Volume>();
+        volume.profile.TryGet(out chromaticAberration);
     }
 
     float currentAngleVelocity;
@@ -95,6 +103,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     }
 
     bool slowDown;
+    bool isAiming;
     public float slowDownTime = 0.6f;
     public float cameraZoom = 15f;
     Coroutine aimTimer;
@@ -104,6 +113,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         {
             Time.timeScale = 0.3f;
             cameraOffset.m_Offset.z = Mathf.Lerp(cameraOffset.m_Offset.z, cameraZoom, 0.05f);
+            chromaticAberration.intensity.value = Mathf.Lerp(chromaticAberration.intensity.value, 0.6f, 0.05f);
         }
         else
         {
@@ -111,6 +121,10 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             if (cameraOffset.m_Offset.z != 0)
             {
                 cameraOffset.m_Offset.z = Mathf.Lerp(cameraOffset.m_Offset.z, 0, 0.1f);
+            }
+            if(chromaticAberration.intensity.value != 0)
+            {
+                chromaticAberration.intensity.value = Mathf.Lerp(chromaticAberration.intensity.value, 0, 0.1f);
             }
         }
 
@@ -120,7 +134,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             aimTimer = StartCoroutine(AimTimer());
             crosshair.enabled = true;
         }
-        else if(canFire && Input.GetButtonUp("Aim"))
+        else if(isAiming && canFire && Input.GetButtonUp("Aim"))
         {
             if (aimTimer != null)
                 StopCoroutine(aimTimer);
@@ -136,6 +150,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     IEnumerator AimTimer()
     {
         slowDown = true;
+        isAiming = true;
         yield return new WaitForSecondsRealtime(slowDownTime);
         slowDown = false;
 
@@ -147,6 +162,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public void Launch()
     {
         crosshair.enabled = false;
+        isAiming = false;
 
         if (canFire)
         {

@@ -32,13 +32,6 @@ public class PlayerMovementSettings : ScriptableObject
     [SerializeField] private float moveSpeed = 6;
     [SerializeField] private float dashFactor = 10;
 
-    [SerializeField] private int minDamage;
-    [SerializeField] private int maxDamage;
-
-    [SerializeField] private float attackCooldown;
-    [SerializeField] private Vector2 swordKnockback;
-    [SerializeField] private Vector2 damageKnockback;
-
     [SerializeField] private float iFrameTime = 1f;
  
     [SerializeField] private float maxHealth;

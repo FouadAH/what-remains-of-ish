@@ -8,7 +8,6 @@ public class AbilityPickup : MonoBehaviour
     public bool isTeleportPickup = false;
     public bool isWallJumpPickup = false;
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();
