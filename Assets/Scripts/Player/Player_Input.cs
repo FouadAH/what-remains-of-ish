@@ -8,8 +8,6 @@ public class Player_Input : MonoBehaviour
 {
     public Vector2 directionalInput;
     public Vector2 rightStickInput;
-
-
     public bool jumping { get; set; }
     public bool attacking { get; set; }
     public bool aiming { get; set; }
@@ -82,13 +80,11 @@ public class Player_Input : MonoBehaviour
 
         if (Input.GetButtonDown("Interact"))
         {
-            Debug.Log("Teleport input");
             OnBoomerangDash();
         }
 
         if (Input.GetButtonDown("Heal"))
         {
-            Debug.Log("Heal Input");
             if (GameManager.instance.healingPodAmount > 0)
             {
                 OnHeal(GameManager.instance.healingAmount);

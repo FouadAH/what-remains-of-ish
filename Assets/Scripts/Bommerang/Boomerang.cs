@@ -12,6 +12,7 @@ public class Boomerang : MonoBehaviour
     private bool back;
     private bool instantCallback;
     public Transform wallDetection;
+    public float wallDetectionDistance = 1.4f;
     
 
     BoomerangLauncher boomerangLauncher;
@@ -41,7 +42,7 @@ public class Boomerang : MonoBehaviour
     }
 
     private Vector2 velocityXSmoothing;
-    public float accelerationTimeGrounded = 0.05f;
+    public float accelerationTime = 0.05f;
 
     Vector2 targetVelocity;
     bool isReflecting = false;
@@ -50,7 +51,7 @@ public class Boomerang : MonoBehaviour
         if(!isReflecting)
             targetVelocity = transform.up * boomerangLauncher.MoveSpeed;
 
-        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocityXSmoothing, accelerationTimeGrounded);
+        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocityXSmoothing, accelerationTime);
     }
 
     public float boomerangAirTime = 2f;
@@ -141,7 +142,7 @@ public class Boomerang : MonoBehaviour
 
     void BounceOffWall()
     {
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)wallDetection.position + new Vector2(0.3f, 0.3f), transform.up, 1f, obstacles); 
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)wallDetection.position + new Vector2(0.3f, 0.3f), transform.up, wallDetectionDistance, obstacles); 
 
         if(hit.collider != null && !back)
         {
@@ -216,6 +217,6 @@ public class Boomerang : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.up);
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down);
-        Gizmos.DrawLine(wallDetection.position, transform.position + transform.up * 1f);
+        Gizmos.DrawLine(wallDetection.position, transform.position + transform.up * wallDetectionDistance);
     }
 }

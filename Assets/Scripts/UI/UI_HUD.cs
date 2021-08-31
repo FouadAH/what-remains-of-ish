@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class UI_HUD : MonoBehaviour
 {
     public TMPro.TMP_Text currencyText;
@@ -15,6 +16,12 @@ public class UI_HUD : MonoBehaviour
     public Transform healingPodsBar;
 
     public List<HealingPod> healingFlasks = new List<HealingPod>();
+
+    [Header("Dubug UI elements")]
+    public TMP_Text velocityXDebug;
+    public TMP_Text velocityYDebug;
+
+    public TMP_Text pickupDebugText;
 
     void Awake()
     {
@@ -113,5 +120,19 @@ public class UI_HUD : MonoBehaviour
         }
 
         RefrechHealingPods();
+    }
+
+    public void SetPickupText(string text)
+    {
+        pickupDebugText.SetText(text);
+
+        StopCoroutine(ResetPickupText());
+        StartCoroutine(ResetPickupText());
+    }
+
+    IEnumerator ResetPickupText()
+    {
+        yield return new WaitForSecondsRealtime(5f);
+        pickupDebugText.SetText("");
     }
 }

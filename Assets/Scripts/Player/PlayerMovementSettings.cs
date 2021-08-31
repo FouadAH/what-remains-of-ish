@@ -9,7 +9,6 @@ using UnityEngine;
 public class PlayerMovementSettings : ScriptableObject
 {
     [SerializeField] private Vector2 wallJumpclimb;
-    [SerializeField] private Vector2 wallJumpOff;
     [SerializeField] private Vector2 wallLeap;
 
     [SerializeField] private float wallSlideSpeedMax = 3;
@@ -23,6 +22,8 @@ public class PlayerMovementSettings : ScriptableObject
     [SerializeField] private float maxJumpHeight = 5f;
     [SerializeField] private float minJumpHeight = .5f;
     [SerializeField] private float timeToJumpApex = .4f;
+    [SerializeField] private float jumpForceX = 25f;
+
 
     [SerializeField] private float maxJumpAssistanceTime = .1f;
     [SerializeField] private int maxJumpBufferFrames = 10;
@@ -33,8 +34,6 @@ public class PlayerMovementSettings : ScriptableObject
     [SerializeField] private float dashFactor = 10;
 
     [SerializeField] private float iFrameTime = 1f;
- 
-    [SerializeField] private float maxHealth;
 
     [SerializeField] private float aggroRange;
 
@@ -45,6 +44,7 @@ public class PlayerMovementSettings : ScriptableObject
     public float TimeToJumpApex { get => timeToJumpApex; }
     public float MinJumpHeight { get => minJumpHeight; }
     public float MaxJumpHeight { get => maxJumpHeight; }
+    public float JumpBoostX { get => jumpForceX; }
     public float MoveSpeed { get => moveSpeed; }
     public float AccelerationTimeAirborne { get => accelerationTimeAirborne; }
     public float AccelerationTimeGrounded { get => accelerationTimeGrounded; }
@@ -52,7 +52,6 @@ public class PlayerMovementSettings : ScriptableObject
     public float WallStickTime { get => wallStickTime; }
     public float TimeToWallUnstick { get => timeToWallUnstick; set => timeToWallUnstick = value; }
     public Vector2 WallJumpclimb { get => wallJumpclimb; }
-    public Vector2 WallJumpOff { get => wallJumpOff; }
     public Vector2 WallLeap { get => wallLeap; }
     public float DashFactor { get => dashFactor; }
     public float DashCooldown { get => dashCooldown; }

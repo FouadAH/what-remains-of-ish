@@ -16,14 +16,17 @@ public class AbilityPickup : MonoBehaviour
             if (isDashPickup)
             {
                 GameManager.instance.hasDashAbility = true;
+                UI_HUD.instance.SetPickupText("Picked Up Dash Ability");
             }
             else if (isTeleportPickup)
             {
                 GameManager.instance.hasTeleportAbility = true;
+                UI_HUD.instance.SetPickupText("Picked Up Teleport Ability");
             }
             else if (isWallJumpPickup)
             {
                 GameManager.instance.hasWallJump = true;
+                UI_HUD.instance.SetPickupText("Picked Up Wall Jump Ability");
             }
 
             Destroy(gameObject);

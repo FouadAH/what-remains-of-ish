@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     public int healingAmount = 2;
     public HealingPod[] healingFlasks;
 
+    int healthShardsNeeded = 3;
+    public int healthShardAmount = 0;
+
     public int currency;
     public Camera playerCamera;
 
@@ -81,6 +84,16 @@ public class GameManager : MonoBehaviour
     //    }
     //}
 
+    public int AddHealthShard()
+    {
+        healthShardAmount++;
+        int remainder = (healthShardAmount % healthShardsNeeded);
+        if (remainder == 0)
+        {
+            maxHealth++;
+        }
+        return remainder;
+    }
     public void Respawn()
     {
         Debug.Log("Hard Respawn");

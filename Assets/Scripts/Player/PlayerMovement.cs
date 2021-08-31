@@ -49,6 +49,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject jumpTrailParent;
 
     public PlayerAnimations playerAnimations;
+    Transform spriteObj;
+
+    TMPro.TMP_Text velocityXDebug;
+    TMPro.TMP_Text velocityYDebug;
 
     private void Start()
     {
@@ -57,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         controller = transformToMove.GetComponent<Controller_2D>();
         playerDash = transformToMove.GetComponent<PlayerDash>();
         boomerangDash = transformToMove.GetComponent<BoomerangDash>();
-
+        spriteObj = GetComponentInChildren<SpriteRenderer>().transform;
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
 
         playerInput.OnJumpDown += OnJumpInputDown;
@@ -75,6 +79,10 @@ public class PlayerMovement : MonoBehaviour
         maxFallSpeed = playerSettings.MaxFallSpeed;
 
         playerAnimations = new PlayerAnimations(GetComponent<Animator>(), transform);
+
+        velocityXDebug = UI_HUD.instance.velocityXDebug;
+        velocityYDebug = UI_HUD.instance.velocityYDebug;
+
     }
 
     private void LateUpdate()
@@ -85,14 +93,52 @@ public class PlayerMovement : MonoBehaviour
         //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
     }
 
+    float spriteScaleXSmoothing;
+    float spriteScaleYSmoothing;
+    float spritePosXSmoothing;
+    float spritePosYSmoothing;
+
     private void FixedUpdate()
     {
         if (GameManager.instance.loading)
             return;
 
+        SpriteUpdate();
+        controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, -1));
+        HandleMaxSlope();
+
+        velocityXDebug.SetText("Velocity X: " + velocity.x);
+        velocityYDebug.SetText("Velocity Y: " + velocity.y);
+
+        if (controller.collitions.below && !landed)
+        {
+            landed = true;
+            //spriteObj.localScale = new Vector2(1.4f, .9f);
+            //spriteObj.transform.position = new Vector2(1f, -0.32f);
+            Debug.Log("Landed");
+        }
+        else if (!controller.collitions.below)
+        {
+            landed = false;
+        }
+
         Movement();
-        controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
+
         playerAnimations.Animate();
+    }
+
+    void SpriteUpdate()
+    {
+        float spriteScaleX = Mathf.SmoothDamp(spriteObj.localScale.x, Mathf.Sign(spriteObj.localScale.x), ref spriteScaleXSmoothing, 0.2f);
+        float spriteScaleY = Mathf.SmoothDamp(spriteObj.localScale.y, 1, ref spriteScaleYSmoothing, 0.2f);
+
+        //float spritePosX = Mathf.SmoothDamp(spriteObj.transform.position.x, 0, ref spritePosXSmoothing, 0.2f);
+        //float spritePosY = Mathf.SmoothDamp(spriteObj.transform.position.y, 0, ref spritePosYSmoothing, 0.2f);
+
+        spriteObj.localScale = new Vector2(spriteScaleX, spriteScaleY);
+        //spriteObj.transform.position = new Vector2(spritePosX, spritePosY);
+
+
     }
 
     /// <summary>
@@ -130,10 +176,8 @@ public class PlayerMovement : MonoBehaviour
         CalculateVelocity();
 
         HandleDash();
-        HandleWallSliding();
-        HandleMaxSlope();
         HandleJumpInput();
-
+        HandleWallSliding();
     }
 
     public float kockbackDistance;
@@ -154,6 +198,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float boostForceX = 5f;
     public float boostForceY = 5f;
+
+    public float jumpForceX = 25f;
 
 
     public void BoomerandBoost()
@@ -187,7 +233,19 @@ public class PlayerMovement : MonoBehaviour
             boomerangDash.OnTeleportInput(transformToMove, ref velocity, boomerang);
     }
 
-   
+    public float runAccel = 1f;
+    public float runDeccelTime = 0.1f;
+
+    public float accelReducedGrounded = 0.3f;
+    public float accelReducedAirborne = 0.1f;
+
+    public float stopFriction = 0.05f;
+
+    public float speedThreshold = 8f;
+    public float halfGravThreshold;
+
+    public float maxSpeed = 30f;
+
     /// <summary>
     /// Method that calculates the players' velocity based on the players' speed and input 
     /// </summary>
@@ -195,31 +253,61 @@ public class PlayerMovement : MonoBehaviour
     public void CalculateVelocity()
     {
         float targetVelocityX = playerSettings.MoveSpeed * playerInput.directionalInput.x;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collitions.below ? playerSettings.AccelerationTimeGrounded : playerSettings.AccelerationTimeAirborne));
+        float smoothTime = (controller.collitions.below ? playerSettings.AccelerationTimeGrounded : playerSettings.AccelerationTimeAirborne);
+        float smoothTimeReduced = (controller.collitions.below ? accelReducedGrounded : accelReducedAirborne);
+
+        //Debug.Log("Velocity X: " + velocity.x);
+        if (controller.collitions.below)
+        {
+            if (playerInput.directionalInput.x == 0)
+            {
+                velocity.x = Mathf.SmoothDamp(velocity.x, 0, ref velocityXSmoothing, runDeccelTime);
+            }
+            else if (Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x * -1)
+            {
+                velocity.x = Mathf.SmoothDamp(velocity.x, 0, ref velocityXSmoothing, stopFriction);
+            }
+            else
+            {
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
+            }
+        }
+        else
+        {
+            if (Mathf.Abs(velocity.x) > Mathf.Abs(targetVelocityX) && Mathf.Sign(velocity.x) == playerInput.directionalInput.x && !playerDash.isDashing)
+            {
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTimeReduced);
+            }
+            else
+            {
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
+            }
+        }
 
         currentJumpHeight = transform.position.y - initialHeight;
+        float mult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? .8f : 1f;
+
         if (playerDash.isDashing)
         {
             velocity.y = 0;
         }
-        //else if(currentJumpHeight >= playerSettings.MaxJumpHeight)
-        //{
-        //    //Debug.Log("reached apex");
-        //    //velocity.y += (gravity *0.8f) * Time.deltaTime;
-        //}
         else
         {
-            velocity.y += gravity * Time.deltaTime;
+            velocity.y += gravity * mult * Time.deltaTime;
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
         }
 
+      
+
     }
 
+    bool landed = false;
     /// <summary>
     /// Method for handling player movement on a slope, the player slides down if he is standing on a max slope  
     /// </summary>
     void HandleMaxSlope()
     {
+        //Debug.Log(controller.collitions.below);
         if (controller.collitions.above || controller.collitions.below)
         {
             if (controller.collitions.slidingDownMaxSlope)
@@ -231,6 +319,7 @@ public class PlayerMovement : MonoBehaviour
                 velocity.y = 0;
             }
         }
+
     }
 
     /// <summary>
@@ -275,12 +364,14 @@ public class PlayerMovement : MonoBehaviour
 
     float currentJumpHeight;
     float initialHeight;
+    bool jumpCheck = false;
     /// <summary>
     /// Method that handles jump logic and amount when the jump button is pressed down
     /// </summary>
     public void OnJumpInputDown()
     {
         jumpBufferCounter = 0;
+        jumpCheck = true;
         initialHeight = transform.position.y;
     }
 
@@ -307,6 +398,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     float targetVelocityY;
+
     void HandleJumpInput()
     {
         if(velocity.y <= 0)
@@ -366,6 +458,12 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     velocity.y = maxJumpVelocity;
+
+                    if ((!controller.collitions.left || !controller.collitions.right))
+                    {
+                        velocity.x += jumpForceX * playerInput.directionalInput.x;
+                    }
+                    spriteObj.localScale = new Vector2(.7f, 1.3f);
                 }
             }
         }
@@ -393,12 +491,12 @@ public class PlayerMovement : MonoBehaviour
             playerInput.directionalInput = input;
             if (playerInput.directionalInput.x < 0)
             {
-                transformToMove.localScale = new Vector3(-1, 1, -1);
+                transformToMove.localScale = new Vector3(Mathf.Abs(transformToMove.localScale.x)*-1, transformToMove.localScale.y, -1);
                 playerDash.AfterImage.transform.localScale = new Vector3(-4, 4, 0);
             }
             else if (playerInput.directionalInput.x > 0)
             {
-                transformToMove.localScale = new Vector3(1, 1, -1);
+                transformToMove.localScale = new Vector3(Mathf.Abs(transformToMove.localScale.x), transformToMove.localScale.y, -1);
                 playerDash.AfterImage.transform.localScale = new Vector3(4, 4, 0);
             }
         }

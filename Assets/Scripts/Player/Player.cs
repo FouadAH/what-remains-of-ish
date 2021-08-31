@@ -40,8 +40,6 @@ public class Player : MonoBehaviour, IBaseStats{
     [SerializeField] private int maxMeleeDamage;
     [SerializeField] private float meleeAttackMod;
 
-    [SerializeField] private float rangedAttackMod;
-    [SerializeField] private int baseRangeDamage;
 
     [SerializeField] private int hitKnockbackAmount;
     [SerializeField] private int damageKnockbackAmount;
@@ -52,9 +50,6 @@ public class Player : MonoBehaviour, IBaseStats{
     public int MeleeDamage { get => minMeleeDamage; set => minMeleeDamage = value; }
     public int MaxMeleeDamage { get => maxMeleeDamage; set => maxMeleeDamage = value; }
     public float MeleeAttackMod { get => meleeAttackMod; set => meleeAttackMod = value; }
-
-    public float RangedAttackMod { get => rangedAttackMod; set => rangedAttackMod = value; }
-    public int BaseRangeDamage { get => baseRangeDamage; set => baseRangeDamage = value; }
 
     public int MaxHealth { get; set; }
     public float Health { get; set; }
@@ -106,7 +101,7 @@ public class Player : MonoBehaviour, IBaseStats{
         playerMovement =  GetComponent<PlayerMovement>();
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
-        flashEffect = GetComponent<ColouredFlash>();
+        flashEffect = GetComponentInChildren<ColouredFlash>();
 
         if (playerDebugMode)
         {
