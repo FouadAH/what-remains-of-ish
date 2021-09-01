@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour
 
     Resolution[] resolutions;
     private int currentScene;
+    public AudioSource titleScreenTheme;
 
     public void Start()
     {
@@ -54,6 +55,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        GameManager.instance.GetComponent<Animator>().Play("Fade_Out");
+        titleScreenTheme.mute = true;
         StartCoroutine(NewGame());
     }
 

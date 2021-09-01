@@ -6,16 +6,16 @@ public class DialogTrigger : MonoBehaviour
 {
     public Dialog dialog;
     [SerializeField] private Animator prompt;
-    public DialogManager gm;
+    public DialogManager dialogueManager;
 
-    private void Awake()
+    private void Start()
     {
-        gm = FindObjectOfType<DialogManager>();
+        dialogueManager = DialogManager.instance;
     }
     
     public void TriggerDialogue()
     {
-        gm.StartDialogue(dialog);
+        dialogueManager.StartDialogue(dialog);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,7 +30,11 @@ public class DialogTrigger : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact"))
         {
-            gm.StartDialogue(dialog);
+            if (!dialogueManager.dialogueIsActive)
+            {
+                prompt.SetTrigger("PopOut");
+                dialogueManager.StartDialogue(dialog);
+            }
         }
     }
 

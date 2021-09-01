@@ -18,7 +18,7 @@ public class Artifact : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact"))
         {
-            UI_HUD.instance.SetPickupText("Picked up an artifact!");
+            UI_HUD.instance.SetDebugText("Picked up an artifact!");
             Destroy(gameObject);
         }
     }

@@ -9,7 +9,6 @@ using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool gameIsPaused = false;
     public GameObject pauseMenu;
     public GameObject optionMenu;
     public GameObject videoOptions;
@@ -51,7 +50,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause"))
         {
-            if (gameIsPaused)
+            if (GameManager.instance.isPaused)
             {
                 Resume();
             }
@@ -71,10 +70,9 @@ public class PauseMenu : MonoBehaviour
         optionMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
         GameManager.instance.player.GetComponent<Player_Input>().enabled = true;
-        GameManager.instance.player.GetComponent<PlayerMovement>().isPaused = false;
+        GameManager.instance.isPaused = false;
 
         Time.timeScale = 1f;
-        gameIsPaused = false;
     }
     public void Options()
     {
@@ -152,11 +150,10 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         GameManager.instance.player.GetComponent<Player_Input>().enabled = false;
-        GameManager.instance.player.GetComponent<PlayerMovement>().isPaused = true;
+        GameManager.instance.isPaused = true;
         pauseMenu.SetActive(true);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
         Time.timeScale = 0f;
-        gameIsPaused = true;
     }
 
     public void SetMasterVolume(float volume)

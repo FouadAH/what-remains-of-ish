@@ -45,6 +45,16 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     private Volume volume;
     private ChromaticAberration chromaticAberration;
 
+    bool slowDown;
+    bool isAiming;
+    public float slowDownTime = 0.6f;
+    public float cameraZoom = 15f;
+    Coroutine aimTimer;
+
+    float currentAngleVelocity;
+    float digitalAngle = 0;
+    float inputDeadZone = 0.19f;
+
     private void Awake()
     {
         attackProcessor = new AttackProcessor();
@@ -62,35 +72,31 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         volume.profile.TryGet(out chromaticAberration);
     }
 
-    float currentAngleVelocity;
-    float digitalAngle = 0;
-    float inputDeadZone = 0.19f;
     private void Update()
     {
-        Aim();
+        if (GameManager.instance.isPaused)
+            return;
 
+        FiringLogic();
+        BoomerangAimingEffects();
+        AimingLogic();
+    }
+
+    void AimingLogic()
+    {
         if (playerInput.controllerConnected)
         {
             Vector2 leftStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            if (leftStickInput.x == 0 && leftStickInput.y == 0)
+            if (leftStickInput.magnitude < inputDeadZone)
             {
-                //transform.rotation = Quaternion.Euler(0, 0, -90 * gm.player.transform.localScale.x);
+                leftStickInput = Vector2.zero;
             }
             else
             {
-
-                if(leftStickInput.magnitude < inputDeadZone)
-                {
-                    leftStickInput = Vector2.zero;
-                }
-                else
-                {
-                    leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
-                    float analogAngle = Mathf.Atan2(leftStickInput.x * -1, leftStickInput.y) * Mathf.Rad2Deg;
-                    digitalAngle = Mathf.SmoothDampAngle(digitalAngle, analogAngle, ref currentAngleVelocity, aimSnapTime);
-                    transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
-                }
-
+                leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
+                float analogAngle = Mathf.Atan2(leftStickInput.x * -1, leftStickInput.y) * Mathf.Rad2Deg;
+                digitalAngle = Mathf.SmoothDampAngle(digitalAngle, analogAngle, ref currentAngleVelocity, aimSnapTime);
+                transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
             }
         }
         else
@@ -101,13 +107,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         }
     }
-
-    bool slowDown;
-    bool isAiming;
-    public float slowDownTime = 0.6f;
-    public float cameraZoom = 15f;
-    Coroutine aimTimer;
-    public void Aim()
+    void BoomerangAimingEffects()
     {
         if (slowDown && !timeStop.timeStopIsActive)
         {
@@ -122,19 +122,23 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             {
                 cameraOffset.m_Offset.z = Mathf.Lerp(cameraOffset.m_Offset.z, 0, 0.1f);
             }
-            if(chromaticAberration.intensity.value != 0)
+            if (chromaticAberration.intensity.value != 0)
             {
                 chromaticAberration.intensity.value = Mathf.Lerp(chromaticAberration.intensity.value, 0, 0.1f);
             }
         }
 
+        Time.fixedDeltaTime = fixedDeltaTime * Time.timeScale;
+    }
+    void FiringLogic()
+    {
         if (canFire && Input.GetButtonDown("Aim"))
         {
             playerInput.aiming = true;
             aimTimer = StartCoroutine(AimTimer());
             crosshair.enabled = true;
         }
-        else if(isAiming && canFire && Input.GetButtonUp("Aim"))
+        else if (isAiming && canFire && Input.GetButtonUp("Aim"))
         {
             if (aimTimer != null)
                 StopCoroutine(aimTimer);
@@ -143,8 +147,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             slowDown = false;
             playerInput.aiming = false;
         }
-
-        Time.fixedDeltaTime = fixedDeltaTime * Time.timeScale;
     }
 
     IEnumerator AimTimer()
@@ -177,8 +179,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     {
         if (IsInLayerMask(collider.gameObject.layer, damagable) && collider.GetComponent<IDamagable>() != null)
         {
-            //attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>());
-
             Vector2 direction = (pos - (Vector2)collider.transform.position).normalized;
             attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>(), Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
         }

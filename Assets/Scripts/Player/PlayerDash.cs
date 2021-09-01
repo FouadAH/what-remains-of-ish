@@ -15,7 +15,6 @@ public class PlayerDash : MonoBehaviour
     public ParticleSystem AfterImage { get => afterImage; set => afterImage = value; }
     public ParticleSystem dashRechargeEffect;
 
-
     void Start()
     {
         afterImage.Pause();
@@ -43,11 +42,11 @@ public class PlayerDash : MonoBehaviour
 
             if (playerInput.directionalInput.x == 0)
             {
-                velocity.x = transform.localScale.x * playerSettings.MoveSpeed * playerSettings.DashFactor;
+                velocity.x = transform.localScale.x * playerSettings.MoveSpeed * playerSettings.DashSpeedModifier;
             }
             else
             {
-                velocity.x = ((Mathf.Sign(playerInput.directionalInput.x) == -1) ? -1 : 1) * playerSettings.MoveSpeed * playerSettings.DashFactor;
+                velocity.x = ((Mathf.Sign(playerInput.directionalInput.x) == -1) ? -1 : 1) * playerSettings.MoveSpeed * playerSettings.DashSpeedModifier;
             }
         }
         canDash = false;

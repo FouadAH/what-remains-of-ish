@@ -24,35 +24,67 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 velocity;
     private float velocityXSmoothing;
     private float velocityYSmoothing;
-    public bool isDead;
 
     public bool WallSliding { get; private set; }
     public Vector2 Velocity { get => velocity; set => velocity = value; }
-
     public bool IsAttacking { get; set; }
-    public bool IsSwinging { get; set; }
-    public Vector2 RopeHook { get; set; }
 
-    float MAX_JUMP_ASSIST_TIME;
+    [Header("Knockback settings")]
+    public float kockbackDistance;
+    public Vector3 dirKnockback;
+    public bool isKnockedback;
+
+    [Header("Teleport settings")]
+    public float boostForceX = 5f;
+    public float boostForceY = 5f;
+
+    [Header("Jump settings")]
+    public float jumpForceX = 25f;
+
     bool canJump;
+    float MAX_JUMP_ASSIST_TIME;
     float cayoteTimer = 0f;
-
     int MAX_JUMP_BUFFER_TIME;
     int jumpBufferCounter = 10;
 
-    float maxFallSpeed = -30;
+    [Header("Run settings")]
+    public float runAccel = 1f;
+    public float runDeccelTime = 0.1f;
 
-    public bool isPaused = false;
+    public float accelReducedGrounded = 0.3f;
+    public float accelReducedAirborne = 0.1f;
+
+    public float stopFriction = 0.05f;
+
+    public float speedThreshold = 8f;
+    public float halfGravThreshold;
+
+    public float maxSpeed = 30f;
+
+    float maxFallSpeed = -30;
 
     [Header("Effects")]
     public ParticleSystem dustParticles;
     public GameObject jumpTrailParent;
 
-    public PlayerAnimations playerAnimations;
+    PlayerAnimations playerAnimations;
+
     Transform spriteObj;
 
     TMPro.TMP_Text velocityXDebug;
     TMPro.TMP_Text velocityYDebug;
+
+    float spriteScaleXSmoothing;
+    float spriteScaleYSmoothing;
+    float spritePosXSmoothing;
+    float spritePosYSmoothing;
+
+    bool landed = false;
+    float currentJumpHeight;
+    float initialHeight;
+
+    public bool isDead;
+    public bool isPaused = false;
 
     private void Start()
     {
@@ -85,19 +117,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void LateUpdate()
-    {
-        if (GameManager.instance.loading)
-            return;
-
-        //controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, playerInput.directionalInput.y));
-    }
-
-    float spriteScaleXSmoothing;
-    float spriteScaleYSmoothing;
-    float spritePosXSmoothing;
-    float spritePosYSmoothing;
-
     private void FixedUpdate()
     {
         if (GameManager.instance.loading)
@@ -115,7 +134,6 @@ public class PlayerMovement : MonoBehaviour
             landed = true;
             //spriteObj.localScale = new Vector2(1.4f, .9f);
             //spriteObj.transform.position = new Vector2(1f, -0.32f);
-            Debug.Log("Landed");
         }
         else if (!controller.collitions.below)
         {
@@ -137,15 +155,11 @@ public class PlayerMovement : MonoBehaviour
 
         spriteObj.localScale = new Vector2(spriteScaleX, spriteScaleY);
         //spriteObj.transform.position = new Vector2(spritePosX, spritePosY);
-
-
     }
 
     /// <summary>
-    /// Main movement method, responsible for calculating 
-    /// and executing player movement as well as jumping, 
-    /// wall sliding, slope, orientation and dash logic
-    /// gets called on every frame (fixed update)
+    /// Main movement method, responsible for calculating and executing player movement as well as jumping, 
+    /// wall sliding, slope, orientation and dash logic gets called on every frame (fixed update)
     /// </summary>
     public void Movement()
     {
@@ -156,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (isDead || isPaused)
+        if (isDead || GameManager.instance.isPaused)
         {
             velocity.x = 0;
             velocity.y += gravity * Time.deltaTime;
@@ -180,10 +194,6 @@ public class PlayerMovement : MonoBehaviour
         HandleWallSliding();
     }
 
-    public float kockbackDistance;
-    public Vector3 dirKnockback;
-    public bool isKnockedback;
-
     /// <summary>
     /// Method for calculating knockback 
     /// </summary>
@@ -195,12 +205,6 @@ public class PlayerMovement : MonoBehaviour
         velocity.x += dir.x * kockbackDistance * 1.5f;
         velocity.y += dir.y * kockbackDistance;
     }
-
-    public float boostForceX = 5f;
-    public float boostForceY = 5f;
-
-    public float jumpForceX = 25f;
-
 
     public void BoomerandBoost()
     {
@@ -233,19 +237,6 @@ public class PlayerMovement : MonoBehaviour
             boomerangDash.OnTeleportInput(transformToMove, ref velocity, boomerang);
     }
 
-    public float runAccel = 1f;
-    public float runDeccelTime = 0.1f;
-
-    public float accelReducedGrounded = 0.3f;
-    public float accelReducedAirborne = 0.1f;
-
-    public float stopFriction = 0.05f;
-
-    public float speedThreshold = 8f;
-    public float halfGravThreshold;
-
-    public float maxSpeed = 30f;
-
     /// <summary>
     /// Method that calculates the players' velocity based on the players' speed and input 
     /// </summary>
@@ -272,6 +263,10 @@ public class PlayerMovement : MonoBehaviour
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
             }
         }
+        else if (playerDash.isDashing)
+        {
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, 0.2f);
+        }
         else
         {
             if (Mathf.Abs(velocity.x) > Mathf.Abs(targetVelocityX) && Mathf.Sign(velocity.x) == playerInput.directionalInput.x && !playerDash.isDashing)
@@ -296,12 +291,8 @@ public class PlayerMovement : MonoBehaviour
             velocity.y += gravity * mult * Time.deltaTime;
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
         }
-
-      
-
     }
 
-    bool landed = false;
     /// <summary>
     /// Method for handling player movement on a slope, the player slides down if he is standing on a max slope  
     /// </summary>
@@ -362,16 +353,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    float currentJumpHeight;
-    float initialHeight;
-    bool jumpCheck = false;
     /// <summary>
     /// Method that handles jump logic and amount when the jump button is pressed down
     /// </summary>
     public void OnJumpInputDown()
     {
         jumpBufferCounter = 0;
-        jumpCheck = true;
         initialHeight = transform.position.y;
     }
 
@@ -385,19 +372,6 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = minJumpVelocity;
         }
     }
-
-    /// <summary>
-    /// Method for handling jump logic
-    /// </summary>
-    void HandleJump()
-    {
-        if(!playerInput.jumping)
-        {
-            OnJumpInputUp();
-        }
-    }
-
-    float targetVelocityY;
 
     void HandleJumpInput()
     {
@@ -492,34 +466,32 @@ public class PlayerMovement : MonoBehaviour
             if (playerInput.directionalInput.x < 0)
             {
                 transformToMove.localScale = new Vector3(Mathf.Abs(transformToMove.localScale.x)*-1, transformToMove.localScale.y, -1);
-                playerDash.AfterImage.transform.localScale = new Vector3(-4, 4, 0);
             }
             else if (playerInput.directionalInput.x > 0)
             {
                 transformToMove.localScale = new Vector3(Mathf.Abs(transformToMove.localScale.x), transformToMove.localScale.y, -1);
-                playerDash.AfterImage.transform.localScale = new Vector3(4, 4, 0);
             }
         }
     }
 
-    /// <summary>
-    /// Method that pulls the player towards the hook point
-    /// </summary>
-    public void Swing()
-    {
-        var playerToHookDirection = (RopeHook - (Vector2)transformToMove.position).normalized;
-        var pullforce = playerToHookDirection * playerSettings.SwingForce;
-        AddForce(pullforce);
-    }
+    ///// <summary>
+    ///// Method that pulls the player towards the hook point
+    ///// </summary>
+    //public void Swing()
+    //{
+    //    var playerToHookDirection = (RopeHook - (Vector2)transformToMove.position).normalized;
+    //    var pullforce = playerToHookDirection * playerSettings.SwingForce;
+    //    AddForce(pullforce);
+    //}
 
-    /// <summary>
-    /// Helper method for changing the players'velocity based on a force
-    /// </summary>
-    /// <param name="force">Force acting opon player</param>
-    public void AddForce(Vector2 force)
-    {
-        velocity.x = Mathf.SmoothDamp(velocity.x, force.x, ref velocityXSmoothing, playerSettings.AccelerationTimeSwing);
-        velocity.y = Mathf.SmoothDamp(velocity.y, force.y, ref velocityYSmoothing, playerSettings.AccelerationTimeSwing);
-    }
+    ///// <summary>
+    ///// Helper method for changing the players'velocity based on a force
+    ///// </summary>
+    ///// <param name="force">Force acting opon player</param>
+    //public void AddForce(Vector2 force)
+    //{
+    //    velocity.x = Mathf.SmoothDamp(velocity.x, force.x, ref velocityXSmoothing, playerSettings.AccelerationTimeSwing);
+    //    velocity.y = Mathf.SmoothDamp(velocity.y, force.y, ref velocityYSmoothing, playerSettings.AccelerationTimeSwing);
+    //}
 
 }

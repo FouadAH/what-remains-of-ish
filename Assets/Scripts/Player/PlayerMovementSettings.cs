@@ -53,7 +53,7 @@ public class PlayerMovementSettings : ScriptableObject
     public float TimeToWallUnstick { get => timeToWallUnstick; set => timeToWallUnstick = value; }
     public Vector2 WallJumpclimb { get => wallJumpclimb; }
     public Vector2 WallLeap { get => wallLeap; }
-    public float DashFactor { get => dashFactor; }
+    public float DashSpeedModifier { get => dashFactor; }
     public float DashCooldown { get => dashCooldown; }
     public float SwingForce { get => swingForce; }
     public float AccelerationTimeSwing { get => accelerationTimeSwing; }

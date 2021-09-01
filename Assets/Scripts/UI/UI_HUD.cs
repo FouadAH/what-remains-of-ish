@@ -21,6 +21,7 @@ public class UI_HUD : MonoBehaviour
     public TMP_Text velocityXDebug;
     public TMP_Text velocityYDebug;
 
+    public GameObject debugTextPanel;
     public TMP_Text pickupDebugText;
 
     void Awake()
@@ -122,17 +123,18 @@ public class UI_HUD : MonoBehaviour
         RefrechHealingPods();
     }
 
-    public void SetPickupText(string text)
+    public void SetDebugText(string text)
     {
-        pickupDebugText.SetText(text);
-
-        StopCoroutine(ResetPickupText());
-        StartCoroutine(ResetPickupText());
+        StopCoroutine(DebugTextRoutine(text));
+        StartCoroutine(DebugTextRoutine(text));
     }
 
-    IEnumerator ResetPickupText()
+    IEnumerator DebugTextRoutine(string text)
     {
+        debugTextPanel.SetActive(true);
+        pickupDebugText.SetText(text);
         yield return new WaitForSecondsRealtime(5f);
         pickupDebugText.SetText("");
+        debugTextPanel.SetActive(false);
     }
 }

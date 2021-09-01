@@ -8,22 +8,45 @@ public class DialogManager : MonoBehaviour
 {
     public Animator animator;
     public TextMeshProUGUI dialogueText;
-    private int index;
     public float typingSpeed;
+    public bool dialogueIsActive = false;
+
+    int index;
     StringBuilder sb = new StringBuilder("", 50);
-    private Queue<string> sentences;
+    Queue<string> sentences;
+    GameManager gm;
 
-    public GameManager gm;
+    public static DialogManager instance;
 
-    private void Awake()
+    void Awake()
     {
-        gm = FindObjectOfType<GameManager>();
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(this);
     }
 
     void Start()
     {
+        gm = FindObjectOfType<GameManager>();
         sentences = new Queue<string>();
+    }
+
+    private void Update()
+    {
+        if (!dialogueIsActive || GameManager.instance.isPaused)
+            return;
+
+        if(Input.GetButtonDown("Attack"))
+        {
+            DisplayNextSentence();
+        }
     }
 
     public void StartDialogue(Dialog dialogue)
@@ -39,6 +62,7 @@ public class DialogManager : MonoBehaviour
         }
 
         DisplayNextSentence();
+        dialogueIsActive = true;
     }
 
     public void DisplayNextSentence()
@@ -68,6 +92,7 @@ public class DialogManager : MonoBehaviour
 
     void EndDialogue()
     {
+        dialogueIsActive = false;
         animator.SetBool("isOpen", false);
         gm.player.GetComponent<Player_Input>().enabled = true;
     }

@@ -40,7 +40,6 @@ public class Player : MonoBehaviour, IBaseStats{
     [SerializeField] private int maxMeleeDamage;
     [SerializeField] private float meleeAttackMod;
 
-
     [SerializeField] private int hitKnockbackAmount;
     [SerializeField] private int damageKnockbackAmount;
 
@@ -66,11 +65,20 @@ public class Player : MonoBehaviour, IBaseStats{
 
     public BoomerangLauncher boomerangLauncher;
 
+    public float cameraLookOffsetValue = 9f;
+    float cameraOffsetTarget = 0f;
+    Vector2 lookVelocityTreshhold = new Vector2(0.2f, 0.2f);
+
     [Header("Effects")]
     public ParticleSystem dustParticles;
 
     TimeStop timeStop;
     ColouredFlash flashEffect;
+
+    [Header("Time Stop")]
+    public float changeTime = 0.05f;
+    public float restoreSpeed = 10f;
+    public float delay = 0.1f;
 
     [Header("Debug Settings")]
     public bool playerDebugMode;
@@ -235,14 +243,8 @@ public class Player : MonoBehaviour, IBaseStats{
         GameManager.instance.Respawn();
     }
 
-    [Header("Time Stop")]
-    public float changeTime = 0.05f;
-    public float restoreSpeed = 10f;
-    public float delay = 0.1f;
-
     public void Heal(int amount)
     {
-        Debug.Log("Heal function");
         HealingPod flask = UI_HUD.instance.healingFlasks[0];
 
         if (flask.fillAmount >= 100 && gm.health < gm.maxHealth)
@@ -252,12 +254,8 @@ public class Player : MonoBehaviour, IBaseStats{
             gm.health = Mathf.Clamp(gm.health + amount, 0, gm.maxHealth);
 
             int amountHealed = (int)(gm.health - previousHP);
-            Debug.Log(amount);
-            Debug.Log(amountHealed);
             OnHeal(amountHealed);
         }
-        
-
     }
 
     /// <summary>
@@ -280,8 +278,6 @@ public class Player : MonoBehaviour, IBaseStats{
         }
     }
 
-    float cameraOffsetTarget = 0f;
-    Vector2 lookVelocityTreshhold = new Vector2(0.2f, 0.2f);
     void Look()
     {
         CinemachineCameraOffset cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
@@ -289,16 +285,16 @@ public class Player : MonoBehaviour, IBaseStats{
         {
             if(playerInput.rightStickInput.y <= -0.5)
             {
-                cameraOffsetTarget = -8f;
+                cameraOffsetTarget = -cameraLookOffsetValue;
 
             }
             else if(playerInput.rightStickInput.y >= 0.5)
             {
-                cameraOffsetTarget = 8f;
+                cameraOffsetTarget = cameraLookOffsetValue;
             }
             else
             {
-                cameraOffsetTarget = 0f;
+                cameraOffsetTarget = 0;
             }
         }
         else if(Mathf.Abs(playerMovement.Velocity.x) > lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) > lookVelocityTreshhold.y)
@@ -322,7 +318,6 @@ public class Player : MonoBehaviour, IBaseStats{
 
         StopCoroutine(KnockbackOnHitRoutine());
         StartCoroutine(KnockbackOnHitRoutine());
-        //playerMovement.Knockback( new Vector3(dirX, dirY), amount);
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
@@ -332,20 +327,16 @@ public class Player : MonoBehaviour, IBaseStats{
 
         StopCoroutine(KnockbackRoutine());
         StartCoroutine(KnockbackRoutine());
-
-        //playerMovement.Knockback(new Vector3(dirX, dirY), amount);
     }
 
     IEnumerator KnockbackRoutine()
     {
-        //Debug.Log("KnockbackRoutine");
         playerMovement.isKnockedback = true;
         yield return new WaitForSecondsRealtime(knockbackOnDamageTimer);
         playerMovement.isKnockedback = false;
     }
     IEnumerator KnockbackOnHitRoutine()
     {
-        //Debug.Log("KnockbackRoutine");
         playerMovement.isKnockedback = true;
         yield return new WaitForSecondsRealtime(knockbackOnHitTimer);
         playerMovement.isKnockedback = false;
@@ -372,6 +363,5 @@ public class Player : MonoBehaviour, IBaseStats{
 
         startPos = new Vector3(colliderCenter.x - colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
         Gizmos.DrawLine(startPos, new Vector3(startPos.x - playerSettings.MoveSpeed, startPos.y, startPos.z));
-
     }
 }

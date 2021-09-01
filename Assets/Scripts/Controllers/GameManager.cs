@@ -48,8 +48,10 @@ public class GameManager : MonoBehaviour
     public bool hasWallJump = false;
     public bool hasTeleportAbility = false;
 
+    [Header("Game State")]
     public bool isRespawning = false;
     bool isLoading = false;
+    public bool isPaused = false;
 
     void Awake()
     {

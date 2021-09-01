@@ -8,9 +8,11 @@ public class Hitbox : MonoBehaviour
     public bool useSphere = false;
     public Vector3 hitboxSize = Vector3.one;
     public float radius = 0.5f;
+
     public Color inactiveColor;
     public Color collisionOpenColor;
     public Color collidingColor;
+
     private IHitboxResponder _responder = null;
 
     private ColliderState _state;
@@ -57,7 +59,6 @@ public class Hitbox : MonoBehaviour
     private void OnDrawGizmos()
     {
         checkGizmoColor();
-        Gizmos.color = inactiveColor;
         Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
         Gizmos.DrawCube(Vector3.zero, new Vector3(hitboxSize.x, hitboxSize.y, 0)); // Because size is halfExtents
     }

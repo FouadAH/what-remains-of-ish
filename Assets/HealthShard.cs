@@ -13,11 +13,11 @@ public class HealthShard : MonoBehaviour
 
             if (remainder == 0)
             {
-                UI_HUD.instance.SetPickupText("3 health shards collected. Health increased by 1");
+                UI_HUD.instance.SetDebugText("3 health shards collected. Health increased by 1");
             }
             else
             {
-                UI_HUD.instance.SetPickupText("Picked Up Health Shard. Pick up " + (3 - remainder) + " more to increase your health");
+                UI_HUD.instance.SetDebugText("Picked Up Health Shard. Pick up " + (3 - remainder) + " more to increase your health");
             }
 
             Destroy(gameObject);
