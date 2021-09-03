@@ -5,6 +5,7 @@ using UnityEngine;
 public class CoinDrop : MonoBehaviour, IDamagable
 {
     public GameObject coinPrefab;
+    public Transform coinSpawnOrigin;
     public int coinAmountOnDestroy = 10;
     public int coinAmountOnHit = 5;
 
@@ -27,26 +28,30 @@ public class CoinDrop : MonoBehaviour, IDamagable
     public void ModifyHealth(int amount)
     {
         Health--;
-        HitCoinSpawner();
         if (Health == 0)
         {
             DestroyedCoinSpawner();
             Destroy(gameObject);
+        }
+        else
+        {
+            HitCoinSpawner();
         }
     }
     public void DestroyedCoinSpawner()
     {
         for (int i = 0; i < coinAmountOnDestroy; i++)
         {
-            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            Instantiate(coinPrefab, coinSpawnOrigin.position, Quaternion.identity);
         }
     }
 
     public void HitCoinSpawner()
     {
+        Debug.Log("HitCoinSpawner");
         for (int i = 0; i < coinAmountOnHit; i++)
         {
-            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            Instantiate(coinPrefab, coinSpawnOrigin.position, Quaternion.identity);
         }
     }
 }

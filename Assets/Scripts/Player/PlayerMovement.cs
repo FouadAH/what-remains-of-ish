@@ -170,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (isDead || GameManager.instance.isPaused)
+        if (isDead || GameManager.instance.isPaused || DialogManager.instance.dialogueIsActive)
         {
             velocity.x = 0;
             velocity.y += gravity * Time.deltaTime;

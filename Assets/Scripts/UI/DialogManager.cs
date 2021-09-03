@@ -38,19 +38,32 @@ public class DialogManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
+    public bool inputLock = true;
     private void Update()
     {
         if (!dialogueIsActive || GameManager.instance.isPaused)
             return;
 
-        if(Input.GetButtonDown("Attack"))
+        
+        if(!inputLock && Input.GetButtonDown("Interact"))
         {
             DisplayNextSentence();
         }
     }
 
+    IEnumerator InputLock()
+    {
+        inputLock = true;
+        yield return new WaitForSeconds(0.05f);
+        inputLock = false;
+        Debug.Log(inputLock);
+    }
     public void StartDialogue(Dialog dialogue)
     {
+        Debug.Log("StartDialogue");
+        inputLock = true;
+        StartCoroutine(InputLock());
+        dialogueIsActive = true;
         gm.player.GetComponent<Player_Input>().enabled = false;
         animator.SetBool("isOpen", true);
 
@@ -62,9 +75,10 @@ public class DialogManager : MonoBehaviour
         }
 
         DisplayNextSentence();
-        dialogueIsActive = true;
+        //inputLock = false;
     }
 
+    Coroutine typeSentenceRoutine;
     public void DisplayNextSentence()
     {
         if (sentences.Count == 0)
@@ -74,8 +88,11 @@ public class DialogManager : MonoBehaviour
         }
 
         string sentence = sentences.Dequeue();
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+
+        if(typeSentenceRoutine!=null)
+            StopCoroutine(typeSentenceRoutine);
+
+        typeSentenceRoutine = StartCoroutine(TypeSentence(sentence));
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -92,8 +109,13 @@ public class DialogManager : MonoBehaviour
 
     void EndDialogue()
     {
+        inputLock = true;
         dialogueIsActive = false;
         animator.SetBool("isOpen", false);
         gm.player.GetComponent<Player_Input>().enabled = true;
+    }
+    void OnDestroy()
+    {
+        Debug.Log("Destroyed");
     }
 }

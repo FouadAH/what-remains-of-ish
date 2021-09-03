@@ -10,45 +10,55 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     private GameManager gm;
 
     public GameObject boomerangPrefab;
+    public SpriteRenderer crosshair;
+
     [SerializeField] private Transform firingPoint;
-    Player_Input playerInput;
+    
     public bool canFire = true;
 
+    [Header("Layer Masks")]
     public LayerMask hittable;
-    public GameObject hitEffect;
-    public float rotateSpeed = 2000f;
-    public float MoveSpeed = 1f;
-
-    public float boomerangHoverTime = 1f;
-    public float aimSnapTime = 0.02f;
+    public LayerMask interactable;
     public LayerMask damagable;
 
+    [Header("Movement values")]
+    public float rotateSpeed = 2000f;
+    public float MoveSpeed = 1f;
+    public float boomerangHoverTime = 1f;
+    public float boomerangAirTime = 0.38f;
+    public float boomerangAirTimeBonus = 0f;
+    public float accelerationTime = 0.05f;
+
+    [Header("Aim assist values")]
+    public float aimSnapTime = 0.02f;
+
+    [Header("Damage values")]
     [SerializeField] private int minDamage = 1;
     [SerializeField] private int maxDamage = 5;
     [SerializeField] private float damageMod = 1;
 
     private AttackProcessor attackProcessor;
-
     public int MinRangeDamage { get => minDamage; set => minDamage = value; }
     public int MaxRangeDamage { get => maxDamage; set => maxDamage = value; }
     public float RangedAttackMod { get => damageMod; set => damageMod = value; }
 
-    public Boomerang boomerangReference;
-
+    [Header("Effects")]
+    public GameObject hitEffect;
+    public float slowDownTime = 0.6f;
+    public float cameraZoom = 15f;
     float fixedDeltaTime;
-
-    public SpriteRenderer crosshair;
-
-    TimeStop timeStop;
 
     CinemachineCameraOffset cameraOffset;
     private Volume volume;
     private ChromaticAberration chromaticAberration;
 
+    [HideInInspector] public Boomerang boomerangReference;
+
+    TimeStop timeStop;
+    Player_Input playerInput;
+
     bool slowDown;
     bool isAiming;
-    public float slowDownTime = 0.6f;
-    public float cameraZoom = 15f;
     Coroutine aimTimer;
 
     float currentAngleVelocity;
@@ -74,7 +84,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     private void Update()
     {
-        if (GameManager.instance.isPaused)
+        if (GameManager.instance.isPaused || DialogManager.instance.dialogueIsActive)
             return;
 
         FiringLogic();

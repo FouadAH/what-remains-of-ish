@@ -14,6 +14,7 @@ public class HedgehogEnemy_PlayerDetectedState : PlayerDetectedState
     public override void Enter()
     {
         base.Enter();
+        //enemy.hurtbox
         enemy.isProtected = true;
     }
 

@@ -18,6 +18,7 @@ public class UI_HUD : MonoBehaviour
     public List<HealingPod> healingFlasks = new List<HealingPod>();
 
     [Header("Dubug UI elements")]
+    public bool debugMode;
     public TMP_Text velocityXDebug;
     public TMP_Text velocityYDebug;
 
@@ -36,6 +37,11 @@ public class UI_HUD : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        velocityXDebug.gameObject.SetActive(debugMode);
+        velocityYDebug.gameObject.SetActive(debugMode);
+    }
     private void OnEnable()
     {
         GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
