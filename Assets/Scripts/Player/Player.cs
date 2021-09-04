@@ -66,6 +66,7 @@ public class Player : MonoBehaviour, IBaseStats{
     public BoomerangLauncher boomerangLauncher;
 
     public float cameraLookOffsetValue = 9f;
+    CinemachineCameraOffset cameraOffset;
     float cameraOffsetTarget = 0f;
     Vector2 lookVelocityTreshhold = new Vector2(0.2f, 0.2f);
 
@@ -110,7 +111,7 @@ public class Player : MonoBehaviour, IBaseStats{
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
         flashEffect = GetComponentInChildren<ColouredFlash>();
-
+        cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
         if (playerDebugMode)
         {
             playerPath.emitting = true;
@@ -124,8 +125,6 @@ public class Player : MonoBehaviour, IBaseStats{
             return;
 
         OnDamage();
-        //Aggro();
-        //playerAnimations.Animate();
         Look();
     }
 
@@ -280,15 +279,17 @@ public class Player : MonoBehaviour, IBaseStats{
 
     void Look()
     {
-        CinemachineCameraOffset cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
-        if (Mathf.Abs(playerMovement.Velocity.x) <= lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) <= lookVelocityTreshhold.y)
+        if(Mathf.Abs(playerMovement.Velocity.x) > lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) > lookVelocityTreshhold.y)
         {
-            if(playerInput.rightStickInput.y <= -0.5)
+            cameraOffsetTarget = 0f;
+        }
+        else
+        {
+            if (playerInput.rightStickInput.y <= -0.5)
             {
                 cameraOffsetTarget = -cameraLookOffsetValue;
-
             }
-            else if(playerInput.rightStickInput.y >= 0.5)
+            else if (playerInput.rightStickInput.y >= 0.5)
             {
                 cameraOffsetTarget = cameraLookOffsetValue;
             }
@@ -296,10 +297,6 @@ public class Player : MonoBehaviour, IBaseStats{
             {
                 cameraOffsetTarget = 0;
             }
-        }
-        else if(Mathf.Abs(playerMovement.Velocity.x) > lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) > lookVelocityTreshhold.y)
-        {
-            cameraOffsetTarget = 0f;
         }
 
         cameraOffset.m_Offset.y = Mathf.Lerp(cameraOffset.m_Offset.y, cameraOffsetTarget, 0.1f);

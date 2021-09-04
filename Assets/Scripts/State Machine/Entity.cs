@@ -30,6 +30,8 @@ public class Entity : MonoBehaviour, IDamagable
     [SerializeField]
     private Transform groundCheck;
 
+    public DamageBox damageBox;
+
     private float currentStunResistance;
     private float lastDamageTime;
 
@@ -50,6 +52,8 @@ public class Entity : MonoBehaviour, IDamagable
     public float aggroRange = 5f;
 
     [Header("Movement Settings")]
+    public bool isAffectedByGravity;
+    public float gravity = -12;
     public float accelerationTimeGrounded = 0.05f;
     private float velocityXSmoothing = 0;
 
@@ -88,6 +92,12 @@ public class Entity : MonoBehaviour, IDamagable
     public virtual void FixedUpdate()
     {
         stateMachine.currentState.PhysicsUpdate();
+
+        if (isAffectedByGravity)
+        {
+            float velocityY = CheckGround() ? 0 : rb.velocity.y + gravity * Time.deltaTime;
+            SetVelocityY(velocityY);
+        }
     }
 
     public virtual void SetVelocity(float velocity)
@@ -129,12 +139,14 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual bool CheckPlayerInMinAgroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
+        bool hit = Physics2D.Linecast(transform.position, GameManager.instance.player.transform.position, entityData.whatIsGround);
+        return !hit && Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInMaxAgroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
+        bool hit = Physics2D.Linecast(transform.position, GameManager.instance.player.transform.position, entityData.whatIsGround);
+        return !hit && Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInCloseRangeAction()
@@ -149,7 +161,7 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual void DamageHop(float velocity)
     {
-        velocityWorkspace.Set(-velocity, rb.velocity.y);
+        velocityWorkspace.Set(velocity, rb.velocity.y);
         rb.velocity = velocityWorkspace;
     }
 
@@ -187,10 +199,12 @@ public class Entity : MonoBehaviour, IDamagable
     {
         Health -= amount;
         RaiseOnHitEnemyEvent(Health, MaxHealth);
+
         if (colouredFlash != null)
         {
             colouredFlash.Flash(Color.white);
         }
+
         if (Health <= 0)
         {
             isDead = true;
@@ -198,28 +212,29 @@ public class Entity : MonoBehaviour, IDamagable
         }
         else
         {
-            //Aggro();
             SpawnDamagePoints(amount);
-            anim.SetTrigger("Hit");
         }
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
-        DamageHop(entityData.damageHopSpeed);
+        DamageHop(entityData.damageHopSpeed*dirX);
     }
 
     public virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(playerCheck.transform.position, aggroRange);
-
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
-        Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
+        Gizmos.DrawWireSphere(transform.position, aggroRange);
 
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.closeRangeActionDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.minAgroDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.maxAgroDistance), 0.2f);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.transform.position, entityData.groundCheckRadius);
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
+        Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
+
     }
 
 }

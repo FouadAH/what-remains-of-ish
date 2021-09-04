@@ -7,10 +7,15 @@ public class KillArea : MonoBehaviour {
     private Player player;
     public int damageDealt;
     private GameManager gm;
-
+    public BoxCollider2D col2D;
     private void Awake()
     {
         gm = FindObjectOfType<GameManager>();
+        col2D = gameObject.GetComponent<BoxCollider2D>();
+    }
+    private void Start()
+    {
+        col2D = gameObject.GetComponent<BoxCollider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,5 +34,11 @@ public class KillArea : MonoBehaviour {
                 }
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(col2D.bounds.center, col2D.bounds.size);
     }
 }

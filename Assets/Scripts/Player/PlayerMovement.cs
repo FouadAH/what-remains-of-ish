@@ -128,8 +128,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (UI_HUD.instance.debugMode)
         {
-            velocityXDebug.SetText("Velocity X: " + velocity.x);
-            velocityYDebug.SetText("Velocity Y: " + velocity.y);
+            velocityXDebug.SetText("Velocity X: " + Mathf.Round(velocity.x));
+            velocityYDebug.SetText("Velocity Y: " + Mathf.Round(velocity.y));
         }
 
         if (controller.collitions.below && !landed)

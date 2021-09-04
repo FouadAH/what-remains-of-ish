@@ -21,8 +21,6 @@ public class HedgehogEnemy : Entity, IBaseStats
     [SerializeField] private D_PlayerDetected playerDetectedData;
     [SerializeField] private D_DeadState deadStateData;
 
-    public Hurtbox hurtbox;
-
     public override void Start()
     {
         base.Start();
@@ -33,34 +31,24 @@ public class HedgehogEnemy : Entity, IBaseStats
         deadState = new HedgehogEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(moveState);
-
-        hurtbox.GetComponent<Hurtbox>();
-
     }
 
-    public float gravity = -1;
-
     public bool isProtected = false;
+
+    public override void DamageHop(float velocity)
+    {
+        if (isProtected)
+            return;
+
+        base.DamageHop(velocity);
+    }
+
     public override void ModifyHealth(int amount)
     {
         if (isProtected)
             return;
 
-        Health -= amount;
-        RaiseOnHitEnemyEvent(Health, MaxHealth);
-
-        if (Health <= 0)
-        {
-            isDead = true;
-            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
-
-        }
-        else
-        {
-            //Aggro();
-            SpawnDamagePoints(amount);
-            anim.SetTrigger("Hit");
-        }
+        base.ModifyHealth(amount);
 
         if (isDead)
         {

@@ -129,7 +129,6 @@ public class Boomerang : MonoBehaviour
 
     private IEnumerator Callback()
     {
-        Debug.Log("callback");
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(boomerangLauncher.boomerangHoverTime);
         StartCoroutine(Recall());

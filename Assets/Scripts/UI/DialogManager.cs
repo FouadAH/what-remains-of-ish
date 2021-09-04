@@ -114,8 +114,4 @@ public class DialogManager : MonoBehaviour
         animator.SetBool("isOpen", false);
         gm.player.GetComponent<Player_Input>().enabled = true;
     }
-    void OnDestroy()
-    {
-        Debug.Log("Destroyed");
-    }
 }

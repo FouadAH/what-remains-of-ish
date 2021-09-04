@@ -55,21 +55,15 @@ public class BasicMeleeAttackEnemy : Entity, IBaseStats
 
     }
 
-    public float gravity = -1;
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        //if (!CheckGround())
-        //{
-        //    SetVelocityY(rb.velocity.y + gravity * Time.deltaTime);
-        //}
     }
 
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
         Gizmos.color = Color.white;
-        //Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
     }
 
     [Header("Aggro Settings")]
@@ -106,7 +100,9 @@ public class BasicMeleeAttackEnemy : Entity, IBaseStats
     public override void ModifyHealth(int amount)
     {
         base.ModifyHealth(amount);
+
         Aggro();
+
         if (isDead)
         {
             stateMachine.ChangeState(deadState);
