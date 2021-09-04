@@ -126,8 +126,11 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, -1));
         HandleMaxSlope();
 
-        velocityXDebug.SetText("Velocity X: " + velocity.x);
-        velocityYDebug.SetText("Velocity Y: " + velocity.y);
+        if (UI_HUD.instance.debugMode)
+        {
+            velocityXDebug.SetText("Velocity X: " + velocity.x);
+            velocityYDebug.SetText("Velocity Y: " + velocity.y);
+        }
 
         if (controller.collitions.below && !landed)
         {
