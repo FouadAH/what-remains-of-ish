@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState
+public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxResponder
 {
     private BasicMeleeAttackEnemy enemy;
 
@@ -57,5 +57,21 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
+        foreach (var hitbox in enemy.hitboxes)
+        {
+            hitbox.useResponder(this);
+            hitbox.startCheckingCollision();
+        }
+    }
+
+    void IHitboxResponder.collisionedWith(Collider2D collider)
+    {
+        Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
+        if (hurtbox != null)
+        {
+            Vector2 direction = (hurtbox.transform.position - enemy.transform.position).normalized;
+            Vector2 knockBackDirection = (direction.x > 0) ? new Vector2(-1, direction.y) : new Vector2(1, direction.y);
+            hurtbox.getHitBy(entity.GetComponent<IBaseStats>(), (knockBackDirection.x), (knockBackDirection.y));
+        }
     }
 }

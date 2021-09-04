@@ -25,9 +25,9 @@ public class BoomerangDash : MonoBehaviour
     {
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
     }
+
     public void OnTeleportInput(Transform transformToMove, ref Vector2 velocity, Boomerang boomerang)
     {
-        Debug.Log("OnTeleportInput");
         if (!boomerang.IsAccesable())
             return;
 
@@ -65,7 +65,6 @@ public class BoomerangDash : MonoBehaviour
         }
     }
 
-
     public IEnumerator Teleport(Transform transformToMove, Transform boomerangLauncher, float timer)
     {
         yield return new WaitForSeconds(timer);
@@ -90,8 +89,6 @@ public class BoomerangDash : MonoBehaviour
         yield return new WaitForSeconds(timer);
         teleportTrail.emitting = false;
     }
-
-
 
     public IEnumerator TeleportLock(float teleportCooldownTimer)
     {

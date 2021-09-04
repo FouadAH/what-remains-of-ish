@@ -21,6 +21,8 @@ public class HedgehogEnemy : Entity, IBaseStats
     [SerializeField] private D_PlayerDetected playerDetectedData;
     [SerializeField] private D_DeadState deadStateData;
 
+    public Hurtbox hurtbox;
+
     public override void Start()
     {
         base.Start();
@@ -31,6 +33,8 @@ public class HedgehogEnemy : Entity, IBaseStats
         deadState = new HedgehogEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(moveState);
+
+        hurtbox.GetComponent<Hurtbox>();
 
     }
 

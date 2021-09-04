@@ -8,7 +8,6 @@ public class AbilityPickup : MonoBehaviour
     public bool isTeleportPickup = false;
     public bool isWallJumpPickup = false;
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();
@@ -17,14 +16,17 @@ public class AbilityPickup : MonoBehaviour
             if (isDashPickup)
             {
                 GameManager.instance.hasDashAbility = true;
+                UI_HUD.instance.SetDebugText("Picked Up Dash Ability");
             }
             else if (isTeleportPickup)
             {
                 GameManager.instance.hasTeleportAbility = true;
+                UI_HUD.instance.SetDebugText("Picked Up Teleport Ability");
             }
             else if (isWallJumpPickup)
             {
                 GameManager.instance.hasWallJump = true;
+                UI_HUD.instance.SetDebugText("Picked Up Wall Jump Ability");
             }
 
             Destroy(gameObject);

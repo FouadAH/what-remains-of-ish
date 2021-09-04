@@ -8,26 +8,35 @@ public class Boomerang : MonoBehaviour
     public Transform boomerangSprite;
     public event Action<Collider2D, Vector2> OnRangedHit = delegate { };
 
-    Vector3 startPostion;
-    private bool back;
-    private bool instantCallback;
-    public Transform wallDetection;
-    
+    public Transform wallDetectionObjects;
+
+    public float wallDetectionDistance = 1.4f;
+
+    private Vector2 velocityXSmoothing;
+    Vector2 targetVelocity;
 
     BoomerangLauncher boomerangLauncher;
-
     GameManager gm;
     Rigidbody2D rb;
 
+    [HideInInspector] 
     public bool dashActive;
+    bool isReflecting = false;
+    bool back;
+    bool instantCallback;
+
+    Coroutine timer;
+    Transform[] wallDetectionObjs;
+    Rigidbody2D rgb2D;
 
     private void Start()
     {
         gm = GameManager.instance;
         boomerangLauncher = gm.player.GetComponent<Player>().boomerangLauncher;
         rb = GetComponent<Rigidbody2D>();
-        startPostion = transform.position;
-        StartCoroutine(BommerangBehaviour());
+        //StartCoroutine(BommerangBehaviour());
+        wallDetectionObjs = wallDetectionObjects.GetComponentsInChildren<Transform>();
+        rgb2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -35,35 +44,55 @@ public class Boomerang : MonoBehaviour
         boomerangSprite.transform.Rotate(Vector3.forward * (boomerangLauncher.rotateSpeed * Time.deltaTime));
     }
 
+    bool isComingBack = false;
     private void FixedUpdate()
     {
+        if (isComingBack)
+            return;
+
         BounceOffWall();
+        boomerangLauncher.boomerangAirTimeBonus = 0;
+        while (!back)
+        {
+            SetVelocity();
+
+            if (timer == null)
+                timer = StartCoroutine(BoomerangTimer());
+
+            return;
+        }
+
+        rb.velocity = Vector2.zero;
+
+        if (instantCallback)
+        {
+            isComingBack = true;
+            CallbackImediate();
+        }
+        else
+        {
+            isComingBack = true;
+            StartCoroutine(Callback());
+        }
+
+        
     }
 
-    private Vector2 velocityXSmoothing;
-    public float accelerationTimeGrounded = 0.05f;
-
-    Vector2 targetVelocity;
-    bool isReflecting = false;
     void SetVelocity()
     {
         if(!isReflecting)
             targetVelocity = transform.up * boomerangLauncher.MoveSpeed;
 
-        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocityXSmoothing, accelerationTimeGrounded);
+        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocityXSmoothing, boomerangLauncher.accelerationTime);
     }
 
-    public float boomerangAirTime = 2f;
-    public float boomerangAirTimeBonus = 0f;
-
-    Coroutine timer;
     IEnumerator BoomerangTimer()
     {
         yield return new WaitForEndOfFrame();
         back = false;
 
-        yield return new WaitForSeconds(boomerangAirTime);
-        yield return new WaitForSeconds(boomerangAirTimeBonus);
+        yield return new WaitForSeconds(boomerangLauncher.boomerangAirTime);
+        yield return new WaitForSeconds(boomerangLauncher.boomerangAirTimeBonus);
 
         yield return new WaitForEndOfFrame();
         back = true;
@@ -74,15 +103,15 @@ public class Boomerang : MonoBehaviour
 
     private IEnumerator BommerangBehaviour()
     {
-        boomerangAirTimeBonus = 0;
+        boomerangLauncher.boomerangAirTimeBonus = 0;
         while (!back)
         {
             yield return new WaitForEndOfFrame();
-            //rb.velocity = transform.up * boomerangLauncher.MoveSpeed;
             SetVelocity();
+
             if(timer == null)
                 timer = StartCoroutine(BoomerangTimer());
-            //back = Vector2.Distance(startPostion, transform.position) > boomerangLauncher.distance;
+
             yield return null;
         }
 
@@ -96,11 +125,11 @@ public class Boomerang : MonoBehaviour
         {
             StartCoroutine(Callback());
         }
-        
     }
 
     private IEnumerator Callback()
     {
+        Debug.Log("callback");
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(boomerangLauncher.boomerangHoverTime);
         StartCoroutine(Recall());
@@ -126,7 +155,6 @@ public class Boomerang : MonoBehaviour
             if (Vector2.Distance(transform.position, gm.player.transform.position) <= 0.8f)
             {
                 boomerangLauncher.canFire = true;
-                //Debug.Log("Destroyed boomerang");
                 Destroy(gameObject);
             }
             yield return null;
@@ -141,40 +169,39 @@ public class Boomerang : MonoBehaviour
 
     void BounceOffWall()
     {
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)wallDetection.position + new Vector2(0.3f, 0.3f), transform.up, 1f, obstacles); 
-
-        if(hit.collider != null && !back)
+        foreach(Transform wallDetectionObject in wallDetectionObjs)
         {
+            RaycastHit2D hit = Physics2D.Raycast(wallDetectionObject.position, transform.up, wallDetectionDistance, boomerangLauncher.hittable);
+            Debug.DrawRay(wallDetectionObject.position, transform.up, Color.yellow);
 
-            Vector2 inDirection = GetComponent<Rigidbody2D>().velocity;
-            Vector2 normal = hit.normal;
-            Vector2 reflectionVelocity = Vector2.Reflect(inDirection, normal).normalized;
+            if (hit.collider != null && !back)
+            {
+                if (IsInLayerMask(hit.collider.gameObject.layer, boomerangLauncher.damagable)) 
+                {
+                    Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+                    Vector2 hitPos = transform.position;
+                    OnRangedHit.Invoke(hit.collider, hitPos);
+                    Debug.Log("Hit");
+                }
 
-            rb.velocity = Vector2.zero;
-            Instantiate(boomerangLauncher.hitEffect, hit.point, Quaternion.identity);
-            boomerangAirTimeBonus += 0.15f;
-            //isReflecting = true;
+                Vector2 inDirection = rgb2D.velocity;
+                Vector2 normal = hit.normal;
+                Vector2 reflectionVelocity = Vector2.Reflect(inDirection, normal).normalized;
 
-            float angle = Mathf.Atan2(reflectionVelocity.y, reflectionVelocity.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+                rb.velocity = Vector2.zero;
+                Instantiate(boomerangLauncher.hitEffect, hit.point, Quaternion.identity);
+                boomerangLauncher.boomerangAirTimeBonus += 0.15f;
+
+                float angle = Mathf.Atan2(reflectionVelocity.y, reflectionVelocity.x) * Mathf.Rad2Deg - 90;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                break;
+            }
         }
-
     }
-
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        //ContactPoint2D[] contactPoint2D = null;
-        //collider.GetContacts(contactPoint2D);/
-
-        //if (collider.gameObject.layer == LayerMask.NameToLayer("Obstacles") || collider.gameObject.layer == LayerMask.NameToLayer("Lever"))
-        //{
-        //    Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
-
-        //    instantCallback = true;
-        //    back = true;
-        //}
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Lever"))
+        if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.interactable))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
 
@@ -201,13 +228,11 @@ public class Boomerang : MonoBehaviour
     {
         return layermask == (layermask | (1 << layer));
     }
-
-    public LayerMask obstacles;
+    
     public bool IsAccesable()
     {
-        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 1, obstacles);
-        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 1, obstacles);
-
+        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 1, boomerangLauncher.hittable);
+        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 1, boomerangLauncher.hittable);
         return (hitUp.collider == null) && (hitDown.collider == null);
     }
 
@@ -216,6 +241,11 @@ public class Boomerang : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.up);
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down);
-        Gizmos.DrawLine(wallDetection.position, transform.position + transform.up * 1f);
+
+        foreach (Transform item in wallDetectionObjs)
+        {
+            Gizmos.DrawLine(item.position, item.position + transform.up * wallDetectionDistance);
+
+        }
     }
 }

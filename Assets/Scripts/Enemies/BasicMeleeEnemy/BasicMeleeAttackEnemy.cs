@@ -36,6 +36,9 @@ public class BasicMeleeAttackEnemy : Entity, IBaseStats
     [SerializeField]
     private Transform meleeAttackPosition;
 
+    //hitboxes
+    public List<Hitbox> hitboxes;
+
     public override void Start()
     {
         base.Start();
@@ -66,7 +69,7 @@ public class BasicMeleeAttackEnemy : Entity, IBaseStats
     {
         base.OnDrawGizmos();
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
+        //Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
     }
 
     [Header("Aggro Settings")]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class UI_HUD : MonoBehaviour
 {
     public TMPro.TMP_Text currencyText;
@@ -16,6 +17,14 @@ public class UI_HUD : MonoBehaviour
 
     public List<HealingPod> healingFlasks = new List<HealingPod>();
 
+    [Header("Dubug UI elements")]
+    public bool debugMode;
+    public TMP_Text velocityXDebug;
+    public TMP_Text velocityYDebug;
+
+    public GameObject debugTextPanel;
+    public TMP_Text pickupDebugText;
+
     void Awake()
     {
         if (instance != null)
@@ -28,6 +37,11 @@ public class UI_HUD : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        velocityXDebug.gameObject.SetActive(debugMode);
+        velocityYDebug.gameObject.SetActive(debugMode);
+    }
     private void OnEnable()
     {
         GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
@@ -113,5 +127,20 @@ public class UI_HUD : MonoBehaviour
         }
 
         RefrechHealingPods();
+    }
+
+    public void SetDebugText(string text)
+    {
+        StopCoroutine(DebugTextRoutine(text));
+        StartCoroutine(DebugTextRoutine(text));
+    }
+
+    IEnumerator DebugTextRoutine(string text)
+    {
+        debugTextPanel.SetActive(true);
+        pickupDebugText.SetText(text);
+        yield return new WaitForSecondsRealtime(5f);
+        pickupDebugText.SetText("");
+        debugTextPanel.SetActive(false);
     }
 }
