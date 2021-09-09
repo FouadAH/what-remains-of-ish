@@ -20,7 +20,6 @@ public class Boomerang : MonoBehaviour
     Rigidbody2D rb;
 
     [HideInInspector] 
-    public bool dashActive;
     bool isReflecting = false;
     bool back;
     bool instantCallback;
@@ -28,6 +27,7 @@ public class Boomerang : MonoBehaviour
     Coroutine timer;
     Transform[] wallDetectionObjs;
     Rigidbody2D rgb2D;
+    SpriteRenderer spriteRenderer;
 
     private void Start()
     {
@@ -37,16 +37,19 @@ public class Boomerang : MonoBehaviour
         //StartCoroutine(BommerangBehaviour());
         wallDetectionObjs = wallDetectionObjects.GetComponentsInChildren<Transform>();
         rgb2D = GetComponent<Rigidbody2D>();
+        //spriteRenderer = boomerangSprite.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
+        //spriteRenderer.color = IsAccesable() ? Color.white : Color.red;
         boomerangSprite.transform.Rotate(Vector3.forward * (boomerangLauncher.rotateSpeed * Time.deltaTime));
     }
 
     bool isComingBack = false;
     private void FixedUpdate()
     {
+
         if (isComingBack)
             return;
 
@@ -55,7 +58,6 @@ public class Boomerang : MonoBehaviour
         while (!back)
         {
             SetVelocity();
-
             if (timer == null)
                 timer = StartCoroutine(BoomerangTimer());
 
@@ -180,7 +182,6 @@ public class Boomerang : MonoBehaviour
                     Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
                     Vector2 hitPos = transform.position;
                     OnRangedHit.Invoke(hit.collider, hitPos);
-                    Debug.Log("Hit");
                 }
 
                 Vector2 inDirection = rgb2D.velocity;
@@ -203,7 +204,6 @@ public class Boomerang : MonoBehaviour
         if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.interactable))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
-
             instantCallback = true;
             back = true;
         }
@@ -214,13 +214,6 @@ public class Boomerang : MonoBehaviour
             Vector2 hitPos = transform.position;
             OnRangedHit.Invoke(collider, hitPos);
         }
-
-        if (collider.gameObject.GetComponent<PlayerDash>() && dashActive)
-        {
-            collider.gameObject.GetComponent<BoomerangDash>().isDashingBoomerang = false;
-            boomerangLauncher.canFire = true;
-            Destroy(gameObject);
-        }
     }
 
     public static bool IsInLayerMask(int layer, LayerMask layermask)
@@ -228,11 +221,15 @@ public class Boomerang : MonoBehaviour
         return layermask == (layermask | (1 << layer));
     }
     
-    public bool IsAccesable()
+    public bool IsInaccesable()
     {
         RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 1, boomerangLauncher.hittable);
         RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 1, boomerangLauncher.hittable);
-        return (hitUp.collider == null) && (hitDown.collider == null);
+
+        RaycastHit2D hitR = Physics2D.Raycast(transform.position, Vector2.right, 1, boomerangLauncher.hittable);
+        RaycastHit2D hitL = Physics2D.Raycast(transform.position, Vector2.left, 1, boomerangLauncher.hittable);
+
+        return ((hitUp.collider != null) && (hitDown.collider != null)) || ((hitR.collider != null) && (hitL.collider != null));
     }
 
     private void OnDrawGizmos()

@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerMovementSettings playerSettings;
     private Controller_2D controller;
     private PlayerDash playerDash;
-    private BoomerangDash boomerangDash;
+    private PlayerTeleport boomerangDash;
 
     BoomerangLauncher boomerangLauncher;
 
@@ -83,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
     float currentJumpHeight;
     float initialHeight;
 
+    public bool isAirborne;
     public bool isDead;
     public bool isPaused = false;
 
@@ -92,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         playerInput = transformToMove.GetComponent<Player_Input>();
         controller = transformToMove.GetComponent<Controller_2D>();
         playerDash = transformToMove.GetComponent<PlayerDash>();
-        boomerangDash = transformToMove.GetComponent<BoomerangDash>();
+        boomerangDash = transformToMove.GetComponent<PlayerTeleport>();
         spriteObj = GetComponentInChildren<SpriteRenderer>().transform;
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
 
@@ -185,6 +186,7 @@ public class PlayerMovement : MonoBehaviour
         if (boomerangDash.doBoost)
         {
             BoomerandBoost();
+            CalculateVelocity();
             HandleWallSliding();
             return;
         }
@@ -224,8 +226,7 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleDash()
     {
-        playerDash.airborne = (!controller.collitions.below && !WallSliding);
-        boomerangDash.airborne = (!controller.collitions.below && !WallSliding);
+        isAirborne = (!controller.collitions.below && !WallSliding);
 
         if ((!controller.collitions.left || !controller.collitions.right)){
             playerDash.DashController(ref velocity, playerInput, playerSettings);
@@ -283,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         currentJumpHeight = transform.position.y - initialHeight;
-        float mult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? .8f : 1f;
+        float mult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? 1f : 1f;
 
         if (playerDash.isDashing)
         {

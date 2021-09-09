@@ -13,22 +13,20 @@ public class PauseMenu : MonoBehaviour
     public GameObject optionMenu;
     public GameObject videoOptions;
     public GameObject audioOptions;
-    public EventSystem eventSystem;
-    public AudioMixer audioMixer;
+    EventSystem eventSystem;
 
-    FMOD.Studio.EventInstance instance;
     FMOD.Studio.Bus masterBus;
     FMOD.Studio.Bus musicBus;
     FMOD.Studio.Bus sfxBus;
 
-    [FMODUnity.EventRef]
-    public string fmodEvent;
     public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
 
     void Start()
     {
+        eventSystem = EventSystem.current;
+
         masterBus = FMODUnity.RuntimeManager.GetBus("bus:/");
         musicBus = FMODUnity.RuntimeManager.GetBus("bus:/Music");
         sfxBus = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
@@ -72,8 +70,8 @@ public class PauseMenu : MonoBehaviour
         }
 
         masterBus.setVolume(masterVolume);
-        musicBus.setVolume(masterVolume);
-        sfxBus.setVolume(masterVolume);
+        musicBus.setVolume(musicVolume);
+        sfxBus.setVolume(sfxVolume);
     }
 
     public void Resume()
@@ -177,7 +175,6 @@ public class PauseMenu : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         masterVolume = volume;
-        Debug.Log(masterVolume);
     }
 
     public void SetMusicVolume(float volume)

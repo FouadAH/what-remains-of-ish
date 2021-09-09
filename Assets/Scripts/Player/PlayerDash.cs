@@ -6,17 +6,17 @@ public class PlayerDash : MonoBehaviour
 {
     private bool dashLock;
     private bool canDash;
-
     public bool isDashing;
-    public bool airborne;
 
     [SerializeField] private ParticleSystem afterImage;
 
     public ParticleSystem AfterImage { get => afterImage; set => afterImage = value; }
     public ParticleSystem dashRechargeEffect;
 
+    PlayerMovement playerMovement;
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
         afterImage.Pause();
     }
 
@@ -59,7 +59,7 @@ public class PlayerDash : MonoBehaviour
         dashLock = true;
         yield return new WaitForSeconds(dashCooldown);
         dashRechargeEffect.Play();
-        yield return new WaitWhile(() => airborne);
+        yield return new WaitWhile(() => playerMovement.isAirborne);
         dashLock = false;
     }
 

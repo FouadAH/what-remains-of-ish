@@ -90,13 +90,13 @@ public class CharacterSwitch : MonoBehaviour
 
     void DisableGirl()
     {
-        players[0].GetComponent<BoomerangDash>().enabled = false;
+        players[0].GetComponent<PlayerTeleport>().enabled = false;
         players[0].GetComponentInChildren<BoomerangLauncher>().enabled = false;
     }
 
     void EnableBoyGirl()
     {
-        players[0].GetComponent<BoomerangDash>().enabled = true;
+        players[0].GetComponent<PlayerTeleport>().enabled = true;
         players[0].GetComponentInChildren<BoomerangLauncher>().enabled = true;
     }
 

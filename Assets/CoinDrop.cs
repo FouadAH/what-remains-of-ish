@@ -48,7 +48,6 @@ public class CoinDrop : MonoBehaviour, IDamagable
 
     public void HitCoinSpawner()
     {
-        Debug.Log("HitCoinSpawner");
         for (int i = 0; i < coinAmountOnHit; i++)
         {
             Instantiate(coinPrefab, coinSpawnOrigin.position, Quaternion.identity);
