@@ -7,7 +7,6 @@ public class TriggerAudio : MonoBehaviour
     public bool PlayOnAwake;
 
     public void PlayOneShot()
-
     {
         FMODUnity.RuntimeManager.PlayOneShotAttached(Event, gameObject);
     }
