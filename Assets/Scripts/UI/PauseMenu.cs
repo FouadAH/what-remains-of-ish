@@ -14,10 +14,13 @@ public class PauseMenu : MonoBehaviour
     public GameObject videoOptions;
     public GameObject audioOptions;
     EventSystem eventSystem;
+    FMOD.Studio.EventInstance SFXVolumeTestEvent;
 
-    FMOD.Studio.Bus masterBus;
-    FMOD.Studio.Bus musicBus;
-    FMOD.Studio.Bus sfxBus;
+    [FMODUnity.EventRef]
+    public string SFXTestEvent;
+    FMOD.Studio.VCA masterBus;
+    FMOD.Studio.VCA musicBus;
+    FMOD.Studio.VCA sfxBus;
 
     public TMPro.TMP_Dropdown resolutionDropdown;
 
@@ -27,10 +30,10 @@ public class PauseMenu : MonoBehaviour
     {
         eventSystem = EventSystem.current;
 
-        masterBus = FMODUnity.RuntimeManager.GetBus("bus:/");
-        musicBus = FMODUnity.RuntimeManager.GetBus("bus:/Music");
-        sfxBus = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
-
+        masterBus = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
+        musicBus = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
+        sfxBus = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
+        SFXVolumeTestEvent = FMODUnity.RuntimeManager.CreateInstance(SFXTestEvent);
         resolutions = Screen.resolutions;
 
         resolutionDropdown.ClearOptions();
@@ -174,17 +177,27 @@ public class PauseMenu : MonoBehaviour
 
     public void SetMasterVolume(float volume)
     {
+        volume = Mathf.Pow(10.0f, volume / 20f);
         masterVolume = volume;
     }
 
     public void SetMusicVolume(float volume)
     {
+        volume = Mathf.Pow(10.0f, volume / 20f);
         musicVolume = volume;
     }
 
     public void SetSFXVolume(float volume)
     {
+        volume = Mathf.Pow(10.0f, volume / 20f);
         sfxVolume = volume;
+
+        FMOD.Studio.PLAYBACK_STATE PbState;
+        SFXVolumeTestEvent.getPlaybackState(out PbState);
+        if (PbState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        {
+            SFXVolumeTestEvent.start();
+        }
     }
 
 
