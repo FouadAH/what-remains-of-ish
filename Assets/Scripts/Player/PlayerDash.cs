@@ -7,6 +7,7 @@ public class PlayerDash : MonoBehaviour
     private bool dashLock;
     private bool canDash;
     public bool isDashing;
+    public float floatTime = 0.1f;
 
     [SerializeField] private ParticleSystem afterImage;
 
@@ -38,7 +39,7 @@ public class PlayerDash : MonoBehaviour
             }
 
             StartCoroutine(DashLogic(playerSettings.DashCooldown));
-            StartCoroutine(DashTime(0.15f));
+            StartCoroutine(FloatTime(floatTime));
 
             if (playerInput.directionalInput.x == 0)
             {
@@ -63,11 +64,11 @@ public class PlayerDash : MonoBehaviour
         dashLock = false;
     }
 
-    public IEnumerator DashTime(float dashCooldown)
+    public IEnumerator FloatTime(float floatTime)
     {
         isDashing = true;
         afterImage.Play();
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(floatTime);
         afterImage.Stop();
         isDashing = false;
     }

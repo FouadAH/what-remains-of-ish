@@ -5,12 +5,15 @@ using UnityEngine;
 /// <summary>Class responsible for handling player movement calculations</summary>
 public class PlayerMovement : MonoBehaviour
 {
-    public Player_Input playerInput;
-    private Transform transformToMove;
     public PlayerMovementSettings playerSettings;
-    private Controller_2D controller;
-    private PlayerDash playerDash;
-    private PlayerTeleport boomerangDash;
+
+    Controller_2D controller;
+    Player_Input playerInput;
+    Transform transformToMove;
+    Transform spriteObj;
+    PlayerDash playerDash;
+    PlayerTeleport boomerangDash;
+    PlayerAnimations playerAnimations;
 
     BoomerangLauncher boomerangLauncher;
 
@@ -37,10 +40,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Teleport settings")]
     public float boostForceX = 5f;
     public float boostForceY = 5f;
+    public float boostGravityMultiplier = 0.5f;
 
     [Header("Jump settings")]
     public float jumpForceX = 25f;
-
+    public float jumpApexGravityModifier = 0.8f;
     bool canJump;
     float MAX_JUMP_ASSIST_TIME;
     float cayoteTimer = 0f;
@@ -55,21 +59,18 @@ public class PlayerMovement : MonoBehaviour
     public float accelReducedAirborne = 0.1f;
 
     public float stopFriction = 0.05f;
+    public float stopFrictionSprinting = 0.1f;
+
 
     public float speedThreshold = 8f;
     public float halfGravThreshold;
 
     public float maxSpeed = 30f;
-
     float maxFallSpeed = -30;
 
     [Header("Effects")]
     public ParticleSystem dustParticles;
     public GameObject jumpTrailParent;
-
-    PlayerAnimations playerAnimations;
-
-    Transform spriteObj;
 
     TMPro.TMP_Text velocityXDebug;
     TMPro.TMP_Text velocityYDebug;
@@ -100,6 +101,8 @@ public class PlayerMovement : MonoBehaviour
         playerInput.OnJumpDown += OnJumpInputDown;
         playerInput.OnJumpUp += OnJumpInputUp;
         playerInput.OnDash += OnDashInput;
+        playerInput.OnDashUp += OnDashInputUp;
+
         playerInput.OnBoomerangDash += OnBoomerangDashInput;
 
         gravity = -(2 * playerSettings.MaxJumpHeight) / Mathf.Pow(playerSettings.TimeToJumpApex, 2);
@@ -115,7 +118,6 @@ public class PlayerMovement : MonoBehaviour
 
         velocityXDebug = UI_HUD.instance.velocityXDebug;
         velocityYDebug = UI_HUD.instance.velocityYDebug;
-
     }
 
     private void FixedUpdate()
@@ -186,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
         if (boomerangDash.doBoost)
         {
             BoomerandBoost();
-            CalculateVelocity();
+            CalculateVelocity(true);
             HandleWallSliding();
             return;
         }
@@ -222,6 +224,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if(GameManager.instance.hasDashAbility)
             playerDash.OnDashInput();
+
+        if (GameManager.instance.hasSprintAbility && controller.collitions.below)
+        {
+            isSprinting = true;
+        }
+
+    }
+
+    void OnDashInputUp()
+    {
+        isSprinting = false;
     }
 
     void HandleDash()
@@ -245,27 +258,48 @@ public class PlayerMovement : MonoBehaviour
     /// Method that calculates the players' velocity based on the players' speed and input 
     /// </summary>
     /// <param name="velocityXSmoothing"></param>
-    public void CalculateVelocity()
+    /// 
+
+    public float walkSpeed = 16f;
+    public float sprintSpeed = 18f;
+    public float dashSpeed = 16f;
+    public bool isSprinting = false;
+
+    public void CalculateVelocity(bool isTeleporting = false)
     {
-        float targetVelocityX = playerSettings.MoveSpeed * playerInput.directionalInput.x;
+        float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
+        moveSpeed = playerDash.isDashing ? dashSpeed : moveSpeed;
+
+        float targetVelocityX = moveSpeed * playerInput.directionalInput.x;
         float smoothTime = (controller.collitions.below ? playerSettings.AccelerationTimeGrounded : playerSettings.AccelerationTimeAirborne);
         float smoothTimeReduced = (controller.collitions.below ? accelReducedGrounded : accelReducedAirborne);
 
+        currentJumpHeight = transform.position.y - initialHeight;
+        float mult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? jumpApexGravityModifier : 1f;
+        mult = (isTeleporting) ? boostGravityMultiplier : mult;
+
         //Debug.Log("Velocity X: " + velocity.x);
+
         if (controller.collitions.below)
         {
-            if (playerInput.directionalInput.x == 0)
+            if (isSprinting && Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x * -1)
             {
-                velocity.x = Mathf.SmoothDamp(velocity.x, 0, ref velocityXSmoothing, runDeccelTime);
+                Debug.Log("stopFrictionSprinting");
+                velocity.x = Mathf.SmoothDamp(velocity.x, 0, ref velocityXSmoothing, stopFrictionSprinting);
             }
             else if (Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x * -1)
             {
                 velocity.x = Mathf.SmoothDamp(velocity.x, 0, ref velocityXSmoothing, stopFriction);
             }
+            else if (playerInput.directionalInput.x == 0 && !isSprinting)
+            {
+                velocity.x = Mathf.SmoothDamp(velocity.x, 0, ref velocityXSmoothing, runDeccelTime);
+            }
             else
             {
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
             }
+
         }
         else if (playerDash.isDashing)
         {
@@ -282,9 +316,6 @@ public class PlayerMovement : MonoBehaviour
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
             }
         }
-
-        currentJumpHeight = transform.position.y - initialHeight;
-        float mult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? 1f : 1f;
 
         if (playerDash.isDashing)
         {
@@ -314,7 +345,6 @@ public class PlayerMovement : MonoBehaviour
                 velocity.y = 0;
             }
         }
-
     }
 
     /// <summary>

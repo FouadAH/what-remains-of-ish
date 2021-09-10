@@ -22,6 +22,8 @@ public class Player_Input : MonoBehaviour
     public event Action OnJumpUp = delegate { };
     public event Action OnJumpDown = delegate { };
     public event Action OnDash = delegate { };
+    public event Action OnDashUp = delegate { };
+
     public event Action OnBoomerangDash = delegate { };
     public event Action<int> OnHeal = delegate { };
 
@@ -76,6 +78,11 @@ public class Player_Input : MonoBehaviour
         if (Input.GetButtonDown("Dash"))
         {
             OnDash();
+        }
+
+        if (Input.GetButtonUp("Dash"))
+        {
+            OnDashUp();
         }
 
         if (Input.GetButtonDown("Interact"))

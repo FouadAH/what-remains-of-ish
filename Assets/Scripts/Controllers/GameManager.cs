@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     public bool hasDashAbility = true;
     public bool hasWallJump = false;
     public bool hasTeleportAbility = false;
+    public bool hasSprintAbility = false;
+
 
     [Header("Game State")]
     public bool isRespawning = false;
