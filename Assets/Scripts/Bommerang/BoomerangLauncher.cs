@@ -11,6 +11,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     public GameObject boomerangPrefab;
     public SpriteRenderer crosshair;
+    public SpriteRenderer secondCrosshair;
 
     [SerializeField] private Transform firingPoint;
     
@@ -90,6 +91,36 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         FiringLogic();
         BoomerangAimingEffects();
         AimingLogic();
+        Crosshair();
+    }
+
+    Vector2 referencePos;
+    void Crosshair()
+    {
+        Vector2 targetPos;
+        if (isAiming)
+        {
+            crosshair.enabled = true;
+            secondCrosshair.enabled = true;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 18f, hittable);
+
+            if (hit)
+            {
+                targetPos = hit.point;
+                secondCrosshair.transform.position = Vector2.SmoothDamp(secondCrosshair.transform.position, targetPos, ref referencePos, 0.02f);
+            }
+            else if(playerInput.controllerConnected)
+            {
+                targetPos = new Vector3(0, 18f, 0);
+                secondCrosshair.transform.localPosition = Vector2.SmoothDamp(secondCrosshair.transform.localPosition, targetPos, ref referencePos, 0.02f);
+            }
+            else
+            {
+                targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                secondCrosshair.transform.position = Vector2.SmoothDamp(secondCrosshair.transform.position, targetPos, ref referencePos, 0.02f);
+                secondCrosshair.transform.localPosition = new Vector2(secondCrosshair.transform.localPosition.x, Mathf.Clamp(secondCrosshair.transform.localPosition.y, 0, 18f));
+            }
+        }
     }
 
     void AimingLogic()
@@ -146,7 +177,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         {
             playerInput.aiming = true;
             aimTimer = StartCoroutine(AimTimer());
-            crosshair.enabled = true;
         }
         else if (isAiming && canFire && Input.GetButtonUp("Aim"))
         {
@@ -174,6 +204,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public void Launch()
     {
         crosshair.enabled = false;
+        secondCrosshair.enabled = false;
         isAiming = false;
 
         if (canFire)

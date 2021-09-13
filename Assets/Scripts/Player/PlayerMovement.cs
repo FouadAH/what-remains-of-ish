@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     PlayerDash playerDash;
     PlayerTeleport boomerangDash;
     PlayerAnimations playerAnimations;
-
     BoomerangLauncher boomerangLauncher;
 
     private float gravity;
@@ -27,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 velocity;
     private float velocityXSmoothing;
     private float velocityYSmoothing;
-
     public bool WallSliding { get; private set; }
     public Vector2 Velocity { get => velocity; set => velocity = value; }
     public bool IsAttacking { get; set; }
@@ -45,13 +43,18 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump settings")]
     public float jumpForceX = 25f;
     public float jumpApexGravityModifier = 0.8f;
-    bool canJump;
+    public bool canJump;
     float MAX_JUMP_ASSIST_TIME;
     float cayoteTimer = 0f;
     int MAX_JUMP_BUFFER_TIME;
     int jumpBufferCounter = 10;
 
     [Header("Run settings")]
+    public float walkSpeed = 16f;
+    public float sprintSpeed = 18f;
+    public float dashSpeed = 16f;
+    public bool isSprinting = false;
+
     public float runAccel = 1f;
     public float runDeccelTime = 0.1f;
 
@@ -60,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
 
     public float stopFriction = 0.05f;
     public float stopFrictionSprinting = 0.1f;
-
 
     public float speedThreshold = 8f;
     public float halfGravThreshold;
@@ -84,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
     float currentJumpHeight;
     float initialHeight;
 
+    [Header("States")]
     public bool isAirborne;
     public bool isDead;
     public bool isPaused = false;
@@ -128,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
         SpriteUpdate();
         controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, -1));
         HandleMaxSlope();
-
+        playerAnimations.Animate();
         if (UI_HUD.instance.debugMode)
         {
             velocityXDebug.SetText("Velocity X: " + Mathf.Round(velocity.x));
@@ -147,8 +150,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Movement();
-
-        playerAnimations.Animate();
     }
 
     void SpriteUpdate()
@@ -183,7 +184,6 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
             return;
         }
-
 
         if (boomerangDash.doBoost)
         {
@@ -229,7 +229,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isSprinting = true;
         }
-
     }
 
     void OnDashInputUp()
@@ -258,13 +257,6 @@ public class PlayerMovement : MonoBehaviour
     /// Method that calculates the players' velocity based on the players' speed and input 
     /// </summary>
     /// <param name="velocityXSmoothing"></param>
-    /// 
-
-    public float walkSpeed = 16f;
-    public float sprintSpeed = 18f;
-    public float dashSpeed = 16f;
-    public bool isSprinting = false;
-
     public void CalculateVelocity(bool isTeleporting = false)
     {
         float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
@@ -284,7 +276,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (isSprinting && Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x * -1)
             {
-                Debug.Log("stopFrictionSprinting");
                 velocity.x = Mathf.SmoothDamp(velocity.x, 0, ref velocityXSmoothing, stopFrictionSprinting);
             }
             else if (Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x * -1)

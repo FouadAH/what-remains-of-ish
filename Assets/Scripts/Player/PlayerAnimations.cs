@@ -45,24 +45,24 @@ public class PlayerAnimations
     {
         animator.SetFloat("Speed", Mathf.Abs(playerInput.directionalInput.x));
 
-        if (playerMovement.Velocity.y <= -5f)
+        if (playerMovement.Velocity.y <= -2f)
         {
             falling = true;
             jumping = false;
         }
-        else if(playerMovement.Velocity.y >= 5f)
+        else if(playerMovement.Velocity.y >= 2f)
         {
             jumping = true;
             falling = false;
         }
-        else if (playerMovement.Velocity.y < 5f && playerMovement.Velocity.y > -5f)
+        else if (playerMovement.Velocity.y < 2f && playerMovement.Velocity.y > -2f)
         {
             falling = false;
             jumping = false;
         }
+
         animator.SetBool("isFalling", falling);
         animator.SetBool("isJumping", jumping);
-
         animator.SetBool("isWallSliding", playerMovement.WallSliding);
 
         //if (!invinsible)
