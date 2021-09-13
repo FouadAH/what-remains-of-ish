@@ -28,10 +28,12 @@ public class Boomerang : MonoBehaviour
     Transform[] wallDetectionObjs;
     Rigidbody2D rgb2D;
     SpriteRenderer spriteRenderer;
+    PlayerMovement playerMovement;
 
-    private void Start()
+    private void Awake()
     {
         gm = GameManager.instance;
+        playerMovement = gm.player.GetComponent<PlayerMovement>();
         boomerangLauncher = gm.player.GetComponent<Player>().boomerangLauncher;
         rb = GetComponent<Rigidbody2D>();
         //StartCoroutine(BommerangBehaviour());
@@ -80,12 +82,18 @@ public class Boomerang : MonoBehaviour
         
     }
 
+    bool firstTake = true;
     void SetVelocity()
     {
-        if(!isReflecting)
-            targetVelocity = transform.up * boomerangLauncher.MoveSpeed;
+        if (  !isReflecting)
+        {
+            float targetSpeedX = boomerangLauncher.MoveSpeed + Mathf.Abs(playerMovement.Velocity.x);
+            float targetSpeedY = boomerangLauncher.MoveSpeed;
 
-        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocityXSmoothing, boomerangLauncher.accelerationTime);
+            targetVelocity = transform.up * new Vector2(targetSpeedX, targetSpeedY);
+        }
+
+        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity , ref velocityXSmoothing, boomerangLauncher.accelerationTime);
     }
 
     IEnumerator BoomerangTimer()
@@ -241,7 +249,6 @@ public class Boomerang : MonoBehaviour
         foreach (Transform item in wallDetectionObjs)
         {
             Gizmos.DrawLine(item.position, item.position + transform.up * wallDetectionDistance);
-
         }
     }
 }
