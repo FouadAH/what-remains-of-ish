@@ -136,9 +136,25 @@ public class PlayerTeleport : MonoBehaviour
         }
 
         transformToMove.position = teleportPosition;
-
+        StartCoroutine(JumpBuffer());
     }
 
+    int frameCounter = 0;
+    public int maxJumpBufferFrame = 1;
+
+    IEnumerator JumpBuffer()
+    {
+        while (frameCounter < maxJumpBufferFrame)
+        {
+            playerMovement.canJump = true;
+            frameCounter++;
+            Debug.Log("Frame: " + frameCounter + " Can Jump = " + playerMovement.canJump);
+            yield return new WaitForEndOfFrame();
+        }
+        frameCounter = 0;
+        playerMovement.canJump = false;
+    }
+    
     public IEnumerator TeleportEffect( float timer)
     {
         teleportTrail.emitting = true;
