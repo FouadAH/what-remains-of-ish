@@ -39,6 +39,10 @@ public class KillArea : MonoBehaviour {
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
+
+        if(col2D == null)
+            col2D = gameObject.GetComponent<BoxCollider2D>();
+
         Gizmos.DrawWireCube(col2D.bounds.center, col2D.bounds.size);
     }
 }

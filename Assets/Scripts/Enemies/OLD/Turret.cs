@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret :  MonoBehaviour, FiringAI
+public class Turret : MonoBehaviour, FiringAI, IDamagable
 {
     public bool targeting;
 
@@ -18,12 +18,29 @@ public class Turret :  MonoBehaviour, FiringAI
 
     float FiringAI.fireRate { get => fireRate; set => value = fireRate; }
     float FiringAI.nextFireTime { get => nextFireTime; set => value = nextFireTime; }
+    
+    public int maxHealth;
+
+    public int MaxHealth { get; set; }
+    public float Health { get; set; }
+    public int knockbackGiven { get; set; }
 
     public event Action OnFire = delegate { };
+
+    [Header("Hit Effects")]
+    [SerializeField] private GameObject damageNumberPrefab;
+
+    public event Action<float, float> OnHitEnemy = delegate { };
+
+    ColouredFlash colouredFlash;
+    public float flaskRefillAmount = 5f;
 
     void Start()
     {
         target = GameManager.instance.player.transform;
+        colouredFlash = GetComponent<ColouredFlash>();
+        MaxHealth = maxHealth;
+        Health = MaxHealth;
     }
 
     void Update()
@@ -79,5 +96,45 @@ public class Turret :  MonoBehaviour, FiringAI
         return Time.time >= nextFireTime;
     }
 
+    public void ModifyHealth(int amount)
+    {
+        Health -= amount;
+        RaiseOnHitEnemyEvent(Health, MaxHealth);
 
+        if (colouredFlash != null)
+        {
+            colouredFlash.Flash(Color.white);
+        }
+
+        if (Health <= 0)
+        {
+            UI_HUD.instance.RefillFlask(flaskRefillAmount);
+            Destroy(gameObject);
+
+        }
+        else
+        {
+            SpawnDamagePoints(amount);
+        }
+    }
+
+    protected void RaiseOnHitEnemyEvent(float health, float maxHealth)
+    {
+        var eh = OnHitEnemy;
+        if (eh != null)
+            OnHitEnemy(health, maxHealth);
+    }
+
+    public void SpawnDamagePoints(int damage)
+    {
+        float x = UnityEngine.Random.Range(transform.position.x - 1f, transform.position.x + 1f);
+        float y = UnityEngine.Random.Range(transform.position.y - 0.5f, transform.position.y + 0.5f);
+        GameObject damageNum = Instantiate(damageNumberPrefab, new Vector3(x, y, 0), Quaternion.identity);
+        damageNum.GetComponent<DamageNumber>().Setup(damage);
+    }
+
+    public void KnockbackOnDamage(int amount, float dirX, float dirY)
+    {
+        return;
+    }
 }
