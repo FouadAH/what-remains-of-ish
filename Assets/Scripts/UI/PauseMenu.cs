@@ -70,6 +70,7 @@ public class PauseMenu : MonoBehaviour
             {
                 Pause();
             }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/Pause Menu/Pause Button", GetComponent<Transform>().position);
         }
 
         masterBus.setVolume(masterVolume);
