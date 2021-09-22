@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Controller_2D))]
-public class BaseEnemy : IEnemy, IBaseStats
+public class BaseEnemy : IEnemy, IAttacker
 {
     private Controller_2D controller;
 

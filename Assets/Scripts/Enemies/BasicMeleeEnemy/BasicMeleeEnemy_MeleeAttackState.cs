@@ -71,7 +71,7 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxRespond
         {
             Vector2 direction = (hurtbox.transform.position - enemy.transform.position).normalized;
             Vector2 knockBackDirection = (direction.x > 0) ? new Vector2(-1, direction.y) : new Vector2(1, direction.y);
-            hurtbox.getHitBy(entity.GetComponent<IBaseStats>(), (knockBackDirection.x), (knockBackDirection.y));
+            hurtbox.getHitBy(entity.GetComponent<IAttacker>(), (knockBackDirection.x), (knockBackDirection.y));
         }
     }
 }

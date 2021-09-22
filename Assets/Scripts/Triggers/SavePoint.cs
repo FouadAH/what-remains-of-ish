@@ -22,15 +22,27 @@ public class SavePoint: MonoBehaviour {
     {
         if (Input.GetButtonDown("Interact"))
         {
-            GameManager.instance.lastSavepointLevelIndex = levelIndex;
-            GameManager.instance.lastSavepointPos = transform.position;
-
-            GameManager.instance.lastCheckpointLevelIndex = levelIndex;
-            GameManager.instance.lastCheckpointPos = transform.position;
-
-            GameManager.instance.SaveGame();
+            Rest();
         }
     }
+
+    private void Rest()
+    {
+        GameManager.instance.lastSavepointLevelIndex = levelIndex;
+        GameManager.instance.lastSavepointPos = transform.position;
+
+        GameManager.instance.lastCheckpointLevelIndex = levelIndex;
+        GameManager.instance.lastCheckpointPos = transform.position;
+
+        float missingHealth = GameManager.instance.maxHealth - GameManager.instance.health;
+        GameManager.instance.health = GameManager.instance.maxHealth;
+        UI_HUD.instance.OnResetHP(missingHealth);
+
+        GameManager.instance.SaveGame();
+
+        UI_HUD.instance.SetDebugText("Player health restored, checkpoint set and game saved.");
+    }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {

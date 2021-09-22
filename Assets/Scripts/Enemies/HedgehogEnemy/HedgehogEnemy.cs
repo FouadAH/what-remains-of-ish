@@ -3,17 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HedgehogEnemy : Entity, IBaseStats
+public class HedgehogEnemy : Entity
 {
     public IdleState idleState { get; private set; }
     public MoveState moveState { get; private set; }
     public PlayerDetectedState playerDetectedState { get; private set; }
     public DeadState deadState { get; private set; }
-
-    [SerializeField] private int meleeDamage;
-    [SerializeField] private int hitKnockbackAmount;
-    public int MeleeDamage { get => meleeDamage; set => meleeDamage = value; }
-    public int HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
 
     [Header("States")]
     [SerializeField] private D_IdleState idleStateData;
@@ -54,10 +49,5 @@ public class HedgehogEnemy : Entity, IBaseStats
         {
             stateMachine.ChangeState(deadState);
         }
-    }
-
-    public void KnockbackOnHit(int amount, float dirX, float dirY)
-    {
-        Debug.Log("KnockbackOnHit");
     }
 }

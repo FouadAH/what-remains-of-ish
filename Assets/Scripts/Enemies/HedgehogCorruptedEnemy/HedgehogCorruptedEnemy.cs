@@ -31,11 +31,10 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
 
         moveState = new HedgehogCorruptedEnemy_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new HedgehogCorrutedEnemy_IdleState(this, stateMachine, "idle", idleStateData, this);
-        playerDetectedState = new HedgehogCorruptedEnemy_PlayerDetectedState(this, stateMachine, "move", playerDetectedData, this);
+        playerDetectedState = new HedgehogCorruptedEnemy_PlayerDetectedState(this, stateMachine, "block", playerDetectedData, this);
         deadState = new HedgehogCorruptedEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(moveState);
-
     }
 
     public override void ModifyHealth(int amount)
@@ -54,7 +53,7 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
         else
         {
             //Aggro();
-            SpawnDamagePoints(amount);
+            //SpawnDamagePoints(amount);
             anim.SetTrigger("Hit");
         }
 
@@ -62,11 +61,6 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
         {
             stateMachine.ChangeState(deadState);
         }
-    }
-
-    public void KnockbackOnHit(int amount, float dirX, float dirY)
-    {
-        Debug.Log("KnockbackOnHit");
     }
 
     public void RaiseOnFireEvent()

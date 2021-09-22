@@ -25,16 +25,11 @@ public class HedgehogEnemy_PlayerDetectedState : PlayerDetectedState
     }
 
     float lastDetectedTime;
-    float waitTime = 1f;
+    float waitTime = 0.2f;
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (!entity.CheckPlayerInMinAgroRange())
-        {
-            stateMachine.ChangeState(enemy.moveState);
-        }
 
         if (entity.CheckPlayerInMinAgroRange())
         {

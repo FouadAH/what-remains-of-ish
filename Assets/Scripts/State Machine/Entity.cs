@@ -212,7 +212,7 @@ public class Entity : MonoBehaviour, IDamagable
         }
         else
         {
-            SpawnDamagePoints(amount);
+            //SpawnDamagePoints(amount);
         }
     }
 

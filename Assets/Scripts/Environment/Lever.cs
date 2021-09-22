@@ -23,24 +23,6 @@ public class Lever : MonoBehaviour, IDamagable
         animator = GetComponent<Animator>();
     }
 
-    /// </summary>
-    //public void OnDamage()
-    //{
-    //    if (invinsible)
-    //    {
-    //        if (iFrames > 0)
-    //        {
-    //            iFrames -= Time.deltaTime;
-    //        }
-    //        else
-    //        {
-    //            invinsible = false;
-    //            anim.SetBool("invinsible", false);
-    //        }
-    //    }
-    //}
-
-
     public void ModifyHealth(int amount)
     {
         Debug.Log("Open/Close");

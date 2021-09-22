@@ -12,6 +12,9 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public GameObject boomerangPrefab;
     public SpriteRenderer crosshair;
     public SpriteRenderer secondCrosshair;
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
 
     [SerializeField] private Transform firingPoint;
     
@@ -81,6 +84,8 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
         volume = FindObjectOfType<Volume>();
         volume.profile.TryGet(out chromaticAberration);
+
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -98,28 +103,68 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     void Crosshair()
     {
         Vector2 targetPos;
-        if (isAiming)
+        if (playerInput.controllerConnected)
         {
-            crosshair.enabled = true;
-            secondCrosshair.enabled = true;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 18f, hittable);
+            if (Cursor.visible)
+            {
+                Cursor.visible = false;
+            }
 
-            if (hit)
+            if (isAiming)
             {
-                targetPos = hit.point;
-                secondCrosshair.transform.position = Vector2.SmoothDamp(secondCrosshair.transform.position, targetPos, ref referencePos, 0.02f);
+                crosshair.enabled = true;
+                secondCrosshair.enabled = true;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 18f, hittable);
+
+                if (hit)
+                {
+                    targetPos = hit.point;
+                    secondCrosshair.transform.position = Vector2.SmoothDamp(secondCrosshair.transform.position, targetPos, ref referencePos, 0.02f);
+                }
+                else if (playerInput.controllerConnected)
+                {
+                    targetPos = new Vector3(0, 18f, 0);
+                    secondCrosshair.transform.localPosition = Vector2.SmoothDamp(secondCrosshair.transform.localPosition, targetPos, ref referencePos, 0.02f);
+                }
+                else
+                {
+                    targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    secondCrosshair.transform.position = Vector2.SmoothDamp(secondCrosshair.transform.position, targetPos, ref referencePos, 0.02f);
+                    secondCrosshair.transform.localPosition = new Vector2(secondCrosshair.transform.localPosition.x, Mathf.Clamp(secondCrosshair.transform.localPosition.y, 0, 18f));
+                }
             }
-            else if(playerInput.controllerConnected)
+        }
+        else
+        {
+            if (!Cursor.visible)
             {
-                targetPos = new Vector3(0, 18f, 0);
-                secondCrosshair.transform.localPosition = Vector2.SmoothDamp(secondCrosshair.transform.localPosition, targetPos, ref referencePos, 0.02f);
+                Cursor.visible = true;
+                Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
             }
-            else
+
+            if (isAiming)
             {
-                targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                secondCrosshair.transform.position = Vector2.SmoothDamp(secondCrosshair.transform.position, targetPos, ref referencePos, 0.02f);
-                secondCrosshair.transform.localPosition = new Vector2(secondCrosshair.transform.localPosition.x, Mathf.Clamp(secondCrosshair.transform.localPosition.y, 0, 18f));
+                secondCrosshair.enabled = true;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 18f, hittable);
+
+                if (hit)
+                {
+                    targetPos = hit.point;
+                    secondCrosshair.transform.position = Vector2.SmoothDamp(secondCrosshair.transform.position, targetPos, ref referencePos, 0.02f);
+                }
+                else
+                {
+                    targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    secondCrosshair.transform.position = targetPos;
+                    secondCrosshair.transform.localPosition = new Vector2(secondCrosshair.transform.localPosition.x, Mathf.Clamp(secondCrosshair.transform.localPosition.y, 0, 18f));
+                }
             }
+            
+            //targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            //crosshair.enabled = true;
+            //crosshair.transform.position = Vector2.SmoothDamp(crosshair.transform.position, targetPos, ref referencePos, 0.02f); ;
+            //crosshair.transform.localPosition = new Vector2(crosshair.transform.localPosition.x, crosshair.transform.localPosition.y);
         }
     }
 

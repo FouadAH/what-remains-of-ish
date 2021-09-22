@@ -7,7 +7,7 @@ using Cinemachine;
 
 [RequireComponent(typeof(Controller_2D))]
 
-public class Player : MonoBehaviour, IBaseStats{
+public class Player : MonoBehaviour, IAttacker{
 
     Controller_2D controller;
 
@@ -322,11 +322,11 @@ public class Player : MonoBehaviour, IBaseStats{
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
         playerMovement.kockbackDistance = amount;
 
-        StopCoroutine(KnockbackRoutine());
-        StartCoroutine(KnockbackRoutine());
+        StopCoroutine(KnockbackOnDamageRoutine());
+        StartCoroutine(KnockbackOnDamageRoutine());
     }
 
-    IEnumerator KnockbackRoutine()
+    IEnumerator KnockbackOnDamageRoutine()
     {
         playerMovement.isKnockedback = true;
         yield return new WaitForSecondsRealtime(knockbackOnDamageTimer);

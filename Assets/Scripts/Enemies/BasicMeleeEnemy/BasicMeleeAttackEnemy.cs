@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMeleeAttackEnemy : Entity, IBaseStats
+public class BasicMeleeAttackEnemy : Entity, IAttacker
 {
     public IdleState idleState { get; private set; }
     public MoveState moveState { get; private set; }

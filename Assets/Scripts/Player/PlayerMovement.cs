@@ -31,9 +31,10 @@ public class PlayerMovement : MonoBehaviour
     public bool IsAttacking { get; set; }
 
     [Header("Knockback settings")]
-    public float kockbackDistance;
     public Vector3 dirKnockback;
     public bool isKnockedback;
+    [HideInInspector] public float kockbackDistance;
+
 
     [Header("Teleport settings")]
     public float boostForceX = 5f;

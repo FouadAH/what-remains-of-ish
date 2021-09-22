@@ -40,7 +40,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
         {
             if(dir.y == 1)
             {
-                hurtbox?.getHitBy(gameObject.GetComponent<IBaseStats>(), (dir.x), (dir.y));
+                hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (dir.y));
                 return;
             }
             Vector2 direction = (hurtbox.transform.position - transform.position).normalized;
@@ -58,6 +58,6 @@ public class Attack : MonoBehaviour, IHitboxResponder
         }
 
         //Debug.Log("Knockback Dir: X:" + (dir.x) + " Y: " + (dir.y));
-        hurtbox?.getHitBy(gameObject.GetComponent<IBaseStats>(), (dir.x), (-dir.y));
+        hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (-dir.y));
     }
 }

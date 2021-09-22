@@ -17,7 +17,7 @@ public class Hurtbox : MonoBehaviour
         attackProcessor = new AttackProcessor();
     }
 
-    public void getHitBy(IBaseStats attacker, float knockbackDirX, float knockbackDirY)
+    public void getHitBy(IAttacker attacker, float knockbackDirX, float knockbackDirY)
     {
         if (!stunned)
         {

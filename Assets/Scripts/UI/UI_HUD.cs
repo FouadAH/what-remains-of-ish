@@ -25,6 +25,10 @@ public class UI_HUD : MonoBehaviour
     public GameObject debugTextPanel;
     public TMP_Text pickupDebugText;
 
+    public GameObject debugTimer;
+    public TMP_Text debugTimerText;
+
+
     void Awake()
     {
         if (instance != null)
@@ -129,10 +133,35 @@ public class UI_HUD : MonoBehaviour
         RefrechHealingPods();
     }
 
+    public void OnResetHP(float missingHealth)
+    {
+        anim.SetTrigger("OnHeal");
+
+        //Adding hearts to health bar 
+        for (int i = 0; i < missingHealth; i++)
+        {
+            Instantiate(heartPrefab, heartBar);
+        }
+
+        //Refill healing
+        for (int i = 1; i < healingFlasks.Count; i++)
+        {
+            healingFlasks[i].fillAmount = 100;
+        }
+
+        RefrechHealingPods();
+    }
+
     public void SetDebugText(string text)
     {
         StopCoroutine(DebugTextRoutine(text));
         StartCoroutine(DebugTextRoutine(text));
+    }
+
+    public void SetDebugTimerText(string text)
+    {
+        debugTextPanel.SetActive(true);
+        pickupDebugText.SetText(text);
     }
 
     IEnumerator DebugTextRoutine(string text)
