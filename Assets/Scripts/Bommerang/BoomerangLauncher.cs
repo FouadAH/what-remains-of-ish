@@ -258,6 +258,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             var Boomerang = Instantiate(boomerangPrefab, firingPoint.position, firingPoint.rotation);
             boomerangReference = Boomerang.GetComponent<Boomerang>();
             Boomerang.GetComponent<Boomerang>().OnRangedHit += RangedHit;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Attack",GetComponent<Transform>().position);
         }
     }
 

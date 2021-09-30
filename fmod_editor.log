@@ -7,7 +7,7 @@
 [LOG] SystemI::init                            : Output requires a sample rate of 44100Hz, resampling will occur.
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x8000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0x7fc7e3f21a08 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 0x7fe5ad7daa08 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -15,139 +15,44 @@
 [LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
+[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
 [LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
 [LOG] SystemI::createSoundInternal             : exinfo->length             = 6044672
 [LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 34464
 [LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0x70000e5ad954
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0x70000279a954
 [LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 0x17e7287fa
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 0x17e7288b1
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 0x17e7288de
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 0x17e728982
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0x7fc7c96c11f8
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 0x181cae7fa
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 0x181cae8b1
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 0x181cae8de
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 0x181cae982
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0x7fe592953a48
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] SystemI::createSoundInternal             : Sample 0/1: name='What Remains of Ish (Pause)', format=5, channels=2, frequency=48000, lengthbytes=18464, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.988500.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 6044672
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 34464
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0x70000e5ad954
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 0x17e7287fa
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 0x17e7288b1
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 0x17e7288de
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 0x17e728982
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0x7fc7e27b47e8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='What Remains of Ish (Options4)', format=5, channels=2, frequency=48000, lengthbytes=23616, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.988500.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 6044672
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 34464
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0x70000e5ad954
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 0x17e7287fa
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 0x17e7288b1
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 0x17e7288de
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 0x17e728982
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0x7fc7e27b47e8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='What Remains of Ish (Options)', format=5, channels=2, frequency=48000, lengthbytes=22848, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.988500.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 6044672
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 34464
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0x70000e5ad954
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 0x17e7287fa
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 0x17e7288b1
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 0x17e7288de
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 0x17e728982
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0x7fc7e27b47e8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='What Remains of Ish (Options5)', format=5, channels=2, frequency=48000, lengthbytes=22048, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.988500.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 6044672
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 34464
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0x70000e5ad954
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 0x17e7287fa
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 0x17e7288b1
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 0x17e7288de
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 0x17e728982
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0x7fc7e27b47e8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='What Remains of Ish (Options2)', format=5, channels=2, frequency=48000, lengthbytes=23648, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.988500.
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 6044672
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 34464
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0x70000e5ad954
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 0x17e7287fa
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 0x17e7288b1
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 0x17e7288de
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 0x17e728982
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0x7fc7e27a8f68
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='What Remains of Ish (Start)', format=5, channels=2, frequency=48000, lengthbytes=50464, lengthpcm=192000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.988500.
-[LOG] SoundI::release                          :  (0x7fc7e27ad928)
-[LOG] SoundI::release                          :     What Remains of Ish (Options4) (0x7fc7e27b4dd8)
-[LOG] SoundI::release                          : What Remains of Ish (Old Ruins Layer 2) (0x7fc7c909bf18)
-[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 2) (0x7fc7c7a5b378)
-[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 2) (0x7fc7c7a59548)
-[LOG] SoundI::release                          : What Remains of Ish (Old Ruins Layer 3) (0x7fc7c90e8258)
-[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 3) (0x7fc7c7a5ab58)
-[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 3) (0x7fc7c7a5ace8)
-[LOG] SoundI::release                          : What Remains of Ish (Old Ruins Layer 1) (0x7fc7c90ba058)
-[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 1) (0x7fc7c7a60728)
-[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 1) (0x7fc7c7a5bf58)
-[LOG] SoundI::release                          :  (0x7fc7c7af3108)
-[LOG] SoundI::release                          :     What Remains of Ish (Options5) (0x7fc7c7af1458)
-[LOG] SoundI::release                          :  (0x7fc7e27ac898)
-[LOG] SoundI::release                          :     What Remains of Ish (Options) (0x7fc7e27aca08)
-[LOG] SoundI::release                          :  (0x7fc7c7add658)
-[LOG] SoundI::release                          :     What Remains of Ish (Options2) (0x7fc7c7afa358)
-[LOG] SoundI::release                          :  (0x7fc7e27a7588)
-[LOG] SoundI::release                          :     What Remains of Ish (Start) (0x7fc7e27a76f8)
-[LOG] SoundI::release                          :  (0x7fc7e32a8da8)
-[LOG] SoundI::release                          :     What Remains of Ish (Pause) (0x7fc7e3089278)
-[LOG] SoundI::release                          :  (0x7fc7c90fae38)
-[LOG] SoundI::release                          :     What Remains of Ish (Back2) (0x7fc7c90e2648)
-[LOG] SoundI::release                          :  (0x7fc7c90d4588)
-[LOG] SoundI::release                          :     What Remains of Ish (Back) (0x7fc7c90ab038)
-[LOG] SoundI::release                          :  (0x7fc7c90c3c58)
-[LOG] SoundI::release                          :     What Remains of Ish (Back4) (0x7fc7c90a7698)
-[LOG] SoundI::release                          :  (0x7fc7c90c2e38)
-[LOG] SoundI::release                          :     What Remains of Ish (Back3) (0x7fc7c909f8b8)
-[LOG] SoundI::release                          :  (0x7fc7c90dd398)
-[LOG] SoundI::release                          :     What Remains of Ish (Back5) (0x7fc7c90b7198)
+[LOG] SoundI::release                          : What Remains of Ish (Old Ruins Layer 2) (0x7fe592accf98)
+[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 2) (0x7fe5907dea08)
+[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 2) (0x7fe5907de028)
+[LOG] SoundI::release                          : What Remains of Ish (Old Ruins Layer 3) (0x7fe592a18f28)
+[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 3) (0x7fe5907e0188)
+[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 3) (0x7fe5907df0b8)
+[LOG] SoundI::release                          : What Remains of Ish (Old Ruins Layer 1) (0x7fe592a379c8)
+[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 1) (0x7fe5907e0b48)
+[LOG] SoundI::release                          :     What Remains of Ish (Old Ruins Layer 1) (0x7fe5907e0cd8)
+[LOG] SoundI::release                          :  (0x7fe593d92a08)
+[LOG] SoundI::release                          :     What Remains of Ish (Pause) (0x7fe593d0f9a8)
+[LOG] SoundI::release                          :  (0x7fe592addf78)
+[LOG] SoundI::release                          :     What Remains of Ish (Back2) (0x7fe592a857f8)
+[LOG] SoundI::release                          :  (0x7fe592a693b8)
+[LOG] SoundI::release                          :     What Remains of Ish (Back) (0x7fe592a258b8)
+[LOG] SoundI::release                          :  (0x7fe592a688d8)
+[LOG] SoundI::release                          :     What Remains of Ish (Back4) (0x7fe592a252c8)
+[LOG] SoundI::release                          :  (0x7fe592ae6288)
+[LOG] SoundI::release                          :     What Remains of Ish (Back3) (0x7fe592a86ba8)
+[LOG] SoundI::release                          :  (0x7fe592adaf78)
+[LOG] SoundI::release                          :     What Remains of Ish (Back5) (0x7fe592a7ddc8)
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
@@ -158,3 +63,17 @@
 [LOG] Thread::callback                         : FMOD mixer thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] SystemI::close                           : Closed.
+[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
+[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
+[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
+[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] SystemI::close                           : Closed.
+[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         : FMOD file thread finished.
