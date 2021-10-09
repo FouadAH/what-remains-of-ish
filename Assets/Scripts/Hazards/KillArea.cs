@@ -26,11 +26,14 @@ public class KillArea : MonoBehaviour {
 
             if (player.enabled)
             {
-                player.ModifyHealth(damageDealt);
-
-                if (GameManager.instance.health > 0)
+                if (GameManager.instance.health > 1 && !GameManager.instance.isRespawning)
                 {
+                    player.ModifyHealth(damageDealt);
                     GameManager.instance.SoftRespawn();
+                }
+                else
+                {
+                    player.ModifyHealth(damageDealt);
                 }
             }
         }

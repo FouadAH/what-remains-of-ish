@@ -85,7 +85,11 @@ public class Player_Input : MonoBehaviour
             OnDashUp();
         }
 
-        if (Input.GetButtonDown("Interact"))
+        if(!controllerConnected && Input.GetButtonDown("Aim"))
+        {
+            OnBoomerangDash();
+        }
+        else if (controllerConnected && Input.GetButtonDown("Interact"))
         {
             OnBoomerangDash();
         }

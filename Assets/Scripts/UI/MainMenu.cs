@@ -224,7 +224,6 @@ public class MainMenu : MonoBehaviour
         GameManager.instance.health = 5;
         GameManager.instance.maxHealth = 5;
         GameManager.instance.currency = 0;
-        GameManager.instance.playerPosition = GameManager.instance.playerPosition;
 
         GameManager.instance.lastSavepointPos = GameManager.instance.playerPosition;
         GameManager.instance.lastSavepointLevelIndex = 4;

@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject optionMenu;
+    public GameObject controlsMenu;
+
     public GameObject videoOptions;
     public GameObject audioOptions;
     EventSystem eventSystem;
@@ -100,6 +102,19 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         optionMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
+    }
+
+    public void ControlsMenu()
+    {
+        pauseMenu.SetActive(false);
+        controlsMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
+    }
+    public void ControlsMenuBack()
+    {
+        pauseMenu.SetActive(true);
+        controlsMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
     }
     public void VideoMenu()

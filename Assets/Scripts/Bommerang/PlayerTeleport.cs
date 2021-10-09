@@ -7,12 +7,14 @@ public class PlayerTeleport : MonoBehaviour
     [HideInInspector] public bool doBoost = false;
     [HideInInspector] public Vector2 boostDir = Vector2.zero;
 
+    public LayerMask affectedByTeleport;
     public bool isTeleporting;
     Vector2 boomerangPos;
 
-    private bool teleportLock;
+    public bool teleportLock;
     private bool canTeleport;
 
+    public float teleportDamage = 10f;
     public float teleportCooldownTimer = 0.6f;
     public float boomerangTeleportDamage = 15f;
     public float teleportDelay = 0.08f;
@@ -33,6 +35,7 @@ public class PlayerTeleport : MonoBehaviour
         playerCollider = GetComponent<Collider2D>();
     }
 
+    public IEnumerator teleportLockRoutine;
     public void OnTeleportInput(Transform transformToMove, ref Vector2 velocity, Boomerang boomerangRef)
     {
         boomerang = boomerangRef;
@@ -65,14 +68,20 @@ public class PlayerTeleport : MonoBehaviour
     {
         yield return new WaitForSeconds(timer);
 
-        RaycastHit2D[] hits = Physics2D.LinecastAll(boomerangLauncher.transform.position, boomerangPos, GameManager.instance.player.GetComponent<Player>().enemyMask);
+        RaycastHit2D[] hits = Physics2D.LinecastAll(boomerangLauncher.transform.position, boomerangPos, affectedByTeleport);
         foreach (RaycastHit2D hit in hits)
         {
             IDamagable damagable = hit.collider.GetComponent<IDamagable>();
             if (damagable != null)
             {
-                damagable.ModifyHealth(10);
+                damagable.ModifyHealth((int)teleportDamage);
             }
+            else if (hit.collider.GetComponent<TeleportRefill>())
+            {
+                TeleportRefill teleportRefill = hit.collider.GetComponent<TeleportRefill>();
+                teleportRefill.Refill(transformToMove.GetComponent<Player>());
+            }
+
         }
 
         TeleportPlayer(transformToMove);
@@ -148,7 +157,7 @@ public class PlayerTeleport : MonoBehaviour
         {
             playerMovement.canJump = true;
             frameCounter++;
-            Debug.Log("Frame: " + frameCounter + " Can Jump = " + playerMovement.canJump);
+            //Debug.Log("Frame: " + frameCounter + " Can Jump = " + playerMovement.canJump);
             yield return new WaitForEndOfFrame();
         }
         frameCounter = 0;

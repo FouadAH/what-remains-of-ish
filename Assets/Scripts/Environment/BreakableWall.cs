@@ -8,10 +8,22 @@ public class BreakableWall : MonoBehaviour, IDamagable
     public int MaxHealth { get; set; }
     public int knockbackGiven { get; set; }
 
+    public GameObject wall;
+    public GameObject shadow;
+
+    SpriteRenderer wallSprite;
+    Collider2D wallCollider;
+    Animator shadowAnimator;
+
     private void Start()
     {
         MaxHealth = 3;
         Health = MaxHealth;
+
+        shadowAnimator = GetComponentInChildren<Animator>();
+
+        wallCollider = wall.GetComponent<Collider2D>();
+        wallSprite = wall.GetComponent<SpriteRenderer>();
     }
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
@@ -23,7 +35,10 @@ public class BreakableWall : MonoBehaviour, IDamagable
         Health--;
         if (Health == 0)
         {
-            Destroy(gameObject);
+            wallCollider.enabled = false;
+            wallSprite.enabled = false;
         }
     }
+
+
 }

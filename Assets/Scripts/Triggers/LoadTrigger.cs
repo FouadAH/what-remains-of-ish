@@ -10,10 +10,6 @@ public class LoadTrigger : MonoBehaviour
 
     public GameObject playerPos;
 
-    private void Start()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals("Player"))

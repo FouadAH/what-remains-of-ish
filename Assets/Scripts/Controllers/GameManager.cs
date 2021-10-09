@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
     public GameObject player;
 
-    [Header("Player Stats")]
+    [Header("Player Settings")]
+    public Vector3 playerPosition;
     public float health = 5;
     public float maxHealth = 5;
 
@@ -24,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     public int currency;
     public Camera playerCamera;
+
+    [Header("Player Debug Settings")]
+    public bool hasInfiniteLives = false;
 
     [Header("Checkpoints")]
     public Vector2 lastCheckpointPos;
@@ -40,7 +44,7 @@ public class GameManager : MonoBehaviour
     public int currentScene;
     public bool loading = false;
 
-    public Vector3 playerPosition;
+    
     AstarPath astarPath;
 
     [Header("Player Abilities")]
@@ -48,7 +52,6 @@ public class GameManager : MonoBehaviour
     public bool hasWallJump = false;
     public bool hasTeleportAbility = false;
     public bool hasSprintAbility = false;
-
 
     [Header("Game State")]
     public bool isRespawning = false;
@@ -76,18 +79,6 @@ public class GameManager : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
     }
 
-    //public void RefillFlask(float amount)
-    //{
-    //    foreach(HealingPod flask in healingFlasks)
-    //    {
-    //        if(flask.fillAmount < 100)
-    //        {
-    //            flask.Refill(amount);
-    //            break;
-    //        }
-    //    }
-    //}
-
     public int AddHealthShard()
     {
         healthShardAmount++;
@@ -98,6 +89,7 @@ public class GameManager : MonoBehaviour
         }
         return remainder;
     }
+
     public void Respawn()
     {
         Debug.Log("Hard Respawn");
@@ -137,6 +129,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<Player>().enabled = false;
             yield return null;
         }
+
         player.transform.position = lastSavepointPos;
         playerCamera.transform.position = player.transform.position;
         player.GetComponentInChildren<BoomerangLauncher>().canFire = true;

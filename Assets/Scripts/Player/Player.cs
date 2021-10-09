@@ -270,9 +270,14 @@ public class Player : MonoBehaviour, IAttacker{
             timeStop.StopTime(changeTime, restoreSpeed, delay);
             iFrames = iFrameTime;
             flashEffect.Flash(Color.white);
-            OnHit(amount);
             invinsible = true;
-            gm.health -= amount;
+
+            if (!GameManager.instance.hasInfiniteLives)
+            {
+                gm.health -= amount;
+                OnHit(amount);
+            }
+
             CheckDeath();
         }
     }
