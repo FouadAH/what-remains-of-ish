@@ -10,9 +10,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
     public GameObject player;
+    public Transform playerCurrentPosition;
 
     [Header("Player Settings")]
-    public Vector3 playerPosition;
+    public Vector3 initialPlayerPosition;
     public float health = 5;
     public float maxHealth = 5;
 
@@ -41,10 +42,15 @@ public class GameManager : MonoBehaviour
 
     private int levelToUnload;
     private int levelToLoad;
+
+    private string levelToUnloadPath;
+    private string levelToLoadPath;
+
     public int currentScene;
+    public string currentScenePath;
+
     public bool loading = false;
 
-    
     AstarPath astarPath;
 
     [Header("Player Abilities")]
@@ -77,6 +83,8 @@ public class GameManager : MonoBehaviour
     {
         astarPath = FindObjectOfType<AstarPath>();
         anim = gameObject.GetComponent<Animator>();
+
+        PlayerPrefs.DeleteAll();
     }
 
     public int AddHealthShard()
@@ -150,6 +158,20 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadSceneRoutine());
     }
 
+    public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath, Vector3 playerPos)
+    {
+        loading = true;
+        currentScenePath = levelToLoadPath;
+
+        player.GetComponent<Player>().enabled = false;
+        newPlayerPos = playerPos;
+
+        this.levelToLoadPath = levelToLoadPath;
+        this.levelToUnloadPath = levelToUnloadPath;
+
+        StartCoroutine(LoadSceneRoutine());
+    }
+
     Vector3 newPlayerPos;
     public void LoadScene(int levelToUnload, int levelToLoad, Vector3 playerPos)
     {
@@ -167,7 +189,8 @@ public class GameManager : MonoBehaviour
     {
         anim.Play("Fade_Out");
         yield return new WaitForSecondsRealtime(1f);
-        SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completed;
+        SceneManager.LoadSceneAsync(levelToLoadPath, LoadSceneMode.Additive).completed += LoadScene_completed;
+        //SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completed;
 
     }
     //public void OnFadeComplete()
@@ -179,7 +202,8 @@ public class GameManager : MonoBehaviour
     {
         if (obj.isDone)
         {
-            SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
+            //SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
+            SceneManager.UnloadSceneAsync(levelToUnloadPath).completed += UnloadScene_completed;
 
             if (!isRespawning)
             {
@@ -199,9 +223,11 @@ public class GameManager : MonoBehaviour
         if (obj.isDone)
         {
             StartCoroutine(FadeIn());
-            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(levelToLoad));
+            //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(levelToLoad));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
+
             astarPath = FindObjectOfType<AstarPath>();
-            //astarPath.Scan();
+            astarPath.Scan();
         }
     }
 

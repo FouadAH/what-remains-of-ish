@@ -49,7 +49,9 @@ public class Entity : MonoBehaviour, IDamagable
     public event Action<float, float> OnHitEnemy = delegate { };
 
     [Header("Aggro Settings")]
-    public float aggroRange = 5f;
+    public float minAggroRange = 5f;
+    public float maxAggroRange = 8f;
+
 
     [Header("Movement Settings")]
     public bool isAffectedByGravity;
@@ -109,6 +111,7 @@ public class Entity : MonoBehaviour, IDamagable
         rb.velocity = velocityWorkspace;
     }
 
+
     public void SetVelocityY(float velocity)
     {
         velocityWorkspace.Set(velocityWorkspace.x, velocity);
@@ -154,9 +157,14 @@ public class Entity : MonoBehaviour, IDamagable
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
     }
 
-    public virtual bool CheckPlayerInAggroRange()
+    public virtual bool CheckPlayerInMinAggroRadius()
     {
-        return Physics2D.OverlapCircle(playerCheck.position, aggroRange, entityData.whatIsPlayer);
+        return Physics2D.OverlapCircle(playerCheck.position, minAggroRange, entityData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInMaxAggroRadius()
+    {
+        return Physics2D.OverlapCircle(playerCheck.position, maxAggroRange, entityData.whatIsPlayer);
     }
 
     public virtual void DamageHop(float velocity)
@@ -216,20 +224,22 @@ public class Entity : MonoBehaviour, IDamagable
         }
     }
 
-    public void KnockbackOnDamage(int amount, float dirX, float dirY)
+    public virtual void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         DamageHop(entityData.damageHopSpeed*dirX);
     }
 
     public virtual void OnDrawGizmos()
     {
+        Gizmos.color = Color.grey;
+        Gizmos.DrawWireSphere(playerCheck.position, minAggroRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, aggroRange);
+        Gizmos.DrawWireSphere(playerCheck.position, maxAggroRange);
 
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.closeRangeActionDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.minAgroDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.maxAgroDistance), 0.2f);
-
+        
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.transform.position, entityData.groundCheckRadius);
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));

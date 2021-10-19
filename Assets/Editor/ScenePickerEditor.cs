@@ -20,7 +20,7 @@ public class ScenePickerEditor : Editor
         {
             var newPathToLoad = AssetDatabase.GetAssetPath(newSceneToLoad);
             var newPathToUnload = AssetDatabase.GetAssetPath(newSceneToUnload);
-
+            
             var scenePathPropertyToLoad = serializedObject.FindProperty("scenePathToLoad");
             var scenePathPropertyToUnload = serializedObject.FindProperty("scenePathToUnload");
 

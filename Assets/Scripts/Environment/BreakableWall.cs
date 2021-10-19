@@ -10,6 +10,7 @@ public class BreakableWall : MonoBehaviour, IDamagable
 
     public GameObject wall;
     public GameObject shadow;
+    public ParticleSystem wallDamageParticles;
 
     SpriteRenderer wallSprite;
     Collider2D wallCollider;
@@ -35,6 +36,7 @@ public class BreakableWall : MonoBehaviour, IDamagable
         Health--;
         if (Health == 0)
         {
+            GetComponent<Collider2D>().enabled = false;
             wallCollider.enabled = false;
             wallSprite.enabled = false;
         }

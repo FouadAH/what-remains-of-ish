@@ -154,7 +154,7 @@ public class MainMenu : MonoBehaviour
             GameManager.instance.playerCamera = Camera.main;
             GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
 
-            GameManager.instance.player.transform.position = GameManager.instance.playerPosition;
+            GameManager.instance.player.transform.position = GameManager.instance.initialPlayerPosition;
 
             SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
@@ -207,7 +207,7 @@ public class MainMenu : MonoBehaviour
         playerPosition.x = data.playerPosition[0];
         playerPosition.y = data.playerPosition[1];
         playerPosition.z = data.playerPosition[2];
-        GameManager.instance.playerPosition = playerPosition;
+        GameManager.instance.initialPlayerPosition = playerPosition;
 
         Vector2 checkpointPosition;
         checkpointPosition.x = data.lastCheckpointPos[0];
@@ -221,14 +221,16 @@ public class MainMenu : MonoBehaviour
 
     public void LoadDataNewGame()
     {
+        PlayerPrefs.DeleteAll();
+
         GameManager.instance.health = 5;
         GameManager.instance.maxHealth = 5;
         GameManager.instance.currency = 0;
 
-        GameManager.instance.lastSavepointPos = GameManager.instance.playerPosition;
+        GameManager.instance.lastSavepointPos = GameManager.instance.initialPlayerPosition;
         GameManager.instance.lastSavepointLevelIndex = 4;
 
-        GameManager.instance.lastCheckpointPos = GameManager.instance.playerPosition;
+        GameManager.instance.lastCheckpointPos = GameManager.instance.initialPlayerPosition;
         GameManager.instance.lastCheckpointLevelIndex = 4;
         GameManager.instance.currentScene = 4;
         currentScene = 4;

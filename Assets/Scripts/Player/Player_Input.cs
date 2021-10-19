@@ -11,6 +11,7 @@ public class Player_Input : MonoBehaviour
     public bool jumping { get; set; }
     public bool attacking { get; set; }
     public bool aiming { get; set; }
+    public bool freeAimMode;
 
     [SerializeField] private float attackRate = 0.1f;
     private float nextAttackTime;
@@ -45,23 +46,21 @@ public class Player_Input : MonoBehaviour
             }
         }
 
-        if (!aiming)
+        if (controllerConnected && Input.GetButtonDown("Aim") && directionalInput == Vector2.zero)
         {
-            Vector2 leftStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-            if (leftStickInput.magnitude < inputDeadZone)
-            {
-                leftStickInput = Vector2.zero;
-            }
-            else
-            {
-                leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
-            }
-            directionalInput = new Vector2(Mathf.Round(leftStickInput.x), Mathf.Round(leftStickInput.y));
+            freeAimMode = true;
+        }
+        else if (Input.GetButtonUp("Aim"))
+        {
+            freeAimMode = false;
         }
 
-        rightStickInput = new Vector2(Input.GetAxisRaw("RHorizontal"), Input.GetAxisRaw("RVertical"));
-        
+        if (!aiming && !freeAimMode)
+        {
+            LeftStickInput();
+        }
+
+        RightStickInput();
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -69,7 +68,7 @@ public class Player_Input : MonoBehaviour
             OnJumpDown();
         }
 
-        if(Input.GetButtonUp("Jump"))
+        if (Input.GetButtonUp("Jump"))
         {
             jumping = false;
             OnJumpUp();
@@ -85,7 +84,7 @@ public class Player_Input : MonoBehaviour
             OnDashUp();
         }
 
-        if(!controllerConnected && Input.GetButtonDown("Aim"))
+        if (!controllerConnected && Input.GetButtonDown("Aim"))
         {
             OnBoomerangDash();
         }
@@ -107,8 +106,37 @@ public class Player_Input : MonoBehaviour
         {
             nextAttackTime = Time.time + attackRate;
             OnAttack();
-            
+
         }
+    }
+
+    private void LeftStickInput()
+    {
+        Vector2 leftStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        if (leftStickInput.magnitude < inputDeadZone)
+        {
+            leftStickInput = Vector2.zero;
+        }
+        else
+        {
+            leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
+        }
+        directionalInput = new Vector2(Mathf.Round(leftStickInput.x), Mathf.Round(leftStickInput.y));
+    }
+
+    private void RightStickInput()
+    {
+        rightStickInput = new Vector2(Input.GetAxisRaw("RHorizontal"), Input.GetAxisRaw("RVertical"));
+        if (rightStickInput.magnitude < inputDeadZone)
+        {
+            rightStickInput = Vector2.zero;
+        }
+        else
+        {
+            rightStickInput = rightStickInput.normalized * ((rightStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
+        }
+        rightStickInput = new Vector2(Mathf.Round(rightStickInput.x), Mathf.Round(rightStickInput.y));
     }
 
     private bool CanAttack()

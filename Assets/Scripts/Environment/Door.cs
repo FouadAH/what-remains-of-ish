@@ -16,9 +16,9 @@ public class Door : MonoBehaviour
     // Start is called before the first frame update
     void Start()    
     {
-        key = "Door " + gameObject.GetInstanceID();
-        Debug.Log(key + " " + PlayerPrefs.GetInt(key, 0));
-        PlayerPrefs.GetInt(key, 0);
+        key = "Door_" + ID;
+        //Debug.Log(key + " " + PlayerPrefs.GetInt(key, 0));
+        open = (PlayerPrefs.GetInt(key) == 1) ? true : false;
 		SetState(open);
     }
 
@@ -27,6 +27,7 @@ public class Door : MonoBehaviour
 		this.open = open;
         stateInt = (open) ? 1 : 0;
         PlayerPrefs.SetInt(key, stateInt);
+        PlayerPrefs.Save();
 
         GetComponent<Animator>().SetBool("isOpen", open);
 	}

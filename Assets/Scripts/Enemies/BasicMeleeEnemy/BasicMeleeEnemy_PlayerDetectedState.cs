@@ -29,7 +29,7 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(enemy.meleeAttackState);
         }
-        else if (!entity.CheckPlayerInMinAgroRange() && !entity.CheckPlayerInAggroRange())
+        else if (!entity.CheckPlayerInMinAgroRange() && !entity.CheckPlayerInMinAggroRadius())
         {
             stateMachine.ChangeState(enemy.lookForPlayerState);
         }

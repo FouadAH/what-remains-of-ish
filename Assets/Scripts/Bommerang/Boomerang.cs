@@ -12,6 +12,17 @@ public class Boomerang : MonoBehaviour
 
     public float wallDetectionDistance = 1.4f;
 
+    public float collitionAirTimeBonus = 0.2f;
+    public float bounceAirTimeBonus = 0.8f;
+
+    public float collitionSpeedBonus = 5f;
+    public float bounceSpeedBonus = 10f;
+
+    public float maxSpeedBonus = 20f;
+    public float maxAirTime = 2.5f;
+
+    float speedBonus = 0;
+
     private Vector2 velocityXSmoothing;
     Vector2 targetVelocity;
 
@@ -39,6 +50,8 @@ public class Boomerang : MonoBehaviour
         //StartCoroutine(BommerangBehaviour());
         wallDetectionObjs = wallDetectionObjects.GetComponentsInChildren<Transform>();
         rgb2D = GetComponent<Rigidbody2D>();
+
+        speedBonus = 0;
         //spriteRenderer = boomerangSprite.GetComponent<SpriteRenderer>();
     }
 
@@ -56,12 +69,11 @@ public class Boomerang : MonoBehaviour
             return;
 
         BounceOffWall();
-        boomerangLauncher.boomerangAirTimeBonus = 0;
         while (!back)
         {
             SetVelocity();
             if (timer == null)
-                timer = StartCoroutine(BoomerangTimer());
+                timer = StartCoroutine(BoomerangCountdown());
 
             return;
         }
@@ -85,9 +97,9 @@ public class Boomerang : MonoBehaviour
     bool firstTake = true;
     void SetVelocity()
     {
-        if (  !isReflecting)
+        if (!isReflecting)
         {
-            float targetSpeedX = boomerangLauncher.MoveSpeed + Mathf.Abs(playerMovement.Velocity.x);
+            float targetSpeedX = boomerangLauncher.MoveSpeed + speedBonus + Mathf.Abs(playerMovement.Velocity.x);
             float targetSpeedY = boomerangLauncher.MoveSpeed;
 
             targetVelocity = transform.up * new Vector2(targetSpeedX, targetSpeedY);
@@ -96,45 +108,25 @@ public class Boomerang : MonoBehaviour
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity , ref velocityXSmoothing, boomerangLauncher.accelerationTime);
     }
 
-    IEnumerator BoomerangTimer()
+    float boomerangDuration;
+    private IEnumerator BoomerangCountdown()
     {
         yield return new WaitForEndOfFrame();
+
         back = false;
+        boomerangDuration = boomerangLauncher.boomerangAirTime;
 
-        yield return new WaitForSeconds(boomerangLauncher.boomerangAirTime);
-        yield return new WaitForSeconds(boomerangLauncher.boomerangAirTimeBonus);
-
-        yield return new WaitForEndOfFrame();
-        back = true;
-
-        timer = null;
-        yield return null;
-    }
-
-    private IEnumerator BommerangBehaviour()
-    {
-        boomerangLauncher.boomerangAirTimeBonus = 0;
-        while (!back)
+        float normalizedTime = 0;
+        while (normalizedTime < boomerangDuration)
         {
-            yield return new WaitForEndOfFrame();
-            SetVelocity();
-
-            if(timer == null)
-                timer = StartCoroutine(BoomerangTimer());
-
+            normalizedTime += Time.deltaTime;
             yield return null;
         }
 
-        rb.velocity = Vector2.zero;
+        //Debug.Log("Boomerang Full Air Time Done. Time: " + boomerangDuration);
 
-        if (instantCallback)
-        {
-            CallbackImediate();
-        }
-        else
-        {
-            StartCoroutine(Callback());
-        }
+        back = true;
+        timer = null;
     }
 
     private IEnumerator Callback()
@@ -198,7 +190,17 @@ public class Boomerang : MonoBehaviour
 
                 rb.velocity = Vector2.zero;
                 Instantiate(boomerangLauncher.hitEffect, hit.point, Quaternion.identity);
-                boomerangLauncher.boomerangAirTimeBonus += 0.15f;
+                
+                if(hit.collider.gameObject.tag.ToString().Equals("Bounce"))
+                {
+                    speedBonus = Mathf.Min(speedBonus + bounceSpeedBonus, maxSpeedBonus);
+                    boomerangDuration = Mathf.Min(boomerangDuration + bounceAirTimeBonus, maxAirTime);
+                }
+                else
+                {
+                    speedBonus = Mathf.Min(speedBonus + collitionSpeedBonus, maxSpeedBonus);
+                    boomerangDuration = Mathf.Min(boomerangDuration + collitionAirTimeBonus, maxAirTime);
+                }
 
                 float angle = Mathf.Atan2(reflectionVelocity.y, reflectionVelocity.x) * Mathf.Rad2Deg - 90;
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);

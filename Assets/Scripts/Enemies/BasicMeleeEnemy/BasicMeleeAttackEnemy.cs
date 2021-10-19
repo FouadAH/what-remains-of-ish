@@ -73,7 +73,7 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
 
     public virtual IEnumerator AggroRange()
     {
-        Collider2D player = Physics2D.OverlapCircle(transform.position, aggroRange, entityData.whatIsPlayer);
+        Collider2D player = Physics2D.OverlapCircle(transform.position, minAggroRange, entityData.whatIsPlayer);
         if (player == null)
         {
             yield return new WaitForSeconds(AggroTime);

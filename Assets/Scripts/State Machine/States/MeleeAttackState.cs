@@ -36,6 +36,15 @@ public class MeleeAttackState : AttackState
         base.FinishAttack();
     }
 
+    public override void AnitcipationStart()
+    {
+        base.AnitcipationStart();
+    }
+    public override void AttackStart()
+    {
+        base.AttackStart();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();

@@ -76,10 +76,10 @@ public class FlyingEnemyAI : Entity, FiringAI, IDamagable
         {
             path.endReachedDistance = 3f;
 
-            if (IsPlayerInAttackRange())
-            {
-                Shoot();
-            }
+            //if (IsPlayerInAttackRange())
+            //{
+            //    Shoot();
+            //}
 
             StopCoroutine(AggroRange());
             StartCoroutine(AggroRange());
@@ -92,7 +92,7 @@ public class FlyingEnemyAI : Entity, FiringAI, IDamagable
 
     public virtual IEnumerator AggroRange()
     {
-        Collider2D player = Physics2D.OverlapCircle(transform.position, aggroRange, PlayerMask);
+        Collider2D player = Physics2D.OverlapCircle(transform.position, minAggroRange, PlayerMask);
         if (player == null)
         {
             yield return new WaitForSeconds(AggroTime);
@@ -185,13 +185,13 @@ public class FlyingEnemyAI : Entity, FiringAI, IDamagable
         rb.velocity = new Vector2(amount * dirX, amount * dirY);
     }
 
-    private void  OnDrawGizmos()
+    public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(circle, radius);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, aggroRange);
+        Gizmos.DrawWireSphere(transform.position, minAggroRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(new Vector2(transform.position.x + (attackPos.x * transform.localScale.x),
             transform.position.y + (attackPos.y * transform.localScale.y)), attackRange);

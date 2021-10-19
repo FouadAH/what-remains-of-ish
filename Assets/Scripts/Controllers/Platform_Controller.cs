@@ -215,9 +215,9 @@ public class Platform_Controller : RayCast_Controller {
 
             for(int i = 0; i < localWaypoints.Length; i++)
             {
-                Vector3 globalWayPointPos =(Application.isPlaying)?globalWaypoints[i]:localWaypoints[i] + transform.position;
-                Gizmos.DrawLine(globalWayPointPos - Vector3.up * size, globalWayPointPos +Vector3.up *size);
-                Gizmos.DrawLine(globalWayPointPos - Vector3.left * size, globalWayPointPos + Vector3.left * size);
+                //Vector3 globalWayPointPos =(Application.isPlaying)?globalWaypoints[i]:localWaypoints[i] + transform.position;
+                //Gizmos.DrawLine(globalWayPointPos - Vector3.up * size, globalWayPointPos +Vector3.up *size);
+                //Gizmos.DrawLine(globalWayPointPos - Vector3.left * size, globalWayPointPos + Vector3.left * size);
             }
         }
     }

@@ -88,6 +88,7 @@ public class Player : MonoBehaviour, IAttacker{
     void Awake()
     {
         GameManager.instance.player = gameObject;
+        GameManager.instance.playerCurrentPosition = GetComponentInChildren<SpriteRenderer>().transform;
 
         GameManager.instance.playerCamera = Camera.main;
         mainCamera = GameManager.instance.playerCamera;
