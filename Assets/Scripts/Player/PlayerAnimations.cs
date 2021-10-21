@@ -31,10 +31,6 @@ public class PlayerAnimations
         {
             animator.SetTrigger("isAttackingDown");
         }
-        else if( jumping || falling )
-        {
-            animator.SetTrigger("AirAttack");
-        }
         else
         {
             animator.SetTrigger("Attack");

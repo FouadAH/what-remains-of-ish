@@ -115,6 +115,6 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
 
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
-        Debug.Log("KnockbackOnHit");
+        //Debug.Log("KnockbackOnHit");
     }
 }

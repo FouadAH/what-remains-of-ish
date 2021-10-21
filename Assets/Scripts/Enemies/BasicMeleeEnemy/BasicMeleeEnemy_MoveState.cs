@@ -14,6 +14,7 @@ public class BasicMeleeEnemy_MoveState : MoveState
     public override void Enter()
     {
         base.Enter();
+        firstTake = true;
     }
 
     public override void Exit()
@@ -21,9 +22,21 @@ public class BasicMeleeEnemy_MoveState : MoveState
         base.Exit();
     }
 
+    bool firstTake = true;
+    float initialTime;
+    float maxTimeBeforeIdle = 10f;
+    float minTimeBeforeIdle = 4f;
+    float timeBeforeIdle;
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        
+        if (firstTake)
+        {
+            firstTake = false;
+            initialTime = Time.time;
+            timeBeforeIdle = Random.Range(minTimeBeforeIdle, maxTimeBeforeIdle);
+        }
 
         if (entity.CheckPlayerInMinAgroRange() || enemy.IsAggro)
         {
@@ -32,6 +45,12 @@ public class BasicMeleeEnemy_MoveState : MoveState
         else if(isDetectingWall || !isDetectingLedge)
         {
             enemy.idleState.SetFlipAfterIdle(true);
+            stateMachine.ChangeState(enemy.idleState);
+        }
+        else if (Time.time >= initialTime + timeBeforeIdle)
+        {
+            bool flipAfterIdle = Random.Range(0,100) >= 35;
+            enemy.idleState.SetFlipAfterIdle(flipAfterIdle);
             stateMachine.ChangeState(enemy.idleState);
         }
     }

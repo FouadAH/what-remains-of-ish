@@ -6,21 +6,34 @@ public class Attack : MonoBehaviour, IHitboxResponder
 {
     public List<Hitbox> hitboxes;
     private Vector3 dir;
+    PlayerMovement player;
+
+    public float knockbackBasicAttack = 10f;
+    public float knockbackUpAttack = 10f;
+    public float knockbackDownAttack = 25f;
+
+    void Start()
+    {
+        player = GetComponent<PlayerMovement>();
+    }
 
     public void AttackDefault()
     {
         dir = new Vector3(-transform.localScale.x, 0);
+        player.knockbackDistance = knockbackBasicAttack;
         CheckHitboxes();
     }
 
     public void AttackUp()
     {
         dir = new Vector3(0, -1);
+        player.knockbackDistance = knockbackUpAttack;
         CheckHitboxes();
     }
     public void AttackDown()
     {
         dir = new Vector3(0, 1);
+        player.knockbackDistance = knockbackDownAttack;
         CheckHitboxes();
     }
 

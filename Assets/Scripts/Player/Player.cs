@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IAttacker{
     public LayerMask enemyMask;
 
     float iFrames = 0f;
-    float iFrameTime = 0.5f;
+    public float iFrameTime = 1f;
     bool invinsible = false;
     
     Animator anim;
@@ -176,7 +176,8 @@ public class Player : MonoBehaviour, IAttacker{
             if (iFrames > 0)
             {
                 iFrames -= Time.deltaTime;
-            }   
+
+            }
             else
             {
                 invinsible = false;
@@ -255,9 +256,11 @@ public class Player : MonoBehaviour, IAttacker{
 
             int amountHealed = (int)(gm.health - previousHP);
             OnHeal(amountHealed);
+            flashEffect.Flash(Color.white);
         }
     }
 
+    Coroutine flashRoutine;
     /// <summary>
     /// Method reponsible for damaging the player
     /// </summary>
@@ -269,10 +272,6 @@ public class Player : MonoBehaviour, IAttacker{
             CinemachineImpulseSource impulseListener = GetComponent<CinemachineImpulseSource>();
             impulseListener.GenerateImpulse();
             timeStop.StopTime(changeTime, restoreSpeed, delay);
-            iFrames = iFrameTime;
-            flashEffect.Flash(Color.white);
-            invinsible = true;
-
             if (!GameManager.instance.hasInfiniteLives)
             {
                 gm.health -= amount;
@@ -280,6 +279,16 @@ public class Player : MonoBehaviour, IAttacker{
             }
 
             CheckDeath();
+
+            iFrames = iFrameTime;
+
+            if (flashRoutine != null)
+            {
+                StopCoroutine(flashRoutine);
+            }
+
+            flashRoutine = StartCoroutine(flashEffect.FlashMultiple(Color.white, iFrameTime));
+            invinsible = true;
         }
     }
 
@@ -317,16 +326,19 @@ public class Player : MonoBehaviour, IAttacker{
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
-        playerMovement.kockbackDistance = amount;
-
+        //playerMovement.knockbackDistance = amount;
+            
         StopCoroutine(KnockbackOnHitRoutine());
         StartCoroutine(KnockbackOnHitRoutine());
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
+        if (invinsible)
+            return;
+        
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
-        playerMovement.kockbackDistance = amount;
+        playerMovement.knockbackDistance = amount;
 
         StopCoroutine(KnockbackOnDamageRoutine());
         StartCoroutine(KnockbackOnDamageRoutine());

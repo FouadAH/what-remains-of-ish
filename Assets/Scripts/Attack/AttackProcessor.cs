@@ -14,15 +14,15 @@ public class AttackProcessor
     /// <param name="knockbackDirY">Y Knockback direction</param>
     public void ProcessMelee(IAttacker attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
-        ProcessAttack(target, attacker.MeleeDamage);
         ProcessKnockbackOnHit(attacker, knockbackDirX, knockbackDirY);
         KnockbackOnMeleeDamage(attacker, target, -knockbackDirX, -knockbackDirY);
+        ProcessAttack(target, attacker.MeleeDamage);
     }
 
     public void ProcessCollisionDamage(int damageAmount, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
-        ProcessAttack(target, damageAmount);
         ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
+        ProcessAttack(target, damageAmount);
     }
 
     /// <summary>
@@ -33,8 +33,8 @@ public class AttackProcessor
     public void ProcessRanged(ILauncher attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
         int amount = CalculateAttackAmountRanged(attacker);
-        ProcessAttack(target, amount);
         ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
+        ProcessAttack(target, amount);
     }
 
     /// <summary>

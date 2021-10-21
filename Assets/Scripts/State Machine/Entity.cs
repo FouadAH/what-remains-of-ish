@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 
 public class Entity : MonoBehaviour, IDamagable
 {
@@ -60,6 +61,7 @@ public class Entity : MonoBehaviour, IDamagable
     private float velocityXSmoothing = 0;
 
     ColouredFlash colouredFlash;
+    CinemachineImpulseSource impulseListener;
     public virtual void Start()
     {
         facingDirection = 1;
@@ -74,6 +76,7 @@ public class Entity : MonoBehaviour, IDamagable
         anim = aliveGO.GetComponent<Animator>();
         atsm = aliveGO.GetComponent<AnimationToStatemachine>();
         colouredFlash = GetComponent<ColouredFlash>();
+        impulseListener = GetComponent<CinemachineImpulseSource>();
         stateMachine = new FiniteStateMachine();
     }
 
@@ -207,7 +210,7 @@ public class Entity : MonoBehaviour, IDamagable
     {
         Health -= amount;
         RaiseOnHitEnemyEvent(Health, MaxHealth);
-
+        impulseListener.GenerateImpulse();
         if (colouredFlash != null)
         {
             colouredFlash.Flash(Color.white);
@@ -217,10 +220,6 @@ public class Entity : MonoBehaviour, IDamagable
         {
             isDead = true;
             UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
-        }
-        else
-        {
-            //SpawnDamagePoints(amount);
         }
     }
 

@@ -39,4 +39,17 @@ public class ColouredFlash : MonoBehaviour
         spriteRenderer.material = originalMaterial;
         flashRoutine = null;
     }
+
+    public IEnumerator FlashMultiple(Color color, float iFrameTime)
+    {
+        float temp = iFrameTime + Time.time;
+        while (Time.time < temp)
+        {
+            spriteRenderer.material = flashMaterial;
+            flashMaterial.color = color;
+            yield return new WaitForSeconds(duration);
+            spriteRenderer.material = originalMaterial;
+            yield return new WaitForSeconds(duration);
+        }
+    }
 }

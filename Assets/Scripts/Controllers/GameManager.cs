@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(FadeIn());
             //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(levelToLoad));
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
-
+           Debug.Log(FindObjectOfType<AstarPath>());
             astarPath = FindObjectOfType<AstarPath>();
             astarPath.Scan();
         }

@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Knockback settings")]
     public Vector3 dirKnockback;
     public bool isKnockedback;
-    [HideInInspector] public float kockbackDistance;
+    [HideInInspector] public float knockbackDistance;
 
 
     [Header("Teleport settings")]
@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         playerInput.OnDash += OnDashInput;
         playerInput.OnDashUp += OnDashInputUp;
 
-        playerInput.OnBoomerangDash += OnBoomerangDashInput;
+        playerInput.OnTeleport += OnBoomerangDashInput;
 
         gravity = -(2 * playerSettings.MaxJumpHeight) / Mathf.Pow(playerSettings.TimeToJumpApex, 2);
 
@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isKnockedback)
         {
-            Knockback(dirKnockback, kockbackDistance);
+            Knockback(dirKnockback, knockbackDistance);
             HandleWallSliding();
             return;
         }
@@ -302,6 +302,10 @@ public class PlayerMovement : MonoBehaviour
             if (Mathf.Abs(velocity.x) > Mathf.Abs(targetVelocityX) && Mathf.Sign(velocity.x) == playerInput.directionalInput.x && !playerDash.isDashing)
             {
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTimeReduced);
+            }
+            else if (Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x*-1 && !playerDash.isDashing)
+            {
+                velocity.x = Mathf.SmoothDamp(velocity.x, 0, ref velocityXSmoothing, stopFriction);
             }
             else
             {
