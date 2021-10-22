@@ -17,6 +17,7 @@ public class HealingPod : MonoBehaviour
     public void Refill(float amount)
     {
         fillAmount += amount;
+        Debug.Log(amount);
     }
 
     public void EmptyFlask()

@@ -42,24 +42,26 @@ public class HealingFountain : MonoBehaviour
         {
             List<HealingPod> healingFlasks = UI_HUD.instance.healingFlasks;
             float missingHealingAmount = 0;
+
             foreach(HealingPod pod in healingFlasks)
             {
                 if (pod.fillAmount != 100)
                 {
-                    missingHealingAmount += (100 - pod.fillAmount);
+                    missingHealingAmount = (100 - pod.fillAmount);
+                    if(missingHealingAmount < reffilAmount)
+                    {
+                        pod.Refill(missingHealingAmount);
+                    }
+                    else
+                    {
+                        pod.Refill(reffilAmount);
+                    }
+
+                    break;
                 }
             }
-
-            if(reffilAmount < missingHealingAmount)
-            {
-                UI_HUD.instance.RefillFlask(reffilAmount);
-            }
-            else
-            {
-                UI_HUD.instance.RefillFlask(missingHealingAmount);
-            }
-
             reffilAmount = Mathf.Clamp(reffilAmount - missingHealingAmount, 0, 100);
+
             if (reffilAmount == 0)
             {
                 sprite.color = Color.gray;

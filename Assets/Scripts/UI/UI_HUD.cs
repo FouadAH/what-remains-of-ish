@@ -61,6 +61,26 @@ public class UI_HUD : MonoBehaviour
 
     public void RefillFlask(float amount)
     {
+        //float amountToFill = 0;
+        //for (int i = 0; i < healingFlasks.Count; i++)
+        //{
+        //    if (i == 0)
+        //    {
+        //        amountToFill = amount;
+        //    }
+
+        //    if (healingFlasks[i].fillAmount != 100)
+        //    {
+        //        if (amountToFill + healingFlasks[i].fillAmount > 100)
+        //        {
+        //            amountToFill -= healingFlasks[i].fillAmount;
+        //        }
+
+        //        healingFlasks[i].Refill(amountToFill);
+        //        Debug.Log(amountToFill);
+        //    }
+        //}
+
         foreach (HealingPod flask in healingFlasks)
         {
             if (flask.fillAmount < 100)
@@ -81,7 +101,6 @@ public class UI_HUD : MonoBehaviour
         for (int i = 0; i < GameManager.instance.health; i++)
         {
             Instantiate(heartPrefab, heartBar);
-
         }
     }
 
