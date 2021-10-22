@@ -13,12 +13,15 @@ public class Lever : MonoBehaviour, IDamagable
     private void RegenerateGUID() => m_ID = Guid.NewGuid().ToString();
 
     bool isOpen;
+    public bool toggleable = false;
     
     Animator animator;
     public Door door;
     public float Health { get => 0; set => throw new System.NotImplementedException(); }
     public int MaxHealth { get => 0; set => throw new System.NotImplementedException(); }
     public int knockbackGiven { get => 0; set => throw new System.NotImplementedException(); }
+
+    public event Action<bool> OnToggle = delegate { };
 
     void Start()
     {
@@ -30,14 +33,15 @@ public class Lever : MonoBehaviour, IDamagable
 
     public void ModifyHealth(int amount)
     {
-        if (isOpen)
+        if (isOpen && !toggleable)
             return;
 
-        Debug.Log("Open/Close");
-        isOpen = true;
+        isOpen = !isOpen;
         animator.SetBool("isOpen", isOpen);
         PlayerPrefs.SetInt(key, 1);
-        door.SetState(isOpen);
+
+        OnToggle(isOpen);
+        //door.SetState(isOpen);
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY){}

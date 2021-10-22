@@ -39,7 +39,7 @@ public class Entity : MonoBehaviour, IDamagable
     private Vector2 velocityWorkspace;
 
     protected bool isStunned;
-    protected bool isDead;
+    public bool isDead;
 
     [Header("Debug")]
     public TMP_Text stateDebugText;

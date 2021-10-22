@@ -8,6 +8,8 @@ public class Player_Input : MonoBehaviour
 {
     public Vector2 directionalInput;
     public Vector2 rightStickInput;
+    public Vector2 leftStickInputRaw;
+
     public bool jumping { get; set; }
     public bool attacking { get; set; }
     public bool aiming { get; set; }
@@ -33,6 +35,7 @@ public class Player_Input : MonoBehaviour
     float inputDeadZone = 0.19f;
 
     PlayerInputMaster inputActions;
+    PauseMenu pauseMenu;
 
     private void Start()
     {
@@ -41,16 +44,24 @@ public class Player_Input : MonoBehaviour
 
         inputActions.Player.Attack.performed += Attack_performed;
         inputActions.Player.Dash.performed += Dash_performed;
-        inputActions.Player.Aim.performed += Aim_performed;
+        inputActions.Player.Aim.started += Aim_started;
         inputActions.Player.Jump.performed += Jump_performed;
         inputActions.Player.Heal.performed += Heal_performed;
         inputActions.Player.Teleport.performed += Teleport_performed;
 
-        inputActions.Player.Dash.canceled += Dash_canceled; ;
-        inputActions.Player.Aim.canceled += Aim_canceled; ;
-        inputActions.Player.Jump.canceled += Jump_canceled; ;
+        inputActions.Player.Pause.started += Pause_started;
+        inputActions.Player.Dash.canceled += Dash_canceled; 
+        inputActions.Player.Aim.canceled += Aim_canceled; 
+        inputActions.Player.Jump.canceled += Jump_canceled; 
 
         InputSystem.onDeviceChange += InputSystem_onDeviceChange;
+
+        pauseMenu = FindObjectOfType<PauseMenu>();
+    }
+
+    private void Pause_started(InputAction.CallbackContext obj)
+    {
+        pauseMenu.TogglePause();
     }
 
     private void Jump_canceled(InputAction.CallbackContext obj)
@@ -61,6 +72,8 @@ public class Player_Input : MonoBehaviour
 
     private void Aim_canceled(InputAction.CallbackContext obj)
     {
+        aiming = false;
+
         if (controllerConnected)
         {
             freeAimMode = false;
@@ -94,7 +107,7 @@ public class Player_Input : MonoBehaviour
     {
         if (GameManager.instance.healingPodAmount > 0)
         {
-            OnHeal(GameManager.instance.healingAmount);
+            OnHeal(GameManager.instance.healingAmountPerPod);
         }
     }
 
@@ -104,7 +117,7 @@ public class Player_Input : MonoBehaviour
         OnJumpDown();
     }
 
-    private void Aim_performed(InputAction.CallbackContext obj)
+    private void Aim_started(InputAction.CallbackContext obj)
     {
         if (controllerConnected)
         {
@@ -113,10 +126,12 @@ public class Player_Input : MonoBehaviour
                 freeAimMode = true;
             }
         }
-        else
+        else if(!aiming)
         {
             OnTeleport();
         }
+
+        aiming = true;
     }
 
     private void Dash_performed(InputAction.CallbackContext obj)
@@ -145,9 +160,11 @@ public class Player_Input : MonoBehaviour
             controllerConnected = false;
         }
 
-        if (!aiming && !freeAimMode)
+        leftStickInputRaw = inputActions.Player.Move.ReadValue<Vector2>();
+
+        if (!freeAimMode)
         {
-            Vector2 leftStickInput = inputActions.Player.Move.ReadValue<Vector2>();
+            Vector2 leftStickInput = leftStickInputRaw;
 
             if (leftStickInput.magnitude < inputDeadZone)
             {
@@ -160,8 +177,8 @@ public class Player_Input : MonoBehaviour
             directionalInput = new Vector2(Mathf.Round(leftStickInput.x), Mathf.Round(leftStickInput.y));
         }
 
-
         rightStickInput = inputActions.Player.Look.ReadValue<Vector2>();
+
         if (rightStickInput.magnitude < inputDeadZone)
         {
             rightStickInput = Vector2.zero;
@@ -173,79 +190,6 @@ public class Player_Input : MonoBehaviour
         rightStickInput = new Vector2(Mathf.Round(rightStickInput.x), Mathf.Round(rightStickInput.y));
 
        
-        //if (Input.GetButtonDown("Jump"))
-        //{
-        //    jumping = true;
-        //    OnJumpDown();
-        //}
-
-        //if (Input.GetButtonUp("Jump"))
-        //{
-        //    jumping = false;
-        //    OnJumpUp();
-        //}
-
-        //if (Input.GetButtonDown("Dash"))
-        //{
-        //    OnDash();
-        //}
-
-        //if (Input.GetButtonUp("Dash"))
-        //{
-        //    OnDashUp();
-        //}
-
-        //if (!controllerConnected && Input.GetButtonDown("Aim"))
-        //{
-        //    OnBoomerangDash();
-        //}
-        //else if (controllerConnected && Input.GetButtonDown("Interact"))
-        //{
-        //    OnBoomerangDash();
-        //}
-
-        //if (Input.GetButtonDown("Heal"))
-        //{
-        //    if (GameManager.instance.healingPodAmount > 0)
-        //    {
-        //        OnHeal(GameManager.instance.healingAmount);
-        //    }
-        //}
-
-        //if (Input.GetButtonDown("Attack") && CanAttack())
-        //{
-        //    nextAttackTime = Time.time + attackRate;
-        //    OnAttack();
-        //}
-    }
-
-    private void LeftStickInput()
-    {
-        Vector2 leftStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        if (leftStickInput.magnitude < inputDeadZone)
-        {
-            leftStickInput = Vector2.zero;
-        }
-        else
-        {
-            leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
-        }
-        directionalInput = new Vector2(Mathf.Round(leftStickInput.x), Mathf.Round(leftStickInput.y));
-    }
-
-    private void RightStickInput()
-    {
-        rightStickInput = new Vector2(Input.GetAxisRaw("RHorizontal"), Input.GetAxisRaw("RVertical"));
-        if (rightStickInput.magnitude < inputDeadZone)
-        {
-            rightStickInput = Vector2.zero;
-        }
-        else
-        {
-            rightStickInput = rightStickInput.normalized * ((rightStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
-        }
-        rightStickInput = new Vector2(Mathf.Round(rightStickInput.x), Mathf.Round(rightStickInput.y));
     }
 
     private bool CanAttack()

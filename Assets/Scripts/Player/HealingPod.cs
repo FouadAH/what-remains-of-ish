@@ -14,21 +14,14 @@ public class HealingPod : MonoBehaviour
             image.fillAmount = Mathf.Lerp(image.fillAmount, fillAmount/100, 0.1f);
     }
 
-    public void InitFlask()
-    {
-        //image.fillAmount = fillAmount / 100;
-    }
-
     public void Refill(float amount)
     {
         fillAmount += amount;
-        //image.fillAmount = fillAmount/ 100;
     }
 
     public void EmptyFlask()
     {
         fillAmount = 0;
-        //image.fillAmount = 0;
     }
     
 }

@@ -60,24 +60,29 @@ public class PauseMenu : MonoBehaviour
 
     }
 
+    private void Pause_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        throw new NotImplementedException();
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause"))
-        {
-            if (GameManager.instance.isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/Pause Menu/Pause Button", GetComponent<Transform>().position);
-        }
-
         masterBus.setVolume(masterVolume);
         musicBus.setVolume(musicVolume);
         sfxBus.setVolume(sfxVolume);
+    }
+
+    public void TogglePause()
+    {
+        if (GameManager.instance.isPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/Pause Menu/Pause Button", GetComponent<Transform>().position);
     }
 
     public void Resume()

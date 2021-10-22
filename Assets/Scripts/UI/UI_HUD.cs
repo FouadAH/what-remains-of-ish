@@ -52,7 +52,6 @@ public class UI_HUD : MonoBehaviour
         GameManager.instance.player.GetComponent<Player>().OnHeal += OnHeal;
 
         RefrechHealth();
-        RefrechHealingPods();
     }
 
     void Update()
@@ -83,14 +82,6 @@ public class UI_HUD : MonoBehaviour
         {
             Instantiate(heartPrefab, heartBar);
 
-        }
-    }
-
-    public void RefrechHealingPods()
-    {
-        foreach (HealingPod flask in healingFlasks)
-        {
-            flask.InitFlask();
         }
     }
 
@@ -130,7 +121,6 @@ public class UI_HUD : MonoBehaviour
             }
         }
 
-        RefrechHealingPods();
     }
 
     public void OnResetHP(float missingHealth)
@@ -149,7 +139,6 @@ public class UI_HUD : MonoBehaviour
             healingFlasks[i].fillAmount = 100;
         }
 
-        RefrechHealingPods();
     }
 
     public void SetDebugText(string text)

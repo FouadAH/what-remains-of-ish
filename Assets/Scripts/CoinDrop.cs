@@ -1,9 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinDrop : MonoBehaviour, IDamagable
 {
+    [SerializeField] private string m_ID = Guid.NewGuid().ToString();
+    public string ID => m_ID;
+
+    [ContextMenu("Generate new ID")]
+    private void RegenerateGUID() => m_ID = Guid.NewGuid().ToString();
+
     public GameObject coinPrefab;
     public Transform coinSpawnOrigin;
     public int coinAmountOnDestroy = 10;
@@ -14,11 +21,14 @@ public class CoinDrop : MonoBehaviour, IDamagable
     public int knockbackGiven { get; set; }
 
     public int health;
+    string key;
 
     private void Start()
     {
         MaxHealth = health;
         Health = MaxHealth;
+        key = "CD_" + ID;
+        gameObject.SetActive((PlayerPrefs.GetInt(key, 0) != 1));
     }
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
@@ -30,6 +40,9 @@ public class CoinDrop : MonoBehaviour, IDamagable
         Health--;
         if (Health == 0)
         {
+            PlayerPrefs.SetInt(key, 1);
+            PlayerPrefs.Save();
+
             DestroyedCoinSpawner();
             Destroy(gameObject);
         }

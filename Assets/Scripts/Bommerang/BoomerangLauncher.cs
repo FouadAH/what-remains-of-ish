@@ -171,7 +171,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     {
         if (playerInput.controllerConnected)
         {
-            Vector2 leftStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            Vector2 leftStickInput = playerInput.leftStickInputRaw;
             if (leftStickInput.magnitude < inputDeadZone)
             {
                 leftStickInput = Vector2.zero;
@@ -217,19 +217,19 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     }
     void FiringLogic()
     {
-        if (canFire && Input.GetButtonDown("Aim"))
+        if (canFire && playerInput.aiming && !isAiming)
         {
-            playerInput.aiming = true;
+            //playerInput.aiming = true;
             aimTimer = StartCoroutine(AimTimer());
         }
-        else if (isAiming && canFire && Input.GetButtonUp("Aim"))
+        else if (isAiming && canFire && !playerInput.aiming)
         {
             if (aimTimer != null)
                 StopCoroutine(aimTimer);
 
             Launch();
             slowDown = false;
-            playerInput.aiming = false;
+            //playerInput.aiming = false;
         }
     }
 
@@ -239,9 +239,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         isAiming = true;
         yield return new WaitForSecondsRealtime(slowDownTime);
         slowDown = false;
-
-        playerInput.aiming = false;
-
+        Debug.Log(slowDown);
         yield return null;
     }
 

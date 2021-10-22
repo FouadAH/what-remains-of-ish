@@ -14,7 +14,9 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
     [HideInInspector] public Transform target;
 
     public float fireRate = 1f;
-    public float nextFireTime;
+    public float delay = 0f;
+
+    float nextFireTime;
 
     float FiringAI.fireRate { get => fireRate; set => value = fireRate; }
     float FiringAI.nextFireTime { get => nextFireTime; set => value = nextFireTime; }
@@ -43,6 +45,7 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
         Health = MaxHealth;
     }
 
+    bool firstTake = true;
     void Update()
     {
         if (isStatic)
@@ -93,6 +96,11 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
 
     public bool CanFire()
     {
+        if (firstTake)
+        {
+            nextFireTime = Time.time + delay;
+            firstTake = false;
+        }
         return Time.time >= nextFireTime;
     }
 

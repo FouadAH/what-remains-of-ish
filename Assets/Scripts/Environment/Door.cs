@@ -12,14 +12,19 @@ public class Door : MonoBehaviour
     public bool open = false;
     string key;
     int stateInt;
-
+    public Lever lever;
     // Start is called before the first frame update
     void Start()    
     {
+        lever.OnToggle += Lever_OnToggle;
         key = "Door_" + ID;
-        //Debug.Log(key + " " + PlayerPrefs.GetInt(key, 0));
         open = (PlayerPrefs.GetInt(key) == 1) ? true : false;
 		SetState(open);
+    }
+
+    private void Lever_OnToggle(bool isOpen)
+    {
+        SetState(isOpen);
     }
 
     public void SetState(bool open)

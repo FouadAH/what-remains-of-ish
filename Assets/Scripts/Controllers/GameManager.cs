@@ -18,8 +18,7 @@ public class GameManager : MonoBehaviour
     public float maxHealth = 5;
 
     public int healingPodAmount = 3;
-    public int healingAmount = 2;
-    public HealingPod[] healingFlasks;
+    public int healingAmountPerPod = 2;
 
     int healthShardsNeeded = 3;
     public int healthShardAmount = 0;
@@ -190,7 +189,6 @@ public class GameManager : MonoBehaviour
         anim.Play("Fade_Out");
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadSceneAsync(levelToLoadPath, LoadSceneMode.Additive).completed += LoadScene_completed;
-        //SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completed;
 
     }
     //public void OnFadeComplete()
@@ -202,7 +200,6 @@ public class GameManager : MonoBehaviour
     {
         if (obj.isDone)
         {
-            //SceneManager.UnloadSceneAsync(levelToUnload).completed += UnloadScene_completed;
             SceneManager.UnloadSceneAsync(levelToUnloadPath).completed += UnloadScene_completed;
 
             if (!isRespawning)
@@ -223,11 +220,13 @@ public class GameManager : MonoBehaviour
         if (obj.isDone)
         {
             StartCoroutine(FadeIn());
-            //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(levelToLoad));
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
-           Debug.Log(FindObjectOfType<AstarPath>());
+
             astarPath = FindObjectOfType<AstarPath>();
-            astarPath.Scan();
+            if (astarPath != null)
+            {
+                astarPath.Scan();
+            }
         }
     }
 
