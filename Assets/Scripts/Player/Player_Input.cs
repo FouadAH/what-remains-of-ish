@@ -42,6 +42,7 @@ public class Player_Input : MonoBehaviour
     {
         inputActions = new PlayerInputMaster();
         inputActions.Player.Enable();
+        inputActions.UI.Enable();
 
         dialogManager = DialogManager.instance;
         dialogManager.OnDialogueStart += DialogManager_OnDialogueStart;
@@ -54,7 +55,8 @@ public class Player_Input : MonoBehaviour
         inputActions.Player.Heal.performed += Heal_performed;
         inputActions.Player.Teleport.performed += Teleport_performed;
 
-        inputActions.Player.Pause.started += Pause_started;
+        inputActions.UI.Pause.started += Pause_started;
+
         inputActions.Player.Dash.canceled += Dash_canceled; 
         inputActions.Player.Aim.canceled += Aim_canceled; 
         inputActions.Player.Jump.canceled += Jump_canceled; 
@@ -62,6 +64,19 @@ public class Player_Input : MonoBehaviour
         InputSystem.onDeviceChange += InputSystem_onDeviceChange;
 
         pauseMenu = FindObjectOfType<PauseMenu>();
+        pauseMenu.OnPauseStart += PauseMenu_OnPauseStart;
+        pauseMenu.OnPauseEnd += PauseMenu_OnPauseEnd;
+        
+    }
+
+    private void PauseMenu_OnPauseEnd()
+    {
+        inputActions.Player.Enable();
+    }
+
+    private void PauseMenu_OnPauseStart()
+    {
+        inputActions.Player.Disable();
     }
 
     private void DialogManager_OnDialogueEnd()

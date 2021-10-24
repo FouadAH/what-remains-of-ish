@@ -15,6 +15,9 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject videoOptions;
     public GameObject audioOptions;
+
+    public Toggle abilityToggle;
+
     EventSystem eventSystem;
     FMOD.Studio.EventInstance SFXVolumeTestEvent;
 
@@ -28,9 +31,16 @@ public class PauseMenu : MonoBehaviour
 
     Resolution[] resolutions;
 
+    public event Action OnPauseStart = delegate { };
+    public event Action OnPauseEnd = delegate { };
+
     void Start()
     {
         eventSystem = EventSystem.current;
+
+        abilityToggle.onValueChanged.AddListener(delegate {
+            ToggleAbilities(abilityToggle);
+        });
 
         masterBus = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
         musicBus = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
@@ -77,12 +87,32 @@ public class PauseMenu : MonoBehaviour
         if (GameManager.instance.isPaused)
         {
             Resume();
+            OnPauseEnd();
         }
         else
         {
             Pause();
+            OnPauseStart();
         }
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/Pause Menu/Pause Button", GetComponent<Transform>().position);
+    }
+
+    public void ToggleAbilities(Toggle abilityToggle)
+    {
+        if (abilityToggle.isOn)
+        {
+            GameManager.instance.hasDashAbility = true;
+            GameManager.instance.hasTeleportAbility = true;
+            GameManager.instance.hasSprintAbility = true;
+            GameManager.instance.hasWallJump = true;
+        }
+        else
+        {
+            GameManager.instance.hasDashAbility = false;
+            GameManager.instance.hasTeleportAbility = false;
+            GameManager.instance.hasSprintAbility = false;
+            GameManager.instance.hasWallJump = false;
+        }
     }
 
     public void Resume()
@@ -91,6 +121,8 @@ public class PauseMenu : MonoBehaviour
         videoOptions.SetActive(false);
         audioOptions.SetActive(false);
         optionMenu.SetActive(false);
+        controlsMenu.SetActive(false);
+
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
         GameManager.instance.player.GetComponent<Player_Input>().enabled = true;
         GameManager.instance.isPaused = false;

@@ -34,11 +34,9 @@ public class GameManager : MonoBehaviour
     public int lastCheckpointLevelIndex;
     public string lastCheckpointLevelPath;
 
-
     public Vector2 lastSavepointPos;
     public int lastSavepointLevelIndex;
     public string lastSavepointLevelPath;
-
 
     public CameraController cameraController;
     public Animator anim;
