@@ -620,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 3297389817868415596, guid: 4d1345c3556595f4d89a987bc72a9652, type: 3}
   playerCurrentPosition: {fileID: 0}
-  initialPlayerPosition: {x: 800, y: 65, z: 0}
+  initialPlayerPosition: {x: 792, y: 64, z: 0}
   health: 5
   maxHealth: 5
   healingPodAmount: 3
@@ -628,20 +628,22 @@ MonoBehaviour:
   healthShardAmount: 0
   currency: 0
   playerCamera: {fileID: 0}
-  hasInfiniteLives: 1
-  lastCheckpointPos: {x: 520, y: 60}
-  lastCheckpointLevelIndex: 3
-  lastSavepointPos: {x: 520, y: 60}
-  lastSavepointLevelIndex: 0
+  hasInfiniteLives: 0
+  lastCheckpointPos: {x: 792, y: 64}
+  lastCheckpointLevelIndex: 4
+  lastCheckpointLevelPath: 
+  lastSavepointPos: {x: 792, y: 64}
+  lastSavepointLevelIndex: 4
+  lastSavepointLevelPath: 
   cameraController: {fileID: 0}
   anim: {fileID: 413757533}
   currentScene: 0
   currentScenePath: 
   loading: 0
-  hasDashAbility: 1
-  hasWallJump: 1
-  hasTeleportAbility: 1
-  hasSprintAbility: 1
+  hasDashAbility: 0
+  hasWallJump: 0
+  hasTeleportAbility: 0
+  hasSprintAbility: 0
   isRespawning: 0
   isPaused: 0
 --- !u!4 &413757535

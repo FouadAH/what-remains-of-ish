@@ -86,6 +86,10 @@ public class GameManager : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
 
         PlayerPrefs.DeleteAll();
+
+        lastSavepointLevelPath = SceneManager.GetSceneByBuildIndex(lastSavepointLevelIndex).path;
+        lastCheckpointLevelPath = SceneManager.GetSceneByBuildIndex(lastCheckpointLevelIndex).path;
+
     }
 
     public int AddHealthShard()
@@ -107,7 +111,7 @@ public class GameManager : MonoBehaviour
             isRespawning = true;
             isLoading = true;
             StartCoroutine(HardRespawnRoutine());
-            LoadScenePath(SceneManager.GetActiveScene().path, lastCheckpointLevelPath);
+            LoadScenePath(SceneManager.GetActiveScene().path, lastSavepointLevelPath);
         }
     }
 

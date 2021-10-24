@@ -134,7 +134,6 @@ public class MainMenu : MonoBehaviour
         GameManager.instance.loading = true;
         LoadDataNewGame();
         GameManager.instance.anim.Play("Fade_Out");
-        SceneManager.LoadSceneAsync("AStar", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
         yield return null;
     }
@@ -164,7 +163,6 @@ public class MainMenu : MonoBehaviour
     {
         if(obj.isDone)
         {
-            AstarPath.active.Scan();
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
             GameManager.instance.loading = false;
             GameManager.instance.anim.Play("Fade_in");
@@ -184,7 +182,6 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.instance.loading = true;
         GameManager.instance.anim.SetTrigger("FadeD");
-        SceneManager.LoadSceneAsync("AStar", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
     
         yield return null;

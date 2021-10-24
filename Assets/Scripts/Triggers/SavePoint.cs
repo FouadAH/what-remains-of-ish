@@ -44,8 +44,8 @@ public class SavePoint: MonoBehaviour {
             spriteRenderer.sprite = litSprite;
         }
 
+        GameManager.instance.lastSavepointLevelPath = levelPath;
         GameManager.instance.lastSavepointLevelIndex = levelIndex;
-        GameManager.instance.lastCheckpointLevelPath = levelPath;
 
         GameManager.instance.lastSavepointPos = playerSpawnPoint.position;
 
