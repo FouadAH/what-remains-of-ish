@@ -36,11 +36,16 @@ public class Player_Input : MonoBehaviour
 
     PlayerInputMaster inputActions;
     PauseMenu pauseMenu;
+    DialogManager dialogManager;
 
     private void Start()
     {
         inputActions = new PlayerInputMaster();
         inputActions.Player.Enable();
+
+        dialogManager = DialogManager.instance;
+        dialogManager.OnDialogueStart += DialogManager_OnDialogueStart;
+        dialogManager.OnDialogueEnd += DialogManager_OnDialogueEnd;
 
         inputActions.Player.Attack.performed += Attack_performed;
         inputActions.Player.Dash.performed += Dash_performed;
@@ -57,6 +62,16 @@ public class Player_Input : MonoBehaviour
         InputSystem.onDeviceChange += InputSystem_onDeviceChange;
 
         pauseMenu = FindObjectOfType<PauseMenu>();
+    }
+
+    private void DialogManager_OnDialogueEnd()
+    {
+        inputActions.Player.Enable();
+    }
+
+    private void DialogManager_OnDialogueStart()
+    {
+        inputActions.Player.Disable();
     }
 
     private void Pause_started(InputAction.CallbackContext obj)

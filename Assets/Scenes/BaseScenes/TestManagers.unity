@@ -187,6 +187,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
+      propertyPath: currentScene
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
       propertyPath: hasDashAbility
       value: 1
       objectReference: {fileID: 0}
@@ -208,22 +213,37 @@ PrefabInstance:
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: lastSavepointPos.x
-      value: 80
+      value: 790
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: lastSavepointPos.y
-      value: 30
+      value: 58
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: lastCheckpointPos.x
-      value: 80
+      value: 790
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: lastCheckpointPos.y
-      value: 30
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: initialPlayerPosition.x
+      value: 790
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: initialPlayerPosition.y
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: lastCheckpointLevelIndex
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405231, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}

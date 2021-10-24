@@ -34,7 +34,7 @@ public class BirdbeeEnemy_FlyState : FlyState
     {
         base.LogicUpdate();
 
-        if (entity.CheckPlayerInMinAggroRadius())
+        if (entity.CheckPlayerInMinAggroRadius() || enemy.IsAggro)
         {
             enemy.StopCoroutine(pathRoutine);
             stateMachine.ChangeState(enemy.playerDetectedState);

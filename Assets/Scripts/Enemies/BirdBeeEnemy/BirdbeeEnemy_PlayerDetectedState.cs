@@ -41,6 +41,7 @@ public class BirdbeeEnemy_PlayerDetectedState : PlayerDetectedState
         }
         else if (!enemy.CheckPlayerInMaxAggroRadius() && lastDetectedTime + stateData.detectTime <= Time.time)
         {
+            enemy.IsAggro = false;
             stateMachine.ChangeState(enemy.flyState);
         }
     }

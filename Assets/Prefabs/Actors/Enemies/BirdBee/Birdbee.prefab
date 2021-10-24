@@ -406,7 +406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4915592055966724693
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1515,6 +1515,7 @@ MonoBehaviour:
   playerDetectedData: {fileID: 11400000, guid: 246442edac474a448ae1ba6f9541289d, type: 2}
   attackStateData: {fileID: 11400000, guid: 64ea609bb350dce4b9fbe769d6aaa843, type: 2}
   deadStateData: {fileID: 11400000, guid: 764646bb507bfa44ea8db4cb689a8977, type: 2}
+  IsAggro: 0
 --- !u!114 &1366236473883835881
 MonoBehaviour:
   m_ObjectHideFlags: 0

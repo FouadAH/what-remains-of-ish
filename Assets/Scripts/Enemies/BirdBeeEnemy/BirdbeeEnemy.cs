@@ -72,6 +72,9 @@ public class BirdbeeEnemy : Entity
             aIPath.canMove = true;
     }
 
+    [Header("Aggro Settings")]
+    public bool IsAggro = false;
+
     public bool CheckPlayerInAttackLine()
     {
         return Physics2D.Linecast(transform.position, attackDetectionPosition.transform.position, entityData.whatIsPlayer);
@@ -81,7 +84,7 @@ public class BirdbeeEnemy : Entity
     public override void ModifyHealth(int amount)
     {
         base.ModifyHealth(amount);
-
+        IsAggro = true;
         if (isDead)
         {
             stateMachine.ChangeState(deadState);

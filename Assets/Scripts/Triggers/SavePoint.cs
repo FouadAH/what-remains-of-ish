@@ -5,11 +5,22 @@ public class SavePoint: MonoBehaviour {
 
     [SerializeField]private Animator prompt;
     private int levelIndex;
+    private string levelPath;
+
+
+    public Sprite litSprite;
+    public Transform playerSpawnPoint;
+
+    bool isLit = false;
+    SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         levelIndex = gameObject.scene.buildIndex;
+        levelPath = gameObject.scene.path;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals("Player"))
@@ -28,11 +39,20 @@ public class SavePoint: MonoBehaviour {
 
     private void Rest()
     {
+        if (!isLit)
+        {
+            spriteRenderer.sprite = litSprite;
+        }
+
         GameManager.instance.lastSavepointLevelIndex = levelIndex;
-        GameManager.instance.lastSavepointPos = transform.position;
+        GameManager.instance.lastCheckpointLevelPath = levelPath;
+
+        GameManager.instance.lastSavepointPos = playerSpawnPoint.position;
 
         GameManager.instance.lastCheckpointLevelIndex = levelIndex;
-        GameManager.instance.lastCheckpointPos = transform.position;
+        GameManager.instance.lastCheckpointLevelPath = levelPath;
+
+        GameManager.instance.lastCheckpointPos = playerSpawnPoint.position;
 
         float missingHealth = GameManager.instance.maxHealth - GameManager.instance.health;
         GameManager.instance.health = GameManager.instance.maxHealth;

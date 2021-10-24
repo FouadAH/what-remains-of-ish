@@ -120,10 +120,6 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
             Destroy(gameObject);
 
         }
-        else
-        {
-            SpawnDamagePoints(amount);
-        }
     }
 
     protected void RaiseOnHitEnemyEvent(float health, float maxHealth)

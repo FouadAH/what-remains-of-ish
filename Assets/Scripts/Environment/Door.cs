@@ -16,7 +16,10 @@ public class Door : MonoBehaviour
     // Start is called before the first frame update
     void Start()    
     {
-        lever.OnToggle += Lever_OnToggle;
+        if (lever != null)
+        {
+            lever.OnToggle += Lever_OnToggle;
+        }
         key = "Door_" + ID;
         open = (PlayerPrefs.GetInt(key) == 1) ? true : false;
 		SetState(open);

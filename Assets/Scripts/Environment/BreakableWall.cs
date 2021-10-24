@@ -34,6 +34,8 @@ public class BreakableWall : MonoBehaviour, IDamagable
     public void ModifyHealth(int amount)
     {
         Health--;
+        Quaternion quaternion = Quaternion.Euler(new Vector3(-90, 0, 0));
+        Instantiate(wallDamageParticles, wall.transform.position, quaternion);
         if (Health == 0)
         {
             GetComponent<Collider2D>().enabled = false;

@@ -47,12 +47,12 @@ public class BasicMeleeEnemy_MoveState : MoveState
             enemy.idleState.SetFlipAfterIdle(true);
             stateMachine.ChangeState(enemy.idleState);
         }
-        else if (Time.time >= initialTime + timeBeforeIdle)
-        {
-            bool flipAfterIdle = Random.Range(0,100) >= 35;
-            enemy.idleState.SetFlipAfterIdle(flipAfterIdle);
-            stateMachine.ChangeState(enemy.idleState);
-        }
+        //else if (Time.time >= initialTime + timeBeforeIdle)
+        //{
+        //    bool flipAfterIdle = Random.Range(0,100) >= 35;
+        //    enemy.idleState.SetFlipAfterIdle(flipAfterIdle);
+        //    stateMachine.ChangeState(enemy.idleState);
+        //}
     }
 
     public override void PhysicsUpdate()

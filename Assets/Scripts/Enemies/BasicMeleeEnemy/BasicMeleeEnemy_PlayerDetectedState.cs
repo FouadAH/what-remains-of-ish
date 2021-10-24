@@ -21,6 +21,8 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
         base.Exit();
     }
 
+    float lastDetectedTime;
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
@@ -29,16 +31,28 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(enemy.meleeAttackState);
         }
-        else if (!entity.CheckPlayerInMinAgroRange() && !entity.CheckPlayerInMinAggroRadius())
+        else if (!enemy.CheckPlayerInMaxAggroRadius() && lastDetectedTime + stateData.detectTime <= Time.time)
         {
+            enemy.IsAggro = false;
             stateMachine.ChangeState(enemy.lookForPlayerState);
         }
         else if (!isDetectingLedge || isDetectingWall)
         {
             entity.Flip();
+            enemy.IsAggro = false;
             stateMachine.ChangeState(enemy.idleState);
         }
-        
+        else if (enemy.CheckPlayerInMaxAggroRadius())
+        {
+            lastDetectedTime = Time.time;
+        }
+
+    }
+
+    bool CanSeePlayer()
+    {
+        RaycastHit2D hit =  Physics2D.Linecast(enemy.transform.position, GameManager.instance.playerCurrentPosition.position, entity.entityData.whatIsGround);
+        return hit.collider != null;
     }
 
     public override void PhysicsUpdate()

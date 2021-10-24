@@ -32,9 +32,13 @@ public class GameManager : MonoBehaviour
     [Header("Checkpoints")]
     public Vector2 lastCheckpointPos;
     public int lastCheckpointLevelIndex;
+    public string lastCheckpointLevelPath;
+
 
     public Vector2 lastSavepointPos;
     public int lastSavepointLevelIndex;
+    public string lastSavepointLevelPath;
+
 
     public CameraController cameraController;
     public Animator anim;
@@ -105,7 +109,7 @@ public class GameManager : MonoBehaviour
             isRespawning = true;
             isLoading = true;
             StartCoroutine(HardRespawnRoutine());
-            LoadScene(SceneManager.GetActiveScene().buildIndex, lastSavepointLevelIndex);
+            LoadScenePath(SceneManager.GetActiveScene().path, lastCheckpointLevelPath);
         }
     }
 
@@ -154,6 +158,9 @@ public class GameManager : MonoBehaviour
         this.levelToLoad = levelToLoad;
         this.levelToUnload = levelToUnload;
 
+        levelToLoadPath = SceneManager.GetSceneByBuildIndex(levelToLoad).path;
+        levelToUnloadPath = SceneManager.GetSceneByBuildIndex(levelToUnload).path;
+
         StartCoroutine(LoadSceneRoutine());
     }
 
@@ -171,6 +178,19 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadSceneRoutine());
     }
 
+    public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath)
+    {
+        loading = true;
+        currentScenePath = levelToLoadPath;
+
+        player.GetComponent<Player>().enabled = false;
+
+        this.levelToLoadPath = levelToLoadPath;
+        this.levelToUnloadPath = levelToUnloadPath;
+
+        StartCoroutine(LoadSceneRoutine());
+    }
+
     Vector3 newPlayerPos;
     public void LoadScene(int levelToUnload, int levelToLoad, Vector3 playerPos)
     {
@@ -181,6 +201,9 @@ public class GameManager : MonoBehaviour
         this.levelToLoad = levelToLoad;
         this.levelToUnload = levelToUnload;
 
+        levelToLoadPath = SceneManager.GetSceneByBuildIndex(levelToLoad).path;
+        levelToUnloadPath = SceneManager.GetSceneByBuildIndex(levelToUnload).path;
+
         StartCoroutine(LoadSceneRoutine());
     }
 
@@ -188,7 +211,17 @@ public class GameManager : MonoBehaviour
     {
         anim.Play("Fade_Out");
         yield return new WaitForSecondsRealtime(1f);
+        Debug.Log("Loading Scene: " + levelToLoadPath);
         SceneManager.LoadSceneAsync(levelToLoadPath, LoadSceneMode.Additive).completed += LoadScene_completed;
+
+    }
+
+    IEnumerator LoadSceneRoutineIndex()
+    {
+        anim.Play("Fade_Out");
+        yield return new WaitForSecondsRealtime(1f);
+        Debug.Log("Loading Scene: " + levelToLoad);
+        SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completedIndex;
 
     }
     //public void OnFadeComplete()
@@ -196,10 +229,48 @@ public class GameManager : MonoBehaviour
     //    SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completed;
     //}
 
+    private void LoadScene_completedIndex(AsyncOperation obj)
+    {
+        if (obj.isDone)
+        {
+            Debug.Log("Unloading Scene: " + levelToUnloadPath);
+
+            SceneManager.UnloadSceneAsync(levelToUnloadPath).completed += UnloadScene_completedIndex;
+
+            if (!isRespawning)
+            {
+                player.transform.position = newPlayerPos;
+            }
+
+            loading = false;
+            isLoading = false;
+
+            player.GetComponent<Player>().enabled = true;
+
+        }
+    }
+
+    private void UnloadScene_completedIndex(AsyncOperation obj)
+    {
+        if (obj.isDone)
+        {
+            StartCoroutine(FadeIn());
+            SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
+
+            astarPath = FindObjectOfType<AstarPath>();
+            if (astarPath != null)
+            {
+                astarPath.Scan();
+            }
+        }
+    }
+
     private void LoadScene_completed(AsyncOperation obj)
     {
         if (obj.isDone)
         {
+            Debug.Log("Unloading Scene: " + levelToUnloadPath);
+
             SceneManager.UnloadSceneAsync(levelToUnloadPath).completed += UnloadScene_completed;
 
             if (!isRespawning)

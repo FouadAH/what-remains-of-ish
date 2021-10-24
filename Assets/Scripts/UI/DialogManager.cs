@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
@@ -15,6 +16,9 @@ public class DialogManager : MonoBehaviour
     StringBuilder sb = new StringBuilder("", 50);
     Queue<string> sentences;
     GameManager gm;
+
+    public event Action OnDialogueStart = delegate { };
+    public event Action OnDialogueEnd = delegate { };
 
     public static DialogManager instance;
 
@@ -63,7 +67,10 @@ public class DialogManager : MonoBehaviour
         Debug.Log("StartDialogue");
         inputLock = true;
         StartCoroutine(InputLock());
+
         dialogueIsActive = true;
+        OnDialogueStart();
+
         gm.player.GetComponent<Player_Input>().enabled = false;
         animator.SetBool("isOpen", true);
 
@@ -111,6 +118,8 @@ public class DialogManager : MonoBehaviour
     {
         inputLock = true;
         dialogueIsActive = false;
+        OnDialogueEnd();
+
         animator.SetBool("isOpen", false);
         gm.player.GetComponent<Player_Input>().enabled = true;
     }
