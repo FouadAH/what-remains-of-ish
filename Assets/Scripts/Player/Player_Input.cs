@@ -49,7 +49,7 @@ public class Player_Input : MonoBehaviour
         dialogManager.OnDialogueEnd += DialogManager_OnDialogueEnd;
 
         inputActions.Player.Attack.performed += Attack_performed;
-        inputActions.Player.Dash.performed += Dash_performed;
+        inputActions.Player.Dash.started += Dash_started;
         inputActions.Player.Aim.started += Aim_started;
         inputActions.Player.Jump.performed += Jump_performed;
         inputActions.Player.Heal.performed += Heal_performed;
@@ -164,7 +164,7 @@ public class Player_Input : MonoBehaviour
         aiming = true;
     }
 
-    private void Dash_performed(InputAction.CallbackContext obj)
+    private void Dash_started(InputAction.CallbackContext obj)
     {
         OnDash();
     }

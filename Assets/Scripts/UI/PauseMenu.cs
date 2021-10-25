@@ -87,12 +87,10 @@ public class PauseMenu : MonoBehaviour
         if (GameManager.instance.isPaused)
         {
             Resume();
-            OnPauseEnd();
         }
         else
         {
             Pause();
-            OnPauseStart();
         }
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/Pause Menu/Pause Button", GetComponent<Transform>().position);
     }
@@ -117,6 +115,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        OnPauseEnd();
+
         pauseMenu.SetActive(false);
         videoOptions.SetActive(false);
         audioOptions.SetActive(false);
@@ -124,7 +124,7 @@ public class PauseMenu : MonoBehaviour
         controlsMenu.SetActive(false);
 
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
-        GameManager.instance.player.GetComponent<Player_Input>().enabled = true;
+        //GameManager.instance.player.GetComponent<Player_Input>().enabled = true;
         GameManager.instance.isPaused = false;
 
         Time.timeScale = 1f;
@@ -217,7 +217,8 @@ public class PauseMenu : MonoBehaviour
 
     void Pause()
     {
-        GameManager.instance.player.GetComponent<Player_Input>().enabled = false;
+        OnPauseStart();
+        //GameManager.instance.player.GetComponent<Player_Input>().enabled = false;
         GameManager.instance.isPaused = true;
         pauseMenu.SetActive(true);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
