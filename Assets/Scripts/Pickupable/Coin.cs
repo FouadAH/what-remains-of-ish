@@ -31,6 +31,7 @@ public class Coin : MonoBehaviour
         {
             GameManager.instance.currency += value;
             Destroy(gameObject);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Scraps", GetComponent<Transform>().position);
         }
     }
 
