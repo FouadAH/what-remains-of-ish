@@ -212,7 +212,7 @@ public class Player : MonoBehaviour, IAttacker{
     {
         playerMovement.isDead = true;
         UI_HUD.instance.enabled = false;
-        GetComponent<Player_Input>().enabled = false;
+        playerInput.enabled = false;
         
         anim.SetLayerWeight(0, 0f);
         anim.SetLayerWeight(1, 0f);
@@ -232,7 +232,7 @@ public class Player : MonoBehaviour, IAttacker{
         gm.health = gm.maxHealth;
         UI_HUD.instance.RefrechHealth();
 
-        GetComponent<Player_Input>().enabled = true;
+        playerInput.enabled = true;
         playerMovement.isDead = false;
     }
     
@@ -316,12 +316,13 @@ public class Player : MonoBehaviour, IAttacker{
 
         cameraOffset.m_Offset.y = Mathf.Lerp(cameraOffset.m_Offset.y, cameraOffsetTarget, 0.1f);
     }
-    IEnumerator DisableInputTemp(float disableTime)
-    {
-        GetComponent<Player_Input>().enabled = false;
-        yield return new WaitForSecondsRealtime(disableTime);
-        GetComponent<Player_Input>().enabled = true;
-    }
+
+    //IEnumerator DisableInputTemp(float disableTime)
+    //{
+    //    playerInput.enabled = false;
+    //    yield return new WaitForSecondsRealtime(disableTime);
+    //    playerInput.enabled = true;
+    //}
 
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
