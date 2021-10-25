@@ -42,6 +42,7 @@ public class Lever : MonoBehaviour, IDamagable
 
         OnToggle(isOpen);
         //door.SetState(isOpen);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lever", GetComponent<Transform>().position);
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY){}
