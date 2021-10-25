@@ -70,11 +70,6 @@ public class PauseMenu : MonoBehaviour
 
     }
 
-    private void Pause_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        throw new NotImplementedException();
-    }
-
     void Update()
     {
         masterBus.setVolume(masterVolume);
@@ -116,7 +111,6 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         OnPauseEnd();
-
         pauseMenu.SetActive(false);
         videoOptions.SetActive(false);
         audioOptions.SetActive(false);
@@ -124,7 +118,6 @@ public class PauseMenu : MonoBehaviour
         controlsMenu.SetActive(false);
 
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
-        //GameManager.instance.player.GetComponent<Player_Input>().enabled = true;
         GameManager.instance.isPaused = false;
 
         Time.timeScale = 1f;

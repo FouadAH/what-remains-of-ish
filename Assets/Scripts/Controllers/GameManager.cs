@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Settings")]
     public Vector3 initialPlayerPosition;
+    public string initialLevelPath;
     public float health = 5;
     public float maxHealth = 5;
 
@@ -29,20 +30,18 @@ public class GameManager : MonoBehaviour
     [Header("Player Debug Settings")]
     public bool hasInfiniteLives = false;
 
-    [Header("Checkpoints")]
+    [Header("Checkpoint")]
     public Vector2 lastCheckpointPos;
     public int lastCheckpointLevelIndex;
     public string lastCheckpointLevelPath;
 
+    [Header("Save Point")]
     public Vector2 lastSavepointPos;
     public int lastSavepointLevelIndex;
     public string lastSavepointLevelPath;
 
     public CameraController cameraController;
     public Animator anim;
-
-    private int levelToUnload;
-    private int levelToLoad;
 
     private string levelToUnloadPath;
     private string levelToLoadPath;
@@ -87,8 +86,11 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.DeleteAll();
 
-        lastSavepointLevelPath = SceneManager.GetSceneByBuildIndex(lastSavepointLevelIndex).path;
-        lastCheckpointLevelPath = SceneManager.GetSceneByBuildIndex(lastCheckpointLevelIndex).path;
+        lastSavepointLevelPath = initialLevelPath;
+        lastCheckpointLevelPath = initialLevelPath;
+
+        lastCheckpointPos = initialPlayerPosition;
+        lastSavepointPos = initialPlayerPosition;
 
     }
 
@@ -151,20 +153,20 @@ public class GameManager : MonoBehaviour
         isRespawning = false;
     }
 
-    public void LoadScene(int levelToUnload, int levelToLoad)
-    {
-        loading = true;
-        currentScene = levelToLoad;
-        player.GetComponent<Player>().enabled = false;
+    //public void LoadScene(int levelToUnload, int levelToLoad)
+    //{
+    //    loading = true;
+    //    currentScene = levelToLoad;
+    //    player.GetComponent<Player>().enabled = false;
 
-        this.levelToLoad = levelToLoad;
-        this.levelToUnload = levelToUnload;
+    //    this.levelToLoad = levelToLoad;
+    //    this.levelToUnload = levelToUnload;
 
-        levelToLoadPath = SceneManager.GetSceneByBuildIndex(levelToLoad).path;
-        levelToUnloadPath = SceneManager.GetSceneByBuildIndex(levelToUnload).path;
+    //    levelToLoadPath = SceneManager.GetSceneByBuildIndex(levelToLoad).path;
+    //    levelToUnloadPath = SceneManager.GetSceneByBuildIndex(levelToUnload).path;
 
-        StartCoroutine(LoadSceneRoutine());
-    }
+    //    StartCoroutine(LoadSceneRoutine());
+    //}
 
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath, Vector3 playerPos)
     {
@@ -194,20 +196,20 @@ public class GameManager : MonoBehaviour
     }
 
     Vector3 newPlayerPos;
-    public void LoadScene(int levelToUnload, int levelToLoad, Vector3 playerPos)
-    {
-        loading = true;
-        currentScene = levelToLoad;
-        player.GetComponent<Player>().enabled = false;
-        newPlayerPos = playerPos;
-        this.levelToLoad = levelToLoad;
-        this.levelToUnload = levelToUnload;
+    //public void LoadScene(int levelToUnload, int levelToLoad, Vector3 playerPos)
+    //{
+    //    loading = true;
+    //    currentScene = levelToLoad;
+    //    player.GetComponent<Player>().enabled = false;
+    //    newPlayerPos = playerPos;
+    //    this.levelToLoad = levelToLoad;
+    //    this.levelToUnload = levelToUnload;
 
-        levelToLoadPath = SceneManager.GetSceneByBuildIndex(levelToLoad).path;
-        levelToUnloadPath = SceneManager.GetSceneByBuildIndex(levelToUnload).path;
+    //    levelToLoadPath = SceneManager.GetSceneByBuildIndex(levelToLoad).path;
+    //    levelToUnloadPath = SceneManager.GetSceneByBuildIndex(levelToUnload).path;
 
-        StartCoroutine(LoadSceneRoutine());
-    }
+    //    StartCoroutine(LoadSceneRoutine());
+    //}
 
     IEnumerator LoadSceneRoutine()
     {
@@ -218,14 +220,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-    IEnumerator LoadSceneRoutineIndex()
-    {
-        anim.Play("Fade_Out");
-        yield return new WaitForSecondsRealtime(1f);
-        Debug.Log("Loading Scene: " + levelToLoad);
-        SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completedIndex;
+    //IEnumerator LoadSceneRoutineIndex()
+    //{
+    //    anim.Play("Fade_Out");
+    //    yield return new WaitForSecondsRealtime(1f);
+    //    Debug.Log("Loading Scene: " + levelToLoad);
+    //    SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completedIndex;
 
-    }
+    //}
     //public void OnFadeComplete()
     //{
     //    SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive).completed += LoadScene_completed;
