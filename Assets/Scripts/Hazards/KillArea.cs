@@ -36,6 +36,10 @@ public class KillArea : MonoBehaviour {
                     player.ModifyHealth(damageDealt);
                 }
             }
+        }else if (collision.gameObject.tag.Equals("Enemy"))
+        {
+            Entity enemy = collision.gameObject.GetComponent<Entity>();
+            enemy.ModifyHealth(1000);
         }
     }
 

@@ -126,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.instance.loading)
+        if (GameManager.instance.isLoading)
             return;
 
         SpriteUpdate();

@@ -131,7 +131,7 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator NewGame()
     {
-        GameManager.instance.loading = true;
+        GameManager.instance.isLoading = true;
         LoadDataNewGame();
         GameManager.instance.anim.Play("Fade_Out");
         SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
@@ -152,9 +152,7 @@ public class MainMenu : MonoBehaviour
         {
             GameManager.instance.playerCamera = Camera.main;
             GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
-
             GameManager.instance.player.transform.position = GameManager.instance.initialPlayerPosition;
-
             SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
     }
@@ -164,7 +162,7 @@ public class MainMenu : MonoBehaviour
         if(obj.isDone)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
-            GameManager.instance.loading = false;
+            GameManager.instance.isLoading = false;
             GameManager.instance.anim.Play("Fade_in");
         }
     }
@@ -180,7 +178,7 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator Loading()
     {
-        GameManager.instance.loading = true;
+        GameManager.instance.isLoading = true;
         GameManager.instance.anim.SetTrigger("FadeD");
         SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
     
@@ -191,7 +189,6 @@ public class MainMenu : MonoBehaviour
     /////////////////////////////////////////////////////////////////
     ///                         LOADING                           ///
     /////////////////////////////////////////////////////////////////                 
-    public Vector3 playerPosition;
     public void LoadData()
     {
         PlayerData data = GameDataController.LoadData();
@@ -225,12 +222,12 @@ public class MainMenu : MonoBehaviour
         GameManager.instance.currency = 0;
 
         GameManager.instance.lastSavepointPos = GameManager.instance.initialPlayerPosition;
-        GameManager.instance.lastSavepointLevelIndex = 4;
+        GameManager.instance.lastSavepointLevelIndex = 3;
 
         GameManager.instance.lastCheckpointPos = GameManager.instance.initialPlayerPosition;
-        GameManager.instance.lastCheckpointLevelIndex = 4;
-        GameManager.instance.currentScene = 4;
-        currentScene = 4;
+        GameManager.instance.lastCheckpointLevelIndex = 3;
+        GameManager.instance.currentScene = 3;
+        currentScene = 3;
     }
 
 }

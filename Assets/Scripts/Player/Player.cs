@@ -9,11 +9,7 @@ using Cinemachine;
 
 public class Player : MonoBehaviour, IAttacker{
 
-    Controller_2D controller;
-
-    [HideInInspector]
-    public Vector3 velocity;
-   
+    [HideInInspector] public Vector3 velocity;
     public LayerMask enemyMask;
 
     float iFrames = 0f;
@@ -21,12 +17,7 @@ public class Player : MonoBehaviour, IAttacker{
     bool invinsible = false;
     
     Animator anim;
-
-    [SerializeField] private float aggroRange;
-
-    [SerializeField] private GameManager gm;
-    
-    public PlayerAnimations playerAnimations;
+    GameManager gm;
     [SerializeField] private PlayerMovementSettings playerSettings;
 
     public PlayerMovement playerMovement { get; private set; }
@@ -59,10 +50,6 @@ public class Player : MonoBehaviour, IAttacker{
     public event Action<int> OnHit = delegate { };
     public event Action<int> OnHeal = delegate { };
 
-    Camera mainCamera;
-    Vector2 upperLeft;
-    Vector2 lowerRight;
-
     public BoomerangLauncher boomerangLauncher;
 
     public float cameraLookOffsetValue = 9f;
@@ -91,7 +78,6 @@ public class Player : MonoBehaviour, IAttacker{
         GameManager.instance.playerCurrentPosition = GetComponentInChildren<SpriteRenderer>().transform;
 
         GameManager.instance.playerCamera = Camera.main;
-        mainCamera = GameManager.instance.playerCamera;
 
         GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
         GameManager.instance.cameraController.virtualCamera.Follow = transform;
@@ -103,16 +89,15 @@ public class Player : MonoBehaviour, IAttacker{
     {
         UI_HUD.instance.enabled = true;
 
-        controller = GetComponent<Controller_2D>();
         gm = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
         timeStop = GetComponent<TimeStop>();
-        playerAnimations = new PlayerAnimations(GetComponent<Animator>(), transform);
         playerMovement =  GetComponent<PlayerMovement>();
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
         flashEffect = GetComponentInChildren<ColouredFlash>();
         cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
+
         if (playerDebugMode)
         {
             playerPath.emitting = true;
@@ -122,7 +107,7 @@ public class Player : MonoBehaviour, IAttacker{
 
     private void Update()
     {
-        if (GameManager.instance.loading)
+        if (GameManager.instance.isLoading)
             return;
 
         OnDamage();
@@ -132,38 +117,6 @@ public class Player : MonoBehaviour, IAttacker{
     public void EmitRunParticle()
     {
         dustParticles.Play();
-    }
-    
-    /// <summary>
-    /// Method for handling enemy aggro
-    /// </summary>
-    public void Aggro()
-    {
-        //Vector2 upperLeftScreen = new Vector2(0, Screen.height);
-        //Vector2 lowerRightScreen = new Vector2(Screen.width, 0);
-
-        //upperLeft = mainCamera.ScreenToWorldPoint(upperLeftScreen);
-        //lowerRight = mainCamera.ScreenToWorldPoint(lowerRightScreen);
-
-        //Collider2D[] enemiesToAggro = Physics2D.OverlapAreaAll(upperLeft, lowerRight, enemyMask);
-        //for (int i = 0; i < enemiesToAggro.Length; i++)
-        //{   
-        //    bool hit = Physics2D.Linecast(transform.position, enemiesToAggro[i].transform.position, controller.collitionMask);
-        //    //if(enemiesToAggro[i].GetComponent<IEnemy>() != null)
-        //    //{
-        //    //    if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)
-        //    //    {
-        //    //        enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
-        //    //    }
-        //    //}
-        //    if (enemiesToAggro[i].GetComponent<Entity>() != null)
-        //    {
-        //        if (enemiesToAggro[i].GetComponent<Entity>().CheckPlayerInMinAgroRange() && !hit && !enemiesToAggro[i].GetComponent<Entity>().IsAggro)
-        //        {
-        //            enemiesToAggro[i].GetComponent<Entity>().Aggro();
-        //        }
-        //    }
-        //}
     }
 
     /// <summary>

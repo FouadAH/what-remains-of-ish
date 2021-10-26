@@ -5,12 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class LoadTrigger : MonoBehaviour
 {
-    [SerializeField] private int levelToLoad;
-    [SerializeField] private int levelToUnload;
-
-    private int levelToLoadPath;
-    private int levelToUnloadPath;
-
     public GameObject playerPos;
     ScenePicker scenePicker;
     private void Start()
@@ -22,10 +16,7 @@ public class LoadTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            Debug.Log("Level Path:" + scenePicker.scenePathToLoad);
-            Debug.Log(SceneManager.GetActiveScene().path);
             GameManager.instance.LoadScenePath(scenePicker.scenePathToUnload, scenePicker.scenePathToLoad, playerPos.transform.position);
-            //GameManager.instance.LoadScene(levelToUnload, levelToLoad, playerPos.transform.position);
         }
     }
 
