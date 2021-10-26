@@ -183,6 +183,7 @@ public class Player : MonoBehaviour, IAttacker{
         anim.SetLayerWeight(3, 0f);
 
         gm.health = gm.maxHealth;
+        UI_HUD.instance.enabled = true;
         UI_HUD.instance.RefrechHealth();
 
         playerInput.enabled = true;

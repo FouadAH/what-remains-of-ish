@@ -121,7 +121,6 @@ public class Boomerang : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        //Debug.Log("Boomerang Full Air Time Done. Time: " + boomerangDuration);
         rb.velocity = Vector2.zero;
         back = true;
         timer = null;
