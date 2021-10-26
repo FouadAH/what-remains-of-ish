@@ -31,6 +31,11 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(enemy.meleeAttackState);
         }
+        else if (!enemy.CanSeePlayer())
+        {
+            enemy.IsAggro = false;
+            stateMachine.ChangeState(enemy.lookForPlayerState);
+        }
         else if (!enemy.CheckPlayerInMaxAggroRadius() && lastDetectedTime + stateData.detectTime <= Time.time)
         {
             enemy.IsAggro = false;
@@ -47,12 +52,6 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
             lastDetectedTime = Time.time;
         }
 
-    }
-
-    bool CanSeePlayer()
-    {
-        RaycastHit2D hit =  Physics2D.Linecast(enemy.transform.position, GameManager.instance.playerCurrentPosition.position, entity.entityData.whatIsGround);
-        return hit.collider != null;
     }
 
     public override void PhysicsUpdate()

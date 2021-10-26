@@ -30,7 +30,7 @@ public class BasicMeleeEnemy_LookForPlayerState : LookForPlayerState
     {
         base.LogicUpdate();
 
-        if (entity.CheckPlayerInMinAggroRadius())
+        if (enemy.CanSeePlayer() && entity.CheckPlayerInMinAggroRadius() || enemy.IsAggro)
         {
             stateMachine.ChangeState(enemy.playerDetectedState);
         }

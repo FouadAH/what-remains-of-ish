@@ -71,32 +71,12 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
     private IEnumerator aggroRangeRoutine;
     public bool IsAggro = false;
 
-    //public virtual IEnumerator AggroRange()
-    //{
-    //    Collider2D player = Physics2D.OverlapCircle(transform.position, minAggroRange, entityData.whatIsPlayer);
-    //    if (player == null)
-    //    {
-    //        yield return new WaitForSeconds(AggroTime);
-    //        IsAggro = false;
-    //        StopCoroutine(aggroRangeRoutine);
-    //    }
-    //    yield return new WaitForSeconds(0.5f);
-    //    if (aggroRangeRoutine != null)
-    //        StopCoroutine(aggroRangeRoutine);
+    public bool CanSeePlayer()
+    {
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, GameManager.instance.playerCurrentPosition.position, entityData.whatIsGround);
+        return !hit;
+    }
 
-    //    aggroRangeRoutine = AggroRange();
-    //    StartCoroutine(aggroRangeRoutine);
-    //}
-
-    //public void Aggro()
-    //{
-    //    IsAggro = true;
-    //    if (aggroRangeRoutine != null)
-    //        StopCoroutine(aggroRangeRoutine);
-
-    //    aggroRangeRoutine = AggroRange();
-    //    StartCoroutine(aggroRangeRoutine);
-    //}
     public override void ModifyHealth(int amount)
     {
         base.ModifyHealth(amount);

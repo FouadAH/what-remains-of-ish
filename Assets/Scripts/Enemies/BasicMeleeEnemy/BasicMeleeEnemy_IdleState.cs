@@ -25,7 +25,7 @@ public class BasicMeleeEnemy_IdleState : IdleState
     {
         base.LogicUpdate();
 
-        if (isPlayerInMinAgroRange)
+        if (isPlayerInMinAgroRange || enemy.IsAggro)
         {
             stateMachine.ChangeState(enemy.playerDetectedState);
         }
