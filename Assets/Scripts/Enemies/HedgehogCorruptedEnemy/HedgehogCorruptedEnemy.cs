@@ -42,20 +42,7 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
         if (isProtected)
             return;
 
-        Health -= amount;
-        RaiseOnHitEnemyEvent(Health, MaxHealth);
-
-        if (Health <= 0)
-        {
-            isDead = true;
-            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
-        }
-        else
-        {
-            //Aggro();
-            //SpawnDamagePoints(amount);
-            anim.SetTrigger("Hit");
-        }
+        base.ModifyHealth(amount);
 
         if (isDead)
         {

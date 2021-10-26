@@ -60,8 +60,8 @@ public class Entity : MonoBehaviour, IDamagable
     public float accelerationTimeGrounded = 0.05f;
     private float velocityXSmoothing = 0;
 
-    ColouredFlash colouredFlash;
-    CinemachineImpulseSource impulseListener;
+    protected ColouredFlash colouredFlash;
+    protected CinemachineImpulseSource impulseListener;
     public virtual void Start()
     {
         facingDirection = 1;
