@@ -18,7 +18,7 @@ public class KillArea : MonoBehaviour {
         col2D = gameObject.GetComponent<BoxCollider2D>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
@@ -36,7 +36,8 @@ public class KillArea : MonoBehaviour {
                     player.ModifyHealth(damageDealt);
                 }
             }
-        }else if (collision.gameObject.tag.Equals("Enemy"))
+        }
+        else if (collision.gameObject.tag.Equals("Enemy"))
         {
             Entity enemy = collision.gameObject.GetComponent<Entity>();
             enemy.ModifyHealth(1000);

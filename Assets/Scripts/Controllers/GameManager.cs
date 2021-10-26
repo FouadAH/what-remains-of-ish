@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
 
         lastSavepointLevelPath = initialLevelPath;
         lastCheckpointLevelPath = initialLevelPath;
+        levelToLoadPath = initialLevelPath;
 
         lastCheckpointPos = initialPlayerPosition;
         lastSavepointPos = initialPlayerPosition;
@@ -125,13 +126,17 @@ public class GameManager : MonoBehaviour
     {
         anim.Play("Fade_Out");
         player.GetComponent<Player>().enabled = false;
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        playerCamera.transform.position = player.transform.position;
+        player.transform.position = lastCheckpointPos;
+
         yield return new WaitForSecondsRealtime(1f);
 
         anim.Play("Fade_in");
 
         player.GetComponent<Player>().enabled = true;
-        player.transform.position = lastCheckpointPos;
-        playerCamera.transform.position = player.transform.position;
         player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
     }
 
@@ -255,6 +260,8 @@ public class GameManager : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(lastCheckpointPos, 2);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(initialPlayerPosition, 2);
         }
     }
 }

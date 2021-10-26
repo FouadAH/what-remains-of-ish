@@ -188,12 +188,17 @@ PrefabInstance:
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: currentScene
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: hasDashAbility
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: currentScenePath
+      value: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
@@ -204,6 +209,11 @@ PrefabInstance:
         type: 3}
       propertyPath: hasSprintAbility
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: initialLevelPath
+      value: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
@@ -233,7 +243,7 @@ PrefabInstance:
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: initialPlayerPosition.x
-      value: 792
+      value: 780
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
