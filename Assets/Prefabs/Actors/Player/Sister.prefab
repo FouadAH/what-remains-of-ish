@@ -163,8 +163,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257799686}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -84.3, y: -41.4, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3302963428054370896}
@@ -5963,7 +5963,7 @@ GameObject:
   m_Layer: 8
   m_Name: Sister
   m_TagString: Player
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -6092,7 +6092,7 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 1024
-  iFrameTime: 1
+  iFrameTime: 1.3
   aggroRange: 13.34
   gm: {fileID: 0}
   playerSettings: {fileID: 11400000, guid: 3fab7b29ca964424ab7b77027ce5fd0d, type: 2}
@@ -6229,8 +6229,8 @@ MonoBehaviour:
   - {fileID: 3178242638393365095}
   - {fileID: 6959809800280797902}
   - {fileID: 5439125513700220712}
-  knockbackBasicAttack: 10
-  knockbackUpAttack: 10
+  knockbackBasicAttack: 5
+  knockbackUpAttack: 5
   knockbackDownAttack: 25
 --- !u!114 &3298665631606906201
 MonoBehaviour:
@@ -11267,8 +11267,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3298665632121598039}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.627, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3298665631782982374}
@@ -11300,7 +11300,7 @@ MonoBehaviour:
   canFire: 1
   hittable:
     serializedVersion: 2
-    m_Bits: 1180160
+    m_Bits: 1458688
   interactable:
     serializedVersion: 2
     m_Bits: 131072
@@ -21451,7 +21451,7 @@ PrefabInstance:
     - target: {fileID: 544488261065342595, guid: 3516d17dc8443e34ab6d4ef302f88319,
         type: 3}
       propertyPath: mask.m_Bits
-      value: 1181184
+      value: 1197568
       objectReference: {fileID: 0}
     - target: {fileID: 544488261065342595, guid: 3516d17dc8443e34ab6d4ef302f88319,
         type: 3}
@@ -21578,7 +21578,7 @@ PrefabInstance:
     - target: {fileID: 544488261065342595, guid: 3516d17dc8443e34ab6d4ef302f88319,
         type: 3}
       propertyPath: mask.m_Bits
-      value: 1181184
+      value: 1197568
       objectReference: {fileID: 0}
     - target: {fileID: 544488261065342595, guid: 3516d17dc8443e34ab6d4ef302f88319,
         type: 3}
@@ -21720,7 +21720,7 @@ PrefabInstance:
     - target: {fileID: 544488261065342595, guid: 3516d17dc8443e34ab6d4ef302f88319,
         type: 3}
       propertyPath: mask.m_Bits
-      value: 1181184
+      value: 1197568
       objectReference: {fileID: 0}
     - target: {fileID: 544488261065342595, guid: 3516d17dc8443e34ab6d4ef302f88319,
         type: 3}
@@ -21847,7 +21847,7 @@ PrefabInstance:
     - target: {fileID: 544488261065342595, guid: 3516d17dc8443e34ab6d4ef302f88319,
         type: 3}
       propertyPath: mask.m_Bits
-      value: 1181184
+      value: 1197568
       objectReference: {fileID: 0}
     - target: {fileID: 544488261065342595, guid: 3516d17dc8443e34ab6d4ef302f88319,
         type: 3}
