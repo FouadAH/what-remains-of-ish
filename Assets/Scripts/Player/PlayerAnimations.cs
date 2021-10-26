@@ -40,7 +40,6 @@ public class PlayerAnimations
     public void Animate()
     {
         animator.SetFloat("Speed", Mathf.Abs(playerInput.directionalInput.x));
-        Debug.Log(playerMovement.Velocity.y);
         if (playerMovement.Velocity.y < 0)
         {
             falling = true;
