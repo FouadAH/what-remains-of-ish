@@ -111,20 +111,18 @@ public class Boomerang : MonoBehaviour
     float boomerangDuration;
     private IEnumerator BoomerangCountdown()
     {
-        yield return new WaitForEndOfFrame();
-
         back = false;
         boomerangDuration = boomerangLauncher.boomerangAirTime;
 
         float normalizedTime = 0;
         while (normalizedTime < boomerangDuration)
         {
-            normalizedTime += Time.deltaTime;
-            yield return null;
+            normalizedTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
         }
 
         //Debug.Log("Boomerang Full Air Time Done. Time: " + boomerangDuration);
-
+        rb.velocity = Vector2.zero;
         back = true;
         timer = null;
     }
