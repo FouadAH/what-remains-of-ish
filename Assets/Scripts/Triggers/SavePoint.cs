@@ -61,6 +61,7 @@ public class SavePoint: MonoBehaviour {
         GameManager.instance.SaveGame();
 
         UI_HUD.instance.SetDebugText("Player health restored, checkpoint set and game saved.");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Save Point", GetComponent<Transform>().position);
     }
 
 
