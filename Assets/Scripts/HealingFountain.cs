@@ -7,25 +7,18 @@ public class HealingFountain : MonoBehaviour
     [SerializeField] private Animator prompt;
 
     public float reffilAmount = 100;
-    SpriteRenderer sprite;
-    [SerializeField] SpriteMask mask;
-    float fountainSize;
+    SpriteRenderer spriteRenderer;
+
+    public Sprite fullFountainSprite;
+    public Sprite emptyFountainSprite;
 
 
     private void Start()
     {
-        fountainSize = 5;
-        mask = GetComponentInChildren<SpriteMask>();
         prompt = GetComponentInChildren<Animator>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
-        sprite.color = Color.white;
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         reffilAmount = 100;
-    }
-
-    private void Update()
-    {
-        float yPos = Mathf.Lerp(mask.transform.localPosition.y,  (((100 - reffilAmount) / 100) * -fountainSize), 0.1f);
-        mask.transform.localPosition = new Vector2(mask.transform.localPosition.x, yPos);
+        spriteRenderer.sprite = fullFountainSprite;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -64,7 +57,7 @@ public class HealingFountain : MonoBehaviour
 
             if (reffilAmount == 0)
             {
-                sprite.color = Color.gray;
+                spriteRenderer.sprite = emptyFountainSprite;
                 prompt.gameObject.SetActive(false);
             }
         }
