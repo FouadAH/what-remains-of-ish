@@ -103,7 +103,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -6757394365437785452}
+  - {fileID: -1126077068020019818}
   MinDistance: 0
   MaxDistance: 0
   Length: 96000
@@ -462,7 +462,7 @@ MonoBehaviour:
   Path: FMOD Assets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637708293970000000
+  lastModified: 637711095030000000
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -618,6 +618,29 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 0
+--- !u!114 &-5398106857994005291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Death
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Death
+  guid: 4eb7b81b5ec5584fb25d4aa5e333783b
+  Banks:
+  - {fileID: -6473554532515057081}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &-5300491239450612580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,6 +792,26 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &-4546250337700827885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Old Village Ruins/Inensity
+  m_EditorClassIdentifier: 
+  Name: Inensity
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 0
 --- !u!114 &-4473018813877848821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,11 +1214,11 @@ MonoBehaviour:
   Path: FMOD Assets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637708293970000000
+  lastModified: 637711095030000000
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 2606
+    Value: 2884
   Exists: 1
 --- !u!114 &-2420761172959549614
 MonoBehaviour:
@@ -1217,6 +1260,29 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 1
+--- !u!114 &-2197704214145339754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Dash
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Dash
+  guid: 646bd9a3ae9c2a49869628ef27ca6646
+  Banks:
+  - {fileID: -6473554532515057081}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &-2102446145159057621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,6 +1522,26 @@ MonoBehaviour:
   MaxDistance: 0
   Length: 0
 --- !u!114 &-1131355828443605401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Old Village Ruins/Inensity
+  m_EditorClassIdentifier: 
+  Name: Inensity
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
+--- !u!114 &-1126077068020019818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1716,12 +1802,18 @@ MonoBehaviour:
   - {fileID: 8796342547287603133}
   - {fileID: -6812856876525164775}
   - {fileID: -5898557815533869049}
+  - {fileID: 2688300569947631940}
+  - {fileID: -5398106857994005291}
+  - {fileID: -2197704214145339754}
+  - {fileID: 3924046277934672817}
+  - {fileID: 7516524614090817564}
+  - {fileID: 1482115553476557133}
   EditorParameters: []
   MasterBanks:
   - {fileID: -6473554532515057081}
   StringsBanks:
   - {fileID: -2451299790728803336}
-  stringsBankWriteTime: 637708293970000000
+  stringsBankWriteTime: 637711095030000000
   cacheVersion: 6
 --- !u!114 &81903485564255735
 MonoBehaviour:
@@ -1809,6 +1901,26 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &789902460742387836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Old Village Ruins/Inensity
+  m_EditorClassIdentifier: 
+  Name: Inensity
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &841314386019049578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1930,6 +2042,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/UI/Pause Menu/Start Button
   guid: 4e58b7de2ced5b4ab355d7c09f18f193
+  Banks:
+  - {fileID: -6473554532515057081}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &1482115553476557133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Interactive Objects/Save Point
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Interactive Objects/Save Point
+  guid: d65307542bdf0d41959f351242b65c52
   Banks:
   - {fileID: -6473554532515057081}
   IsStream: 0
@@ -2117,6 +2252,29 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 0
+--- !u!114 &2688300569947631940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Healing
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Healing
+  guid: 443cb7a5729eed47b6cb60024cff8f9d
+  Banks:
+  - {fileID: -6473554532515057081}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &2766741993785062814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2331,6 +2489,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/Interactive Objects/Lever
   guid: 6c8e572632ccc9458872fad70aaf7c60
+  Banks:
+  - {fileID: -6473554532515057081}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &3924046277934672817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Boomerang Hit - Enemy
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Boomerang Hit - Enemy
+  guid: 838e9ca985f87447894d802818ef3a09
   Banks:
   - {fileID: -6473554532515057081}
   IsStream: 0
@@ -2637,6 +2818,26 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &5702286523261572115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Old Village Ruins/Inensity
+  m_EditorClassIdentifier: 
+  Name: Inensity
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 0
 --- !u!114 &5719042262442424345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2953,6 +3154,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/Player/Run Grass
   guid: 93dd81a16504d84ca64bb5e7d3916f18
+  Banks:
+  - {fileID: -6473554532515057081}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &7468068188584589177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Old Village Ruins/Inensity
+  m_EditorClassIdentifier: 
+  Name: Inensity
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 0
+--- !u!114 &7516524614090817564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Boomerang Hit - Obstacle
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Boomerang Hit - Obstacle
+  guid: 8ca7f5ebcbb9394eaa57f83045d89d29
   Banks:
   - {fileID: -6473554532515057081}
   IsStream: 0
