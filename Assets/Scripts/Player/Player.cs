@@ -83,6 +83,8 @@ public class Player : MonoBehaviour, IAttacker{
         GameManager.instance.cameraController.virtualCamera.Follow = transform;
 
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
+
+        AudioManager.instance.PlayAreaTheme();
     }
 
     void Start()

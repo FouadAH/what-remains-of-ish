@@ -622,6 +622,14 @@ MonoBehaviour:
   playerCurrentPosition: {fileID: 0}
   initialPlayerPosition: {x: 792, y: 64, z: 0}
   initialLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
+  currentScene: 0
+  currentScenePath: 
+  lastCheckpointPos: {x: 792, y: 64}
+  lastCheckpointLevelIndex: 4
+  lastCheckpointLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
+  lastSavepointPos: {x: 792, y: 64}
+  lastSavepointLevelIndex: 4
+  lastSavepointLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
   health: 5
   maxHealth: 5
   healingPodAmount: 3
@@ -630,21 +638,13 @@ MonoBehaviour:
   currency: 0
   playerCamera: {fileID: 0}
   hasInfiniteLives: 0
-  lastCheckpointPos: {x: 792, y: 64}
-  lastCheckpointLevelIndex: 4
-  lastCheckpointLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
-  lastSavepointPos: {x: 792, y: 64}
-  lastSavepointLevelIndex: 4
-  lastSavepointLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
   cameraController: {fileID: 0}
   anim: {fileID: 413757533}
-  currentScene: 0
-  currentScenePath: 
-  loading: 0
   hasDashAbility: 0
   hasWallJump: 0
   hasTeleportAbility: 0
   hasSprintAbility: 0
+  isLoading: 0
   isRespawning: 0
   isPaused: 0
 --- !u!4 &413757535
@@ -660,7 +660,7 @@ Transform:
   m_Children:
   - {fileID: 152013234}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &621822940
 GameObject:
@@ -709,7 +709,7 @@ Transform:
   m_Children:
   - {fileID: 714845665}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &623686057
 GameObject:
@@ -1414,6 +1414,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636691439}
   m_CullTransparentMesh: 0
+--- !u!1 &1718419627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1718419629}
+  - component: {fileID: 1718419628}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1718419628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718419627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8b57dfc377e9742be548df62a15c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areaTheme: event:/Music/Old Village Ruins
+  playOnStart: 0
+--- !u!4 &1718419629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718419627}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10.870582}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1842092654
 GameObject:
   m_ObjectHideFlags: 0
