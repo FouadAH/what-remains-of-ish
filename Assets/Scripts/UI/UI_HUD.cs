@@ -153,7 +153,7 @@ public class UI_HUD : MonoBehaviour
         }
 
         //Refill healing
-        for (int i = 1; i < healingFlasks.Count; i++)
+        for (int i = 0; i < healingFlasks.Count; i++)
         {
             healingFlasks[i].fillAmount = 100;
         }

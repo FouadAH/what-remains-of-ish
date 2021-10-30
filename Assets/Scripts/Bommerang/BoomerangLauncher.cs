@@ -67,6 +67,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     float currentAngleVelocity;
     float digitalAngle = 0;
     float inputDeadZone = 0.3f;
+    float secondaryCrosshairDistance = 16f;
 
     private void Awake()
     {
@@ -113,7 +114,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             {
                 crosshair.enabled = true;
                 secondCrosshair.enabled = true;
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 18f, hittable);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, secondaryCrosshairDistance, hittable);
 
                 if (hit)
                 {
@@ -122,14 +123,14 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
                 }
                 else if (playerInput.controllerConnected)
                 {
-                    targetPos = new Vector3(0, 18f, 0);
+                    targetPos = new Vector3(0, secondaryCrosshairDistance, 0);
                     secondCrosshair.transform.localPosition = Vector2.SmoothDamp(secondCrosshair.transform.localPosition, targetPos, ref referencePos, 0.02f);
                 }
                 else
                 {
                     targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     secondCrosshair.transform.position = Vector2.SmoothDamp(secondCrosshair.transform.position, targetPos, ref referencePos, 0.02f);
-                    secondCrosshair.transform.localPosition = new Vector2(secondCrosshair.transform.localPosition.x, Mathf.Clamp(secondCrosshair.transform.localPosition.y, 0, 18f));
+                    secondCrosshair.transform.localPosition = new Vector2(secondCrosshair.transform.localPosition.x, Mathf.Clamp(secondCrosshair.transform.localPosition.y, 0, secondaryCrosshairDistance));
                 }
             }
         }
@@ -144,7 +145,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             if (isAiming)
             {
                 secondCrosshair.enabled = true;
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 18f, hittable);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, secondaryCrosshairDistance, hittable);
 
                 if (hit)
                 {
@@ -155,7 +156,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
                 {
                     targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     secondCrosshair.transform.position = targetPos;
-                    secondCrosshair.transform.localPosition = new Vector2(secondCrosshair.transform.localPosition.x, Mathf.Clamp(secondCrosshair.transform.localPosition.y, 0, 18f));
+                    secondCrosshair.transform.localPosition = new Vector2(secondCrosshair.transform.localPosition.x, Mathf.Clamp(secondCrosshair.transform.localPosition.y, 0, secondaryCrosshairDistance));
                 }
             }
             

@@ -30,6 +30,18 @@ public class AudioManager : MonoBehaviour
         areaThemeInstance.start();
     }
 
+    public void FadeoutAreaTheme()
+    {
+        areaThemeInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    public void SwitchAreaTheme(string theme)
+    {
+        FadeoutAreaTheme();
+        areaTheme = theme;
+        PlayAreaTheme();
+    }
+
     public void SetIntensity(float value)
     {
         areaThemeInstance.setParameterByName("Inensity", value);
