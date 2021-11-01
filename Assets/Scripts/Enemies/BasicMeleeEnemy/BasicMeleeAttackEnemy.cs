@@ -49,7 +49,7 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
         lookForPlayerState = new BasicMeleeEnemy_LookForPlayerState(this, stateMachine, "idle", lookForPlayerStateData, this);
         meleeAttackState = new BasicMeleeEnemy_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
         stunState = new BasicMeleeEnemy_StunState(this, stateMachine, "stun", stunStateData, this);
-        deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
+        deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "idle", deadStateData, this);
 
         stateMachine.Initialize(moveState);
 
