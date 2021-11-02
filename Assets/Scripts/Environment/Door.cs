@@ -23,6 +23,7 @@ public class Door : MonoBehaviour
         key = "Door_" + ID;
         open = (PlayerPrefs.GetInt(key) == 1) ? true : false;
 		SetState(open);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Door", GetComponent<Transform>().position);
     }
 
     private void Lever_OnToggle(bool isOpen)
