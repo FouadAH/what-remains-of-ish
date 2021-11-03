@@ -5,8 +5,11 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-    [FMODUnity.EventRef] public string areaTheme;
+    [FMODUnity.EventRef] public string currentTheme;
+
     FMOD.Studio.EventInstance areaThemeInstance;
+    FMOD.Studio.EventDescription eventDescription;
+    System.Guid eventID;
 
     /// <summary>
     /// Singelton, makes sure only one instance of this object exsists
@@ -26,20 +29,37 @@ public class AudioManager : MonoBehaviour
 
     public void PlayAreaTheme()
     {
-        areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(areaTheme);
+        areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(currentTheme);
         areaThemeInstance.start();
+
+        areaThemeInstance.getDescription(out eventDescription);
+        eventDescription.getID(out eventID);
     }
 
-    public void FadeoutAreaTheme()
+    public void PlayAreaTheme(string newTheme)
+    {
+        if (newTheme == currentTheme)
+            return;
+
+        currentTheme = newTheme;
+
+        areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(newTheme);
+        areaThemeInstance.start();
+
+        areaThemeInstance.getDescription(out eventDescription);
+        eventDescription.getID(out eventID);
+    }
+
+    public void StopAreaThemeWithFade()
     {
         areaThemeInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        currentTheme = null;
     }
 
-    public void SwitchAreaTheme(string theme)
+    public void StopAreaThemeWithoutFade()
     {
-        FadeoutAreaTheme();
-        areaTheme = theme;
-        PlayAreaTheme();
+        areaThemeInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        currentTheme = null;
     }
 
     public void SetIntensity(float value)

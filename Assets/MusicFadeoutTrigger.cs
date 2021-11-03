@@ -11,7 +11,7 @@ public class MusicFadeoutTrigger : MonoBehaviour
         //Check if player entered trigger
         if (collision.GetComponent<Player>())
         {
-            AudioManager.instance.FadeoutAreaTheme();
+            AudioManager.instance.StopAreaThemeWithFade();
         }
     }
 
