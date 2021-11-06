@@ -484,6 +484,7 @@ public class PlayerMovement : MonoBehaviour
         IsAttacking = false;
     }
 
+    int facingDirection;
     /// <summary>
     /// Method for setting the players' orientation based on input
     /// </summary>
@@ -492,15 +493,29 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!playerDash.isDashing && !WallSliding && !IsAttacking)
         {
-            playerInput.directionalInput = input;
-            if (playerInput.directionalInput.x < 0)
+            if (input.x < 0)
             {
                 transformToMove.localScale = new Vector3(Mathf.Abs(transformToMove.localScale.x)*-1, transformToMove.localScale.y, -1);
             }
-            else if (playerInput.directionalInput.x > 0)
+            else if (input.x > 0)
             {
                 transformToMove.localScale = new Vector3(Mathf.Abs(transformToMove.localScale.x), transformToMove.localScale.y, -1);
             }
+        }
+    }
+
+    public void Flip()
+    {
+        facingDirection *= -1;
+        transformToMove.localScale = new Vector3(Mathf.Abs(transformToMove.localScale.x) * facingDirection, transformToMove.localScale.y, -1);
+    }
+
+    public void FlipOnAttack()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (mousePos.x < transform.position.x)
+        {
+            Flip();
         }
     }
 
