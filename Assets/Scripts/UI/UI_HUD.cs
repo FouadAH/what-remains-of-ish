@@ -179,7 +179,7 @@ public class UI_HUD : MonoBehaviour
     {
         debugTextPanel.SetActive(true);
         pickupDebugText.SetText(text);
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(3f);
         pickupDebugText.SetText("");
         debugTextPanel.SetActive(false);
     }

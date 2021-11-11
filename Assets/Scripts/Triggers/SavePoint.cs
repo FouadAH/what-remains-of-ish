@@ -62,7 +62,7 @@ public class SavePoint: MonoBehaviour {
 
         GameManager.instance.SaveGame();
 
-        UI_HUD.instance.SetDebugText("Player health restored, checkpoint set and game saved.");
+        UI_HUD.instance.SetDebugText("Player health and flasks restored. Checkpoint set.");
     }
 
 
