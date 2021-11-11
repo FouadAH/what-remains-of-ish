@@ -6,7 +6,7 @@ public class DialogTrigger : MonoBehaviour
 {
     public Dialog dialog;
     [SerializeField] private Animator prompt;
-    public DialogManager dialogueManager;
+    [HideInInspector] public DialogManager dialogueManager;
 
     private void Start()
     {
@@ -22,6 +22,7 @@ public class DialogTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
+            prompt.ResetTrigger("PopOut");
             prompt.SetTrigger("PopIn");
         }
     }
@@ -32,6 +33,7 @@ public class DialogTrigger : MonoBehaviour
         {
             if (!dialogueManager.dialogueIsActive)
             {
+                prompt.ResetTrigger("PopIn");
                 prompt.SetTrigger("PopOut");
                 dialogueManager.StartDialogue(dialog);
             }
@@ -42,6 +44,7 @@ public class DialogTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
+            prompt.ResetTrigger("PopIn");
             prompt.SetTrigger("PopOut");
         }
     }

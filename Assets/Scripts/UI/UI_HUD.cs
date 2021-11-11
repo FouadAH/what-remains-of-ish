@@ -17,6 +17,9 @@ public class UI_HUD : MonoBehaviour
 
     public List<HealingPod> healingFlasks = new List<HealingPod>();
 
+    public GameObject tipsPanel;
+    public TMP_Text tipsText;
+
     [Header("Dubug UI elements")]
     public bool debugMode;
     public TMP_Text velocityXDebug;
@@ -179,5 +182,20 @@ public class UI_HUD : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
         pickupDebugText.SetText("");
         debugTextPanel.SetActive(false);
+    }
+
+    public void SetTipsText(string text)
+    {
+        StopCoroutine(TipsTextRoutine(text));
+        StartCoroutine(TipsTextRoutine(text));
+    }
+
+    IEnumerator TipsTextRoutine(string text)
+    {
+        tipsPanel.SetActive(true);
+        tipsText.SetText(text);
+        yield return new WaitForSecondsRealtime(5f);
+        tipsText.SetText("");
+        tipsPanel.SetActive(false);
     }
 }
