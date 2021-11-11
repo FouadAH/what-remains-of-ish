@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -7,9 +7,12 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Class responsible for loading in the main menu
 /// </summary>
-public class SceneLoader : MonoBehaviour
+public class GraphicsManager : MonoBehaviour
 {
-    public static SceneLoader instance;
+    public static GraphicsManager instance;
+
+    public RenderPipelineAsset windowsURP;
+    public RenderPipelineAsset macURP;
 
     /// <summary>
     /// Singelton, makes sure only one instance of this object exsists
@@ -23,7 +26,14 @@ public class SceneLoader : MonoBehaviour
         else
         {
             instance = this;
-            SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+            QualitySettings.renderPipeline = windowsURP;
+#elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+            QualitySettings.renderPipeline = macURP;
+#endif
         }
+
+        DontDestroyOnLoad(this);
     }
 }
