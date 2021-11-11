@@ -38,7 +38,7 @@ public class BasicMeleeEnemy_MoveState : MoveState
             timeBeforeIdle = Random.Range(minTimeBeforeIdle, maxTimeBeforeIdle);
         }
 
-        if ((enemy.CanSeePlayer() && entity.CheckPlayerInMinAgroRange()) || enemy.IsAggro)
+        if ((enemy.CanSeePlayer() && (entity.CheckPlayerInMinAgroRange() || entity.CheckPlayerInMaxAgroRange())) || enemy.IsAggro)
         {
             stateMachine.ChangeState(enemy.playerDetectedState);
         }
