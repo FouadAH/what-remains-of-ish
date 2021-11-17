@@ -52,7 +52,6 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
         deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "idle", deadStateData, this);
 
         stateMachine.Initialize(moveState);
-
     }
 
     public override void FixedUpdate()

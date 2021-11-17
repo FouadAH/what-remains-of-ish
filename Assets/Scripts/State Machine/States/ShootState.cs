@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootState : State
+public class ShootState : AttackState
 {
-    protected bool isAnimationFinished;
-    protected bool isPlayerInMinAgroRange;
+    protected D_RangedAttackState stateData;
 
-    public ShootState(Entity etity, FiniteStateMachine stateMachine, string animBoolName) : base(etity, stateMachine, animBoolName)
+    public ShootState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_RangedAttackState stateData) : base(etity, stateMachine, animBoolName, attackPosition)
     {
+        this.stateData = stateData;
     }
 
     public override void DoChecks()
@@ -21,9 +21,8 @@ public class ShootState : State
     public override void Enter()
     {
         base.Enter();
-
+        entity.atsm.attackState = this;
         isAnimationFinished = false;
-        entity.SetVelocity(0f);
     }
 
     public override void Exit()
@@ -39,5 +38,10 @@ public class ShootState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void FinishAttack()
+    {
+        isAnimationFinished = true;
     }
 }

@@ -103,7 +103,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 8701228237104145664}
+  - {fileID: 8809223016045052892}
   MinDistance: 0
   MaxDistance: 0
   Length: 96000
@@ -462,7 +462,7 @@ MonoBehaviour:
   Path: FMOD Assets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637718072480000000
+  lastModified: 637715014704371276
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -1234,7 +1234,7 @@ MonoBehaviour:
   Path: FMOD Assets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637718072480000000
+  lastModified: 637715014704468207
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -1877,7 +1877,7 @@ MonoBehaviour:
   - {fileID: -6473554532515057081}
   StringsBanks:
   - {fileID: -2451299790728803336}
-  stringsBankWriteTime: 637718072480000000
+  stringsBankWriteTime: 637715014704468207
   cacheVersion: 6
 --- !u!114 &81903485564255735
 MonoBehaviour:
@@ -3456,7 +3456,7 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &8796342547287603133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3480,6 +3480,26 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &8809223016045052892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Old Village Ruins/Inensity
+  m_EditorClassIdentifier: 
+  Name: Inensity
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &8821873139778133722
 MonoBehaviour:
   m_ObjectHideFlags: 0

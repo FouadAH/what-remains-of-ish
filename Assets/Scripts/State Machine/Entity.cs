@@ -115,9 +115,15 @@ public class Entity : MonoBehaviour, IDamagable
     }
 
 
-    public void SetVelocityY(float velocity)
+    public void SetVelocityY(float velocityY)
     {
-        velocityWorkspace.Set(velocityWorkspace.x, velocity);
+        velocityWorkspace.Set(velocityWorkspace.x, velocityY);
+        rb.velocity = velocityWorkspace;
+    }
+
+    public void SetVelocityX(float velocityX)
+    {
+        velocityWorkspace.Set(velocityX, velocityWorkspace.y);
         rb.velocity = velocityWorkspace;
     }
 
@@ -131,6 +137,11 @@ public class Entity : MonoBehaviour, IDamagable
     public virtual bool CheckWall()
     {
         return Physics2D.Raycast(wallCheck.position, aliveGO.transform.right, entityData.wallCheckDistance, entityData.whatIsGround);
+    }
+
+    public virtual bool CheckWallBack()
+    {
+        return Physics2D.Raycast(wallCheck.position, -aliveGO.transform.right, entityData.wallCheckDistance, entityData.whatIsGround);
     }
 
     public virtual bool CheckLedge()
@@ -172,8 +183,11 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual void DamageHop(float velocity)
     {
-        velocityWorkspace.Set(velocity, rb.velocity.y);
-        rb.velocity = velocityWorkspace;
+        if (!CheckWall() && !CheckWallBack())
+        {
+            velocityWorkspace.Set(velocity, rb.velocity.y);
+            rb.velocity = velocityWorkspace;
+        }
     }
 
     public virtual void ResetStunResistance()
@@ -208,13 +222,19 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual void ModifyHealth(int amount)
     {
+        lastDamageTime = Time.time;
+
         Health -= amount;
+        currentStunResistance -= amount;
+
         RaiseOnHitEnemyEvent(Health, MaxHealth);
         impulseListener.GenerateImpulse();
+
         if (colouredFlash != null)
-        {
             colouredFlash.Flash(Color.white);
-        }
+
+        if(currentStunResistance <= 0)
+            isStunned = true;
 
         if (Health <= 0)
         {
@@ -241,7 +261,10 @@ public class Entity : MonoBehaviour, IDamagable
         
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.transform.position, entityData.groundCheckRadius);
+
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * -facingDirection * entityData.wallCheckDistance));
+
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
 
     }

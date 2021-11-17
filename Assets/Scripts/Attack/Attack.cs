@@ -59,25 +59,25 @@ public class Attack : MonoBehaviour, IHitboxResponder
         {
             if(dir.y == 1)
             {
-                //if (attackParticlesRuntime == null)
-                //{
-                //    offset = new Vector3(0, -4, 0);
-                //    quaternion = Quaternion.Euler(0, 0, 180);
-                //    attackParticlesRuntime = Instantiate(attackParticles, transform.position + offset, quaternion);
-                //    attackParticlesRuntime.Play();
-                //}
+                if (attackParticlesRuntime == null)
+                {
+                    offset = new Vector3(0, -4, 0);
+                    quaternion = Quaternion.Euler(0, 0, 180);
+                    attackParticlesRuntime = Instantiate(attackParticles, transform.position + offset, quaternion);
+                    attackParticlesRuntime.Play();
+                }
 
                 hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (dir.y));
                 return;
             }
 
-            //if (attackParticlesRuntime == null)
-            //{
-            //    offset = new Vector3(dir.x * -4, dir.y * -4, 0);
-            //    quaternion = Quaternion.Euler(0, 0, 90 * dir.x);
-            //    attackParticlesRuntime = Instantiate(attackParticles, transform.position + offset, quaternion);
-            //    attackParticlesRuntime.Play();
-            //}
+            if (attackParticlesRuntime == null)
+            {
+                offset = new Vector3(dir.x * -4, dir.y * -4, 0);
+                quaternion = Quaternion.Euler(0, 0, 90 * dir.x);
+                attackParticlesRuntime = Instantiate(attackParticles, transform.position + offset, quaternion);
+                attackParticlesRuntime.Play();
+            }
 
             Vector2 direction = (hurtbox.transform.position - transform.position).normalized;
 

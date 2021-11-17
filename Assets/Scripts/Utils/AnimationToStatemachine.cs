@@ -6,6 +6,7 @@ public class AnimationToStatemachine : MonoBehaviour
 {
     public AttackState attackState;
 
+
     private void TriggerAttack()
     {
         attackState.TriggerAttack();
