@@ -200,6 +200,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             Time.timeScale = 0.3f;
             cameraOffset.m_Offset.z = Mathf.Lerp(cameraOffset.m_Offset.z, cameraZoom, 0.05f);
             chromaticAberration.intensity.value = Mathf.Lerp(chromaticAberration.intensity.value, 0.6f, 0.05f);
+ 
         }
         else
         {
