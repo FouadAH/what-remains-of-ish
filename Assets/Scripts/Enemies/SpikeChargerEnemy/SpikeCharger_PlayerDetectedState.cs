@@ -11,7 +11,7 @@ public class SpikeCharger_PlayerDetectedState : AttackState
         this.enemy = enemy;
     }
 
-
+     
     public override void Enter()
     {
         base.Enter();

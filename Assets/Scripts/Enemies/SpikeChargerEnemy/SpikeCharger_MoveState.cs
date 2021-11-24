@@ -40,12 +40,12 @@ public class SpikeCharger_MoveState : MoveState
 
         if (entity.CheckPlayerInMaxAgroRange())
         {
-            stateMachine.ChangeState(enemy.chargeState);
+            stateMachine.ChangeState(enemy.playerDetectedState);
         }
         else if(entity.CheckPlayerInMinAgroRange())
         {
             entity.Flip();
-            stateMachine.ChangeState(enemy.chargeState);
+            stateMachine.ChangeState(enemy.playerDetectedState);
         }
         else if (isDetectingWall || !isDetectingLedge)
         {
