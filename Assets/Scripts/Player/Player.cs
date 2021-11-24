@@ -59,6 +59,8 @@ public class Player : MonoBehaviour, IAttacker{
 
     [Header("Effects")]
     public ParticleSystem dustParticles;
+    public ParticleSystem damageParticle;
+    public ParticleSystem healingParticles;
 
     TimeStop timeStop;
     ColouredFlash flashEffect;
@@ -213,6 +215,7 @@ public class Player : MonoBehaviour, IAttacker{
             int amountHealed = (int)(gm.health - previousHP);
             OnHeal(amountHealed);
             flashEffect.Flash(Color.white);
+            healingParticles.Play();
         }
     }
 
@@ -228,6 +231,7 @@ public class Player : MonoBehaviour, IAttacker{
             CinemachineImpulseSource impulseListener = GetComponent<CinemachineImpulseSource>();
             impulseListener.GenerateImpulse();
             timeStop.StopTime(changeTime, restoreSpeed, delay);
+            damageParticle.Play();
             if (!GameManager.instance.hasInfiniteLives)
             {
                 gm.health -= amount;
@@ -304,13 +308,13 @@ public class Player : MonoBehaviour, IAttacker{
     IEnumerator KnockbackOnDamageRoutine()
     {
         playerMovement.isKnockedback = true;
-        yield return new WaitForSecondsRealtime(knockbackOnDamageTimer);
+        yield return new WaitForSeconds(knockbackOnDamageTimer);
         playerMovement.isKnockedback = false;
     }
     IEnumerator KnockbackOnHitRoutine()
     {
         playerMovement.isKnockedback = true;
-        yield return new WaitForSecondsRealtime(knockbackOnHitTimer);
+        yield return new WaitForSeconds(knockbackOnHitTimer);
         playerMovement.isKnockedback = false;
     }
 

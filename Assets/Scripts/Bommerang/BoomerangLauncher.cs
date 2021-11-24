@@ -195,6 +195,9 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     }
     void BoomerangAimingEffects()
     {
+        if (timeStop.timeStopIsActive)
+            return;
+
         if (slowDown && !timeStop.timeStopIsActive)
         {
             Time.timeScale = 0.3f;
