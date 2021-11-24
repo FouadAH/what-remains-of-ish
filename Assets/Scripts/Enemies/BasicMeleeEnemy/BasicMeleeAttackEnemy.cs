@@ -65,6 +65,11 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
         Gizmos.color = Color.white;
     }
 
+    public override void LateUpdate()
+    {
+        base.LateUpdate();
+    }
+
     [Header("Aggro Settings")]
     [SerializeField] public float AggroTime;
     private IEnumerator aggroRangeRoutine;

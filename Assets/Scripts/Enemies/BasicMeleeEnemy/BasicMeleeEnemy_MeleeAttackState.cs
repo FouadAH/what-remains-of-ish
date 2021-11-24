@@ -5,6 +5,8 @@ using UnityEngine;
 public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxResponder
 {
     private BasicMeleeAttackEnemy enemy;
+    bool wallDetectionFirstTake = true;
+    Vector3 wallDetectedPos;
 
     public BasicMeleeEnemy_MeleeAttackState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_MeleeAttack stateData, BasicMeleeAttackEnemy enemy) : base(etity, stateMachine, animBoolName, attackPosition, stateData)
     {
@@ -19,6 +21,7 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxRespond
     public override void Enter()
     {
         base.Enter();
+        wallDetectionFirstTake = true;
     }
 
     public override void Exit()
@@ -52,6 +55,21 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxRespond
     {
         base.PhysicsUpdate();
         entity.SetVelocity(0);
+    }
+
+    public override void LatePhysicsUpdate()
+    {
+        base.LatePhysicsUpdate();
+        if (entity.CheckWall()  && wallDetectionFirstTake)
+        {
+            wallDetectionFirstTake = false;
+            wallDetectedPos = enemy.transform.position;
+            enemy.transform.position = wallDetectedPos;
+        }
+        else if (entity.CheckWall())
+        {
+            enemy.transform.position = wallDetectedPos;
+        }
     }
 
     public override void TriggerAttack()

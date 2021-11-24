@@ -24,8 +24,9 @@ public class BasicMeleeEnemy_MoveState : MoveState
 
     bool firstTake = true;
     float initialTime;
-    float maxTimeBeforeIdle = 10f;
-    float minTimeBeforeIdle = 4f;
+    float maxTimeBeforeIdle = 6f;
+    float minTimeBeforeIdle = 3f;
+    float chanceToFlipAfterIdle = 80f;
     float timeBeforeIdle;
     public override void LogicUpdate()
     {
@@ -47,12 +48,12 @@ public class BasicMeleeEnemy_MoveState : MoveState
             enemy.idleState.SetFlipAfterIdle(true);
             stateMachine.ChangeState(enemy.idleState);
         }
-        //else if (Time.time >= initialTime + timeBeforeIdle)
-        //{
-        //    bool flipAfterIdle = Random.Range(0,100) >= 35;
-        //    enemy.idleState.SetFlipAfterIdle(flipAfterIdle);
-        //    stateMachine.ChangeState(enemy.idleState);
-        //}
+        else if (initialTime + timeBeforeIdle <= Time.time)
+        {
+            bool flipAfterIdle = Random.Range(0, 100) >= chanceToFlipAfterIdle;
+            enemy.idleState.SetFlipAfterIdle(flipAfterIdle);
+            stateMachine.ChangeState(enemy.idleState);
+        }
     }
 
     public override void PhysicsUpdate()

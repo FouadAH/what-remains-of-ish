@@ -105,6 +105,11 @@ public class Entity : MonoBehaviour, IDamagable
         }
     }
 
+    public virtual void LateUpdate()
+    {
+        stateMachine.currentState.LatePhysicsUpdate();   
+    }
+
     public virtual void SetVelocity(float velocity)
     {
         float targetVelocity = velocity * facingDirection;
@@ -255,11 +260,12 @@ public class Entity : MonoBehaviour, IDamagable
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(playerCheck.position, maxAggroRange);
 
-        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.closeRangeActionDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.minAgroDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.maxAgroDistance), 0.2f);
         
         Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.closeRangeActionDistance), 0.2f);
+
         Gizmos.DrawWireSphere(groundCheck.transform.position, entityData.groundCheckRadius);
 
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));

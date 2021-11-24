@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: 9140664630645883552
     second: cave_ruins_spikes_01_7
+  - first:
+      213: -9092772118882438901
+    second: cave_ruins_spikes_01_1
+  - first:
+      213: 4381043343999450283
+    second: cave_ruins_spikes_corner
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -105,7 +111,7 @@ TextureImporter:
         width: 667
         height: 575
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -126,7 +132,7 @@ TextureImporter:
         width: 462
         height: 185
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,6 +140,48 @@ TextureImporter:
       bones: []
       spriteID: 0a200a06d0a2ade70800000000000000
       internalID: 9140664630645883552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cave_ruins_spikes_01_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 668
+        width: 229
+        height: 580
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b01bf66feebffc180800000000000000
+      internalID: -9092772118882438901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cave_ruins_spikes_corner
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 1052
+        width: 229
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bac3da8a5b79ccc30800000000000000
+      internalID: 4381043343999450283
       vertices: []
       indices: 
       edges: []

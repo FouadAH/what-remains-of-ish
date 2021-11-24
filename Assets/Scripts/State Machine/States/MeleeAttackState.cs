@@ -55,6 +55,11 @@ public class MeleeAttackState : AttackState
         base.PhysicsUpdate();
     }
 
+    public override void LatePhysicsUpdate()
+    {
+        base.LatePhysicsUpdate();
+    }
+
     public override void TriggerAttack()
     {
         base.TriggerAttack();
