@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 2798039386737561757}
   - component: {fileID: 1578194087}
   - component: {fileID: 458602867935252852}
+  - component: {fileID: 2518606218060747283}
   m_Layer: 9
   m_Name: Door
   m_TagString: Obstacle
@@ -190,6 +191,22 @@ MonoBehaviour:
   m_ID: 875726c5-e372-49b8-bbc9-53d5d99404a4
   open: 0
   lever: {fileID: 0}
+  OnDoorOpen:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2518606218060747283}
+        m_TargetAssemblyTypeName: FMODPlayer, Assembly-CSharp
+        m_MethodName: PlaySoundEvent
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 25ee910262161634a97aaded00a68216,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: SoundEffectSO, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &458602867935252852
 Animator:
   serializedVersion: 3
@@ -209,3 +226,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2518606218060747283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3380152883824485522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e374331780e74641be094d5c50bb7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -4,13 +4,25 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 using UnityEditor;
+using System;
 
 [CreateAssetMenu(fileName = "Level", menuName = "Levels/New level", order = 1)]
 public class Level : ScriptableObject
 {
-    [Header("Information")]
-    public string scene;
+    [SerializeField] private string m_ID = Guid.NewGuid().ToString();
+    public string ID => m_ID;
 
-    [Header("Map UI")]
-    public Image levelMap;
+    [ContextMenu("Generate new ID")]
+    private void RegenerateGUID() => m_ID = Guid.NewGuid().ToString();
+
+    public string levelName;
+
+    [HideInInspector] public string scenePath;
+
+#if UNITY_EDITOR
+    [Multiline]
+    public string DeveloperDescription = "";
+#endif
+
+    public bool isRevealed;
 }

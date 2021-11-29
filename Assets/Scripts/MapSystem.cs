@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class MapSystem : MonoBehaviour
 {
-    public List<Area> areas;
+    public List<MapArea> areas;
 
-    void Start()
+    public void OnNewLevelLoad()
     {
-        foreach (Area area in areas)
+        foreach (MapArea mapArea in areas)
         {
-            foreach (Level level in area.levels)
+            Debug.Log(mapArea.area.areaName);
+            Debug.Log("------------------");
+
+            foreach (MapLevel mapLevel in mapArea.mapLevels)
             {
-                Debug.Log(level.scene);
+                if (mapLevel.level.isRevealed)
+                {
+                    Debug.Log(mapLevel.level.name);
+                    mapLevel.levelImage.enabled = true;
+                }
             }
         }
     }

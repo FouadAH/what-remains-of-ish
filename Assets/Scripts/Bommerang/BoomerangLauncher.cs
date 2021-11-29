@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 using UnityEngine.Rendering.Universal;
@@ -68,6 +69,11 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     float digitalAngle = 0;
     float inputDeadZone = 0.3f;
     float secondaryCrosshairDistance = 16f;
+
+    [Header("Events")]
+    public UnityEvent OnBoomerangLaunched;
+    public UnityEvent OnBoomerangHit;
+
 
     private void Awake()
     {
@@ -260,6 +266,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             var Boomerang = Instantiate(boomerangPrefab, firingPoint.position, firingPoint.rotation);
             boomerangReference = Boomerang.GetComponent<Boomerang>();
             Boomerang.GetComponent<Boomerang>().OnRangedHit += RangedHit;
+            OnBoomerangLaunched.Invoke();
             //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Attack", GetComponent<Transform>().position);
         }
     }
@@ -268,6 +275,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     {
         if (IsInLayerMask(collider.gameObject.layer, damagable) && collider.GetComponent<IDamagable>() != null)
         {
+            OnBoomerangHit.Invoke();
             Vector2 direction = (pos - (Vector2)collider.transform.position).normalized;
             attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>(), Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
         }

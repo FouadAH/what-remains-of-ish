@@ -9,6 +9,8 @@ public class UI_HUD : MonoBehaviour
     public static UI_HUD instance;
     [SerializeField] private Animator anim;
 
+    [Header("HUD UI elements")]
+
     public Transform heartBar;
     public GameObject heartPrefab;
 
@@ -17,8 +19,11 @@ public class UI_HUD : MonoBehaviour
 
     public List<HealingPod> healingFlasks = new List<HealingPod>();
 
+    [Header("Tips UI elements")]
+
     public GameObject tipsPanel;
     public TMP_Text tipsText;
+
 
     [Header("Dubug UI elements")]
     public bool debugMode;

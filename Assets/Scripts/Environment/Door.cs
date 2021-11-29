@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Door : MonoBehaviour
 {
@@ -13,21 +14,37 @@ public class Door : MonoBehaviour
     string key;
     int stateInt;
     public Lever lever;
+
+    public UnityEvent OnDoorOpen;
+    Animator anim;
     // Start is called before the first frame update
     void Start()    
     {
+        anim = GetComponent<Animator>();
         if (lever != null)
         {
             lever.OnToggle += Lever_OnToggle;
         }
+
         key = "Door_" + ID;
         open = (PlayerPrefs.GetInt(key) == 1) ? true : false;
-		SetState(open);
+        
+        SetStateInitial(open);
     }
 
     private void Lever_OnToggle(bool isOpen)
     {
         SetState(isOpen);
+    }
+
+    void SetStateInitial(bool open)
+    {
+        this.open = open;
+        stateInt = (open) ? 1 : 0;
+        PlayerPrefs.SetInt(key, stateInt);
+        PlayerPrefs.Save();
+
+        anim.SetBool("isOpen", open);
     }
 
     public void SetState(bool open)
@@ -37,7 +54,7 @@ public class Door : MonoBehaviour
         PlayerPrefs.SetInt(key, stateInt);
         PlayerPrefs.Save();
 
-        GetComponent<Animator>().SetBool("isOpen", open);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Door", GetComponent<Transform>().position);
+        anim.SetBool("isOpen", open);
+        OnDoorOpen.Invoke();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -62,6 +63,8 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
 
     Vector3 newPlayerPos;
+
+    public UnityEvent loadNewSceneEvent;
 
     void Awake()
     {
@@ -142,6 +145,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath, Vector3 playerPos)
     {
+        loadNewSceneEvent.Invoke();
+
         isLoading = true;
         currentScenePath = levelToLoadPath;
 

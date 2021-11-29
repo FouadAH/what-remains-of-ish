@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoadTrigger : MonoBehaviour
 {
     public GameObject playerPos;
+    public Level level;
     ScenePicker scenePicker;
     private void Start()
     {
@@ -16,6 +17,11 @@ public class LoadTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
+            if (level != null)
+            {
+                level.isRevealed = true;
+            }
+
             GameManager.instance.LoadScenePath(scenePicker.scenePathToUnload, scenePicker.scenePathToLoad, playerPos.transform.position);
         }
     }

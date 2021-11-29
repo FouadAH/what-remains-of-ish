@@ -8,4 +8,10 @@ public class FMODPlayer : MonoBehaviour
     {
         FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
     }
+
+    public void PlaySoundEvent(SoundEffectSO soundEffect)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(soundEffect.soundEffectEvent, GetComponent<Transform>().position);
+    }
+
 }
