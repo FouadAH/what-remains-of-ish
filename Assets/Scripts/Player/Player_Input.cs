@@ -30,6 +30,9 @@ public class Player_Input : MonoBehaviour
     public event Action OnTeleport = delegate { };
     public event Action<int> OnHeal = delegate { };
 
+    public event Action MapOpen = delegate { };
+    public event Action MapClose = delegate { };
+
     public bool controllerConnected = false;
 
     float inputDeadZone = 0.19f;
@@ -56,6 +59,8 @@ public class Player_Input : MonoBehaviour
         inputActions.Player.Teleport.performed += Teleport_performed;
 
         inputActions.UI.Pause.started += Pause_started;
+        //inputActions.UI.Map.performed += Map_performed;
+        //inputActions.UI.Map.canceled += Map_canceled;
 
         inputActions.Player.Dash.canceled += Dash_canceled; 
         inputActions.Player.Aim.canceled += Aim_canceled; 
@@ -68,6 +73,16 @@ public class Player_Input : MonoBehaviour
         pauseMenu.OnPauseEnd += PauseMenu_OnPauseEnd;
         
     }
+
+    //private void Map_canceled(InputAction.CallbackContext obj)
+    //{
+    //    MapClose();
+    //}
+
+    //private void Map_performed(InputAction.CallbackContext obj)
+    //{
+    //    MapOpen();
+    //}
 
     private void PauseMenu_OnPauseEnd()
     {

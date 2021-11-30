@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Lever : MonoBehaviour, IDamagable
 {
@@ -16,12 +17,12 @@ public class Lever : MonoBehaviour, IDamagable
     public bool toggleable = false;
     
     Animator animator;
-    public Door door;
     public float Health { get => 0; set => throw new System.NotImplementedException(); }
     public int MaxHealth { get => 0; set => throw new System.NotImplementedException(); }
     public int knockbackGiven { get => 0; set => throw new System.NotImplementedException(); }
 
     public event Action<bool> OnToggle = delegate { };
+    public UnityEvent OnToggleLever;
 
     void Start()
     {
@@ -41,7 +42,7 @@ public class Lever : MonoBehaviour, IDamagable
         PlayerPrefs.SetInt(key, 1);
 
         OnToggle(isOpen);
-        //door.SetState(isOpen);
+        OnToggleLever.Invoke();
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lever", GetComponent<Transform>().position);
     }
 
