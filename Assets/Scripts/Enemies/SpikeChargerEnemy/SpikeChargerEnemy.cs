@@ -76,8 +76,22 @@ public class SpikeChargerEnemy : Entity, IAttacker
         }
     }
 
+    
+
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
         //Debug.Log("KnockbackOnHit");
+    }
+
+    public override void KnockbackOnDamage(int amount, float dirX, float dirY)
+    {
+        if (stateMachine.currentState == chargeState)
+        {
+            DamageHop(entityData.damageHopSpeed * dirX * 2);
+        }
+        else
+        {
+            base.KnockbackOnDamage(amount, dirX, dirY);
+        }
     }
 }
