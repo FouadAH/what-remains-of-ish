@@ -13,7 +13,6 @@ public class BasicMeleeEnemy_IdleState : IdleState
     public override void Enter()
     {
         base.Enter();
-        entity.SetVelocity(0);
     }
 
     public override void Exit()
@@ -25,9 +24,16 @@ public class BasicMeleeEnemy_IdleState : IdleState
     {
         base.LogicUpdate();
 
-        if (isPlayerInMinAgroRange)
+        if ((entity.CheckPlayerInMaxAgroRange() || isPlayerInMinAgroRange || enemy.IsAggro))
         {
-            stateMachine.ChangeState(enemy.playerDetectedState);
+            if (!entity.CheckLedge())
+            {
+                return;
+            }
+            else
+            {
+                stateMachine.ChangeState(enemy.playerDetectedState);
+            }
         }
         else if (isIdleTimeOver)
         {
@@ -38,6 +44,5 @@ public class BasicMeleeEnemy_IdleState : IdleState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        entity.SetVelocity(0);
     }
 }

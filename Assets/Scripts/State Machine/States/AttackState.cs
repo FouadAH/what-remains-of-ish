@@ -50,6 +50,15 @@ public class AttackState : State
 
     }
 
+    public virtual void AnitcipationStart()
+    {
+
+    }
+    public virtual void AttackStart()
+    {
+
+    }
+
     public virtual void FinishAttack()
     {
         isAnimationFinished = true;

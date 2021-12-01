@@ -3,19 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HedgehogCorruptedEnemy : Entity, FiringAI, IBaseStats
+public class HedgehogCorruptedEnemy : Entity, FiringAI
 {
     public IdleState idleState { get; private set; }
     public MoveState moveState { get; private set; }
     public PlayerDetectedState playerDetectedState { get; private set; }
     public DeadState deadState { get; private set; }
+    float FiringAI.fireRate { get => fireRate; set => _ = fireRate; }
+    float FiringAI.nextFireTime { get => nextFireTime; set => _ = nextFireTime; }
 
-    [SerializeField] private int meleeDamage;
-    [SerializeField] private int hitKnockbackAmount;
-    public int MeleeDamage { get => meleeDamage; set => meleeDamage = value; }
-    public int HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
-    public float fireRate { get; set; }
-    public float nextFireTime { get; set; }
+    [Header("Projectile Firing Settings")]
+    public float fireRate;
+    [HideInInspector] public float nextFireTime;
+    public event Action OnFire = delegate { };
+
+    [HideInInspector] public bool isProtected = false;
 
     [Header("States")]
     [SerializeField] private D_IdleState idleStateData;
@@ -29,45 +31,23 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI, IBaseStats
 
         moveState = new HedgehogCorruptedEnemy_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new HedgehogCorrutedEnemy_IdleState(this, stateMachine, "idle", idleStateData, this);
-        playerDetectedState = new HedgehogCorruptedEnemy_PlayerDetectedState(this, stateMachine, "move", playerDetectedData, this);
+        playerDetectedState = new HedgehogCorruptedEnemy_PlayerDetectedState(this, stateMachine, "block", playerDetectedData, this);
         deadState = new HedgehogCorruptedEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(moveState);
-
     }
-
-    public bool isProtected = false;
-
-    public event Action OnFire = delegate { };
 
     public override void ModifyHealth(int amount)
     {
         if (isProtected)
             return;
 
-        Health -= amount;
-        RaiseOnHitEnemyEvent(Health, MaxHealth);
-
-        if (Health <= 0)
-        {
-            isDead = true;
-        }
-        else
-        {
-            Aggro();
-            SpawnDamagePoints(amount);
-            anim.SetTrigger("Hit");
-        }
+        base.ModifyHealth(amount);
 
         if (isDead)
         {
             stateMachine.ChangeState(deadState);
         }
-    }
-
-    public void KnockbackOnHit(int amount, float dirX, float dirY)
-    {
-        Debug.Log("KnockbackOnHit");
     }
 
     public void RaiseOnFireEvent()

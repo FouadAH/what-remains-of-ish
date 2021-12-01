@@ -39,7 +39,7 @@ public class BulletLauncher : MonoBehaviour, ILauncher
         if (IsInLayerMask(collider.gameObject.layer, damagable) && collider.GetComponent<IDamagable>() != null)
         {
             Vector2 direction = (pos - (Vector2)collider.transform.position).normalized;
-            attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>(), Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
+            attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>(), (direction.x), (direction.y));
         }
     }
 

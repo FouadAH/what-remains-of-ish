@@ -40,6 +40,11 @@ public class State
         DoChecks();
     }
 
+    public virtual void LatePhysicsUpdate()
+    {
+
+    }
+
     public virtual void DoChecks()
     {
 

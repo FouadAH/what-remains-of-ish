@@ -6,22 +6,23 @@ public class DialogTrigger : MonoBehaviour
 {
     public Dialog dialog;
     [SerializeField] private Animator prompt;
-    public DialogManager gm;
+    [HideInInspector] public DialogManager dialogueManager;
 
-    private void Awake()
+    private void Start()
     {
-        gm = FindObjectOfType<DialogManager>();
+        dialogueManager = DialogManager.instance;
     }
     
     public void TriggerDialogue()
     {
-        gm.StartDialogue(dialog);
+        dialogueManager.StartDialogue(dialog);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
+            prompt.ResetTrigger("PopOut");
             prompt.SetTrigger("PopIn");
         }
     }
@@ -30,7 +31,12 @@ public class DialogTrigger : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact"))
         {
-            gm.StartDialogue(dialog);
+            if (!dialogueManager.dialogueIsActive)
+            {
+                prompt.ResetTrigger("PopIn");
+                prompt.SetTrigger("PopOut");
+                dialogueManager.StartDialogue(dialog);
+            }
         }
     }
 
@@ -38,6 +44,7 @@ public class DialogTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
+            prompt.ResetTrigger("PopIn");
             prompt.SetTrigger("PopOut");
         }
     }

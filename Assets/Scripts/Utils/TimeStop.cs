@@ -7,7 +7,12 @@ public class TimeStop : MonoBehaviour
     float speed;
     bool restoreTime = false;
     public bool timeStopIsActive = false;
+    Player_Input player_Input;
 
+    private void Start()
+    {
+        player_Input = GetComponent<Player_Input>();
+    }
     void Update()
     {
         if (restoreTime)
@@ -19,7 +24,7 @@ public class TimeStop : MonoBehaviour
             else
             {
                 Time.timeScale = 1f;
-                GetComponent<Player_Input>().enabled = true;
+                player_Input.enabled = true;
                 timeStopIsActive = false;
 
                 restoreTime = false;
@@ -42,7 +47,7 @@ public class TimeStop : MonoBehaviour
             restoreTime = true;
         }
 
-        GetComponent<Player_Input>().enabled = false;
+        player_Input.enabled = false;
         Time.timeScale = changeTime;
     }
 

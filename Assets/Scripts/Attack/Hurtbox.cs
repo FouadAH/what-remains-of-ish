@@ -17,7 +17,7 @@ public class Hurtbox : MonoBehaviour
         attackProcessor = new AttackProcessor();
     }
 
-    public void getHitBy(IBaseStats attacker, float knockbackDirX, float knockbackDirY)
+    public void getHitBy(IAttacker attacker, float knockbackDirX, float knockbackDirY)
     {
         if (!stunned)
         {
@@ -42,21 +42,26 @@ public class Hurtbox : MonoBehaviour
         stunned = false;
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    if (stunned)
-    //    {
-    //        Gizmos.color = ColorStunned;
-    //    }
-    //    else
-    //    {
-    //        Gizmos.color = ColorOpen;
+    private void OnDrawGizmos()
+    {
+        if (stunned)
+        {
+            Gizmos.color = ColorStunned;
+        }
+        else
+        {
+            Gizmos.color = ColorOpen;
 
-    //    }
-    //    Gizmos.matrix = Matrix4x4.TRS(new Vector3(collider.transform.position.x + collider.offset.x * transform.localScale.x, collider.transform.position.y + collider.offset.y * transform.localScale.y),
-    //        collider.transform.rotation, collider.transform.localScale);
-    //    Gizmos.DrawSphere(Vector3.zero, 1);
-    //    //Gizmos.DrawCube(Vector3.zero, new Vector3(collider., collider.size.y, 0));
-    //}
-    
+        }
+
+        Transform parent = transform.parent;
+        //Vector3 offset = new Vector3(colliderObj.offset.x, colliderObj.offset.y, 0);
+        //Gizmos.matrix = Matrix4x4.TRS(colliderObj.transform.position, colliderObj.transform.rotation, colliderObj.transform.localScale);
+        //Gizmos.DrawCube(offset, new Vector3(colliderObj.bounds.size.x, colliderObj.bounds.size.y, colliderObj.bounds.size.z));
+
+        //Vector3 boxPos = colliderObj.transform.position;
+        //Vector2 vector = new Vector2(boxPos.x + colliderObj.offset.x, boxPos.y + colliderObj.offset.y);
+        //Gizmos.DrawCube(vector, colliderObj.bounds.size);
+    }
+
 }

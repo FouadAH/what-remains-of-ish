@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 
 public class Entity : MonoBehaviour, IDamagable
 {
@@ -30,22 +31,41 @@ public class Entity : MonoBehaviour, IDamagable
     [SerializeField]
     private Transform groundCheck;
 
-    private float currentHealth;
+    public DamageBox damageBox;
+
     private float currentStunResistance;
     private float lastDamageTime;
 
     private Vector2 velocityWorkspace;
 
     protected bool isStunned;
-    protected bool isDead;
+    public bool isDead;
 
+    [Header("Debug")]
     public TMP_Text stateDebugText;
 
+    [Header("Hit Effects")]
+    [SerializeField] private GameObject damageNumberPrefab;
+
+    public event Action<float, float> OnHitEnemy = delegate { };
+
+    [Header("Aggro Settings")]
+    public float minAggroRange = 5f;
+    public float maxAggroRange = 8f;
+
+
+    [Header("Movement Settings")]
+    public bool isAffectedByGravity;
+    public float gravity = -12;
+    public float accelerationTimeGrounded = 0.05f;
+    private float velocityXSmoothing = 0;
+
+    protected ColouredFlash colouredFlash;
+    protected CinemachineImpulseSource impulseListener;
     public virtual void Start()
     {
         facingDirection = 1;
-        currentHealth = entityData.maxHealth;
-        MaxHealth = (int)currentHealth;
+        MaxHealth = (int)entityData.maxHealth;
 
         currentStunResistance = entityData.stunResistance;
 
@@ -55,6 +75,8 @@ public class Entity : MonoBehaviour, IDamagable
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
         atsm = aliveGO.GetComponent<AnimationToStatemachine>();
+        colouredFlash = GetComponent<ColouredFlash>();
+        impulseListener = GetComponent<CinemachineImpulseSource>();
         stateMachine = new FiniteStateMachine();
     }
 
@@ -64,7 +86,7 @@ public class Entity : MonoBehaviour, IDamagable
         stateDebugText.SetText(state);
         stateMachine.currentState.LogicUpdate();
 
-        anim.SetFloat("yVelocity", rb.velocity.y);
+        //anim.SetFloat("yVelocity", rb.velocity.y);
 
         if(Time.time >= lastDamageTime + entityData.stunRecoveryTime)
         {
@@ -75,10 +97,18 @@ public class Entity : MonoBehaviour, IDamagable
     public virtual void FixedUpdate()
     {
         stateMachine.currentState.PhysicsUpdate();
+
+        if (isAffectedByGravity)
+        {
+            float velocityY = CheckGround() ? 0 : rb.velocity.y + gravity * Time.deltaTime;
+            SetVelocityY(velocityY);
+        }
     }
 
-    private float velocityXSmoothing = 0;
-    public float accelerationTimeGrounded = 0.05f;
+    public virtual void LateUpdate()
+    {
+        stateMachine.currentState.LatePhysicsUpdate();   
+    }
 
     public virtual void SetVelocity(float velocity)
     {
@@ -89,9 +119,16 @@ public class Entity : MonoBehaviour, IDamagable
         rb.velocity = velocityWorkspace;
     }
 
-    public void SetVelocityY(float velocity)
+
+    public void SetVelocityY(float velocityY)
     {
-        velocityWorkspace.Set(velocityWorkspace.x, velocity);
+        velocityWorkspace.Set(velocityWorkspace.x, velocityY);
+        rb.velocity = velocityWorkspace;
+    }
+
+    public void SetVelocityX(float velocityX)
+    {
+        velocityWorkspace.Set(velocityX, velocityWorkspace.y);
         rb.velocity = velocityWorkspace;
     }
 
@@ -107,6 +144,11 @@ public class Entity : MonoBehaviour, IDamagable
         return Physics2D.Raycast(wallCheck.position, aliveGO.transform.right, entityData.wallCheckDistance, entityData.whatIsGround);
     }
 
+    public virtual bool CheckWallBack()
+    {
+        return Physics2D.Raycast(wallCheck.position, -aliveGO.transform.right, entityData.wallCheckDistance, entityData.whatIsGround);
+    }
+
     public virtual bool CheckLedge()
     {
         return Physics2D.Raycast(ledgeCheck.position, Vector2.down, entityData.ledgeCheckDistance, entityData.whatIsGround);
@@ -119,12 +161,14 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual bool CheckPlayerInMinAgroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
+        bool hit = Physics2D.Linecast(transform.position, GameManager.instance.player.transform.position, entityData.whatIsGround);
+        return !hit && Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInMaxAgroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
+        bool hit = Physics2D.Linecast(transform.position, GameManager.instance.player.transform.position, entityData.whatIsGround);
+        return !hit && Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInCloseRangeAction()
@@ -132,10 +176,23 @@ public class Entity : MonoBehaviour, IDamagable
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
     }
 
+    public virtual bool CheckPlayerInMinAggroRadius()
+    {
+        return Physics2D.OverlapCircle(playerCheck.position, minAggroRange, entityData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInMaxAggroRadius()
+    {
+        return Physics2D.OverlapCircle(playerCheck.position, maxAggroRange, entityData.whatIsPlayer);
+    }
+
     public virtual void DamageHop(float velocity)
     {
-        velocityWorkspace.Set(-velocity, rb.velocity.y);
-        rb.velocity = velocityWorkspace;
+        if (!CheckWall() && !CheckWallBack())
+        {
+            velocityWorkspace.Set(velocity, rb.velocity.y);
+            rb.velocity = velocityWorkspace;
+        }
     }
 
     public virtual void ResetStunResistance()
@@ -144,49 +201,11 @@ public class Entity : MonoBehaviour, IDamagable
         currentStunResistance = entityData.stunResistance;
     }
 
-    [SerializeField] public bool IsAggro;
-    [SerializeField] public float AggroTime;
-    [SerializeField] public LayerMask PlayerMask;
-    [SerializeField] private GameObject damageNumberPrefab;
-    public float aggroRange = 2f;
-
-    public event Action<float, float> OnHitEnemy = delegate { };
-
-    private IEnumerator aggroRangeRoutine;
-
     protected void RaiseOnHitEnemyEvent(float health, float maxHealth)
     {
         var eh = OnHitEnemy;
         if (eh != null)
             OnHitEnemy(health, maxHealth);
-    }
-
-    public virtual IEnumerator AggroRange()
-    {
-        Collider2D player = Physics2D.OverlapCircle(transform.position, aggroRange, PlayerMask);
-        if (player == null)
-        {
-            yield return new WaitForSeconds(AggroTime);
-            IsAggro = false;
-            StopCoroutine(aggroRangeRoutine);
-        }
-        yield return new WaitForSeconds(0.5f);
-        if (aggroRangeRoutine != null)
-            StopCoroutine(aggroRangeRoutine);
-
-        aggroRangeRoutine = AggroRange();
-        StartCoroutine(aggroRangeRoutine);
-    }
-
-
-    public void Aggro()
-    {
-        IsAggro = true;
-        if (aggroRangeRoutine != null)
-            StopCoroutine(aggroRangeRoutine);
-
-        aggroRangeRoutine = AggroRange();
-        StartCoroutine(aggroRangeRoutine);
     }
 
     public void SpawnDamagePoints(int damage)
@@ -208,36 +227,52 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual void ModifyHealth(int amount)
     {
+        lastDamageTime = Time.time;
+
         Health -= amount;
+        currentStunResistance -= amount;
+
         RaiseOnHitEnemyEvent(Health, MaxHealth);
+        impulseListener.GenerateImpulse();
+
+        if (colouredFlash != null)
+            colouredFlash.Flash(Color.white);
+
+        if(currentStunResistance <= 0)
+            isStunned = true;
+
         if (Health <= 0)
         {
             isDead = true;
-        }
-        else
-        {
-            Aggro();
-            SpawnDamagePoints(amount);
-            anim.SetTrigger("Hit");
+            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
         }
     }
 
-    public void KnockbackOnDamage(int amount, float dirX, float dirY)
+    public virtual void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
-        DamageHop(entityData.damageHopSpeed);
+        DamageHop(entityData.damageHopSpeed*dirX);
     }
 
     public virtual void OnDrawGizmos()
     {
+        Gizmos.color = Color.grey;
+        Gizmos.DrawWireSphere(playerCheck.position, minAggroRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, aggroRange);
+        Gizmos.DrawWireSphere(playerCheck.position, maxAggroRange);
 
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
-        Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
-
-        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.closeRangeActionDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.minAgroDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.maxAgroDistance), 0.2f);
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.closeRangeActionDistance), 0.2f);
+
+        Gizmos.DrawWireSphere(groundCheck.transform.position, entityData.groundCheckRadius);
+
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * -facingDirection * entityData.wallCheckDistance));
+
+        Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
+
     }
 
 }

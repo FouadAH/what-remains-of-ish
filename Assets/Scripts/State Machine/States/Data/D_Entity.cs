@@ -6,7 +6,7 @@ using UnityEngine;
 public class D_Entity : ScriptableObject
 {
     public float maxHealth = 30f;
-
+    public float flaskReffilAmount = 34f;
     public float damageHopSpeed = 3f;
 
     public float wallCheckDistance = 0.2f;

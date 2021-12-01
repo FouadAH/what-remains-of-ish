@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class UI_HUD : MonoBehaviour
 {
     public TMPro.TMP_Text currencyText;
     public static UI_HUD instance;
     [SerializeField] private Animator anim;
+
+    [Header("HUD UI elements")]
 
     public Transform heartBar;
     public GameObject heartPrefab;
@@ -15,6 +18,24 @@ public class UI_HUD : MonoBehaviour
     public Transform healingPodsBar;
 
     public List<HealingPod> healingFlasks = new List<HealingPod>();
+
+    [Header("Tips UI elements")]
+
+    public GameObject tipsPanel;
+    public TMP_Text tipsText;
+
+
+    [Header("Dubug UI elements")]
+    public bool debugMode;
+    public TMP_Text velocityXDebug;
+    public TMP_Text velocityYDebug;
+
+    public GameObject debugTextPanel;
+    public TMP_Text pickupDebugText;
+
+    public GameObject debugTimer;
+    public TMP_Text debugTimerText;
+
 
     void Awake()
     {
@@ -28,13 +49,17 @@ public class UI_HUD : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        velocityXDebug.gameObject.SetActive(debugMode);
+        velocityYDebug.gameObject.SetActive(debugMode);
+    }
     private void OnEnable()
     {
         GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
         GameManager.instance.player.GetComponent<Player>().OnHeal += OnHeal;
 
         RefrechHealth();
-        RefrechHealingPods();
     }
 
     void Update()
@@ -44,6 +69,26 @@ public class UI_HUD : MonoBehaviour
 
     public void RefillFlask(float amount)
     {
+        //float amountToFill = 0;
+        //for (int i = 0; i < healingFlasks.Count; i++)
+        //{
+        //    if (i == 0)
+        //    {
+        //        amountToFill = amount;
+        //    }
+
+        //    if (healingFlasks[i].fillAmount != 100)
+        //    {
+        //        if (amountToFill + healingFlasks[i].fillAmount > 100)
+        //        {
+        //            amountToFill -= healingFlasks[i].fillAmount;
+        //        }
+
+        //        healingFlasks[i].Refill(amountToFill);
+        //        Debug.Log(amountToFill);
+        //    }
+        //}
+
         foreach (HealingPod flask in healingFlasks)
         {
             if (flask.fillAmount < 100)
@@ -64,15 +109,6 @@ public class UI_HUD : MonoBehaviour
         for (int i = 0; i < GameManager.instance.health; i++)
         {
             Instantiate(heartPrefab, heartBar);
-
-        }
-    }
-
-    public void RefrechHealingPods()
-    {
-        foreach (HealingPod flask in healingFlasks)
-        {
-            flask.InitFlask();
         }
     }
 
@@ -112,6 +148,59 @@ public class UI_HUD : MonoBehaviour
             }
         }
 
-        RefrechHealingPods();
+    }
+
+    public void OnResetHP(float missingHealth)
+    {
+        anim.SetTrigger("OnHeal");
+
+        //Adding hearts to health bar 
+        for (int i = 0; i < missingHealth; i++)
+        {
+            Instantiate(heartPrefab, heartBar);
+        }
+
+        //Refill healing
+        for (int i = 0; i < healingFlasks.Count; i++)
+        {
+            healingFlasks[i].fillAmount = 100;
+        }
+
+    }
+
+    public void SetDebugText(string text)
+    {
+        StopCoroutine(DebugTextRoutine(text));
+        StartCoroutine(DebugTextRoutine(text));
+    }
+
+    public void SetDebugTimerText(string text)
+    {
+        debugTextPanel.SetActive(true);
+        pickupDebugText.SetText(text);
+    }
+
+    IEnumerator DebugTextRoutine(string text)
+    {
+        debugTextPanel.SetActive(true);
+        pickupDebugText.SetText(text);
+        yield return new WaitForSecondsRealtime(3f);
+        pickupDebugText.SetText("");
+        debugTextPanel.SetActive(false);
+    }
+
+    public void SetTipsText(string text)
+    {
+        StopCoroutine(TipsTextRoutine(text));
+        StartCoroutine(TipsTextRoutine(text));
+    }
+
+    IEnumerator TipsTextRoutine(string text)
+    {
+        tipsPanel.SetActive(true);
+        tipsText.SetText(text);
+        yield return new WaitForSecondsRealtime(5f);
+        tipsText.SetText("");
+        tipsPanel.SetActive(false);
     }
 }

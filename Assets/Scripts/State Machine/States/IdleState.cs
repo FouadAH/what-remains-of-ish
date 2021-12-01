@@ -45,8 +45,8 @@ public class IdleState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if(Time.time >= startTime + idleTime)
+        entity.SetVelocity(0f);
+        if (Time.time >= startTime + idleTime)
         {
             isIdleTimeOver = true;
         }

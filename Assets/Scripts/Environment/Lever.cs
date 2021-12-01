@@ -2,64 +2,50 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Lever : MonoBehaviour, IDamagable
 {
+    [SerializeField] private string m_ID = Guid.NewGuid().ToString();
+    public string ID => m_ID;
+    string key;
+
+    [ContextMenu("Generate new ID")]
+    private void RegenerateGUID() => m_ID = Guid.NewGuid().ToString();
+
     bool isOpen;
-    Animator animator;
-
-    public Door door;
-
-    public event Action OnTriggerLever = delegate { };
+    public bool toggleable = false;
     
+    Animator animator;
     public float Health { get => 0; set => throw new System.NotImplementedException(); }
     public int MaxHealth { get => 0; set => throw new System.NotImplementedException(); }
     public int knockbackGiven { get => 0; set => throw new System.NotImplementedException(); }
 
-    int iFrames = 10;
+    public event Action<bool> OnToggle = delegate { };
+    public UnityEvent OnToggleLever;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        key = "Lever_" + ID;
+        isOpen = PlayerPrefs.GetInt(key) == 1 ? true : false;
+        animator.SetBool("isOpen", isOpen);
     }
-
-    /// </summary>
-    //public void OnDamage()
-    //{
-    //    if (invinsible)
-    //    {
-    //        if (iFrames > 0)
-    //        {
-    //            iFrames -= Time.deltaTime;
-    //        }
-    //        else
-    //        {
-    //            invinsible = false;
-    //            anim.SetBool("invinsible", false);
-    //        }
-    //    }
-    //}
-
 
     public void ModifyHealth(int amount)
     {
-        Debug.Log("Open/Close");
+        if (isOpen && !toggleable)
+            return;
+
         isOpen = !isOpen;
         animator.SetBool("isOpen", isOpen);
+        PlayerPrefs.SetInt(key, 1);
 
-        door.SetState(isOpen);
+        OnToggle(isOpen);
+        OnToggleLever.Invoke();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lever", GetComponent<Transform>().position);
     }
 
-    public void KnockbackOnDamage(int amount, float dirX, float dirY)
-    {
-        
-    }
+    public void KnockbackOnDamage(int amount, float dirX, float dirY){}
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.GetComponent<Boomerang>() != null)
-        {
-            ModifyHealth(0);
-        }
-    }
 }

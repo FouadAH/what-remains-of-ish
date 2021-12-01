@@ -23,7 +23,7 @@ public class MeleeAttackState : AttackState
         base.Enter();
 
         attackDetails.damageAmount = stateData.attackDamage;
-        attackDetails.position = entity.aliveGO.transform.position;
+        attackDetails.knockbackAmount = stateData.knockbackAmount;
     }
 
     public override void Exit()
@@ -36,6 +36,15 @@ public class MeleeAttackState : AttackState
         base.FinishAttack();
     }
 
+    public override void AnitcipationStart()
+    {
+        base.AnitcipationStart();
+    }
+    public override void AttackStart()
+    {
+        base.AttackStart();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
@@ -46,15 +55,14 @@ public class MeleeAttackState : AttackState
         base.PhysicsUpdate();
     }
 
+    public override void LatePhysicsUpdate()
+    {
+        base.LatePhysicsUpdate();
+    }
+
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-
-        //Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.whatIsPlayer);
-
-        //foreach (Collider2D collider in detectedObjects)
-        //{
-        //    collider.transform.SendMessage("Damage", attackDetails);
-        //}
     }
+
 }

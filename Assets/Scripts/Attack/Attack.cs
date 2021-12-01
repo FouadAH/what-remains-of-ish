@@ -5,22 +5,41 @@ using UnityEngine;
 public class Attack : MonoBehaviour, IHitboxResponder
 {
     public List<Hitbox> hitboxes;
-    private Vector3 dir;
+    Vector3 dir;
+    PlayerMovement player;
+    
+    public ParticleSystem attackParticles;
+
+    Vector3 offset;
+    Quaternion quaternion;
+    ParticleSystem attackParticlesRuntime;
+
+    public float knockbackBasicAttack = 10f;
+    public float knockbackUpAttack = 10f;
+    public float knockbackDownAttack = 25f;
+
+    void Start()
+    {
+        player = GetComponent<PlayerMovement>();
+    }
 
     public void AttackDefault()
     {
         dir = new Vector3(-transform.localScale.x, 0);
+        player.knockbackDistance = knockbackBasicAttack;
         CheckHitboxes();
     }
 
     public void AttackUp()
     {
         dir = new Vector3(0, -1);
+        player.knockbackDistance = knockbackUpAttack;
         CheckHitboxes();
     }
     public void AttackDown()
     {
         dir = new Vector3(0, 1);
+        player.knockbackDistance = knockbackDownAttack;
         CheckHitboxes();
     }
 
@@ -40,9 +59,26 @@ public class Attack : MonoBehaviour, IHitboxResponder
         {
             if(dir.y == 1)
             {
-                hurtbox?.getHitBy(gameObject.GetComponent<IBaseStats>(), (dir.x), (dir.y));
+                if (attackParticlesRuntime == null)
+                {
+                    offset = new Vector3(0, -4, 0);
+                    quaternion = Quaternion.Euler(0, 0, 180);
+                    attackParticlesRuntime = Instantiate(attackParticles, transform.position + offset, quaternion);
+                    attackParticlesRuntime.Play();
+                }
+
+                hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (dir.y));
                 return;
             }
+
+            if (attackParticlesRuntime == null)
+            {
+                offset = new Vector3(dir.x * -4, dir.y * -4, 0);
+                quaternion = Quaternion.Euler(0, 0, 90 * dir.x);
+                attackParticlesRuntime = Instantiate(attackParticles, transform.position + offset, quaternion);
+                attackParticlesRuntime.Play();
+            }
+
             Vector2 direction = (hurtbox.transform.position - transform.position).normalized;
 
             if (direction.x > 0)
@@ -58,6 +94,6 @@ public class Attack : MonoBehaviour, IHitboxResponder
         }
 
         //Debug.Log("Knockback Dir: X:" + (dir.x) + " Y: " + (dir.y));
-        hurtbox?.getHitBy(gameObject.GetComponent<IBaseStats>(), (dir.x), (-dir.y));
+        hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (-dir.y));
     }
 }

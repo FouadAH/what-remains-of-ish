@@ -15,4 +15,14 @@ public class AnimationToStatemachine : MonoBehaviour
     {
         attackState.FinishAttack();
     }
+
+    private void AnitcipationStart()
+    {
+        attackState.AnitcipationStart();
+    }
+
+    private void AttackStart()
+    {
+        attackState.AttackStart();
+    }
 }

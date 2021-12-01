@@ -12,18 +12,17 @@ public class AttackProcessor
     /// <param name="target">Game object being attacked</param>
     /// <param name="knockbackDirX">X Knockback direction</param>
     /// <param name="knockbackDirY">Y Knockback direction</param>
-    public void ProcessMelee(IBaseStats attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
+    public void ProcessMelee(IAttacker attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
-        int amount = CalculateAttackAmountMelee(attacker);
-        ProcessAttack(target, amount);
         ProcessKnockbackOnHit(attacker, knockbackDirX, knockbackDirY);
-        ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
+        KnockbackOnMeleeDamage(attacker, target, -knockbackDirX, -knockbackDirY);
+        ProcessAttack(target, attacker.MeleeDamage);
     }
 
     public void ProcessCollisionDamage(int damageAmount, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
-        ProcessAttack(target, damageAmount);
         ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
+        ProcessAttack(target, damageAmount);
     }
 
     /// <summary>
@@ -31,21 +30,11 @@ public class AttackProcessor
     /// </summary>
     /// <param name="attacker">Game object that is attacking</param>
     /// <param name="target">Game object being attacked</param>
-    public void ProcessRanged(ILauncher attacker, IDamagable target, int knockbackDirX, int knockbackDirY)
+    public void ProcessRanged(ILauncher attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
         int amount = CalculateAttackAmountRanged(attacker);
-        ProcessAttack(target, amount);
         ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
-    }
-
-    /// <summary>
-    /// Helper method that determines melee damage amount
-    /// </summary>
-    /// <param name="attacker">Attacking game object</param>
-    /// <returns></returns>
-    private int CalculateAttackAmountMelee(IBaseStats attacker)
-    {
-        return attacker.MeleeDamage;
+        ProcessAttack(target, amount);
     }
 
     /// <summary>
@@ -74,7 +63,7 @@ public class AttackProcessor
     /// <param name="attacker">Attacker object</param>
     /// <param name="knockbackDirX">X Knockback direction</param>
     /// <param name="knockbackDirY">Y Knockback direction</param>
-    private void ProcessKnockbackOnHit(IBaseStats attacker, float knockbackDirX, float knockbackDirY)
+    private void ProcessKnockbackOnHit(IAttacker attacker, float knockbackDirX, float knockbackDirY)
     {
         if(knockbackDirY == 1)
         {
@@ -95,5 +84,15 @@ public class AttackProcessor
     private void ProcessKnockbackOnDamage(IDamagable target, float knockbackDirX, float knockbackDirY)
     {
         target.KnockbackOnDamage(target.knockbackGiven, knockbackDirX, knockbackDirY);
+    }
+
+    private void KnockbackOnMeleeDamage(IAttacker attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
+    {
+        target.KnockbackOnDamage(attacker.HitKnockbackAmount, knockbackDirX, knockbackDirY);
+    }
+
+    private void KnockbackOnRangedDamage(ILauncher attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
+    {
+        //target.KnockbackOnDamage(attacker., knockbackDirX, knockbackDirY);
     }
 }

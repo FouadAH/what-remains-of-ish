@@ -2,5 +2,6 @@
 {
     Closed,
     Open,
-    Colliding
+    Colliding,
+    Protected
 }

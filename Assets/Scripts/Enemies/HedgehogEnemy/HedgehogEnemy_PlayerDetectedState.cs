@@ -14,6 +14,7 @@ public class HedgehogEnemy_PlayerDetectedState : PlayerDetectedState
     public override void Enter()
     {
         base.Enter();
+        //enemy.hurtbox
         enemy.isProtected = true;
     }
 
@@ -23,11 +24,18 @@ public class HedgehogEnemy_PlayerDetectedState : PlayerDetectedState
         enemy.isProtected = false;
     }
 
+    float lastDetectedTime;
+    float waitTime = 0.2f;
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (!entity.CheckPlayerInMinAgroRange())
+        if (entity.CheckPlayerInMinAgroRange())
+        {
+            lastDetectedTime = Time.time;
+        }
+        else if (!entity.CheckPlayerInMinAgroRange() && lastDetectedTime + waitTime <= Time.time)
         {
             stateMachine.ChangeState(enemy.moveState);
         }

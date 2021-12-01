@@ -9,20 +9,43 @@ using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool gameIsPaused = false;
     public GameObject pauseMenu;
     public GameObject optionMenu;
+    public GameObject controlsMenu;
+
     public GameObject videoOptions;
     public GameObject audioOptions;
-    public EventSystem eventSystem;
-    public AudioMixer audioMixer;
-    
+
+    public Toggle abilityToggle;
+
+    EventSystem eventSystem;
+    FMOD.Studio.EventInstance SFXVolumeTestEvent;
+
+    [FMODUnity.EventRef]
+    public string SFXTestEvent;
+    FMOD.Studio.VCA masterBus;
+    FMOD.Studio.VCA musicBus;
+    FMOD.Studio.VCA sfxBus;
+
     public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
 
+    public event Action OnPauseStart = delegate { };
+    public event Action OnPauseEnd = delegate { };
+
     void Start()
     {
+        eventSystem = EventSystem.current;
+
+        abilityToggle.onValueChanged.AddListener(delegate {
+            ToggleAbilities(abilityToggle);
+        });
+
+        masterBus = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
+        musicBus = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
+        sfxBus = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
+        SFXVolumeTestEvent = FMODUnity.RuntimeManager.CreateInstance(SFXTestEvent);
         resolutions = Screen.resolutions;
 
         resolutionDropdown.ClearOptions();
@@ -49,32 +72,55 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause"))
-        {
-            if (gameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
+        masterBus.setVolume(masterVolume);
+        musicBus.setVolume(musicVolume);
+        sfxBus.setVolume(sfxVolume);
+    }
 
+    public void TogglePause()
+    {
+        if (GameManager.instance.isPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/Pause Menu/Pause Button", GetComponent<Transform>().position);
+    }
+
+    public void ToggleAbilities(Toggle abilityToggle)
+    {
+        if (abilityToggle.isOn)
+        {
+            GameManager.instance.hasDashAbility = true;
+            GameManager.instance.hasTeleportAbility = true;
+            GameManager.instance.hasSprintAbility = true;
+            GameManager.instance.hasWallJump = true;
+        }
+        else
+        {
+            GameManager.instance.hasDashAbility = false;
+            GameManager.instance.hasTeleportAbility = false;
+            GameManager.instance.hasSprintAbility = false;
+            GameManager.instance.hasWallJump = false;
+        }
     }
 
     public void Resume()
     {
+        OnPauseEnd();
         pauseMenu.SetActive(false);
         videoOptions.SetActive(false);
         audioOptions.SetActive(false);
         optionMenu.SetActive(false);
+        controlsMenu.SetActive(false);
+
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
-        GameManager.instance.player.GetComponent<Player_Input>().enabled = true;
-        GameManager.instance.player.GetComponent<PlayerMovement>().isPaused = false;
+        GameManager.instance.isPaused = false;
 
         Time.timeScale = 1f;
-        gameIsPaused = false;
     }
     public void Options()
     {
@@ -86,6 +132,19 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         optionMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
+    }
+
+    public void ControlsMenu()
+    {
+        pauseMenu.SetActive(false);
+        controlsMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
+    }
+    public void ControlsMenuBack()
+    {
+        pauseMenu.SetActive(true);
+        controlsMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
     }
     public void VideoMenu()
@@ -151,18 +210,43 @@ public class PauseMenu : MonoBehaviour
 
     void Pause()
     {
-        GameManager.instance.player.GetComponent<Player_Input>().enabled = false;
-        GameManager.instance.player.GetComponent<PlayerMovement>().isPaused = true;
+        OnPauseStart();
+        //GameManager.instance.player.GetComponent<Player_Input>().enabled = false;
+        GameManager.instance.isPaused = true;
         pauseMenu.SetActive(true);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
         Time.timeScale = 0f;
-        gameIsPaused = true;
     }
+
+    float masterVolume = 1;
+    float musicVolume = 1;
+    float sfxVolume = 1;
 
     public void SetMasterVolume(float volume)
     {
-        audioMixer.SetFloat("volume", volume);
+        volume = Mathf.Pow(10.0f, volume / 20f);
+        masterVolume = volume;
     }
+
+    public void SetMusicVolume(float volume)
+    {
+        volume = Mathf.Pow(10.0f, volume / 20f);
+        musicVolume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        volume = Mathf.Pow(10.0f, volume / 20f);
+        sfxVolume = volume;
+
+        FMOD.Studio.PLAYBACK_STATE PbState;
+        SFXVolumeTestEvent.getPlaybackState(out PbState);
+        if (PbState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        {
+            SFXVolumeTestEvent.start();
+        }
+    }
+
 
     public void SetQuality(int qualityIndex)
     {

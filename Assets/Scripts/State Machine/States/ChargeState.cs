@@ -54,5 +54,6 @@ public class ChargeState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        entity.SetVelocity(stateData.chargeSpeed);
     }
 }

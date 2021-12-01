@@ -6,18 +6,18 @@ public class PlayerDash : MonoBehaviour
 {
     private bool dashLock;
     private bool canDash;
-
     public bool isDashing;
-    public bool airborne;
+    public float floatTime = 0.1f;
 
     [SerializeField] private ParticleSystem afterImage;
 
     public ParticleSystem AfterImage { get => afterImage; set => afterImage = value; }
     public ParticleSystem dashRechargeEffect;
 
-
+    PlayerMovement playerMovement;
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
         afterImage.Pause();
     }
 
@@ -39,15 +39,15 @@ public class PlayerDash : MonoBehaviour
             }
 
             StartCoroutine(DashLogic(playerSettings.DashCooldown));
-            StartCoroutine(DashTime(0.15f));
+            StartCoroutine(FloatTime(floatTime));
 
             if (playerInput.directionalInput.x == 0)
             {
-                velocity.x = transform.localScale.x * playerSettings.MoveSpeed * playerSettings.DashFactor;
+                velocity.x = transform.localScale.x * playerSettings.MoveSpeed * playerSettings.DashSpeedModifier;
             }
             else
             {
-                velocity.x = ((Mathf.Sign(playerInput.directionalInput.x) == -1) ? -1 : 1) * playerSettings.MoveSpeed * playerSettings.DashFactor;
+                velocity.x = ((Mathf.Sign(playerInput.directionalInput.x) == -1) ? -1 : 1) * playerSettings.MoveSpeed * playerSettings.DashSpeedModifier;
             }
         }
         canDash = false;
@@ -60,15 +60,15 @@ public class PlayerDash : MonoBehaviour
         dashLock = true;
         yield return new WaitForSeconds(dashCooldown);
         dashRechargeEffect.Play();
-        yield return new WaitWhile(() => airborne);
+        yield return new WaitWhile(() => playerMovement.isAirborne);
         dashLock = false;
     }
 
-    public IEnumerator DashTime(float dashCooldown)
+    public IEnumerator FloatTime(float floatTime)
     {
         isDashing = true;
         afterImage.Play();
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(floatTime);
         afterImage.Stop();
         isDashing = false;
     }

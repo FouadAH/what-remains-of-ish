@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMeleeAttackEnemy : Entity, IBaseStats
+public class BasicMeleeAttackEnemy : Entity, IAttacker
 {
     public IdleState idleState { get; private set; }
     public MoveState moveState { get; private set; }
@@ -36,6 +36,9 @@ public class BasicMeleeAttackEnemy : Entity, IBaseStats
     [SerializeField]
     private Transform meleeAttackPosition;
 
+    //hitboxes
+    public List<Hitbox> hitboxes;
+
     public override void Start()
     {
         base.Start();
@@ -46,32 +49,44 @@ public class BasicMeleeAttackEnemy : Entity, IBaseStats
         lookForPlayerState = new BasicMeleeEnemy_LookForPlayerState(this, stateMachine, "idle", lookForPlayerStateData, this);
         meleeAttackState = new BasicMeleeEnemy_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
         stunState = new BasicMeleeEnemy_StunState(this, stateMachine, "stun", stunStateData, this);
-        deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
+        deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "idle", deadStateData, this);
 
         stateMachine.Initialize(moveState);
-
     }
 
-    public float gravity = -1;
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        //if (!CheckGround())
-        //{
-        //    SetVelocityY(rb.velocity.y + gravity * Time.deltaTime);
-        //}
     }
 
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
+    }
+
+    public override void LateUpdate()
+    {
+        base.LateUpdate();
+    }
+
+    [Header("Aggro Settings")]
+    [SerializeField] public float AggroTime;
+    private IEnumerator aggroRangeRoutine;
+    public bool IsAggro = false;
+
+    public bool CanSeePlayer()
+    {
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, GameManager.instance.playerCurrentPosition.position, entityData.whatIsGround);
+        return !hit;
     }
 
     public override void ModifyHealth(int amount)
     {
         base.ModifyHealth(amount);
+
+        IsAggro = true;
+
         if (isDead)
         {
             stateMachine.ChangeState(deadState);
@@ -84,6 +99,6 @@ public class BasicMeleeAttackEnemy : Entity, IBaseStats
 
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
-        Debug.Log("KnockbackOnHit");
+        //Debug.Log("KnockbackOnHit");
     }
 }

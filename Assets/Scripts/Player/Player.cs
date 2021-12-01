@@ -7,26 +7,17 @@ using Cinemachine;
 
 [RequireComponent(typeof(Controller_2D))]
 
-public class Player : MonoBehaviour, IBaseStats{
+public class Player : MonoBehaviour, IAttacker{
 
-    Controller_2D controller;
-
-    [HideInInspector]
-    public Vector3 velocity;
-   
+    [HideInInspector] public Vector3 velocity;
     public LayerMask enemyMask;
 
     float iFrames = 0f;
-    float iFrameTime = 0.5f;
+    public float iFrameTime = 1f;
     bool invinsible = false;
     
     Animator anim;
-
-    [SerializeField] private float aggroRange;
-
-    [SerializeField] private GameManager gm;
-    
-    public PlayerAnimations playerAnimations;
+    GameManager gm;
     [SerializeField] private PlayerMovementSettings playerSettings;
 
     public PlayerMovement playerMovement { get; private set; }
@@ -40,9 +31,6 @@ public class Player : MonoBehaviour, IBaseStats{
     [SerializeField] private int maxMeleeDamage;
     [SerializeField] private float meleeAttackMod;
 
-    [SerializeField] private float rangedAttackMod;
-    [SerializeField] private int baseRangeDamage;
-
     [SerializeField] private int hitKnockbackAmount;
     [SerializeField] private int damageKnockbackAmount;
 
@@ -53,9 +41,6 @@ public class Player : MonoBehaviour, IBaseStats{
     public int MaxMeleeDamage { get => maxMeleeDamage; set => maxMeleeDamage = value; }
     public float MeleeAttackMod { get => meleeAttackMod; set => meleeAttackMod = value; }
 
-    public float RangedAttackMod { get => rangedAttackMod; set => rangedAttackMod = value; }
-    public int BaseRangeDamage { get => baseRangeDamage; set => baseRangeDamage = value; }
-
     public int MaxHealth { get; set; }
     public float Health { get; set; }
 
@@ -65,90 +50,77 @@ public class Player : MonoBehaviour, IBaseStats{
     public event Action<int> OnHit = delegate { };
     public event Action<int> OnHeal = delegate { };
 
-    Camera mainCamera;
-    Vector2 upperLeft;
-    Vector2 lowerRight;
-
     public BoomerangLauncher boomerangLauncher;
+
+    public float cameraLookOffsetValue = 9f;
+    CinemachineCameraOffset cameraOffset;
+    float cameraOffsetTarget = 0f;
+    Vector2 lookVelocityTreshhold = new Vector2(0.2f, 0.2f);
 
     [Header("Effects")]
     public ParticleSystem dustParticles;
+    public ParticleSystem damageParticle;
+    public ParticleSystem healingParticles;
 
     TimeStop timeStop;
+    ColouredFlash flashEffect;
+
+    [Header("Time Stop")]
+    public float changeTime = 0.05f;
+    public float restoreSpeed = 10f;
+    public float delay = 0.1f;
+
+    [Header("Debug Settings")]
+    public bool playerDebugMode;
+    public TrailRenderer playerPath;
 
     void Awake()
     {
         GameManager.instance.player = gameObject;
+        GameManager.instance.playerCurrentPosition = GetComponentInChildren<SpriteRenderer>().transform;
 
         GameManager.instance.playerCamera = Camera.main;
-        mainCamera = GameManager.instance.playerCamera;
 
         GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
         GameManager.instance.cameraController.virtualCamera.Follow = transform;
 
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
+
+        AudioManager.instance.PlayAreaTheme();
     }
 
     void Start()
     {
         UI_HUD.instance.enabled = true;
 
-        controller = GetComponent<Controller_2D>();
         gm = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
         timeStop = GetComponent<TimeStop>();
-        playerAnimations = new PlayerAnimations(GetComponent<Animator>(), transform);
         playerMovement =  GetComponent<PlayerMovement>();
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
+        flashEffect = GetComponentInChildren<ColouredFlash>();
+        cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
+
+        if (playerDebugMode)
+        {
+            playerPath.emitting = true;
+        }
+            
     }
 
     private void Update()
     {
-        if (GameManager.instance.loading)
+        if (GameManager.instance.isLoading)
             return;
 
         OnDamage();
-        Aggro();
-        playerAnimations.Animate();
         Look();
     }
 
     public void EmitRunParticle()
     {
         dustParticles.Play();
-    }
-    
-    /// <summary>
-    /// Method for handling enemy aggro
-    /// </summary>
-    public void Aggro()
-    {
-        Vector2 upperLeftScreen = new Vector2(0, Screen.height);
-        Vector2 lowerRightScreen = new Vector2(Screen.width, 0);
-
-        upperLeft = mainCamera.ScreenToWorldPoint(upperLeftScreen);
-        lowerRight = mainCamera.ScreenToWorldPoint(lowerRightScreen);
-
-        Collider2D[] enemiesToAggro = Physics2D.OverlapAreaAll(upperLeft, lowerRight, enemyMask);
-        for (int i = 0; i < enemiesToAggro.Length; i++)
-        {   
-            bool hit = Physics2D.Linecast(transform.position, enemiesToAggro[i].transform.position, controller.collitionMask);
-            //if(enemiesToAggro[i].GetComponent<IEnemy>() != null)
-            //{
-            //    if (enemiesToAggro[i].GetComponent<IEnemy>().CanSeePlayer() && !hit && !enemiesToAggro[i].GetComponent<IEnemy>().IsAggro)
-            //    {
-            //        enemiesToAggro[i].GetComponent<IEnemy>().Aggro();
-            //    }
-            //}
-            if (enemiesToAggro[i].GetComponent<Entity>() != null)
-            {
-                if (enemiesToAggro[i].GetComponent<Entity>().CheckPlayerInMinAgroRange() && !hit && !enemiesToAggro[i].GetComponent<Entity>().IsAggro)
-                {
-                    enemiesToAggro[i].GetComponent<Entity>().Aggro();
-                }
-            }
-        }
     }
 
     /// <summary>
@@ -161,11 +133,11 @@ public class Player : MonoBehaviour, IBaseStats{
             if (iFrames > 0)
             {
                 iFrames -= Time.deltaTime;
-            }   
+
+            }
             else
             {
                 invinsible = false;
-                anim.SetBool("invinsible", false);
             }
         }
     }
@@ -197,7 +169,7 @@ public class Player : MonoBehaviour, IBaseStats{
     {
         playerMovement.isDead = true;
         UI_HUD.instance.enabled = false;
-        GetComponent<Player_Input>().enabled = false;
+        playerInput.enabled = false;
         
         anim.SetLayerWeight(0, 0f);
         anim.SetLayerWeight(1, 0f);
@@ -215,9 +187,10 @@ public class Player : MonoBehaviour, IBaseStats{
         anim.SetLayerWeight(3, 0f);
 
         gm.health = gm.maxHealth;
+        UI_HUD.instance.enabled = true;
         UI_HUD.instance.RefrechHealth();
 
-        GetComponent<Player_Input>().enabled = true;
+        playerInput.enabled = true;
         playerMovement.isDead = false;
     }
     
@@ -229,14 +202,8 @@ public class Player : MonoBehaviour, IBaseStats{
         GameManager.instance.Respawn();
     }
 
-    [Header("Time Stop")]
-    public float changeTime = 0.05f;
-    public float restoreSpeed = 10f;
-    public float delay = 0.1f;
-
     public void Heal(int amount)
     {
-        Debug.Log("Heal function");
         HealingPod flask = UI_HUD.instance.healingFlasks[0];
 
         if (flask.fillAmount >= 100 && gm.health < gm.maxHealth)
@@ -246,14 +213,13 @@ public class Player : MonoBehaviour, IBaseStats{
             gm.health = Mathf.Clamp(gm.health + amount, 0, gm.maxHealth);
 
             int amountHealed = (int)(gm.health - previousHP);
-            Debug.Log(amount);
-            Debug.Log(amountHealed);
             OnHeal(amountHealed);
+            flashEffect.Flash(Color.white);
+            healingParticles.Play();
         }
-        
-
     }
 
+    Coroutine flashRoutine;
     /// <summary>
     /// Method reponsible for damaging the player
     /// </summary>
@@ -265,84 +231,113 @@ public class Player : MonoBehaviour, IBaseStats{
             CinemachineImpulseSource impulseListener = GetComponent<CinemachineImpulseSource>();
             impulseListener.GenerateImpulse();
             timeStop.StopTime(changeTime, restoreSpeed, delay);
-            iFrames = iFrameTime;
-            anim.SetTrigger("Hit");
-            OnHit(amount);
-            anim.SetBool("invinsible", true);
-            invinsible = true;
-            gm.health -= amount;
+            damageParticle.Play();
+            if (!GameManager.instance.hasInfiniteLives)
+            {
+                gm.health -= amount;
+                OnHit(amount);
+            }
+
             CheckDeath();
+
+            iFrames = iFrameTime;
+
+            if (flashRoutine != null)
+            {
+                StopCoroutine(flashRoutine);
+            }
+
+            flashRoutine = StartCoroutine(flashEffect.FlashMultiple(Color.white, iFrameTime));
+            invinsible = true;
         }
     }
 
-    float cameraOffsetTarget = 0f;
-
     void Look()
     {
-        CinemachineCameraOffset cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
-        if (playerMovement.Velocity == Vector2.zero)
+        if(Mathf.Abs(playerMovement.Velocity.x) > lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) > lookVelocityTreshhold.y)
         {
-            if(playerInput.rightStickInput.y <= -0.5)
-            {
-                cameraOffsetTarget = -8f;
-
-            }
-            else if(playerInput.rightStickInput.y >= 0.5)
-            {
-                cameraOffsetTarget = 8f;
-            }
-            else
-            {
-                cameraOffsetTarget = 0f;
-            }
+            cameraOffsetTarget = 0f;
         }
         else
         {
-            cameraOffsetTarget = 0f;
+            if (playerInput.rightStickInput.y <= -0.5)
+            {
+                cameraOffsetTarget = -cameraLookOffsetValue;
+            }
+            else if (playerInput.rightStickInput.y >= 0.5)
+            {
+                cameraOffsetTarget = cameraLookOffsetValue;
+            }
+            else
+            {
+                cameraOffsetTarget = 0;
+            }
         }
 
         cameraOffset.m_Offset.y = Mathf.Lerp(cameraOffset.m_Offset.y, cameraOffsetTarget, 0.1f);
     }
-    IEnumerator DisableInputTemp(float disableTime)
-    {
-        GetComponent<Player_Input>().enabled = false;
-        yield return new WaitForSecondsRealtime(disableTime);
-        GetComponent<Player_Input>().enabled = true;
-    }
+
+    //IEnumerator DisableInputTemp(float disableTime)
+    //{
+    //    playerInput.enabled = false;
+    //    yield return new WaitForSecondsRealtime(disableTime);
+    //    playerInput.enabled = true;
+    //}
 
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
-        playerMovement.kockbackDistance = amount;
-
+        //playerMovement.knockbackDistance = amount;
+            
         StopCoroutine(KnockbackOnHitRoutine());
         StartCoroutine(KnockbackOnHitRoutine());
-        //playerMovement.Knockback( new Vector3(dirX, dirY), amount);
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
+        if (invinsible)
+            return;
+        
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
-        playerMovement.kockbackDistance = amount;
+        playerMovement.knockbackDistance = amount;
 
-        StopCoroutine(KnockbackRoutine());
-        StartCoroutine(KnockbackRoutine());
-
-        //playerMovement.Knockback(new Vector3(dirX, dirY), amount);
+        StopCoroutine(KnockbackOnDamageRoutine());
+        StartCoroutine(KnockbackOnDamageRoutine());
     }
 
-    IEnumerator KnockbackRoutine()
+    IEnumerator KnockbackOnDamageRoutine()
     {
-        //Debug.Log("KnockbackRoutine");
         playerMovement.isKnockedback = true;
-        yield return new WaitForSecondsRealtime(knockbackOnDamageTimer);
+        yield return new WaitForSeconds(knockbackOnDamageTimer);
         playerMovement.isKnockedback = false;
     }
     IEnumerator KnockbackOnHitRoutine()
     {
-        //Debug.Log("KnockbackRoutine");
         playerMovement.isKnockedback = true;
-        yield return new WaitForSecondsRealtime(knockbackOnHitTimer);
+        yield return new WaitForSeconds(knockbackOnHitTimer);
         playerMovement.isKnockedback = false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Collider2D collider = GetComponent<Collider2D>();
+        Vector3 colliderCenter = collider.bounds.center;
+        Vector3 colliderExtents = collider.bounds.extents;
+
+        Vector3 startPos = new Vector3(colliderCenter.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawWireSphere(startPos, playerSettings.MaxJumpHeight);
+
+        Gizmos.color = Color.red;
+        startPos = new Vector3(colliderCenter.x, colliderCenter.y + colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawLine(startPos, new Vector3(startPos.x, startPos.y + playerSettings.MaxJumpHeight, startPos.z));
+
+        Gizmos.color = Color.yellow;
+
+        startPos = new Vector3(colliderCenter.x + colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawLine(startPos, new Vector3(startPos.x + playerSettings.MoveSpeed, startPos.y, startPos.z));
+
+        startPos = new Vector3(colliderCenter.x - colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawLine(startPos, new Vector3(startPos.x - playerSettings.MoveSpeed, startPos.y, startPos.z));
     }
 }

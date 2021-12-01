@@ -11,7 +11,9 @@ public class Checkpoint : MonoBehaviour
         if (player != null)
         {
             GameManager.instance.lastCheckpointPos = this.transform.position;
-            GameManager.instance.lastCheckpointLevelIndex = SceneManager.GetActiveScene().buildIndex;  
+            GameManager.instance.lastCheckpointLevelIndex = SceneManager.GetActiveScene().buildIndex;
+            GameManager.instance.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
+
         }
     }
 }

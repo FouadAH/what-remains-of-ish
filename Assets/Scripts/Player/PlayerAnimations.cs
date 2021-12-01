@@ -31,10 +31,6 @@ public class PlayerAnimations
         {
             animator.SetTrigger("isAttackingDown");
         }
-        else if( jumping || falling )
-        {
-            animator.SetTrigger("AirAttack");
-        }
         else
         {
             animator.SetTrigger("Attack");
@@ -44,26 +40,26 @@ public class PlayerAnimations
     public void Animate()
     {
         animator.SetFloat("Speed", Mathf.Abs(playerInput.directionalInput.x));
-
         if (playerMovement.Velocity.y < 0)
         {
             falling = true;
             jumping = false;
-            animator.SetBool("isFalling", true);
-            animator.SetBool("isJumping", false);
+        }
+        else if(playerMovement.Velocity.y > 0)
+        {
+            jumping = true;
+            falling = false;
         }
         else if (playerMovement.Velocity.y == 0)
         {
             falling = false;
-            animator.SetBool("isFalling", false);
+            jumping = false;
         }
 
+        animator.SetBool("isFalling", falling);
+        animator.SetBool("isJumping", jumping);
         animator.SetBool("isWallSliding", playerMovement.WallSliding);
 
-        //if (!invinsible)
-        //{
-        //    animator.setbool("invinsible", false);
-        //}
     }
 
     public void OnJumpInputDown()

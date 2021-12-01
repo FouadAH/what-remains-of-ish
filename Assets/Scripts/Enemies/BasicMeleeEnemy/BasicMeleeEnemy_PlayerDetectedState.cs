@@ -21,35 +21,68 @@ public class BasicMeleeEnemy_PlayerDetectedState : PlayerDetectedState
         base.Exit();
     }
 
+    float lastAttackTime = 0f;
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (performCloseRangeAction)
+        if (performCloseRangeAction && CanMeleeAttack())
         {
+            lastAttackTime = Time.time;
             stateMachine.ChangeState(enemy.meleeAttackState);
         }
-        else if (!entity.IsAggro)
+        else if ((!enemy.CheckPlayerInMaxAgroRange() && !enemy.CheckPlayerInMinAgroRange()) || !enemy.CanSeePlayer())
         {
-            stateMachine.ChangeState(enemy.lookForPlayerState);
+            enemy.IsAggro = false;
+            stateMachine.ChangeState(enemy.moveState);
         }
-        else if (!isDetectingLedge || isDetectingWall)
+        else if ((!isDetectingLedge || isDetectingWall))
         {
-            entity.IsAggro = false;
-            entity.Flip();
-            stateMachine.ChangeState(enemy.lookForPlayerState);
+            enemy.idleState.SetFlipAfterIdle(true);
+            enemy.IsAggro = false;
+            stateMachine.ChangeState(enemy.idleState);
         }
-        
+
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 
-        int directionX = (entity.transform.position.x < GameManager.instance.player.transform.position.x) ? 1 : -1;
-        if(entity.facingDirection != directionX){
-            entity.Flip();
+        Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+
+        Vector2 targetPositionRight = new Vector2(playerPos.x - stateData.playerOffset.x, playerPos.y + stateData.playerOffset.y);
+        Vector2 targetPositionLeft = new Vector2(playerPos.x + stateData.playerOffset.x, playerPos.y + stateData.playerOffset.y);
+
+        Vector2 targetPos = (Vector2.Distance(enemy.transform.position, targetPositionLeft) < Vector2.Distance(enemy.transform.position, targetPositionRight))
+            ? targetPositionLeft : targetPositionRight;
+
+        int directionX = (entity.transform.position.x < targetPos.x) ? 1 : -1;
+        if (entity.facingDirection != directionX )
+        {
+            if(!performCloseRangeAction)
+                entity.Flip();
+        }   
+
+        if (performCloseRangeAction)
+        {
+            entity.anim.SetBool("idle", true);
+            entity.anim.SetBool("move", false);
+
+            entity.SetVelocity(0);
         }
-        entity.SetVelocity(stateData.chaseSpeed);
+        else
+        {
+            entity.anim.SetBool("idle", false);
+            entity.anim.SetBool("move", true);
+
+            entity.SetVelocity(stateData.chaseSpeed);
+        }
+    }
+
+    private bool CanMeleeAttack()
+    {
+        return (lastAttackTime + stateData.attackCooldown <= Time.time);
     }
 }
