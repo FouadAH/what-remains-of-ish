@@ -179,7 +179,7 @@ public class MainMenu : MonoBehaviour
     private IEnumerator Loading()
     {
         GameManager.instance.isLoading = true;
-        GameManager.instance.anim.SetTrigger("FadeD");
+        GameManager.instance.anim.Play("Fade_Out");
         SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
     
         yield return null;
@@ -188,7 +188,7 @@ public class MainMenu : MonoBehaviour
 
     /////////////////////////////////////////////////////////////////
     ///                         LOADING                           ///
-    /////////////////////////////////////////////////////////////////                 
+    /////////////////////////////////////////////////////////////////
     public void LoadData()
     {
         PlayerData data = GameDataController.LoadData();
@@ -226,6 +226,7 @@ public class MainMenu : MonoBehaviour
 
         GameManager.instance.lastCheckpointPos = GameManager.instance.initialPlayerPosition;
         GameManager.instance.lastCheckpointLevelIndex = 3;
+
         GameManager.instance.currentScene = 3;
         currentScene = 3;
     }

@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerData
+public class PlayerData 
 {
     public float health;
     public float maxHealth;
     public int currency;
+
     public float[] playerPosition;
-    public float[] dronePosition;
+    public int currentScene;
+
     public float[] lastCheckpointPos;
     public int lastCheckpointLevelIndex;
-    public int currentScene;
+    public string lastCheckpointLevelPath;
+
+
+    public float[] lastSavepointPos;
+    public int lastSavepointLevelIndex;
+    public string lastSavepointLevelPath;
 
     public PlayerData(GameManager gm)
     {
@@ -30,6 +37,14 @@ public class PlayerData
         lastCheckpointPos[1] = gm.lastCheckpointPos.y;
 
         lastCheckpointLevelIndex = gm.lastCheckpointLevelIndex;
+        lastCheckpointLevelPath = gm.lastCheckpointLevelPath;
+
+        lastSavepointPos = new float[2];
+        lastSavepointPos[0] = gm.lastSavepointPos.x;
+        lastSavepointPos[1] = gm.lastSavepointPos.y;
+
+        lastSavepointLevelIndex = gm.lastSavepointLevelIndex;
+        lastSavepointLevelPath = gm.lastSavepointLevelPath;
 
         currentScene = gm.currentScene;
     }

@@ -6,7 +6,12 @@ using UnityEngine.UI;
 public class HealingPod : MonoBehaviour
 {
     public float fillAmount = 0;
-    [SerializeField] Image image;
+    Image image;
+
+    private void Awake()
+    {
+        image = GetComponent<Image>();
+    }
 
     private void Update()
     {

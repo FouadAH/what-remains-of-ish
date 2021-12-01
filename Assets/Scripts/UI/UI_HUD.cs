@@ -53,6 +53,8 @@ public class UI_HUD : MonoBehaviour
     {
         velocityXDebug.gameObject.SetActive(debugMode);
         velocityYDebug.gameObject.SetActive(debugMode);
+
+
     }
     private void OnEnable()
     {

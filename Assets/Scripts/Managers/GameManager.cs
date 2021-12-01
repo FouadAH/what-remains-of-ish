@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     public float health = 5;
     public float maxHealth = 5;
 
-    public int healingPodAmount = 3;
+    public int healingPodAmount = 2;
     public int healingAmountPerPod = 2;
 
     int healthShardsNeeded = 3;
@@ -177,7 +177,6 @@ public class GameManager : MonoBehaviour
         anim.Play("Fade_Out");
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadSceneAsync(levelToLoadPath, LoadSceneMode.Additive).completed += LoadScene_completed;
-
     }
 
     private void LoadScene_completed(AsyncOperation obj)
@@ -203,7 +202,6 @@ public class GameManager : MonoBehaviour
             StartCoroutine(FadeIn());
 
             player.GetComponent<Player>().enabled = true;
-
         }
     }
 
@@ -212,6 +210,7 @@ public class GameManager : MonoBehaviour
         if (obj.isDone)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
+            currentScene = SceneManager.GetActiveScene().buildIndex;
 
             astarPath = FindObjectOfType<AstarPath>();
             if (astarPath != null)
@@ -233,6 +232,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveGame()
     {
+        currentScene = SceneManager.GetActiveScene().buildIndex;
         GameDataController.SaveGame();
     }
 
@@ -248,13 +248,52 @@ public class GameManager : MonoBehaviour
         playerPosition.x = data.playerPosition[0];
         playerPosition.y = data.playerPosition[1];
         playerPosition.z = data.playerPosition[2];
+        player.transform.position = playerPosition;
 
         Vector2 checkpointPosition;
         checkpointPosition.x = data.lastCheckpointPos[0];
         checkpointPosition.y = data.lastCheckpointPos[1];
         lastCheckpointPos = checkpointPosition;
-        
         lastCheckpointLevelIndex = data.lastCheckpointLevelIndex;
+        lastCheckpointLevelPath = data.lastCheckpointLevelPath;
+
+        Vector2 lastSavePointPosition;
+        lastSavePointPosition.x = data.lastSavepointPos[0];
+        lastSavePointPosition.y = data.lastSavepointPos[1];
+        lastSavepointPos = lastSavePointPosition;
+        lastSavepointLevelIndex = data.lastSavepointLevelIndex;
+        lastSavepointLevelPath = data.lastSavepointLevelPath;
+
+        currentScene = data.currentScene;
+    }
+
+    public void LoadGame(string path)
+    {
+        PlayerData data = GameDataController.LoadData(path);
+
+        health = data.health;
+        maxHealth = data.maxHealth;
+        currency = data.currency;
+
+        Vector3 playerPosition;
+        playerPosition.x = data.playerPosition[0];
+        playerPosition.y = data.playerPosition[1];
+        playerPosition.z = data.playerPosition[2];
+        player.transform.position = playerPosition;
+
+        Vector2 checkpointPosition;
+        checkpointPosition.x = data.lastCheckpointPos[0];
+        checkpointPosition.y = data.lastCheckpointPos[1];
+        lastCheckpointPos = checkpointPosition;
+        lastCheckpointLevelIndex = data.lastCheckpointLevelIndex;
+        lastCheckpointLevelPath = data.lastCheckpointLevelPath;
+
+        Vector2 lastSavePointPosition;
+        lastSavePointPosition.x = data.lastSavepointPos[0];
+        lastSavePointPosition.y = data.lastSavepointPos[1];
+        lastSavepointPos = lastSavePointPosition;
+        lastSavepointLevelIndex = data.lastSavepointLevelIndex;
+        lastSavepointLevelPath = data.lastSavepointLevelPath;
 
         currentScene = data.currentScene;
     }
