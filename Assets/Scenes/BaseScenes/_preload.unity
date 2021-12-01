@@ -632,7 +632,7 @@ MonoBehaviour:
   lastSavepointLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
   health: 5
   maxHealth: 5
-  healingPodAmount: 3
+  healingPodAmount: 2
   healingAmountPerPod: 2
   healthShardAmount: 0
   currency: 0
@@ -647,6 +647,9 @@ MonoBehaviour:
   isLoading: 0
   isRespawning: 0
   isPaused: 0
+  loadNewSceneEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &413757535
 Transform:
   m_ObjectHideFlags: 0
