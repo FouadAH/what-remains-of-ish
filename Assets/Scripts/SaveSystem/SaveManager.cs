@@ -63,11 +63,8 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-
 #if UNITY_EDITOR
-        currentSaveFile = testSaveFile;
-        sceneDataCache = currentSaveFile.gameData.scene_data;
-        enemyDataCache = currentSaveFile.gameData.enemy_data;
+        SetupTestingSaveFile();
 #endif
 
         //Searching through disk for the save files
@@ -84,6 +81,31 @@ public class SaveManager : MonoBehaviour
 
             saveFiles.Add(saveFileSO);
         }
+    }
+
+    private void SetupTestingSaveFile()
+    {
+        string testFileName = "TestSaveFile.json";
+        string path = testSavePath + "/" + testFileName;
+
+        if (!File.Exists(path))
+        {
+            StreamWriter sw = File.CreateText(path);
+            sw.Close();
+        }
+
+        testSaveFile = ScriptableObject.CreateInstance<SaveFileSO>();
+        testSaveFile.fileName = testFileName;
+        testSaveFile.path = path;
+        testSaveFile.creationTime = Directory.GetCreationTime(path).ToShortDateString();
+
+        GameData gameDataTest = DefaultGameData();
+
+        testSaveFile.gameData = gameDataTest;
+
+        currentSaveFile = testSaveFile;
+        sceneDataCache = currentSaveFile.gameData.scene_data;
+        enemyDataCache = currentSaveFile.gameData.enemy_data;
     }
 
     public void RegisterSaveable(ISaveable saveable, string ID)
@@ -312,25 +334,7 @@ public class SaveManager : MonoBehaviour
     public void NewGameData(int saveSlotID)
     {
         Debug.Log("Creating new save at slot with ID:" + saveSlotID);
-
-        PlayerData playerData = DefaultPlayerData();
-
-        SceneData sceneData = new SceneData
-        {
-            data_entries = new Dictionary<string, string>(),
-        };
-
-        EnemyData enemyCache = new EnemyData
-        {
-            data_entries = new Dictionary<string, string>(),
-        };
-
-        GameData gameData = new GameData
-        {
-            player_data = playerData,
-            scene_data = sceneData,
-            enemy_data = enemyCache
-        };
+        GameData gameData = DefaultGameData();
 
         string fileName = "GameSave_" + saveSlotID + ".json";
         string newGameSavePath = savePath + "/" + fileName;
@@ -354,13 +358,36 @@ public class SaveManager : MonoBehaviour
         newGameEvent.Raise();
     }
 
+    private static GameData DefaultGameData()
+    {
+        PlayerData playerData = DefaultPlayerData();
+
+        SceneData sceneData = new SceneData
+        {
+            data_entries = new Dictionary<string, string>(),
+        };
+
+        EnemyData enemyCache = new EnemyData
+        {
+            data_entries = new Dictionary<string, string>(),
+        };
+
+        GameData gameData = new GameData
+        {
+            player_data = playerData,
+            scene_data = sceneData,
+            enemy_data = enemyCache
+        };
+        return gameData;
+    }
+
     private PlayerData GetPlayerData()
     {
         PlayerData playerData = currentSaveFile.gameData.player_data;
         GameManager gm = GameManager.instance;
 
-        playerData.health = gm.maxHealth;
-        playerData.maxHealth = gm.health;
+        playerData.maxHealth = gm.maxHealth;
+        playerData.health = gm.health;
         playerData.currency = gm.currency;
 
         playerData.playerPosition = new float[3];
