@@ -50,6 +50,11 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
         }
     }
 
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
+    }
+
     public void RaiseOnFireEvent()
     {
         var eh = OnFire;

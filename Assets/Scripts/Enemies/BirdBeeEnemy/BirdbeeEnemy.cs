@@ -91,6 +91,11 @@ public class BirdbeeEnemy : Entity
         }
     }
 
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
+    }
+
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
@@ -100,6 +105,5 @@ public class BirdbeeEnemy : Entity
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackDetectionPosition.transform.position, 0.5f);
-        
     }
 }

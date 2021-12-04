@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1397759893917042939}
   - component: {fileID: 2687003268044930659}
   - component: {fileID: 3579340116340160436}
+  - component: {fileID: 8119775181758904723}
   m_Layer: 17
   m_Name: Lever
   m_TagString: Untagged
@@ -84,9 +85,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e7462b8fc084b3d9e3ce32b7d7ddaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 8687d057-3040-4397-9fd8-5ec691994079
+  leverData:
+    isOpen: 0
   toggleable: 0
-  door: {fileID: 0}
   OnToggleLever:
     m_PersistentCalls:
       m_Calls:
@@ -131,6 +132,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e374331780e74641be094d5c50bb7a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8119775181758904723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657584224829983656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedGuid: 
 --- !u!1 &2739777668708161492
 GameObject:
   m_ObjectHideFlags: 0

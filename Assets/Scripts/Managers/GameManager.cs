@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Transform playerCurrentPosition;
 
     [Header("Scene Loading Settings")]
+    public Vector3 playerStartPosition;
     public Vector3 initialPlayerPosition;
     public string initialLevelPath;
 
@@ -64,7 +65,10 @@ public class GameManager : MonoBehaviour
 
     Vector3 newPlayerPos;
 
-    public UnityEvent loadNewSceneEvent;
+    public GameEvent loadNewSceneEvent;
+    public GameEvent loadDataEvent;
+    public GameEvent saveDataEvent;
+
 
     void Awake()
     {
@@ -145,8 +149,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath, Vector3 playerPos)
     {
-        loadNewSceneEvent.Invoke();
-
         isLoading = true;
         currentScenePath = levelToLoadPath;
 
@@ -174,6 +176,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadSceneRoutine()
     {
+        SaveManager.instance.SaveSceneData();
+
         anim.Play("Fade_Out");
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadSceneAsync(levelToLoadPath, LoadSceneMode.Additive).completed += LoadScene_completed;
@@ -195,6 +199,7 @@ public class GameManager : MonoBehaviour
                 playerCamera.transform.position = player.transform.position;
                 player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
             }
+            
 
             isLoading = false;
             isRespawning = false;
@@ -212,6 +217,11 @@ public class GameManager : MonoBehaviour
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
             currentScene = SceneManager.GetActiveScene().buildIndex;
 
+            SaveManager.instance.SavePlayerData();
+
+            loadNewSceneEvent.Raise();
+            loadDataEvent.Raise();
+                
             astarPath = FindObjectOfType<AstarPath>();
             if (astarPath != null)
             {
@@ -224,78 +234,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.2f);
         anim.Play("Fade_in");
-    }
-
-    /////////////////////////////////////////////////////////////////
-    ///                 SAVING AND LOADING                       ////
-    /////////////////////////////////////////////////////////////////                 
-
-    public void SaveGame()
-    {
-        currentScene = SceneManager.GetActiveScene().buildIndex;
-        GameDataController.SaveGame();
-    }
-
-    public void LoadGame()
-    {
-        PlayerData data = GameDataController.LoadData();
-
-        health = data.health;
-        maxHealth = data.maxHealth;
-        currency = data.currency;
-
-        Vector3 playerPosition;
-        playerPosition.x = data.playerPosition[0];
-        playerPosition.y = data.playerPosition[1];
-        playerPosition.z = data.playerPosition[2];
-        player.transform.position = playerPosition;
-
-        Vector2 checkpointPosition;
-        checkpointPosition.x = data.lastCheckpointPos[0];
-        checkpointPosition.y = data.lastCheckpointPos[1];
-        lastCheckpointPos = checkpointPosition;
-        lastCheckpointLevelIndex = data.lastCheckpointLevelIndex;
-        lastCheckpointLevelPath = data.lastCheckpointLevelPath;
-
-        Vector2 lastSavePointPosition;
-        lastSavePointPosition.x = data.lastSavepointPos[0];
-        lastSavePointPosition.y = data.lastSavepointPos[1];
-        lastSavepointPos = lastSavePointPosition;
-        lastSavepointLevelIndex = data.lastSavepointLevelIndex;
-        lastSavepointLevelPath = data.lastSavepointLevelPath;
-
-        currentScene = data.currentScene;
-    }
-
-    public void LoadGame(string path)
-    {
-        PlayerData data = GameDataController.LoadData(path);
-
-        health = data.health;
-        maxHealth = data.maxHealth;
-        currency = data.currency;
-
-        Vector3 playerPosition;
-        playerPosition.x = data.playerPosition[0];
-        playerPosition.y = data.playerPosition[1];
-        playerPosition.z = data.playerPosition[2];
-        player.transform.position = playerPosition;
-
-        Vector2 checkpointPosition;
-        checkpointPosition.x = data.lastCheckpointPos[0];
-        checkpointPosition.y = data.lastCheckpointPos[1];
-        lastCheckpointPos = checkpointPosition;
-        lastCheckpointLevelIndex = data.lastCheckpointLevelIndex;
-        lastCheckpointLevelPath = data.lastCheckpointLevelPath;
-
-        Vector2 lastSavePointPosition;
-        lastSavePointPosition.x = data.lastSavepointPos[0];
-        lastSavePointPosition.y = data.lastSavepointPos[1];
-        lastSavepointPos = lastSavePointPosition;
-        lastSavepointLevelIndex = data.lastSavepointLevelIndex;
-        lastSavepointLevelPath = data.lastSavepointLevelPath;
-
-        currentScene = data.currentScene;
     }
 
     private void OnDrawGizmos()

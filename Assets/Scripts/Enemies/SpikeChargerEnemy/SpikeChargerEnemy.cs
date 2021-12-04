@@ -76,7 +76,10 @@ public class SpikeChargerEnemy : Entity, IAttacker
         }
     }
 
-    
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
+    }
 
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {

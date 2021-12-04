@@ -656,6 +656,7 @@ GameObject:
   - component: {fileID: 8039945975724453791}
   - component: {fileID: 5409045208917726752}
   - component: {fileID: 9162991680409099352}
+  - component: {fileID: 9063802364738704802}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -878,6 +879,7 @@ MonoBehaviour:
   isAffectedByGravity: 1
   gravity: -12
   accelerationTimeGrounded: 0.05
+  shouldSaveState: 1
   fireRate: 3
   nextFireTime: 3
   isProtected: 0
@@ -941,6 +943,19 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
+--- !u!114 &9063802364738704802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3609927720469622426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedGuid: 
 --- !u!1 &4516776737580922933
 GameObject:
   m_ObjectHideFlags: 0

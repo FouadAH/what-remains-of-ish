@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 348.74945, y: 28.894375}
+  m_AnchoredPosition: {x: 348.74945, y: 15.864947}
   m_SizeDelta: {x: 173.657, y: 53.7225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3718343142616677065
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -7
@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 3718343143282787618}
   - component: {fileID: 3718343143282787621}
   - component: {fileID: 3718343143282787620}
+  - component: {fileID: 2871761063347458634}
   m_Layer: 5
   m_Name: SaveView
   m_TagString: Untagged
@@ -258,6 +259,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2871761063347458634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3718343143282787622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617f0e930943245439e9befe4de42561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveFile: {fileID: 0}
+  areaName: {fileID: 3718343143331437037}
+  timeElapsed: {fileID: 3718343143401017163}
+  progressPercentage: {fileID: 3718343142616677064}
 --- !u!1 &3718343143331437039
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,8 +309,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -289, y: -1}
-  m_SizeDelta: {x: 344.5867, y: 113.5111}
+  m_AnchoredPosition: {x: -137.9794, y: -1}
+  m_SizeDelta: {x: 646.6281, y: 113.5111}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3718343143331437034
 CanvasRenderer:
@@ -323,7 +340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SaveFileName
+  m_text: Village Ruins
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33cdd84f80d69634f91c7e3f3b068271, type: 2}
   m_sharedMaterial: {fileID: 3494457176198172731, guid: 33cdd84f80d69634f91c7e3f3b068271,
@@ -351,10 +368,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.75
-  m_fontSizeBase: 36
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -427,7 +444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 370.50946, y: -20.170582}
+  m_AnchoredPosition: {x: 370.50946, y: -33.2}
   m_SizeDelta: {x: 130.1346, y: 44.407}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3718343143401017160
@@ -458,7 +475,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SaveDate
+  m_text: Percentage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33cdd84f80d69634f91c7e3f3b068271, type: 2}
   m_sharedMaterial: {fileID: 3494457176198172731, guid: 33cdd84f80d69634f91c7e3f3b068271,
@@ -486,14 +503,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.45
+  m_fontSize: 23
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -7

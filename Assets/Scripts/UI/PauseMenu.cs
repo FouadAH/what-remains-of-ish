@@ -33,7 +33,6 @@ public class PauseMenu : MonoBehaviour
 
     public event Action OnPauseStart = delegate { };
     public event Action OnPauseEnd = delegate { };
-
     void Start()
     {
         eventSystem = EventSystem.current;
@@ -175,12 +174,13 @@ public class PauseMenu : MonoBehaviour
     {
         //Time.timeScale = 1f;
         //LoadMainMenu();
+        SaveManager.instance.SaveGame();
         Application.Quit();
     }
 
     public void SaveGame()
     {
-        GameManager.instance.SaveGame();
+        SaveManager.instance.SaveGame();
     }
     
     public void LoadMainMenu()

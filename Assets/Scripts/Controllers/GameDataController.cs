@@ -10,7 +10,7 @@ public class GameDataController
     {
         saveData = new PlayerData(GameManager.instance);
         var data = JsonUtility.ToJson(saveData);
-        string path = Application.persistentDataPath + "/SaveFiles/player.json";
+        string path = SaveManager.instance.currentSaveFile.path; //Application.persistentDataPath + "/SaveFiles/player.json";
         StreamWriter sw = File.CreateText(path);
         sw.Close();
         File.WriteAllText(path, data);
@@ -32,6 +32,17 @@ public class GameDataController
             return null;
         }
     }
+
+    //public static void SaveGame(SaveFileSO saveFileSO)
+    //{
+    //    saveData = saveFileSO.playerData;
+    //    string path = saveFileSO.path;
+    //    var data = JsonUtility.ToJson(saveData);
+    //    StreamWriter sw = File.CreateText(path);
+    //    sw.Close();
+    //    File.WriteAllText(path, data);
+    //    Debug.Log("Saved Game Data to: " + path);
+    //}
 
     public static PlayerData LoadData(string path)
     {

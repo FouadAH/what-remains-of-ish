@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,6 @@ public class SaveFileSO : ScriptableObject
 {
     public string fileName;
     public string path;
-    public PlayerData playerData;
-
-    public SaveFileSO(string fileName, string filePath, PlayerData playerData)
-    {
-        this.fileName = fileName;
-        this.path = filePath;
-        this.playerData = playerData;
-    }
+    public string creationTime;
+    public GameData gameData;
 }

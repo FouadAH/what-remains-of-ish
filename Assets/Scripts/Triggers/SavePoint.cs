@@ -60,7 +60,8 @@ public class SavePoint: MonoBehaviour {
         GameManager.instance.health = GameManager.instance.maxHealth;
         UI_HUD.instance.OnResetHP(missingHealth);
 
-        GameManager.instance.SaveGame();
+        SaveManager.instance.RestPointSave();
+        //SaveManager.instance.SaveGame();
 
         UI_HUD.instance.SetDebugText("Player health and flasks restored. Checkpoint set.");
     }

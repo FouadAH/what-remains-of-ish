@@ -50,4 +50,9 @@ public class HedgehogEnemy : Entity
             stateMachine.ChangeState(deadState);
         }
     }
+
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
+    }
 }

@@ -108,6 +108,11 @@ public class FlyingShootingEnemy : Entity, FiringAI
         }
     }
 
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
+    }
+
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();

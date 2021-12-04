@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5336478215804641229}
   - component: {fileID: 8242452709017688214}
   - component: {fileID: 6237150870535999631}
+  - component: {fileID: 5613945596916023460}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -183,6 +184,7 @@ MonoBehaviour:
   isAffectedByGravity: 1
   gravity: -12
   accelerationTimeGrounded: 0.05
+  shouldSaveState: 0
   idleStateData: {fileID: 11400000, guid: 83ba856c938cc8049bc47e34ccd7e071, type: 2}
   moveStateData: {fileID: 11400000, guid: 1af78f24e60b7b546bce3ba3eb6921f9, type: 2}
   playerDetectedData: {fileID: 11400000, guid: 4be1586635447f14394e27f8df0d8249, type: 2}
@@ -272,6 +274,19 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
+--- !u!114 &5613945596916023460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495062752850808488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedGuid: 
 --- !u!1 &750142163913562119
 GameObject:
   m_ObjectHideFlags: 0

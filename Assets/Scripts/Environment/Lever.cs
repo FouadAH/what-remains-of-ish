@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Lever : MonoBehaviour, IDamagable
+public class Lever : Savable, IDamagable
 {
-    [SerializeField] private string m_ID = Guid.NewGuid().ToString();
-    public string ID => m_ID;
-    string key;
+    [System.Serializable]
+    public struct Data
+    {
+        public bool isOpen;
+    }
 
-    [ContextMenu("Generate new ID")]
-    private void RegenerateGUID() => m_ID = Guid.NewGuid().ToString();
+    [SerializeField]
+    private Data leverData;
 
-    bool isOpen;
     public bool toggleable = false;
     
     Animator animator;
@@ -24,28 +25,40 @@ public class Lever : MonoBehaviour, IDamagable
     public event Action<bool> OnToggle = delegate { };
     public UnityEvent OnToggleLever;
 
-    void Start()
+    public override void Awake()
     {
+        base.Awake();
         animator = GetComponent<Animator>();
-        key = "Lever_" + ID;
-        isOpen = PlayerPrefs.GetInt(key) == 1 ? true : false;
-        animator.SetBool("isOpen", isOpen);
     }
 
     public void ModifyHealth(int amount)
     {
-        if (isOpen && !toggleable)
+        if (leverData.isOpen && !toggleable)
             return;
 
-        isOpen = !isOpen;
-        animator.SetBool("isOpen", isOpen);
-        PlayerPrefs.SetInt(key, 1);
+        leverData.isOpen = !leverData.isOpen;
+        animator.SetBool("isOpen", leverData.isOpen);
 
-        OnToggle(isOpen);
+        OnToggle(leverData.isOpen);
         OnToggleLever.Invoke();
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lever", GetComponent<Transform>().position);
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY){}
 
+    public override string SaveData()
+    {
+        return JsonUtility.ToJson(leverData);
+    }
+
+    public override void LoadDefaultData()
+    {
+        leverData.isOpen = false;
+        animator.SetBool("isOpen", leverData.isOpen);
+    }
+
+    public override void LoadData(string data, string version)
+    {
+        leverData = JsonUtility.FromJson<Data>(data);
+        animator.SetBool("isOpen", leverData.isOpen);
+    }
 }

@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
 {
     public static bool gameIsPaused = false;
     public GameObject mainMenu;
+    public GameObject loadView;
     public GameObject optionMenu;
     public GameObject videoOptions;
     public GameObject audioOptions;
@@ -20,8 +21,8 @@ public class MainMenu : MonoBehaviour
     public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
-    private int currentScene;
     public AudioSource titleScreenTheme;
+    public GameEvent loadInitialScene;
 
     public void Start()
     {
@@ -60,9 +61,8 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(NewGame());
     }
 
-    public void LoadGame()
+    public void LoadEvent()
     {
-        LoadData();
         StartCoroutine(Loading());
     }
 
@@ -70,6 +70,19 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Quit");
+    }
+
+    public void LoadViewOpen()
+    {
+        mainMenu.SetActive(false);
+        loadView.SetActive(true);
+        eventSystem.SetSelectedGameObject(loadView.GetComponentInChildren<Button>().gameObject);
+    }
+    public void LoadViewClose()
+    {
+        mainMenu.SetActive(true);
+        loadView.SetActive(false);
+        eventSystem.SetSelectedGameObject(mainMenu.GetComponentInChildren<Button>().gameObject);
     }
 
     public void Options()
@@ -132,18 +145,9 @@ public class MainMenu : MonoBehaviour
     private IEnumerator NewGame()
     {
         GameManager.instance.isLoading = true;
-        LoadDataNewGame();
         GameManager.instance.anim.Play("Fade_Out");
         SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
         yield return null;
-    }
-
-    private void Base_completed_initial(AsyncOperation obj)
-    {
-        if (obj.isDone)
-        {
-            SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive).completed += LoadLevelComplete;
-        }
     }
 
     private void LoadBaseSceneComplete(AsyncOperation obj)
@@ -153,7 +157,7 @@ public class MainMenu : MonoBehaviour
             GameManager.instance.playerCamera = Camera.main;
             GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
             GameManager.instance.player.transform.position = GameManager.instance.initialPlayerPosition;
-            SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive).completed += LoadLevelComplete;
+            SceneManager.LoadSceneAsync(GameManager.instance.currentScene, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
     }
 
@@ -161,7 +165,8 @@ public class MainMenu : MonoBehaviour
     {
         if(obj.isDone)
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(GameManager.instance.currentScene));
+            loadInitialScene.Raise();
             GameManager.instance.isLoading = false;
             GameManager.instance.anim.Play("Fade_in");
         }
@@ -184,51 +189,4 @@ public class MainMenu : MonoBehaviour
     
         yield return null;
     }
-    
-
-    /////////////////////////////////////////////////////////////////
-    ///                         LOADING                           ///
-    /////////////////////////////////////////////////////////////////
-    public void LoadData()
-    {
-        PlayerData data = GameDataController.LoadData();
-
-        GameManager.instance.health = data.health;
-        GameManager.instance.maxHealth = data.maxHealth;
-        GameManager.instance.currency = data.currency;
-
-        Vector3 playerPosition;
-        playerPosition.x = data.playerPosition[0];
-        playerPosition.y = data.playerPosition[1];
-        playerPosition.z = data.playerPosition[2];
-        GameManager.instance.initialPlayerPosition = playerPosition;
-
-        Vector2 checkpointPosition;
-        checkpointPosition.x = data.lastCheckpointPos[0];
-        checkpointPosition.y = data.lastCheckpointPos[1];
-        GameManager.instance.lastCheckpointPos = checkpointPosition;
-
-        GameManager.instance.lastCheckpointLevelIndex = data.lastCheckpointLevelIndex;
-        currentScene = data.currentScene;
-    }
-
-
-    public void LoadDataNewGame()
-    {
-        PlayerPrefs.DeleteAll();
-
-        GameManager.instance.health = 5;
-        GameManager.instance.maxHealth = 5;
-        GameManager.instance.currency = 0;
-
-        GameManager.instance.lastSavepointPos = GameManager.instance.initialPlayerPosition;
-        GameManager.instance.lastSavepointLevelIndex = 3;
-
-        GameManager.instance.lastCheckpointPos = GameManager.instance.initialPlayerPosition;
-        GameManager.instance.lastCheckpointLevelIndex = 3;
-
-        GameManager.instance.currentScene = 3;
-        currentScene = 3;
-    }
-
 }

@@ -212,6 +212,113 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTheme: event:/Music/Old Village Ruins
+--- !u!1 &2023344683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2023344684}
+  - component: {fileID: 2023344685}
+  - component: {fileID: 2023344686}
+  - component: {fileID: 2023344687}
+  m_Layer: 0
+  m_Name: SaveController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2023344684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023344683}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2023344685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023344683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bbdd84c18247a84d9c5260cd3580f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveFiles: []
+  loadSaveFileEvent: {fileID: 11400000, guid: c5b07e18b28b16f40a96b8f9d4036790, type: 2}
+  saveDataEvent: {fileID: 11400000, guid: ba37e1345cfc485448bfc1ddaf380036, type: 2}
+  newGameEvent: {fileID: 11400000, guid: e19c2b2c7c5c40542964118003b0ddb6, type: 2}
+  testSaveFile: {fileID: 11400000, guid: 5da0ddb0a8aa6db48bba185c108eb16e, type: 2}
+  currentSaveFile: {fileID: 0}
+--- !u!114 &2023344686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023344683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: f1d8bfa69a32d1c40854f7e2c0e1f845, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2023344685}
+        m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
+        m_MethodName: DataCacheToSaveables
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2023344687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023344683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: ba37e1345cfc485448bfc1ddaf380036, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2023344685}
+        m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1712162022569043984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281,6 +388,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
+      propertyPath: loadDataEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: f1d8bfa69a32d1c40854f7e2c0e1f845,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: saveDataEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: ba37e1345cfc485448bfc1ddaf380036,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
       propertyPath: hasDashAbility
       value: 0
       objectReference: {fileID: 0}
@@ -306,6 +425,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
+      propertyPath: loadNewSceneEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 049faeadb6e5f7f4cb44c2f5c6249cc5,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
       propertyPath: hasTeleportAbility
       value: 0
       objectReference: {fileID: 0}
@@ -327,6 +452,16 @@ PrefabInstance:
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: lastCheckpointPos.y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: playerStartPosition.x
+      value: 780
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: playerStartPosition.y
       value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,

@@ -101,4 +101,19 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
     {
         //Debug.Log("KnockbackOnHit");
     }
+
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
+
+        moveState = new BasicMeleeEnemy_MoveState(this, stateMachine, "move", moveStateData, this);
+        idleState = new BasicMeleeEnemy_IdleState(this, stateMachine, "idle", idleStateData, this);
+        playerDetectedState = new BasicMeleeEnemy_PlayerDetectedState(this, stateMachine, "move", playerDetectedData, this);
+        lookForPlayerState = new BasicMeleeEnemy_LookForPlayerState(this, stateMachine, "idle", lookForPlayerStateData, this);
+        meleeAttackState = new BasicMeleeEnemy_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
+        stunState = new BasicMeleeEnemy_StunState(this, stateMachine, "stun", stunStateData, this);
+        deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "idle", deadStateData, this);
+
+        stateMachine.Initialize(moveState);
+    }
 }

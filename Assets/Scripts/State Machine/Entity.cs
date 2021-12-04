@@ -5,7 +5,7 @@ using UnityEngine;
 using TMPro;
 using Cinemachine;
 
-public class Entity : MonoBehaviour, IDamagable
+public class Entity : Savable, IDamagable
 {
     public FiniteStateMachine stateMachine;
     public AnimationToStatemachine atsm;
@@ -62,8 +62,22 @@ public class Entity : MonoBehaviour, IDamagable
 
     protected ColouredFlash colouredFlash;
     protected CinemachineImpulseSource impulseListener;
-    public virtual void Start()
+    Hurtbox hurtbox;
+
+    [Header("Save Settings")]
+    public bool shouldSaveState = true;
+
+    public override void Awake()
     {
+        if (shouldSaveState)
+            base.Awake();
+    }
+
+    public override void Start()
+    {
+        if(shouldSaveState)
+            base.Start();
+
         facingDirection = 1;
         MaxHealth = (int)entityData.maxHealth;
 
@@ -77,7 +91,12 @@ public class Entity : MonoBehaviour, IDamagable
         atsm = aliveGO.GetComponent<AnimationToStatemachine>();
         colouredFlash = GetComponent<ColouredFlash>();
         impulseListener = GetComponent<CinemachineImpulseSource>();
-        stateMachine = new FiniteStateMachine();
+
+        hurtbox = GetComponent<Hurtbox>();
+        hurtbox.colliderObj.enabled = true;
+
+        if (stateMachine == null)
+            stateMachine = new FiniteStateMachine();
     }
 
     public virtual void Update()
@@ -253,6 +272,12 @@ public class Entity : MonoBehaviour, IDamagable
         DamageHop(entityData.damageHopSpeed*dirX);
     }
 
+    public override void OnDestroy()
+    {
+        if(shouldSaveState)
+            base.OnDestroy();
+    }
+
     public virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.grey;
@@ -272,7 +297,66 @@ public class Entity : MonoBehaviour, IDamagable
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * -facingDirection * entityData.wallCheckDistance));
 
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
-
     }
 
+    public struct EntityData 
+    {
+        public bool isDead;
+    }
+
+    [SerializeField]
+    private EntityData entitySavedData;
+
+    public override string SaveData()
+    {
+        entitySavedData.isDead = isDead;
+        return JsonUtility.ToJson(entitySavedData);
+    }
+
+    public override void LoadDefaultData()
+    {
+        entitySavedData.isDead = false;
+        isDead = false;
+        isStunned = false;
+
+        gameObject.SetActive(true);
+        damageBox.gameObject.SetActive(false);
+
+        //facingDirection = 1;
+        MaxHealth = (int)entityData.maxHealth;
+
+        currentStunResistance = entityData.stunResistance;
+
+        Health = MaxHealth;
+
+        aliveGO = gameObject;
+        rb = aliveGO.GetComponent<Rigidbody2D>();
+        anim = aliveGO.GetComponent<Animator>();
+        atsm = aliveGO.GetComponent<AnimationToStatemachine>();
+        colouredFlash = GetComponent<ColouredFlash>();
+        impulseListener = GetComponent<CinemachineImpulseSource>();
+
+        hurtbox = GetComponent<Hurtbox>();
+        hurtbox.colliderObj.enabled = true;
+
+        if (stateMachine == null)
+            stateMachine = new FiniteStateMachine();
+    }
+
+    public override void LoadData(string data, string version)
+    {
+        entitySavedData = JsonUtility.FromJson<EntityData>(data);
+        isDead = entitySavedData.isDead;
+        Debug.Log("loading entity state: " + data);
+
+        if (entitySavedData.isDead)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            Health = MaxHealth;
+        }
+    }
 }

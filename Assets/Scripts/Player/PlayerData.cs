@@ -48,4 +48,12 @@ public class PlayerData
 
         currentScene = gm.currentScene;
     }
+
+    public PlayerData()
+    {
+        playerPosition = new float[3];
+        lastCheckpointPos = new float[2];
+        lastSavepointPos = new float[2];
+    }
+
 }
