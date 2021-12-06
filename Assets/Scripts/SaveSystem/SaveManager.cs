@@ -83,6 +83,8 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+
     private void SetupTestingSaveFile()
     {
         string testFileName = "TestSaveFile.json";
@@ -107,6 +109,7 @@ public class SaveManager : MonoBehaviour
         sceneDataCache = currentSaveFile.gameData.scene_data;
         enemyDataCache = currentSaveFile.gameData.enemy_data;
     }
+#endif
 
     public void RegisterSaveable(ISaveable saveable, string ID)
     {
