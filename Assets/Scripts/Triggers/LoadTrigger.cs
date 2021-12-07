@@ -20,6 +20,7 @@ public class LoadTrigger : MonoBehaviour
             if (level != null)
             {
                 level.isRevealed = true;
+                GameManager.instance.currentLevel = level;
             }
 
             GameManager.instance.LoadScenePath(scenePicker.scenePathToUnload, scenePicker.scenePathToLoad, playerPos.transform.position);

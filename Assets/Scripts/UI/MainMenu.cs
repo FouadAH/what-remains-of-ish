@@ -157,7 +157,7 @@ public class MainMenu : MonoBehaviour
             GameManager.instance.playerCamera = Camera.main;
             GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
             GameManager.instance.player.transform.position = GameManager.instance.initialPlayerPosition;
-            SceneManager.LoadSceneAsync(GameManager.instance.currentScene, LoadSceneMode.Additive).completed += LoadLevelComplete;
+            SceneManager.LoadSceneAsync(GameManager.instance.currentSceneBuildIndex, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
     }
 
@@ -165,7 +165,7 @@ public class MainMenu : MonoBehaviour
     {
         if(obj.isDone)
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(GameManager.instance.currentScene));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(GameManager.instance.currentSceneBuildIndex));
             loadInitialScene.Raise();
             GameManager.instance.isLoading = false;
             GameManager.instance.anim.Play("Fade_in");

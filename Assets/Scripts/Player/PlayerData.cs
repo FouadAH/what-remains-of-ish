@@ -46,7 +46,7 @@ public class PlayerData
         lastSavepointLevelIndex = gm.lastSavepointLevelIndex;
         lastSavepointLevelPath = gm.lastSavepointLevelPath;
 
-        currentScene = gm.currentScene;
+        currentScene = gm.currentSceneBuildIndex;
     }
 
     public PlayerData()

@@ -412,7 +412,7 @@ public class SaveManager : MonoBehaviour
         playerData.lastCheckpointLevelPath = gm.lastCheckpointLevelPath;
         playerData.lastSavepointLevelPath = gm.lastSavepointLevelPath;
 
-        playerData.currentScene = gm.currentScene;
+        playerData.currentScene = gm.currentSceneBuildIndex;
         return playerData;
     }
 
@@ -447,7 +447,7 @@ public class SaveManager : MonoBehaviour
         GameManager.instance.lastSavepointLevelIndex = data.lastSavepointLevelIndex;
         GameManager.instance.lastSavepointLevelPath = data.lastSavepointLevelPath;
 
-        GameManager.instance.currentScene = data.currentScene;
+        GameManager.instance.currentSceneBuildIndex = data.currentScene;
     }
 
     private static PlayerData DefaultPlayerData()

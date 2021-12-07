@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     public Vector3 initialPlayerPosition;
     public string initialLevelPath;
 
-    public int currentScene;
+    public Level currentLevel;
+    public int currentSceneBuildIndex;
     public string currentScenePath;
 
     private string levelToUnloadPath;
@@ -215,7 +216,7 @@ public class GameManager : MonoBehaviour
         if (obj.isDone)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
-            currentScene = SceneManager.GetActiveScene().buildIndex;
+            currentSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
 
             SaveManager.instance.SavePlayerData();
 

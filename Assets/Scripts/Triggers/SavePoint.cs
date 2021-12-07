@@ -9,6 +9,7 @@ public class SavePoint: MonoBehaviour {
 
 
     public Sprite litSprite;
+    public UnityEngine.Rendering.Universal.Light2D pointLight;
     public Transform playerSpawnPoint;
 
     bool isLit = false;
@@ -42,6 +43,7 @@ public class SavePoint: MonoBehaviour {
         if (!isLit)
         {
             isLit = true;
+            pointLight.enabled = true;
             spriteRenderer.sprite = litSprite;
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Save Point", GetComponent<Transform>().position);
         }

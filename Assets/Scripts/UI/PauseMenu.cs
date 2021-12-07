@@ -194,7 +194,7 @@ public class PauseMenu : MonoBehaviour
         if (obj.isDone)
         {
             
-            SceneManager.UnloadSceneAsync(GameManager.instance.currentScene).completed += UnloadScene_completed;
+            SceneManager.UnloadSceneAsync(GameManager.instance.currentSceneBuildIndex).completed += UnloadScene_completed;
             SceneManager.UnloadSceneAsync(1);
             SceneManager.UnloadSceneAsync("AStar");
         }

@@ -24,5 +24,10 @@ public class Level : ScriptableObject
     public string DeveloperDescription = "";
 #endif
 
+    [Header("Level Light Settings")]
+    public float globalLightIntensity;
+    public Color globalLightColor;
+
     public bool isRevealed;
+
 }
