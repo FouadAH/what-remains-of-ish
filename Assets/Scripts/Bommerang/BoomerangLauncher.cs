@@ -89,6 +89,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         cameraOffset = GameManager.instance.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
 
         volume = FindObjectOfType<Volume>();
+        
         volume.profile.TryGet(out chromaticAberration);
 
         Cursor.visible = false;

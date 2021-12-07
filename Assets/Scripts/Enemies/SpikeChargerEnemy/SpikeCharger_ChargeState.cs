@@ -37,11 +37,11 @@ public class SpikeCharger_ChargeState : ChargeState
 
         if (isChargeTimeOver)
         {
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.MoveState);
         }
         else if (isDetectingWall)
         {
-            stateMachine.ChangeState(enemy.idleState);
+            stateMachine.ChangeState(enemy.IdleState);
         }
     }
 

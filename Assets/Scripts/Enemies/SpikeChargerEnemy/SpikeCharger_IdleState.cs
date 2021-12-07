@@ -32,17 +32,17 @@ public class SpikeCharger_IdleState : IdleState
             }
             else
             {
-                stateMachine.ChangeState(enemy.chargeState);
+                stateMachine.ChangeState(enemy.PlayerDetectedState);
             }
         }
         else if (isPlayerInMinAgroRange)
         {
             entity.Flip();
-            stateMachine.ChangeState(enemy.chargeState);
+            stateMachine.ChangeState(enemy.PlayerDetectedState);
         }
         else if (isIdleTimeOver)
         {
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.MoveState);
         }
     }
 

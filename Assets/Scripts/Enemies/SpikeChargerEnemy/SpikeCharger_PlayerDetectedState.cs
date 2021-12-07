@@ -28,7 +28,7 @@ public class SpikeCharger_PlayerDetectedState : AttackState
 
         if (isAnimationFinished)
         {
-            stateMachine.ChangeState(enemy.chargeState);
+            stateMachine.ChangeState(enemy.ChargeState);
         }
     }
 

@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class State
 {
+    public float startTime { get; protected set; }
     protected FiniteStateMachine stateMachine;
     protected Entity entity;
-
-    public float startTime { get; protected set; }
-
     protected string animBoolName;
 
     public State(Entity etity, FiniteStateMachine stateMachine, string animBoolName)

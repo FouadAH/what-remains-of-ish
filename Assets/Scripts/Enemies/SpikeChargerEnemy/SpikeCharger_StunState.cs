@@ -32,7 +32,7 @@ public class SpikeCharger_StunState : StunState
 
         if (isStunTimeOver)
         {
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.MoveState);
         }
     }
 
