@@ -104,7 +104,7 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
         return Time.time >= nextFireTime;
     }
 
-    public void ModifyHealth(int amount)
+    public void ProcessHit(int amount)
     {
         Health -= amount;
         RaiseOnHitEnemyEvent(Health, MaxHealth);

@@ -81,9 +81,9 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
         return !hit;
     }
 
-    public override void ModifyHealth(int amount)
+    public override void ProcessHit(int amount)
     {
-        base.ModifyHealth(amount);
+        base.ProcessHit(amount);
 
         IsAggro = true;
 

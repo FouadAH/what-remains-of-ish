@@ -168,7 +168,7 @@ public class FlyingEnemyAI : Entity, FiringAI, IDamagable
         TargetPoint.transform.position = new Vector3( Ntarget.x, Ntarget.y);
     }
 
-    public void ModifyHealth(int amount)
+    public void ProcessHit(int amount)
     {
         Aggro();
         Health -= amount;

@@ -3,6 +3,5 @@ using UnityEngine;
 
 public interface IHittable 
 {
-    public void ProcessHit();
-    protected void ProcessHit(int hitAmount);
+    void ProcessHit(int hitAmount);
 }

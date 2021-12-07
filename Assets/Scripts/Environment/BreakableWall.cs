@@ -30,7 +30,7 @@ public class BreakableWall : MonoBehaviour, IDamagable
         return;
     }
 
-    public void ModifyHealth(int amount)
+    public void ProcessHit(int amount)
     {
         Health--;
         Quaternion quaternion = Quaternion.Euler(new Vector3(-90, 0, 0));

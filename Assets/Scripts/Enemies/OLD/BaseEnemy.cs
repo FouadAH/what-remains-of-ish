@@ -135,7 +135,7 @@ public class BaseEnemy : IEnemy, IAttacker
         Destroy(gameObject);
     }
     
-    public void ModifyHealth(int amount)
+    public void ProcessHit(int amount)
     {
         Health -= amount;
         RaiseOnHitEnemyEvent(Health, maxHealth);

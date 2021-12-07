@@ -11,10 +11,12 @@ public class Hurtbox : MonoBehaviour
     private ColliderState _state = ColliderState.Open;
     private bool stunned;
     [SerializeField] private float stunTime = 0.5f;
+    IHittable hittable;
 
     private void Awake()
     {
         attackProcessor = new AttackProcessor();
+        hittable = GetComponent<IHittable>();
     }
 
     public void getHitBy(IAttacker attacker, float knockbackDirX, float knockbackDirY)
@@ -22,7 +24,7 @@ public class Hurtbox : MonoBehaviour
         if (!stunned)
         {
             StartCoroutine(StunTimer());
-            attackProcessor.ProcessMelee(attacker, GetComponent<IDamagable>(), knockbackDirX, knockbackDirY);
+            attackProcessor.ProcessMelee(attacker, hittable, knockbackDirX, knockbackDirY);
         }
     }
 
@@ -31,7 +33,7 @@ public class Hurtbox : MonoBehaviour
         if (!stunned)
         {
             StartCoroutine(StunTimer());
-            attackProcessor.ProcessCollisionDamage(damageAmount, GetComponent<IDamagable>(), knockbackDirX, knockbackDirY);
+            attackProcessor.ProcessCollisionDamage(damageAmount, hittable as IDamagable, knockbackDirX, knockbackDirY);
         }
     }
 

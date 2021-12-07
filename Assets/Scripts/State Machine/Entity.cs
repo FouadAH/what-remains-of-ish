@@ -244,7 +244,7 @@ public class Entity : Savable, IDamagable
         stateDebugText.transform.Rotate(0f, 180f, 0f);
     }
 
-    public virtual void ModifyHealth(int amount)
+    public virtual void ProcessHit(int amount)
     {
         lastDamageTime = Time.time;
 

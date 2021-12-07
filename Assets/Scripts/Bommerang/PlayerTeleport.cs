@@ -74,7 +74,7 @@ public class PlayerTeleport : MonoBehaviour
             IDamagable damagable = hit.collider.GetComponent<IDamagable>();
             if (damagable != null)
             {
-                damagable.ModifyHealth((int)teleportDamage);
+                damagable.ProcessHit((int)teleportDamage);
             }
             else if (hit.collider.GetComponent<TeleportRefill>())
             {

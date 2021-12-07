@@ -81,9 +81,9 @@ public class BirdbeeEnemy : Entity
     }
 
 
-    public override void ModifyHealth(int amount)
+    public override void ProcessHit(int amount)
     {
-        base.ModifyHealth(amount);
+        base.ProcessHit(amount);
         IsAggro = true;
         if (isDead)
         {

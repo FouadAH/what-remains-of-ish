@@ -28,19 +28,19 @@ public class KillArea : MonoBehaviour {
             {
                 if (GameManager.instance.health > 1 && !GameManager.instance.isRespawning)
                 {
-                    player.ModifyHealth(damageDealt);
+                    player.ProcessHit(damageDealt);
                     GameManager.instance.SoftRespawn();
                 }
                 else
                 {
-                    player.ModifyHealth(damageDealt);
+                    player.ProcessHit(damageDealt);
                 }
             }
         }
         else if (collision.gameObject.tag.Equals("Enemy"))
         {
             Entity enemy = collision.gameObject.GetComponent<Entity>();
-            enemy.ModifyHealth(1000);
+            enemy.ProcessHit(1000);
         }
     }
 

@@ -12,11 +12,15 @@ public class AttackProcessor
     /// <param name="target">Game object being attacked</param>
     /// <param name="knockbackDirX">X Knockback direction</param>
     /// <param name="knockbackDirY">Y Knockback direction</param>
-    public void ProcessMelee(IAttacker attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
+    public void ProcessMelee(IAttacker attacker, IHittable target, float knockbackDirX, float knockbackDirY)
     {
         ProcessKnockbackOnHit(attacker, knockbackDirX, knockbackDirY);
-        KnockbackOnMeleeDamage(attacker, target, -knockbackDirX, -knockbackDirY);
         ProcessAttack(target, attacker.MeleeDamage);
+
+        if (target is IDamagable damagable)
+        {
+            KnockbackOnMeleeDamage(attacker, damagable, -knockbackDirX, -knockbackDirY);
+        }
     }
 
     public void ProcessCollisionDamage(int damageAmount, IDamagable target, float knockbackDirX, float knockbackDirY)
@@ -30,11 +34,15 @@ public class AttackProcessor
     /// </summary>
     /// <param name="attacker">Game object that is attacking</param>
     /// <param name="target">Game object being attacked</param>
-    public void ProcessRanged(ILauncher attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
+    public void ProcessRanged(ILauncher attacker, IHittable target, float knockbackDirX, float knockbackDirY)
     {
         int amount = CalculateAttackAmountRanged(attacker);
-        ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
         ProcessAttack(target, amount);
+
+        if (target is IDamagable damagable)
+        {
+            ProcessKnockbackOnDamage(damagable, -knockbackDirX, -knockbackDirY);
+        }
     }
 
     /// <summary>
@@ -52,9 +60,9 @@ public class AttackProcessor
     /// </summary>
     /// <param name="target">Damagable target object</param>
     /// <param name="amount">Damage amount</param>
-    private void ProcessAttack(IDamagable target, int amount)
+    private void ProcessAttack(IHittable target, int amount)
     {
-        target.ModifyHealth(amount);
+        target.ProcessHit(amount);
     }
 
     /// <summary>

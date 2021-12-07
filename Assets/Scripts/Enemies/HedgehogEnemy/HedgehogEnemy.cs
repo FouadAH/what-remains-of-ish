@@ -38,12 +38,12 @@ public class HedgehogEnemy : Entity
         base.DamageHop(velocity);
     }
 
-    public override void ModifyHealth(int amount)
+    public override void ProcessHit(int amount)
     {
         if (isProtected)
             return;
 
-        base.ModifyHealth(amount);
+        base.ProcessHit(amount);
 
         if (isDead)
         {

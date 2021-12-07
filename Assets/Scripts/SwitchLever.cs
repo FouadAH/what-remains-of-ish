@@ -21,7 +21,7 @@ public class SwitchLever : MonoBehaviour, IDamagable
         animator = GetComponent<Animator>();
     }
 
-    public void ModifyHealth(int amount)
+    public void ProcessHit(int amount)
     {
         SetActive(true);
         OnTriggerLever();
@@ -39,7 +39,7 @@ public class SwitchLever : MonoBehaviour, IDamagable
     {
         if (collision.gameObject.GetComponent<Boomerang>() != null)
         {
-            ModifyHealth(0);
+            ProcessHit(0);
         }
     }
 }

@@ -274,11 +274,11 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     public void RangedHit(Collider2D collider, Vector2 pos)
     {
-        if (IsInLayerMask(collider.gameObject.layer, damagable) && collider.GetComponent<IDamagable>() != null)
+        if (IsInLayerMask(collider.gameObject.layer, damagable) && collider.GetComponent<IHittable>() != null)
         {
             OnBoomerangHit.Invoke();
             Vector2 direction = (pos - (Vector2)collider.transform.position).normalized;
-            attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>(), Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
+            attackProcessor.ProcessRanged(this, collider.GetComponent<IHittable>(), Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
         }
     }
 

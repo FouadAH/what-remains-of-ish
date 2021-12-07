@@ -224,7 +224,7 @@ public class Player : MonoBehaviour, IAttacker{
     /// Method reponsible for damaging the player
     /// </summary>
     /// <param name="amount"></param>
-    public void ModifyHealth(int amount)
+    public void ProcessHit(int amount)
     {
         if (!invinsible && gm.health > 0 && !gm.isRespawning)
         {

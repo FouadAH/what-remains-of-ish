@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1189498788609514101}
   - component: {fileID: 1189498788609514098}
   - component: {fileID: 448227892560405047}
+  - component: {fileID: 8826844386911729704}
   m_Layer: 20
   m_Name: CoinDrop
   m_TagString: Untagged
@@ -31,6 +32,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.91, y: -0.42, z: 0}
   m_LocalScale: {x: 2.0828, y: 2.0828, z: 2.0828}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7750812000394889668}
   m_Father: {fileID: 0}
@@ -154,6 +156,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 5d9948e810d6e044fa37d66ba28ab6b5, type: 2}
   duration: 0.1
+--- !u!114 &8826844386911729704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189498788609514062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedGuid: 
 --- !u!1 &6034066845543430128
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +195,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1189498788609514099}
   m_RootOrder: 0

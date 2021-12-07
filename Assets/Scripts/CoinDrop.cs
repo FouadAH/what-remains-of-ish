@@ -3,14 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinDrop : MonoBehaviour, IDamagable
+public class CoinDrop : Savable, IDamagable
 {
-    [SerializeField] private string m_ID = Guid.NewGuid().ToString();
-    public string ID => m_ID;
-
-    [ContextMenu("Generate new ID")]
-    private void RegenerateGUID() => m_ID = Guid.NewGuid().ToString();
-
     public GameObject coinPrefab;
     public Transform coinSpawnOrigin;
     public int coinAmountOnDestroy = 10;
@@ -21,30 +15,36 @@ public class CoinDrop : MonoBehaviour, IDamagable
     public int knockbackGiven { get; set; }
 
     public int health;
-    string key;
 
-    private void Start()
+    [System.Serializable]
+    public struct Data
     {
+        public bool isDestroyed;
+    }
+
+    [SerializeField]
+    private Data coinDropData;
+
+    public override void Start()
+    {
+        base.Start();
         MaxHealth = health;
         Health = MaxHealth;
-        key = "CD_" + ID;
-        gameObject.SetActive((PlayerPrefs.GetInt(key, 0) != 1));
     }
+
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         return;
     }
 
-    public void ModifyHealth(int amount)
+    public void ProcessHit(int amount)
     {
         Health--;
         if (Health == 0)
         {
-            PlayerPrefs.SetInt(key, 1);
-            PlayerPrefs.Save();
-
+            coinDropData.isDestroyed = true;
             DestroyedCoinSpawner();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         else
         {
@@ -66,4 +66,22 @@ public class CoinDrop : MonoBehaviour, IDamagable
             Instantiate(coinPrefab, coinSpawnOrigin.position, Quaternion.identity);
         }
     }
+
+    public override string SaveData()
+    {
+        return JsonUtility.ToJson(coinDropData);
+    }
+
+    public override void LoadDefaultData()
+    {
+        coinDropData.isDestroyed = false;
+        gameObject.SetActive(true);
+    }
+
+    public override void LoadData(string data, string version)
+    {
+        coinDropData = JsonUtility.FromJson<Data>(data);
+        gameObject.SetActive(!coinDropData.isDestroyed);
+    }
+
 }

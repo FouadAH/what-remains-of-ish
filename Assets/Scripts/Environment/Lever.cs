@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Lever : Savable, IDamagable
+public class Lever : Savable, IHittable
 {
     [System.Serializable]
     public struct Data
@@ -16,14 +16,10 @@ public class Lever : Savable, IDamagable
     private Data leverData;
 
     public bool toggleable = false;
-    
-    Animator animator;
-    public float Health { get => 0; set => throw new System.NotImplementedException(); }
-    public int MaxHealth { get => 0; set => throw new System.NotImplementedException(); }
-    public int knockbackGiven { get => 0; set => throw new System.NotImplementedException(); }
-
     public event Action<bool> OnToggle = delegate { };
     public UnityEvent OnToggleLever;
+
+    Animator animator;
 
     public override void Awake()
     {
@@ -31,7 +27,7 @@ public class Lever : Savable, IDamagable
         animator = GetComponent<Animator>();
     }
 
-    public void ModifyHealth(int amount)
+    public void ProcessHit(int amount)
     {
         if (leverData.isOpen && !toggleable)
             return;
@@ -42,8 +38,6 @@ public class Lever : Savable, IDamagable
         OnToggle(leverData.isOpen);
         OnToggleLever.Invoke();
     }
-
-    public void KnockbackOnDamage(int amount, float dirX, float dirY){}
 
     public override string SaveData()
     {
