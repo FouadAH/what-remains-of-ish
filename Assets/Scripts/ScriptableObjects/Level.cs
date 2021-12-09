@@ -6,27 +6,16 @@ using UnityEngine.UI;
 using UnityEditor;
 using System;
 
-[CreateAssetMenu(fileName = "Level", menuName = "Levels/New level", order = 1)]
+[CanEditMultipleObjects]
+[CreateAssetMenu(fileName = "newRoom", menuName = "New Room", order = 1)]
 public class Level : ScriptableObject
 {
-    [SerializeField] private string m_ID = Guid.NewGuid().ToString();
-    public string ID => m_ID;
-
-    [ContextMenu("Generate new ID")]
-    private void RegenerateGUID() => m_ID = Guid.NewGuid().ToString();
-
-    public string levelName;
 
     [HideInInspector] public string scenePath;
 
-#if UNITY_EDITOR
-    [Multiline]
-    public string DeveloperDescription = "";
-#endif
-
     [Header("Level Light Settings")]
-    public float globalLightIntensity;
-    public Color globalLightColor;
+    public float globalLightIntensity = 1;
+    public Color globalLightColor = Color.white;
 
     public bool isRevealed;
 

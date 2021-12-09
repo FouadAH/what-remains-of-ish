@@ -7,11 +7,6 @@ public class LoadTrigger : MonoBehaviour
 {
     public GameObject playerPos;
     public Level level;
-    ScenePicker scenePicker;
-    private void Start()
-    {
-        scenePicker = GetComponent<ScenePicker>();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,7 +18,7 @@ public class LoadTrigger : MonoBehaviour
                 GameManager.instance.currentLevel = level;
             }
 
-            GameManager.instance.LoadScenePath(scenePicker.scenePathToUnload, scenePicker.scenePathToLoad, playerPos.transform.position);
+            GameManager.instance.LoadScenePath(SceneManager.GetActiveScene().path, level.scenePath, playerPos.transform.position);
         }
     }
 

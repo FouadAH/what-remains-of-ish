@@ -9,16 +9,14 @@ public class Area : ScriptableObject
 {
     [Header("Information")]
     public string areaName;
-
-    [Header("Levels")]
     public List<Level> levels;
 
-    [Header("Area Theme")]
-    [FMODUnity.EventRef] public string Event;
+    [Header("Audio Settings")]
+    [FMODUnity.EventRef] public string areaTheme;
 
     [Header("Visuals")]
-    public PostProcessProfile postprocess;
+    public PostProcessProfile postProcessProfile;
 
-    [Header("Map UI")]
-    public Image areaUI;
+    [Header("Map Settings")]
+    public bool isAreaRevealed;
 }
