@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8570342218430118990}
   - component: {fileID: 2384638784412075788}
   - component: {fileID: 5880165457494934616}
+  - component: {fileID: 277387377}
   m_Layer: 0
   m_Name: ChainLink_5
   m_TagString: Untagged
@@ -72,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -131,6 +132,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &277387377
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151404036788431301}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
 --- !u!1 &290312108524112340
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +160,7 @@ GameObject:
   - component: {fileID: 6111563153898986665}
   - component: {fileID: 3649912185889296776}
   - component: {fileID: 5814808710160496876}
+  - component: {fileID: 1611078213}
   m_Layer: 0
   m_Name: ChainLink_8
   m_TagString: Untagged
@@ -203,8 +221,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -262,6 +280,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &1611078213
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290312108524112340}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
 --- !u!1 &336547965758679333
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +308,7 @@ GameObject:
   - component: {fileID: 3524668184854233139}
   - component: {fileID: 4568330998571954147}
   - component: {fileID: 1221852040612088031}
+  - component: {fileID: 2086762954}
   m_Layer: 0
   m_Name: ChainLink_9
   m_TagString: Untagged
@@ -334,8 +369,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -393,6 +428,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &2086762954
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336547965758679333}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
 --- !u!1 &1119423096711542123
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +468,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119423096711542123}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.007878787, w: 0.999969}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -440,9 +491,9 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 0.75
   m_Color: {r: 1, g: 0.470248, b: 0, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000bfa28124cbd5fdd39f041e59
@@ -492,7 +543,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 3.52
-  m_PointLightOuterRadius: 15
+  m_PointLightOuterRadius: 17.15027
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -550,9 +601,9 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 1
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.401
+  m_FalloffIntensity: 0.43
   m_Color: {r: 1, g: 0.48272085, b: 0, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: bfa28124
@@ -672,8 +723,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1119423097476122076}
   - component: {fileID: 1119423097476122067}
-  - component: {fileID: 1119423097476122066}
   - component: {fileID: 1119423097476122065}
+  - component: {fileID: 718365833}
   m_Layer: 20
   m_Name: RuinsTempleLamp
   m_TagString: Untagged
@@ -689,14 +740,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119423097476122064}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.6499996, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.000061035156, y: 1.5299988, z: 0}
+  m_LocalScale: {x: 1.1592, y: 1.1592, z: 1.1592}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1119423096883245810}
   - {fileID: 1119423096711542164}
   - {fileID: 1119423097589489764}
-  m_Father: {fileID: 1119423098234207063}
+  m_Father: {fileID: 1119423097601114476}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1119423097476122067
@@ -751,22 +802,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &1119423097476122066
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1119423097476122064}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.95
 --- !u!50 &1119423097476122065
 Rigidbody2D:
   serializedVersion: 4
@@ -788,6 +823,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!70 &718365833
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119423097476122064}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0110044405, y: 0.17124674}
+  m_Size: {x: 0.8773014, y: 2.771954}
+  m_Direction: 0
 --- !u!1 &1119423097589489787
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,7 +879,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1119423097601114476}
-  m_Layer: 20
+  m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -847,6 +898,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6540074300698157914}
+  - {fileID: 1119423097476122076}
   - {fileID: 1119423098234207063}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -862,7 +915,8 @@ GameObject:
   - component: {fileID: 1119423098234207063}
   - component: {fileID: 1119423098234207057}
   - component: {fileID: 3407143195749507548}
-  m_Layer: 20
+  - component: {fileID: 1445517757}
+  m_Layer: 0
   m_Name: FixedHinge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -880,11 +934,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 8.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6540074300698157914}
-  - {fileID: 1119423097476122076}
+  m_Children: []
   m_Father: {fileID: 1119423097601114476}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1119423098234207057
 Rigidbody2D:
@@ -914,7 +966,7 @@ SpringJoint2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119423098234207062}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 1119423097476122065}
@@ -927,6 +979,25 @@ SpringJoint2D:
   m_Distance: 6.6499977
   m_DampingRatio: 0.8
   m_Frequency: 1
+--- !u!232 &1445517757
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119423098234207062}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 1119423097476122065}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 6.91
+  m_MaxDistanceOnly: 0
 --- !u!1 &1281776199046876836
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +1010,7 @@ GameObject:
   - component: {fileID: 981494226888773813}
   - component: {fileID: 9152293824570732031}
   - component: {fileID: 1908359923032718202}
+  - component: {fileID: 69061524}
   m_Layer: 0
   m_Name: ChainLink_3
   m_TagString: Untagged
@@ -999,8 +1071,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1058,6 +1130,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &69061524
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281776199046876836}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
 --- !u!1 &2120404811675948504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,6 +1158,7 @@ GameObject:
   - component: {fileID: 467222272105331372}
   - component: {fileID: 2446917012375355723}
   - component: {fileID: 8315724643043492857}
+  - component: {fileID: 1079412195}
   m_Layer: 0
   m_Name: ChainLink_11
   m_TagString: Untagged
@@ -1130,8 +1219,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1189,6 +1278,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &1079412195
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120404811675948504}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
 --- !u!1 &2127388403092252544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,7 +1318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127388403092252544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -8.44, z: 0}
+  m_LocalPosition: {x: 0.000061035156, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1228,7 +1333,7 @@ Transform:
   - {fileID: 2509134886127891568}
   - {fileID: 404766269035095099}
   - {fileID: 2614548160636181452}
-  m_Father: {fileID: 1119423098234207063}
+  m_Father: {fileID: 1119423097601114476}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2463676400094871712
@@ -1244,6 +1349,7 @@ GameObject:
   - component: {fileID: 2232912845753780458}
   - component: {fileID: 5853724251657995492}
   - component: {fileID: 1741057550219700164}
+  - component: {fileID: 1871605413}
   m_Layer: 0
   m_Name: ChainLink_12
   m_TagString: Untagged
@@ -1304,8 +1410,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1387,6 +1493,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &1871605413
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463676400094871712}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
 --- !u!1 &3341610146460682992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,6 +1521,7 @@ GameObject:
   - component: {fileID: 4692021828915059943}
   - component: {fileID: 6324919956691979234}
   - component: {fileID: 6305330300272121377}
+  - component: {fileID: 1216697644}
   m_Layer: 0
   m_Name: ChainLink_4
   m_TagString: Untagged
@@ -1459,8 +1582,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1518,6 +1641,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &1216697644
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3341610146460682992}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
 --- !u!1 &5324027495435135754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,6 +1669,7 @@ GameObject:
   - component: {fileID: 7784501539317626583}
   - component: {fileID: 6632061824348800445}
   - component: {fileID: 6158853725290679014}
+  - component: {fileID: 1733323287}
   m_Layer: 0
   m_Name: ChainLink_6
   m_TagString: Untagged
@@ -1590,8 +1730,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1649,6 +1789,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &1733323287
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5324027495435135754}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
 --- !u!1 &6277847149443276828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,6 +1817,7 @@ GameObject:
   - component: {fileID: 2389154973124078834}
   - component: {fileID: 33461822201372867}
   - component: {fileID: 3352106689389028793}
+  - component: {fileID: 1563808680}
   m_Layer: 0
   m_Name: ChainLink_10
   m_TagString: Untagged
@@ -1721,8 +1878,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1780,6 +1937,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &1563808680
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6277847149443276828}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
 --- !u!1 &6748199242410650450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,6 +1965,7 @@ GameObject:
   - component: {fileID: 1903084594569141695}
   - component: {fileID: 4678149340550626186}
   - component: {fileID: 5557656024077563147}
+  - component: {fileID: 1626939881}
   m_Layer: 0
   m_Name: ChainLink_2
   m_TagString: Untagged
@@ -1852,8 +2026,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1901,8 +2075,8 @@ HingeJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: -0.20599937}
-  m_ConnectedAnchor: {x: 0, y: 2.0249996}
+  m_Anchor: {x: 0, y: -0.18912888}
+  m_ConnectedAnchor: {x: 0, y: 1.9857422}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1911,6 +2085,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &1626939881
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748199242410650450}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.07338029}
+  m_Size: {x: 0.2, y: 0.69676054}
+  m_Direction: 0
 --- !u!1 &8748812380716912895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,6 +2113,7 @@ GameObject:
   - component: {fileID: 3992091084159927179}
   - component: {fileID: 1520284186520526298}
   - component: {fileID: 4610941534944197126}
+  - component: {fileID: 344656880}
   m_Layer: 0
   m_Name: ChainLink_7
   m_TagString: Untagged
@@ -1983,8 +2174,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 612475583
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2042,3 +2233,19 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &344656880
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8748812380716912895}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.2, y: 0.43}
+  m_Direction: 0
