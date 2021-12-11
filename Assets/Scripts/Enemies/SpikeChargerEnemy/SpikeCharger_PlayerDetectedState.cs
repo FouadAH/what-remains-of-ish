@@ -26,6 +26,10 @@ public class SpikeCharger_PlayerDetectedState : AttackState
     {
         base.LogicUpdate();
 
+        if (entity.CheckPlayerInMinAgroRange())
+        {
+            entity.Flip();
+        }
         if (isAnimationFinished)
         {
             stateMachine.ChangeState(enemy.ChargeState);
