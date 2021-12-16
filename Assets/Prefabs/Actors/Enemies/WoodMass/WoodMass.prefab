@@ -108,8 +108,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732945987077275951}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -212.9, y: 6.6, z: -1}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7183151898004253597}
@@ -758,9 +758,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892552385483912477}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35714287, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6916843324283429560}
@@ -957,6 +957,7 @@ MonoBehaviour:
   gravity: -18
   accelerationTimeGrounded: 0.05
   shouldSaveState: 1
+  EnemyDeathEvent: {fileID: 11400000, guid: 1c833c93e741013488dbbb02d66204fa, type: 2}
   meleeDamage: 1
   hitKnockbackAmount: 25
   idleStateData: {fileID: 11400000, guid: 37c55b2cb0488634485623edb358292d, type: 2}

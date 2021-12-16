@@ -48,6 +48,8 @@ public class Entity : Savable, IDamagable
     [SerializeField] private GameObject damageNumberPrefab;
 
     public event Action<float, float> OnHitEnemy = delegate { };
+    public event Action OnDeath = delegate { };
+
 
     [Header("Aggro Settings")]
     public float minAggroRange = 5f;
@@ -263,6 +265,7 @@ public class Entity : Savable, IDamagable
         if (Health <= 0)
         {
             isDead = true;
+            OnDeath();
             UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
         }
     }

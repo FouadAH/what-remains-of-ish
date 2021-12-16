@@ -227,14 +227,14 @@ public class Boomerang : MonoBehaviour
     {
         return layermask == (layermask | (1 << layer));
     }
-    
+    public float wallCheckersDistance = 1.5f;
     public bool IsInaccesable()
     {
-        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 1, boomerangLauncher.hittable);
-        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 1, boomerangLauncher.hittable);
+        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, wallCheckersDistance, boomerangLauncher.hittable);
+        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, wallCheckersDistance, boomerangLauncher.hittable);
 
-        RaycastHit2D hitR = Physics2D.Raycast(transform.position, Vector2.right, 1, boomerangLauncher.hittable);
-        RaycastHit2D hitL = Physics2D.Raycast(transform.position, Vector2.left, 1, boomerangLauncher.hittable);
+        RaycastHit2D hitR = Physics2D.Raycast(transform.position, Vector2.right, wallCheckersDistance, boomerangLauncher.hittable);
+        RaycastHit2D hitL = Physics2D.Raycast(transform.position, Vector2.left, wallCheckersDistance, boomerangLauncher.hittable);
 
         return ((hitUp.collider != null) && (hitDown.collider != null)) || ((hitR.collider != null) && (hitL.collider != null));
     }
@@ -242,8 +242,10 @@ public class Boomerang : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.up);
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.up * wallCheckersDistance);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * wallCheckersDistance);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.left * wallCheckersDistance);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * wallCheckersDistance);
 
         foreach (Transform item in wallDetectionObjs)
         {

@@ -22,6 +22,8 @@ public class PlayerTeleport : MonoBehaviour
 
     public ParticleSystem teleportRechargeEffect;
     public TrailRenderer teleportTrail;
+    public GameObject teleportTrailParent;
+
 
     BoomerangLauncher boomerangLauncher;
     PlayerMovement playerMovement;
@@ -166,9 +168,15 @@ public class PlayerTeleport : MonoBehaviour
     
     public IEnumerator TeleportEffect( float timer)
     {
-        teleportTrail.emitting = true;
+        foreach(TrailRenderer trail in teleportTrailParent.GetComponentsInChildren<TrailRenderer>())
+        {
+            trail.emitting = true;
+        }
         yield return new WaitForSeconds(timer);
-        teleportTrail.emitting = false;
+        foreach (TrailRenderer trail in teleportTrailParent.GetComponentsInChildren<TrailRenderer>())
+        {
+            trail.emitting = false;
+        }
     }
 
     public IEnumerator TeleportLock(float teleportCooldownTimer)

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 /// <summary>
 /// Class responsible for handling player input. 
 /// </summary>
@@ -20,6 +21,7 @@ public class Player_Input : MonoBehaviour
 
     public event Action OnFire = delegate{};
     public event Action OnAim = delegate { };
+    public event Action OnQuickThrow = delegate { };
 
     public event Action OnAttack = delegate { };
     public event Action OnJumpUp = delegate { };
@@ -72,6 +74,11 @@ public class Player_Input : MonoBehaviour
         pauseMenu.OnPauseStart += PauseMenu_OnPauseStart;
         pauseMenu.OnPauseEnd += PauseMenu_OnPauseEnd;
         
+    }
+
+    private void QuickThrow_started(InputAction.CallbackContext obj)
+    {
+        OnQuickThrow();
     }
 
     //private void Map_canceled(InputAction.CallbackContext obj)
@@ -164,19 +171,29 @@ public class Player_Input : MonoBehaviour
 
     private void Aim_started(InputAction.CallbackContext obj)
     {
-        if (controllerConnected)
+        if (obj.interaction is HoldInteraction)
         {
-            if (directionalInput == Vector2.zero)
+            if (controllerConnected)
             {
-                freeAimMode = true;
+                if (directionalInput == Vector2.zero)
+                {
+                    freeAimMode = true;
+                }
             }
-        }
-        else if(!aiming)
-        {
-            OnTeleport();
-        }
+            else if (!aiming)
+            {
+                OnTeleport();
+            }
 
-        aiming = true;
+            aiming = true;
+            Debug.Log("Hold");
+        }
+        //else
+        //{
+        //    OnQuickThrow();
+        //    Debug.Log("Tap");
+
+        //}
     }
 
     private void Dash_started(InputAction.CallbackContext obj)

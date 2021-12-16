@@ -93,6 +93,12 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         volume.profile.TryGet(out chromaticAberration);
 
         Cursor.visible = false;
+        playerInput.OnQuickThrow += PlayerInput_OnQuickThrow;
+    }
+
+    private void PlayerInput_OnQuickThrow()
+    {
+        Launch();
     }
 
     private void Update()

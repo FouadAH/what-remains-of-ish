@@ -23,6 +23,8 @@ public class Door : Savable
         base.Awake();
 
         anim = GetComponent<Animator>();
+        SetState(doorData.isOpen);
+
         if (lever != null)
         {
             lever.OnToggle += Lever_OnToggle;
