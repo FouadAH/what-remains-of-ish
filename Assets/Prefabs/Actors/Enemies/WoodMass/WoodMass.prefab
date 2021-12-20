@@ -744,6 +744,7 @@ GameObject:
   - component: {fileID: 8845411574543900602}
   - component: {fileID: 8160183501295793760}
   - component: {fileID: 8479167409878011306}
+  - component: {fileID: 4321518109795663631}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -957,7 +958,6 @@ MonoBehaviour:
   gravity: -18
   accelerationTimeGrounded: 0.05
   shouldSaveState: 1
-  EnemyDeathEvent: {fileID: 11400000, guid: 1c833c93e741013488dbbb02d66204fa, type: 2}
   meleeDamage: 1
   hitKnockbackAmount: 25
   idleStateData: {fileID: 11400000, guid: 37c55b2cb0488634485623edb358292d, type: 2}
@@ -1069,6 +1069,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedGuid: 
+--- !u!114 &4321518109795663631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892552385483912477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3386223540da41908d463d4a87ada77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2652012680479183182
 GameObject:
   m_ObjectHideFlags: 0
