@@ -65,7 +65,7 @@ public class Player : MonoBehaviour, IAttacker{
     TimeStop timeStop;
     ColouredFlash flashEffect;
 
-    [Header("Time Stop")]
+    [Header("Damage Time Stop")]
     public float changeTime = 0.05f;
     public float restoreSpeed = 10f;
     public float delay = 0.1f;

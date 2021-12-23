@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8616551fadf786b468748b4b85698cb9, type: 3}
   m_Name: WoodMass_EntityDataTest
   m_EditorClassIdentifier: 
-  maxHealth: 3000
+  maxHealth: 50000
   flaskReffilAmount: 34
   damageHopSpeed: 40
   wallCheckDistance: 2.5
   ledgeCheckDistance: 1
   groundCheckRadius: 0.3
-  minAgroDistance: -5
+  minAgroDistance: -13
   maxAgroDistance: 13
   stunResistance: 20
   stunRecoveryTime: 1
-  closeRangeActionDistance: 3.8
+  closeRangeActionDistance: 1.5
   hitParticle: {fileID: 0}
   whatIsGround:
     serializedVersion: 2

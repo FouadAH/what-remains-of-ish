@@ -775,6 +775,7 @@ Transform:
   - {fileID: 4779167797938036246}
   - {fileID: 2749991556540315968}
   - {fileID: 696465852}
+  - {fileID: 4470756260248699270}
   m_Father: {fileID: 732945987077275940}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -952,6 +953,7 @@ MonoBehaviour:
   stateDebugText: {fileID: 6878423589756060221}
   damageNumberPrefab: {fileID: 7102332077760321428, guid: e2ebcb2c9f1e539409b790d70e544d90,
     type: 3}
+  BloodEffect: {fileID: 4470756260248699268}
   minAggroRange: 13
   maxAggroRange: 18
   isAffectedByGravity: 1
@@ -1992,3 +1994,119 @@ MonoBehaviour:
   inactiveColor: {r: 1, g: 0, b: 0, a: 0.09803922}
   collisionOpenColor: {r: 1, g: 0, b: 0, a: 0.5529412}
   collidingColor: {r: 1, g: 0, b: 0, a: 0.007843138}
+--- !u!1001 &617412965
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7183151898004253597}
+    m_Modifications:
+    - target: {fileID: 4470756259782899937, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899937, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.84120464
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899937, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: SubModule.subEmitters.Array.data[0].properties
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.16250134
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.087499954
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899940, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_Name
+      value: BloodEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761111, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761111, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.7950443
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3d6462dd30646d44381f6fec89467356, type: 3}
+--- !u!198 &4470756260248699268 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4470756259782899937, guid: 3d6462dd30646d44381f6fec89467356,
+    type: 3}
+  m_PrefabInstance: {fileID: 617412965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4470756260248699270 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
+    type: 3}
+  m_PrefabInstance: {fileID: 617412965}
+  m_PrefabAsset: {fileID: 0}

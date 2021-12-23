@@ -10,17 +10,21 @@ public class Attack : MonoBehaviour, IHitboxResponder
     
     public ParticleSystem attackParticles;
 
-    Vector3 offset;
-    Quaternion quaternion;
-    ParticleSystem attackParticlesRuntime;
-
     public float knockbackBasicAttack = 10f;
     public float knockbackUpAttack = 10f;
     public float knockbackDownAttack = 25f;
 
+    TimeStop timeStop;
+
+    [Header("Hit Time Stop")]
+    public float changeTime = 0.05f;
+    public float restoreSpeed = 10f;
+    public float delay = 0.1f;
+
     void Start()
     {
         player = GetComponent<PlayerMovement>();
+        timeStop = GetComponent<TimeStop>();
     }
 
     public void AttackDefault()
@@ -57,26 +61,13 @@ public class Attack : MonoBehaviour, IHitboxResponder
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         if (hurtbox != null)
         {
-            if(dir.y == 1)
-            {
-                if (attackParticlesRuntime == null)
-                {
-                    offset = new Vector3(0, -4, 0);
-                    quaternion = Quaternion.Euler(0, 0, 180);
-                    attackParticlesRuntime = Instantiate(attackParticles, transform.position + offset, quaternion);
-                    attackParticlesRuntime.Play();
-                }
+            attackParticles.Play();
+            timeStop.StopTime(changeTime, restoreSpeed, delay);
 
+            if (dir.y == 1)
+            {
                 hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (dir.y));
                 return;
-            }
-
-            if (attackParticlesRuntime == null)
-            {
-                offset = new Vector3(dir.x * -4, dir.y * -4, 0);
-                quaternion = Quaternion.Euler(0, 0, 90 * dir.x);
-                attackParticlesRuntime = Instantiate(attackParticles, transform.position + offset, quaternion);
-                attackParticlesRuntime.Play();
             }
 
             Vector2 direction = (hurtbox.transform.position - transform.position).normalized;

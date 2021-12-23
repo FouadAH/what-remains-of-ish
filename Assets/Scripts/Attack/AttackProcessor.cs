@@ -14,13 +14,13 @@ public class AttackProcessor
     /// <param name="knockbackDirY">Y Knockback direction</param>
     public void ProcessMelee(IAttacker attacker, IHittable target, float knockbackDirX, float knockbackDirY)
     {
-        ProcessKnockbackOnHit(attacker, knockbackDirX, knockbackDirY);
-        ProcessAttack(target, attacker.MeleeDamage);
-
         if (target is IDamagable damagable)
         {
             KnockbackOnMeleeDamage(attacker, damagable, -knockbackDirX, -knockbackDirY);
         }
+
+        ProcessKnockbackOnHit(attacker, knockbackDirX, knockbackDirY);
+        ProcessAttack(target, attacker.MeleeDamage);
     }
 
     public void ProcessCollisionDamage(int damageAmount, IDamagable target, float knockbackDirX, float knockbackDirY)

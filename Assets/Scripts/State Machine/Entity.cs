@@ -46,6 +46,7 @@ public class Entity : Savable, IDamagable
 
     [Header("Hit Effects")]
     [SerializeField] private GameObject damageNumberPrefab;
+    public ParticleSystem BloodEffect;
 
     public event Action<float, float> OnHitEnemy = delegate { };
     public event Action OnDeath = delegate { };
@@ -255,6 +256,9 @@ public class Entity : Savable, IDamagable
 
         RaiseOnHitEnemyEvent(Health, MaxHealth);
         impulseListener.GenerateImpulse();
+
+        if(BloodEffect != null)
+            BloodEffect.Play();
 
         if (colouredFlash != null)
             colouredFlash.Flash(Color.white);
