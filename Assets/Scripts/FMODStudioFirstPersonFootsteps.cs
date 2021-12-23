@@ -23,7 +23,7 @@ public class FMODStudioFirstPersonFootsteps : MonoBehaviour
     private Vector3 PrevPos;                                                    // This will old the co-ordinates of the previous postion the player was in during the last frame.
     private float DistanceTravelled;                                            // This will hold a value that how represnt how far the player has travlled since they last took a step.
     //These variables are used when checking the Material type the player is on top of.
-    private RaycastHit hit;                                                     // Will holds information about the GameObject that the raycast hits.
+    private RaycastHit2D hit;                                                     // Will holds information about the GameObject that the raycast hits.
     private int F_MaterialValue;                                                // We'll use this to set the value of our FMOD Material Parameter.
     //These booleans will hold values that tell us if the player is touching the ground currently and if they were touching it during the last frame.
     private bool PlayerTouchingGround;                                          // This will hold a value to represent whether or not the player is touching the ground. True = Grounded, False = Not Grounded.
@@ -79,7 +79,7 @@ public class FMODStudioFirstPersonFootsteps : MonoBehaviour
 
     void MaterialCheck() // This method when performed will find out what material our player is currenly on top of and will update the value of 'F_MaterialValue' accordingly, to represent that value.
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, RayDistance))                                 // A raycast is fired down, from the position that the player is curenntly standing at, traveling as far as we decide to set the 'RayDistance' variable to. Infomration about the object it comes into contact with will then be stored inside the 'hit' variable for us to access.
+        if (hit = Physics2D.Raycast(transform.position, Vector3.down, RayDistance))                                 // A raycast is fired down, from the position that the player is curenntly standing at, traveling as far as we decide to set the 'RayDistance' variable to. Infomration about the object it comes into contact with will then be stored inside the 'hit' variable for us to access.
         {
             if (hit.collider.gameObject.GetComponent<FMODStudioMaterialSetter>())                                    // Using the 'hit' varibale, we check to see if the raycast has hit a collider attached to a gameobject, that also has the 'FMODStudioMaterialSetter' script attached to it as a component...
             {
@@ -105,16 +105,23 @@ public class FMODStudioFirstPersonFootsteps : MonoBehaviour
 
     void GroundedCheck() // This method will update the 'PlayerTouchingGround' variable, to find out if the player is currently touching the ground or not.
     {
-        Physics.Raycast(transform.position, Vector3.down, out hit, RayDistance);    // First, a raycast is fired from the location of the player, downwards towards the ground. It travels for as far as we set the 'RayDistance' variable to in UNity's Inspector and then stores information about whatever it comes into contact with inside the 'hit' variable. 
-        if (hit.collider)                                                           // If that raycast find's a collider component at all...
-            PlayerTouchingGround = true;                                            // ...we set the 'PlayerTouchingGround' variable to true, as this means the player must be standing on something.
-        else                                                                        // Else if however, there is no collider component...
-            PlayerTouchingGround = false;                                           // ...we set the 'PlayerTouchingGround' variable to false, as this means that nothing is colliding with the bottom of the capsule that is our players character, and therfore, the player is in the air.
+        RaycastHit2D[] results;
+
+        results = Physics2D.RaycastAll(transform.position, Vector3.down, RayDistance);
+
+        PlayerTouchingGround = false;
+
+        foreach (RaycastHit2D rayhit in results)
+        {
+            if (rayhit.transform.gameObject.layer == LayerMask.NameToLayer("Obstacles"))   
+                PlayerTouchingGround = true; 
+        }                                       
     }
 
 
     void PlayFootstep() // When this method is performed, our footsteps event in FMOD will be told to play.
     {
+        Debug.Log(PlayerTouchingGround);
         if (PlayerTouchingGround)                                                                                    // First we check to see the player is touching the ground.
         {
             FMOD.Studio.EventInstance Footstep = FMODUnity.RuntimeManager.CreateInstance(FootstepsEventPath);        // If they are, we create an FMOD event instance. We use the event path inside the 'FootstepsEventPath' variable to find the event we want to play.

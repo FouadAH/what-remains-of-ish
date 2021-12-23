@@ -96,6 +96,7 @@ public class AttackProcessor
 
     private void KnockbackOnMeleeDamage(IAttacker attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
+        Debug.Log("KnockbackOnMeleeDamage");
         target.KnockbackOnDamage(attacker.HitKnockbackAmount, knockbackDirX, knockbackDirY);
     }
 
