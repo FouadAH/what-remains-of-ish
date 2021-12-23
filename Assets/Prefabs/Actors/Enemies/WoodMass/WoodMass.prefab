@@ -2016,6 +2016,11 @@ PrefabInstance:
       propertyPath: SubModule.subEmitters.Array.data[0].properties
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899938, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_RootOrder
@@ -2034,7 +2039,7 @@ PrefabInstance:
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.16250134
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
@@ -2085,6 +2090,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BloodEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761111, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4470756260671761111, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
