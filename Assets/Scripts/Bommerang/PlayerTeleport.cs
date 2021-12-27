@@ -63,7 +63,7 @@ public class PlayerTeleport : MonoBehaviour
 
             StartCoroutine(TeleportEffect(teleporEffectDuration));
             StartCoroutine(Teleport(transformToMove, teleportDelay));
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Dash", GetComponent<Transform>().position);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Teleport", GetComponent<Transform>().position);
         }
     }
 
