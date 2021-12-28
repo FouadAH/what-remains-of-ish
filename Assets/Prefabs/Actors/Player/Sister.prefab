@@ -21492,6 +21492,7 @@ MonoBehaviour:
   minDamage: 6
   maxDamage: 6
   damageMod: 1
+  hitKnockbackAmount: 20
   hitEffect: {fileID: 1796932110368875113, guid: 37b6aaa5d1c97984894f153216f31d0e,
     type: 3}
   slowDownTime: 0.6
@@ -31640,7 +31641,7 @@ PrefabInstance:
     - target: {fileID: 4470756260671761111, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: moveWithTransform
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4470756260671761111, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}

@@ -121,7 +121,6 @@ public class FMODStudioFirstPersonFootsteps : MonoBehaviour
 
     void PlayFootstep() // When this method is performed, our footsteps event in FMOD will be told to play.
     {
-        Debug.Log(PlayerTouchingGround);
         if (PlayerTouchingGround)                                                                                    // First we check to see the player is touching the ground.
         {
             FMOD.Studio.EventInstance Footstep = FMODUnity.RuntimeManager.CreateInstance(FootstepsEventPath);        // If they are, we create an FMOD event instance. We use the event path inside the 'FootstepsEventPath' variable to find the event we want to play.

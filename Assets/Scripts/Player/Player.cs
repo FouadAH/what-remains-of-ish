@@ -76,24 +76,44 @@ public class Player : MonoBehaviour, IAttacker{
 
     void Awake()
     {
+        if(GameManager.instance == null)
+        {
+            Debug.LogWarning("GameManager not loaded.");
+            return;
+        }
+
         GameManager.instance.player = gameObject;
         GameManager.instance.playerCurrentPosition = GetComponentInChildren<SpriteRenderer>().transform;
-
         GameManager.instance.playerCamera = Camera.main;
-
         GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
         GameManager.instance.cameraController.virtualCamera.Follow = transform;
+        gm = GameManager.instance;
 
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
-
         AudioManager.instance.PlayAreaTheme();
     }
 
     void Start()
     {
+        //if (GameManager.instance == null)
+        //{
+        //    Debug.LogWarning("GameManager not loaded.");
+        //}
+
+        //if (gm == null)
+        //{
+        //    GameManager.instance.player = gameObject;
+        //    GameManager.instance.playerCurrentPosition = GetComponentInChildren<SpriteRenderer>().transform;
+        //    GameManager.instance.playerCamera = Camera.main;
+        //    GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
+        //    GameManager.instance.cameraController.virtualCamera.Follow = transform;
+        //    gm = GameManager.instance;
+        //    AudioManager.instance.PlayAreaTheme();
+        //}
+
         UI_HUD.instance.enabled = true;
 
-        gm = FindObjectOfType<GameManager>();
+        boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
         anim = GetComponent<Animator>();
         timeStop = GetComponent<TimeStop>();
         playerMovement =  GetComponent<PlayerMovement>();

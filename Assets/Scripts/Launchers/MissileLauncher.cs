@@ -9,12 +9,15 @@ public class MissileLauncher : MonoBehaviour, ILauncher
     [SerializeField] private int minDamage = 1;
     [SerializeField] private int maxDamage = 5;
     [SerializeField] private float damageMod = 1;
+    [SerializeField] private float hitKnockbackAmount = 15;
 
     private AttackProcessor attackProcessor;
 
     public int MinRangeDamage { get => minDamage; set => minDamage = value; }
     public int MaxRangeDamage { get => maxDamage; set => maxDamage = value; }
     public float RangedAttackMod { get => damageMod; set => damageMod = value; }
+    public float HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
+
 
     private void Awake()
     {

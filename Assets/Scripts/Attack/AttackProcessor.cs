@@ -36,13 +36,12 @@ public class AttackProcessor
     /// <param name="target">Game object being attacked</param>
     public void ProcessRanged(ILauncher attacker, IHittable target, float knockbackDirX, float knockbackDirY)
     {
-        int amount = CalculateAttackAmountRanged(attacker);
-        ProcessAttack(target, amount);
-
         if (target is IDamagable damagable)
         {
-            ProcessKnockbackOnDamage(damagable, -knockbackDirX, -knockbackDirY);
+            KnockbackOnRangedDamage(attacker, damagable, -knockbackDirX, -knockbackDirY);
         }
+
+        ProcessAttack(target, CalculateAttackAmountRanged(attacker));
     }
 
     /// <summary>
@@ -96,12 +95,11 @@ public class AttackProcessor
 
     private void KnockbackOnMeleeDamage(IAttacker attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
-        Debug.Log("KnockbackOnMeleeDamage");
         target.KnockbackOnDamage(attacker.HitKnockbackAmount, knockbackDirX, knockbackDirY);
     }
 
     private void KnockbackOnRangedDamage(ILauncher attacker, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
-        //target.KnockbackOnDamage(attacker., knockbackDirX, knockbackDirY);
+        target.KnockbackOnDamage((int)attacker.HitKnockbackAmount, knockbackDirX, knockbackDirY);
     }
 }

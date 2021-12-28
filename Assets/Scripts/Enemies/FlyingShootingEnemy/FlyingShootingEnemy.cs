@@ -42,8 +42,8 @@ public class FlyingShootingEnemy : Entity, FiringAI
         destinationSetter = GetComponent<AIDestinationSetter>();
         aIPath = GetComponent<AIPath>();
 
-        flyState = new FlyingShootingEnemy_FlyState(this, stateMachine, "move", flyStateData, this);
-        playerDetectedState = new FlyingShootingEnemy_PlayerDetectedState(this, stateMachine, "detected", playerDetectedData, this);
+        flyState = new FlyingShootingEnemy_FlyState(this, stateMachine, "fly", flyStateData, this);
+        playerDetectedState = new FlyingShootingEnemy_PlayerDetectedState(this, stateMachine, "fly", playerDetectedData, this);
         shootState = new FlyingShootingEnemy_ShootState(this, stateMachine, "attack", attackDetectionPosition.transform, rangedAttackStateData, this);
         deadState = new FlyingShootingEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
