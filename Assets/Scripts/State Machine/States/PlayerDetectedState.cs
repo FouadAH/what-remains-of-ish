@@ -26,7 +26,7 @@ public class PlayerDetectedState : State
         isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
         isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
         isDetectingLedge = entity.CheckLedge();
-        isDetectingWall = entity.CheckWall();
+        isDetectingWall = entity.CheckWallFront();
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
     }
 

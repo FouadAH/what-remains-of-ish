@@ -35,6 +35,8 @@ public class FlyingShootingEnemy : Entity, FiringAI
     [SerializeField] private D_RangedAttackState rangedAttackStateData;
     [SerializeField] private D_DeadState deadStateData;
 
+    public ProjectileController projectileController;
+
     public override void Start()
     {
         base.Start();
@@ -44,7 +46,7 @@ public class FlyingShootingEnemy : Entity, FiringAI
 
         flyState = new FlyingShootingEnemy_FlyState(this, stateMachine, "fly", flyStateData, this);
         playerDetectedState = new FlyingShootingEnemy_PlayerDetectedState(this, stateMachine, "fly", playerDetectedData, this);
-        shootState = new FlyingShootingEnemy_ShootState(this, stateMachine, "attack", attackDetectionPosition.transform, rangedAttackStateData, this);
+        shootState = new FlyingShootingEnemy_ShootState(this, stateMachine, "attack", attackDetectionPosition.transform, rangedAttackStateData, projectileController, this);
         deadState = new FlyingShootingEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(flyState);

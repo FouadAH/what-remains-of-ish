@@ -5,10 +5,12 @@ using UnityEngine;
 public class ShootState : AttackState
 {
     protected D_RangedAttackState stateData;
+    protected ProjectileController projectileController;
 
-    public ShootState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_RangedAttackState stateData) : base(etity, stateMachine, animBoolName, attackPosition)
+    public ShootState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_RangedAttackState stateData, ProjectileController projectileController) : base(etity, stateMachine, animBoolName, attackPosition)
     {
         this.stateData = stateData;
+        this.projectileController = projectileController;
     }
 
     public override void DoChecks()

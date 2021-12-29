@@ -6,7 +6,7 @@ public class FlyingShootingEnemy_ShootState : ShootState
 {
     private FlyingShootingEnemy enemy;
 
-    public FlyingShootingEnemy_ShootState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_RangedAttackState stateData, FlyingShootingEnemy enemy) : base(etity, stateMachine, animBoolName, attackPosition, stateData)
+    public FlyingShootingEnemy_ShootState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, D_RangedAttackState stateData, ProjectileController projectileController, FlyingShootingEnemy enemy) : base(etity, stateMachine, animBoolName, attackPosition, stateData, projectileController)
     {
         this.enemy = enemy;
     }

@@ -11,10 +11,12 @@ public class PlayerAnimations
     private bool jumping;
 
     PlayerMovement playerMovement;
+    PlayerDash playerDash;
     public PlayerAnimations(Animator animator, Transform player)
     {
         playerInput = player.GetComponent<Player_Input>();
         playerMovement = player.GetComponent<PlayerMovement>();
+        playerDash = player.GetComponent<PlayerDash>();
         this.animator = animator;
         playerInput.OnJumpUp += OnJumpInputUp;
         playerInput.OnJumpDown += OnJumpInputDown;
@@ -59,6 +61,7 @@ public class PlayerAnimations
         animator.SetBool("isFalling", falling);
         animator.SetBool("isJumping", jumping);
         animator.SetBool("isWallSliding", playerMovement.WallSliding);
+        animator.SetBool("isDashing", playerDash.isDashingAnimation);
 
     }
 

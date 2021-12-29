@@ -50,4 +50,10 @@ public class BulletLauncher : MonoBehaviour, ILauncher
     {
         return layermask == (layermask | (1 << layer));
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, transform.up*10);
+    }
 }

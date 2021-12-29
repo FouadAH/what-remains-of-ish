@@ -47,15 +47,14 @@ public class Entity : Savable, IDamagable
     [Header("Hit Effects")]
     [SerializeField] private GameObject damageNumberPrefab;
     public ParticleSystem BloodEffect;
+    public ParticleSystem HitEffect;
 
     public event Action<float, float> OnHitEnemy = delegate { };
     public event Action OnDeath = delegate { };
 
-
     [Header("Aggro Settings")]
     public float minAggroRange = 5f;
     public float maxAggroRange = 8f;
-
 
     [Header("Movement Settings")]
     public bool isAffectedByGravity;
@@ -161,7 +160,7 @@ public class Entity : Savable, IDamagable
         rb.velocity = velocityWorkspace;
     }
 
-    public virtual bool CheckWall()
+    public virtual bool CheckWallFront()
     {
         return Physics2D.Raycast(wallCheck.position, aliveGO.transform.right, entityData.wallCheckDistance, entityData.whatIsGround);
     }
@@ -169,6 +168,11 @@ public class Entity : Savable, IDamagable
     public virtual bool CheckWallBack()
     {
         return Physics2D.Raycast(wallCheck.position, -aliveGO.transform.right, entityData.wallCheckDistance, entityData.whatIsGround);
+    }
+
+    public virtual bool CheckWall()
+    {
+        return CheckWallFront() || CheckWallBack();
     }
 
     public virtual bool CheckLedge()
@@ -212,7 +216,7 @@ public class Entity : Savable, IDamagable
 
     public virtual void DamageHop(float velocity)
     {
-        if (!CheckWall() && !CheckWallBack())
+        if (!CheckWallFront() && !CheckWallBack())
         {
             velocityWorkspace.Set(velocity, rb.velocity.y);
             rb.velocity = velocityWorkspace;
@@ -262,6 +266,14 @@ public class Entity : Savable, IDamagable
         if(BloodEffect != null)
             BloodEffect.Play();
 
+        if (HitEffect != null)
+        {
+            Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
+            Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
+            ParticleSystem hitEffectInstance = Instantiate(HitEffect, transform.position, randomQuaternionRotation);
+            hitEffectInstance.Play();
+        }
+
         if (colouredFlash != null)
             colouredFlash.Flash(Color.white);
 
@@ -302,8 +314,16 @@ public class Entity : Savable, IDamagable
 
         Gizmos.DrawWireSphere(groundCheck.transform.position, entityData.groundCheckRadius);
 
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * -facingDirection * entityData.wallCheckDistance));
+        if (facingDirection != 0)
+        {
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * -facingDirection * entityData.wallCheckDistance));
+        }
+        else
+        {
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * 1 * entityData.wallCheckDistance));
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * -1 * entityData.wallCheckDistance));
+        }
 
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
     }

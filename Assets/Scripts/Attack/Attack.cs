@@ -8,8 +8,6 @@ public class Attack : MonoBehaviour, IHitboxResponder
     Vector3 dir;
     PlayerMovement player;
     
-    public ParticleSystem attackParticles;
-
     public float knockbackBasicAttack = 10f;
     public float knockbackUpAttack = 10f;
     public float knockbackDownAttack = 25f;
@@ -61,7 +59,6 @@ public class Attack : MonoBehaviour, IHitboxResponder
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         if (hurtbox != null)
         {
-            attackParticles.Play();
             timeStop.StopTime(changeTime, restoreSpeed, delay);
 
             if (dir.y == 1)

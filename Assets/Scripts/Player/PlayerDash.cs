@@ -7,17 +7,23 @@ public class PlayerDash : MonoBehaviour
     private bool dashLock;
     private bool canDash;
     public bool isDashing;
-    public float floatTime = 0.1f;
+    public bool isDashingAnimation;
 
+    public float floatTime = 0.1f;
+    public float effectTime = 0.2f;
+    public Material dashMaterial;
     [SerializeField] private ParticleSystem afterImage;
+    public GameObject dashTrailParent;
 
     public ParticleSystem AfterImage { get => afterImage; set => afterImage = value; }
     public ParticleSystem dashRechargeEffect;
 
     PlayerMovement playerMovement;
+    SpriteRenderer spriteRenderer;
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         afterImage.Pause();
     }
 
@@ -38,8 +44,9 @@ public class PlayerDash : MonoBehaviour
                 velocity.y = 0;
             }
 
-            StartCoroutine(DashLogic(playerSettings.DashCooldown));
             StartCoroutine(FloatTime(floatTime));
+            StartCoroutine(DashLogic(playerSettings.DashCooldown));
+            StartCoroutine(DashEffect(effectTime));
 
             if (playerInput.directionalInput.x == 0)
             {
@@ -67,9 +74,25 @@ public class PlayerDash : MonoBehaviour
     public IEnumerator FloatTime(float floatTime)
     {
         isDashing = true;
-        afterImage.Play();
         yield return new WaitForSeconds(floatTime);
-        afterImage.Stop();
         isDashing = false;
+
+    }
+
+    public IEnumerator DashEffect(float effectTime)
+    {
+        isDashingAnimation = true;
+        foreach (TrailRenderer jumpTrail in dashTrailParent.GetComponentsInChildren<TrailRenderer>())
+        {
+            jumpTrail.emitting = true;
+        }
+
+        yield return new WaitForSeconds(effectTime);
+
+        isDashingAnimation = false;
+        foreach (TrailRenderer jumpTrail in dashTrailParent.GetComponentsInChildren<TrailRenderer>())
+        {
+            jumpTrail.emitting = false;
+        }
     }
 }

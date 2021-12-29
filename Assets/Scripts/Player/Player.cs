@@ -338,6 +338,11 @@ public class Player : MonoBehaviour, IAttacker{
         playerMovement.isKnockedback = false;
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("Particle collision");
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

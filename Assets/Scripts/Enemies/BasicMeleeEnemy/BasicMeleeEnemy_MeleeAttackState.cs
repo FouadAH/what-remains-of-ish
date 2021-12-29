@@ -60,13 +60,13 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxRespond
     public override void LatePhysicsUpdate()
     {
         base.LatePhysicsUpdate();
-        if (entity.CheckWall()  && wallDetectionFirstTake)
+        if (entity.CheckWallFront()  && wallDetectionFirstTake)
         {
             wallDetectionFirstTake = false;
             wallDetectedPos = enemy.transform.position;
             enemy.transform.position = wallDetectedPos;
         }
-        else if (entity.CheckWall())
+        else if (entity.CheckWallFront())
         {
             enemy.transform.position = wallDetectedPos;
         }
