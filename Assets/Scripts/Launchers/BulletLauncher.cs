@@ -12,12 +12,15 @@ public class BulletLauncher : MonoBehaviour, ILauncher
     [SerializeField] private int minDamage = 1;
     [SerializeField] private int maxDamage = 5;
     [SerializeField] private float damageMod = 1;
+    [SerializeField] private float hitKnockbackAmount = 15;
+
 
     private AttackProcessor attackProcessor;
     
     public int MinRangeDamage { get => minDamage; set => minDamage = value; }
     public int MaxRangeDamage { get => maxDamage; set => maxDamage = value; }
     public float RangedAttackMod { get => damageMod; set => damageMod = value; }
+    public float HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
 
     private void Awake()
     {
@@ -39,7 +42,7 @@ public class BulletLauncher : MonoBehaviour, ILauncher
         if (IsInLayerMask(collider.gameObject.layer, damagable) && collider.GetComponent<IDamagable>() != null)
         {
             Vector2 direction = (pos - (Vector2)collider.transform.position).normalized;
-            attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>(), (direction.x), (direction.y));
+            attackProcessor.ProcessRanged(this, collider.GetComponent<IDamagable>(), 1 * Mathf.Sign(direction.x), 1 * Mathf.Sign(direction.y));
         }
     }
 

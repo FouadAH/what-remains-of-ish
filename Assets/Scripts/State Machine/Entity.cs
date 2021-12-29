@@ -183,14 +183,16 @@ public class Entity : Savable, IDamagable
 
     public virtual bool CheckPlayerInMinAgroRange()
     {
-        bool hit = Physics2D.Linecast(transform.position, GameManager.instance.player.transform.position, entityData.whatIsGround);
-        return !hit && Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
+        bool obstacleCheck = Physics2D.Raycast(transform.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsGround);
+        bool playerChecker = Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
+        return !obstacleCheck && playerChecker;
     }
 
     public virtual bool CheckPlayerInMaxAgroRange()
     {
-        bool hit = Physics2D.Linecast(transform.position, GameManager.instance.player.transform.position, entityData.whatIsGround);
-        return !hit && Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
+        bool obstacleCheck = Physics2D.Raycast(transform.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsGround);
+        bool playerChecker = Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
+        return !obstacleCheck && playerChecker;
     }
 
     public virtual bool CheckPlayerInCloseRangeAction()

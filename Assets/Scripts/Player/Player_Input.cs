@@ -186,7 +186,6 @@ public class Player_Input : MonoBehaviour
             }
 
             aiming = true;
-            Debug.Log("Hold");
         }
         //else
         //{

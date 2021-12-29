@@ -40,11 +40,14 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     [SerializeField] private int minDamage = 1;
     [SerializeField] private int maxDamage = 5;
     [SerializeField] private float damageMod = 1;
+    [SerializeField] private float hitKnockbackAmount = 15;
 
     private AttackProcessor attackProcessor;
     public int MinRangeDamage { get => minDamage; set => minDamage = value; }
     public int MaxRangeDamage { get => maxDamage; set => maxDamage = value; }
     public float RangedAttackMod { get => damageMod; set => damageMod = value; }
+    public float HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
+
 
     [Header("Effects")]
     public GameObject hitEffect;
@@ -86,10 +89,9 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         gm = GameManager.instance;
         playerInput = GetComponentInParent<Player_Input>();
         timeStop = GetComponentInParent<TimeStop>();
-        cameraOffset = GameManager.instance.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
+        cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
 
         volume = FindObjectOfType<Volume>();
-        
         volume.profile.TryGet(out chromaticAberration);
 
         Cursor.visible = false;
