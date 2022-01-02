@@ -179,6 +179,7 @@ public class Player : MonoBehaviour, IAttacker{
         {
             StartCoroutine(PlayerDeath());
         }
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Death", GetComponent<Transform>().position);
     }
 
     /// <summary>
@@ -269,6 +270,7 @@ public class Player : MonoBehaviour, IAttacker{
 
             flashRoutine = StartCoroutine(flashEffect.FlashMultiple(Color.white, iFrameTime));
             invinsible = true;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Damage", GetComponent<Transform>().position);
         }
     }
 
