@@ -6,6 +6,7 @@ public class RattlerEnemy_SpinState : ChargeState
 {
     private RattlerEnemy enemy;
     int directionX;
+
     public RattlerEnemy_SpinState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_ChargeState stateData, RattlerEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
@@ -35,13 +36,13 @@ public class RattlerEnemy_SpinState : ChargeState
     {
         base.LogicUpdate();
 
+
         if (isChargeTimeOver)
         {
             stateMachine.ChangeState(enemy.idleState);
         }
     }
 
-    bool isCollidingWithWall = false;
     public override void PhysicsUpdate()
     {
         Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;

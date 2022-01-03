@@ -15,7 +15,7 @@ public class DialogTrigger : MonoBehaviour
     
     public void TriggerDialogue()
     {
-        dialogueManager.StartDialogue(dialog);
+        dialogueManager.StartDialogue(dialog, GetType());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,7 +35,7 @@ public class DialogTrigger : MonoBehaviour
             {
                 prompt.ResetTrigger("PopIn");
                 prompt.SetTrigger("PopOut");
-                dialogueManager.StartDialogue(dialog);
+                dialogueManager.StartDialogue(dialog, GetType());
             }
         }
     }

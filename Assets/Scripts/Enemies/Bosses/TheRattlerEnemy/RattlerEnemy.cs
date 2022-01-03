@@ -21,6 +21,8 @@ public class RattlerEnemy : Entity
     public ShockwaveSpawner shockwaveSpawner;
     public ProjectileController projectileController;
 
+    public bool isVisibleOnScreen;
+
     public override void Start()
     {
         base.Start();
@@ -52,6 +54,12 @@ public class RattlerEnemy : Entity
         base.LateUpdate();
     }
 
+    public override void KnockbackOnDamage(int amount, float dirX, float dirY)
+    {
+        if (stateMachine.currentState == spinAttackState)
+            DamageHop(entityData.damageHopSpeed * dirX);
+    }
+
     public override void ProcessHit(int amount)
     {
         base.ProcessHit(amount);
@@ -66,5 +74,15 @@ public class RattlerEnemy : Entity
     {
         base.LoadDefaultData();
         stateMachine.Initialize(idleState);
+    }
+
+    private void OnBecameVisible()
+    {
+        isVisibleOnScreen = true;
+    }
+
+    private void OnBecameInvisible()
+    {
+        isVisibleOnScreen = false;
     }
 }

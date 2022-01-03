@@ -125,6 +125,15 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""5a8bd1b2-111d-49a5-a8fd-446d47765828"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -545,6 +554,28 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""QuickThrow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""410bc7a8-7544-4a45-84bb-b1d0a3b4a14a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dfb8fa66-baa1-4f69-bf83-030d126845c9"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -658,6 +689,15 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DialogueNext"",
+                    ""type"": ""Button"",
+                    ""id"": ""285f3723-d998-4cee-88b5-15beca1e0808"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
@@ -1123,6 +1163,28 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""Map"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ccf9de4d-2aed-4552-8fc9-6e8df3e52bfe"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5ac29f3-e186-41e0-b9e4-cc1b98716214"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1203,6 +1265,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_QuickThrow = m_Player.FindAction("QuickThrow", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1217,6 +1280,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
         m_UI_Map = m_UI.FindAction("Map", throwIfNotFound: true);
+        m_UI_DialogueNext = m_UI.FindAction("DialogueNext", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1287,6 +1351,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_QuickThrow;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @PlayerInputMaster m_Wrapper;
@@ -1302,6 +1367,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @QuickThrow => m_Wrapper.m_Player_QuickThrow;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1344,6 +1410,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @QuickThrow.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuickThrow;
                 @QuickThrow.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuickThrow;
                 @QuickThrow.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuickThrow;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1381,6 +1450,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @QuickThrow.started += instance.OnQuickThrow;
                 @QuickThrow.performed += instance.OnQuickThrow;
                 @QuickThrow.canceled += instance.OnQuickThrow;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -1401,6 +1473,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_Pause;
     private readonly InputAction m_UI_Map;
+    private readonly InputAction m_UI_DialogueNext;
     public struct UIActions
     {
         private @PlayerInputMaster m_Wrapper;
@@ -1417,6 +1490,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @Pause => m_Wrapper.m_UI_Pause;
         public InputAction @Map => m_Wrapper.m_UI_Map;
+        public InputAction @DialogueNext => m_Wrapper.m_UI_DialogueNext;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1462,6 +1536,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @Map.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMap;
                 @Map.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMap;
                 @Map.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMap;
+                @DialogueNext.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDialogueNext;
+                @DialogueNext.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDialogueNext;
+                @DialogueNext.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDialogueNext;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1502,6 +1579,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @Map.started += instance.OnMap;
                 @Map.performed += instance.OnMap;
                 @Map.canceled += instance.OnMap;
+                @DialogueNext.started += instance.OnDialogueNext;
+                @DialogueNext.performed += instance.OnDialogueNext;
+                @DialogueNext.canceled += instance.OnDialogueNext;
             }
         }
     }
@@ -1564,6 +1644,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnQuickThrow(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
@@ -1579,5 +1660,6 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
+        void OnDialogueNext(InputAction.CallbackContext context);
     }
 }

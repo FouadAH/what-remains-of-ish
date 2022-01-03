@@ -9,6 +9,8 @@ public class DialogManager : MonoBehaviour
 {
     public Animator animator;
     public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI speakerText;
+
     public float typingSpeed;
     public bool dialogueIsActive = false;
 
@@ -20,7 +22,9 @@ public class DialogManager : MonoBehaviour
     public event Action OnDialogueStart = delegate { };
     public event Action OnDialogueEnd = delegate { };
 
+    public event EventHandler OnDialogueClipEnd = delegate { };
     public static DialogManager instance;
+    Player_Input player_Input;
 
     void Awake()
     {
@@ -38,21 +42,33 @@ public class DialogManager : MonoBehaviour
 
     void Start()
     {
-        gm = FindObjectOfType<GameManager>();
+        gm = GameManager.instance;
+        player_Input = FindObjectOfType<Player_Input>();
+        player_Input.OnDialogueNext += Player_Input_OnDialogueNext;
         sentences = new Queue<string>();
     }
 
-    public bool inputLock = true;
-    private void Update()
+    private void Player_Input_OnDialogueNext()
     {
         if (!dialogueIsActive || GameManager.instance.isPaused)
             return;
 
-        
-        if(!inputLock && Input.GetButtonDown("Interact"))
+        if (!inputLock)
         {
             DisplayNextSentence();
         }
+    }
+
+    public bool inputLock = true;
+    //private void Update()
+    //{
+    //    if (!dialogueIsActive || GameManager.instance.isPaused)
+    //        return;
+    //}
+
+    public void DisplaySentence(string sentence)
+    {
+        Debug.Log(sentence);
     }
 
     IEnumerator InputLock()
@@ -60,29 +76,31 @@ public class DialogManager : MonoBehaviour
         inputLock = true;
         yield return new WaitForSeconds(0.05f);
         inputLock = false;
-        Debug.Log(inputLock);
+        //Debug.Log(inputLock);
     }
-    public void StartDialogue(Dialog dialogue)
+    Type currentContext;
+    public void StartDialogue(Dialog dialogue, Type context)
     {
-        Debug.Log("StartDialogue");
+        currentContext = context;
+
         inputLock = true;
         StartCoroutine(InputLock());
 
-        dialogueIsActive = true;
-        OnDialogueStart();
-
-        gm.player.GetComponent<Player_Input>().enabled = false;
-        animator.SetBool("isOpen", true);
+        if (!dialogueIsActive)
+        {
+            dialogueIsActive = true;
+            OnDialogueStart();
+            animator.SetBool("isOpen", true);
+        }
 
         sentences.Clear();
-
         foreach (string sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
 
+        speakerText.text = dialogue.speakerName;
         DisplayNextSentence();
-        //inputLock = false;
     }
 
     Coroutine typeSentenceRoutine;
@@ -90,7 +108,15 @@ public class DialogManager : MonoBehaviour
     {
         if (sentences.Count == 0)
         {
-            EndDialogue();
+            Debug.Log(currentContext);
+            if(currentContext.Equals(typeof(DialogueTriggerBehaviour)))
+            {
+                EndDialogueClip();
+            }
+            else
+            {
+                EndDialogue();
+            }
             return;
         }
 
@@ -114,13 +140,21 @@ public class DialogManager : MonoBehaviour
         }
     }
 
+    void EndDialogueClip()
+    {
+        Debug.Log("End dialogue from clip");
+        inputLock = true;
+        dialogueIsActive = false;
+        OnDialogueClipEnd.Invoke(this, null);
+        animator.SetBool("isOpen", false);
+    }
+
     void EndDialogue()
     {
         inputLock = true;
         dialogueIsActive = false;
+        OnDialogueClipEnd.Invoke(this, null);
         OnDialogueEnd();
-
         animator.SetBool("isOpen", false);
-        gm.player.GetComponent<Player_Input>().enabled = true;
     }
 }

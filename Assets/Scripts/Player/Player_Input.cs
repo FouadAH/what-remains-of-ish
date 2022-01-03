@@ -23,6 +23,7 @@ public class Player_Input : MonoBehaviour
     public event Action OnAim = delegate { };
     public event Action OnQuickThrow = delegate { };
 
+    public event Action OnInteract = delegate { };
     public event Action OnAttack = delegate { };
     public event Action OnJumpUp = delegate { };
     public event Action OnJumpDown = delegate { };
@@ -35,6 +36,8 @@ public class Player_Input : MonoBehaviour
     public event Action MapOpen = delegate { };
     public event Action MapClose = delegate { };
 
+    public event Action OnDialogueNext = delegate { };
+
     public bool controllerConnected = false;
 
     float inputDeadZone = 0.19f;
@@ -46,13 +49,19 @@ public class Player_Input : MonoBehaviour
     private void Start()
     {
         inputActions = new PlayerInputMaster();
-        inputActions.Player.Enable();
+
+        if(startDisabled)
+            inputActions.Player.Disable();
+        else
+            inputActions.Player.Enable();
+
         inputActions.UI.Enable();
 
         dialogManager = DialogManager.instance;
         dialogManager.OnDialogueStart += DialogManager_OnDialogueStart;
         dialogManager.OnDialogueEnd += DialogManager_OnDialogueEnd;
 
+        inputActions.Player.Interact.started += Interact_started;
         inputActions.Player.Attack.performed += Attack_performed;
         inputActions.Player.Dash.started += Dash_started;
         inputActions.Player.Aim.started += Aim_started;
@@ -61,6 +70,7 @@ public class Player_Input : MonoBehaviour
         inputActions.Player.Teleport.performed += Teleport_performed;
 
         inputActions.UI.Pause.started += Pause_started;
+        inputActions.UI.DialogueNext.started += DialogueNext_started;
         //inputActions.UI.Map.performed += Map_performed;
         //inputActions.UI.Map.canceled += Map_canceled;
 
@@ -74,6 +84,16 @@ public class Player_Input : MonoBehaviour
         pauseMenu.OnPauseStart += PauseMenu_OnPauseStart;
         pauseMenu.OnPauseEnd += PauseMenu_OnPauseEnd;
         
+    }
+
+    private void Interact_started(InputAction.CallbackContext obj)
+    {
+        OnInteract();
+    }
+
+    private void DialogueNext_started(InputAction.CallbackContext obj)
+    {
+        OnDialogueNext();
     }
 
     private void QuickThrow_started(InputAction.CallbackContext obj)
@@ -90,15 +110,44 @@ public class Player_Input : MonoBehaviour
     //{
     //    MapOpen();
     //}
+    bool startDisabled;
 
-    private void PauseMenu_OnPauseEnd()
+    public void DisablePlayerInput()
+    {
+        if (inputActions == null)
+        {
+            startDisabled = true;
+        }
+        else
+        {
+            inputActions.Player.Disable();
+        }
+    }
+
+    public void EnablePlayerInput()
     {
         inputActions.Player.Enable();
     }
 
-    private void PauseMenu_OnPauseStart()
+    public void OnRestStart()
     {
         inputActions.Player.Disable();
+    }
+    public void OnRestEnd()
+    {
+        inputActions.Player.Enable();
+    }
+
+    private void PauseMenu_OnPauseEnd()
+    {
+        if(!dialogManager.dialogueIsActive)
+            inputActions.Player.Enable();
+    }
+
+    private void PauseMenu_OnPauseStart()
+    {
+        if (!dialogManager.dialogueIsActive)
+            inputActions.Player.Disable();
     }
 
     private void DialogManager_OnDialogueEnd()

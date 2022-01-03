@@ -286,7 +286,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         {
             OnBoomerangHit.Invoke();
             Vector2 direction = (pos - (Vector2)collider.transform.position).normalized;
-            attackProcessor.ProcessRanged(this, collider.GetComponent<IHittable>(), Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
+            attackProcessor.ProcessRanged(this, collider.GetComponent<IHittable>());
         }
     }
 

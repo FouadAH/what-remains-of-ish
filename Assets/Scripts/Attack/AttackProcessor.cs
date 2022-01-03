@@ -44,6 +44,11 @@ public class AttackProcessor
         ProcessAttack(target, CalculateAttackAmountRanged(attacker));
     }
 
+    public void ProcessRanged(ILauncher attacker, IHittable target)
+    {
+        ProcessAttack(target, CalculateAttackAmountRanged(attacker));
+    }
+
     /// <summary>
     /// Helper method that determines ranged damage amount
     /// </summary>

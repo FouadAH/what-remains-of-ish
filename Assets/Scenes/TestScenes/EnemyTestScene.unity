@@ -1742,7 +1742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &379962259
 Transform:
   m_ObjectHideFlags: 0
@@ -1764,9 +1764,8 @@ Transform:
   - {fileID: 43085927}
   - {fileID: 925246842}
   - {fileID: 1575350149}
-  - {fileID: 881998423}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &412893604
 PrefabInstance:
@@ -13278,14 +13277,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 881998422}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 52.2, y: 0.72, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 209.1, y: 16.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1627350595}
-  m_Father: {fileID: 379962259}
-  m_RootOrder: 9
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &897558453
 GameObject:
@@ -13904,7 +13903,7 @@ PrefabInstance:
     - target: {fileID: 5273258882074579817, guid: f9423f4d98da76c46a136f06fc133bdb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5273258882074579817, guid: f9423f4d98da76c46a136f06fc133bdb,
         type: 3}
@@ -15278,7 +15277,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1558073688 stripped
 Transform:
@@ -15432,7 +15431,7 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: 164735fb81bc9f54c89aa8151d94603c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 164735fb81bc9f54c89aa8151d94603c,
         type: 3}
@@ -16049,8 +16048,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627350594}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0000038146973, y: -0.36, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16278,8 +16277,8 @@ MonoBehaviour:
   BloodEffect: {fileID: 4470756260376983808}
   HitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
-  minAggroRange: 0
-  maxAggroRange: 0
+  minAggroRange: 30
+  maxAggroRange: 60
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.5
@@ -16292,6 +16291,7 @@ MonoBehaviour:
   deadStateData: {fileID: 11400000, guid: 4501478326533a34aabc55c393dfa599, type: 2}
   shockwaveSpawner: {fileID: 585665688}
   projectileController: {fileID: 738655732}
+  isVisibleOnScreen: 0
 --- !u!114 &1627350606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17711,7 +17711,7 @@ Transform:
   m_Children:
   - {fileID: 3033497816842843877}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3033497815930552156
 Animator:

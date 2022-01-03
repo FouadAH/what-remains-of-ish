@@ -5,6 +5,10 @@ using UnityEngine;
 public class RattlerEnemy_JumpState : JumpState
 {
     RattlerEnemy enemy;
+    Transform playerPosition;
+    bool hasJumped;
+    bool isCollidingWithWall;
+
     public RattlerEnemy_JumpState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_JumpState stateData, RattlerEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
@@ -18,6 +22,7 @@ public class RattlerEnemy_JumpState : JumpState
     public override void Enter()
     {
         base.Enter();
+        hasJumped = false;
         JumpAttack();
     }
 
@@ -36,7 +41,13 @@ public class RattlerEnemy_JumpState : JumpState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (enemy.CheckGround())
+
+        if (!enemy.CheckGround())
+        {
+            hasJumped = true;
+        }
+
+        if (enemy.CheckGround() && hasJumped)
         {
             stateMachine.ChangeState(enemy.idleState);
         }
@@ -46,8 +57,6 @@ public class RattlerEnemy_JumpState : JumpState
     {
         base.PhysicsUpdate();
     }
-
-    Transform playerPosition;
 
     void JumpAttack()
     {

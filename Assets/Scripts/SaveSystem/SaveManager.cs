@@ -234,6 +234,10 @@ public class SaveManager : MonoBehaviour
         {
             enemyDataCache.data_entries = new Dictionary<string, string>();
         }
+        if (m_RegisteredSaveables == null)
+        {
+            m_RegisteredSaveables = new Dictionary<string, ISaveable>();
+        }
 
         foreach (KeyValuePair<string, ISaveable> saveablePair in m_RegisteredSaveables)
         {
@@ -258,6 +262,10 @@ public class SaveManager : MonoBehaviour
         if (sceneDataCache.data_entries == null)
         {
             sceneDataCache.data_entries = new Dictionary<string, string>();
+        }
+        if (m_RegisteredSaveables == null)
+        {
+            m_RegisteredSaveables = new Dictionary<string, ISaveable>();
         }
         foreach (KeyValuePair<string, ISaveable> saveablePair in m_RegisteredSaveables)
         {
