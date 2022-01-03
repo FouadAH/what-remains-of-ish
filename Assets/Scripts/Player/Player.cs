@@ -179,6 +179,10 @@ public class Player : MonoBehaviour, IAttacker{
         {
             StartCoroutine(PlayerDeath());
         }
+        else if(gm.health <=5)
+        {
+            AudioManager.instance.SetHealthParameter(20f);
+        }
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Death", GetComponent<Transform>().position);
     }
 

@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
 
     FMOD.Studio.EventInstance areaThemeInstance;
     FMOD.Studio.EventDescription eventDescription;
+    FMOD.Studio.PARAMETER_DESCRIPTION param;
+
     System.Guid eventID;
 
     /// <summary>
@@ -47,7 +49,11 @@ public class AudioManager : MonoBehaviour
         areaThemeInstance.start();
 
         areaThemeInstance.getDescription(out eventDescription);
+
         eventDescription.getID(out eventID);
+        eventDescription.getParameterDescriptionByName("Health", out param);
+        Debug.Log(param);
+
     }
 
     public void StopAreaThemeWithFade()
@@ -65,6 +71,11 @@ public class AudioManager : MonoBehaviour
     public void SetIntensity(float value)
     {
         areaThemeInstance.setParameterByName("Inensity", value);
+    }
+
+    public void SetHealthParameter(float value)
+    {
+        areaThemeInstance.setParameterByName("Health", value);
     }
 
 }
