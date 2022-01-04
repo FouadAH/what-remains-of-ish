@@ -7,11 +7,13 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     [FMODUnity.EventRef] public string currentTheme;
 
-    FMOD.Studio.EventInstance areaThemeInstance;
+    public FMOD.Studio.EventInstance areaThemeInstance;
     FMOD.Studio.EventDescription eventDescription;
     FMOD.Studio.PARAMETER_DESCRIPTION param;
 
     System.Guid eventID;
+
+    [Range(0, 100)] public float playerHealth;
 
     /// <summary>
     /// Singelton, makes sure only one instance of this object exsists
@@ -47,12 +49,9 @@ public class AudioManager : MonoBehaviour
 
         areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(newTheme);
         areaThemeInstance.start();
-
         areaThemeInstance.getDescription(out eventDescription);
 
         eventDescription.getID(out eventID);
-        eventDescription.getParameterDescriptionByName("Health", out param);
-        Debug.Log(param);
 
     }
 
@@ -70,7 +69,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetIntensity(float value)
     {
-        areaThemeInstance.setParameterByName("Inensity", value);
+        areaThemeInstance.setParameterByName("Intensity", value);
     }
 
     public void SetHealthParameter(float value)
@@ -78,4 +77,8 @@ public class AudioManager : MonoBehaviour
         areaThemeInstance.setParameterByName("Health", value);
     }
 
+    private void OnValidate()
+    {
+        SetHealthParameter(playerHealth);
+    }
 }

@@ -35,8 +35,9 @@ public class RattlerEnemy_SpitState : ShootState
     {
         base.LogicUpdate();
 
-        projectileController.RaiseOnFireEvent();
-        stateMachine.ChangeState(enemy.idleState);
+        //projectileController.RaiseOnFireEvent();
+        if(isAnimationFinished)
+            stateMachine.ChangeState(enemy.idleState);
     }
 
     public override void PhysicsUpdate()

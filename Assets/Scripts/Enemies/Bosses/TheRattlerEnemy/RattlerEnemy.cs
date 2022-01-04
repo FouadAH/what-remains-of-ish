@@ -76,6 +76,10 @@ public class RattlerEnemy : Entity
         stateMachine.Initialize(idleState);
     }
 
+    public void SpitAttack() {
+        projectileController.RaiseOnFireEvent();
+    }
+
     private void OnBecameVisible()
     {
         isVisibleOnScreen = true;
