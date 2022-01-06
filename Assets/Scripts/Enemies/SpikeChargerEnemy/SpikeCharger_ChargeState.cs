@@ -19,11 +19,13 @@ public class SpikeCharger_ChargeState : ChargeState
     public override void Enter()
     {
         base.Enter();
+        enemy.chargeDustParticles.Play();
     }
 
     public override void Exit()
     {
         base.Exit();
+        enemy.chargeDustParticles.Stop();
     }
 
     public override void LatePhysicsUpdate()
@@ -48,6 +50,8 @@ public class SpikeCharger_ChargeState : ChargeState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        //Debug.Log(enemy.chargeSpeedCurve.Evaluate(Time.time - startTime));
+
     }
 
 }

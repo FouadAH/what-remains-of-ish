@@ -27,6 +27,8 @@ public class SpikeChargerEnemy : Entity, IAttacker
 
     [Header("Enemy Settings")]
     public float knockbackModifier = 1.5f;
+    public AnimationCurve chargeSpeedCurve;
+    public ParticleSystem chargeDustParticles;
 
     public override void Start()
     {

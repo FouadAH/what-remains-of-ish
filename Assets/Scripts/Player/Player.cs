@@ -126,7 +126,13 @@ public class Player : MonoBehaviour, IAttacker{
         {
             playerPath.emitting = true;
         }
-            
+
+#if UNITY_EDITOR
+        gm.lastCheckpointPos = transform.position;
+        gm.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
+        gm.lastCheckpointLevelIndex = SceneManager.GetActiveScene().buildIndex;
+#endif
+
     }
 
     private void Update()

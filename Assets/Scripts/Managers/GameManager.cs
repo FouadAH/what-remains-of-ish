@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private string levelToUnloadPath;
     private string levelToLoadPath;
 
-    [HideInInspector] public Vector2 lastCheckpointPos;
+     public Vector2 lastCheckpointPos;
     [HideInInspector] public int lastCheckpointLevelIndex;
     [HideInInspector] public string lastCheckpointLevelPath;
 

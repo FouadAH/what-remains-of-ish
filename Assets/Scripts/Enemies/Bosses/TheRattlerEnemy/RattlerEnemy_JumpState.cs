@@ -29,6 +29,11 @@ public class RattlerEnemy_JumpState : JumpState
     public override void Exit()
     {
         base.Exit();
+
+        enemy.jumpDirtVFX.Play();
+        enemy.jumpImpactVFX.Play();
+        enemy.shockwaveVFX.Play();
+
         enemy.shockwaveSpawner.SpawnShockwave(1);
         enemy.shockwaveSpawner.SpawnShockwave(-1);
     }
@@ -62,6 +67,6 @@ public class RattlerEnemy_JumpState : JumpState
     {
         playerPosition = GameManager.instance.player.transform;
         float directionToPlayer = playerPosition.position.x - enemy.transform.position.x;
-        enemy.rb.AddForce(new Vector2(directionToPlayer, stateData.jumpHeight), ForceMode2D.Impulse);
+        enemy.rb.AddForce(new Vector2(directionToPlayer* stateData.speedModifier, stateData.jumpHeight), ForceMode2D.Impulse);
     }
 }

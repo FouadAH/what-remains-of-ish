@@ -7,4 +7,5 @@ public class D_JumpState : ScriptableObject
 {
     public float jumpHeight = 20f;
     public float gravityScale = 4f;
+    public float speedModifier = 1f;
 }
