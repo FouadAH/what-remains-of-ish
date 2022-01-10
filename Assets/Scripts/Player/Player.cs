@@ -185,7 +185,7 @@ public class Player : MonoBehaviour, IAttacker{
         {
             StartCoroutine(PlayerDeath());
         }
-        else if(gm.health <=5)
+        else if(gm.health <=2)
         {
             AudioManager.instance.SetHealthParameter(20f);
         }
@@ -247,6 +247,11 @@ public class Player : MonoBehaviour, IAttacker{
             OnHeal(amountHealed);
             flashEffect.Flash(Color.white);
             healingParticles.Play();
+        }
+
+        if (gm.health > 2)
+        {
+            AudioManager.instance.SetHealthParameter(100f);
         }
     }
 

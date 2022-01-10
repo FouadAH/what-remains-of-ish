@@ -219,6 +219,39 @@ MonoBehaviour:
   bounceSpeedBonus: 5
   maxSpeedBonus: 5
   maxAirTime: 1
+  boomerangSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 50
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25130615
+      value: 48.70741
+      inSlope: -14.7724695
+      outSlope: -14.7724695
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.35
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   wallCheckersDistance: 3
 --- !u!58 &8817289101165079723
 CircleCollider2D:

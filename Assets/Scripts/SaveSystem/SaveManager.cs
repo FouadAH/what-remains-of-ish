@@ -342,6 +342,26 @@ public class SaveManager : MonoBehaviour
         StartCoroutine(IncrementTimePlayed());
     }
 
+    public void DeleteSaveFile(SaveSlot saveSlot, SaveFileSO saveFile)
+    {
+        string filePath = saveFile.path;
+
+        if (!File.Exists(filePath))
+        {
+            Debug.Log(filePath + " does not exist exists.");
+        }
+        else
+        {
+            File.Delete(saveFile.path);
+            Debug.Log(filePath + " deleted.");
+
+        }
+
+        saveSlot.saveFile = null;
+        saveSlot.enabled = false;
+        saveSlot.enabled = true;
+    }
+
     public void NewGameData(int saveSlotID)
     {
         Debug.Log("Creating new save at slot with ID:" + saveSlotID);

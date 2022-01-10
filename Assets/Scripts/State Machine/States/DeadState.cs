@@ -24,6 +24,15 @@ public class DeadState : State
         entity.damageBox.gameObject.SetActive(false);
         //GameObject.Instantiate(stateData.deathBloodParticle, entity.aliveGO.transform.position, stateData.deathBloodParticle.transform.rotation);
         //GameObject.Instantiate(stateData.deathChunkParticle, entity.aliveGO.transform.position, stateData.deathChunkParticle.transform.rotation);
+        if (stateData.deathBloodParticle != null)
+        {
+            GameObject.Instantiate(stateData.deathBloodParticle, entity.aliveGO.transform.position, stateData.deathBloodParticle.transform.rotation);
+        }
+        if (stateData.refillParticles != null)
+        {
+            ParticleSystem refillParticlesInstance = GameObject.Instantiate(stateData.refillParticles, entity.transform.position, Quaternion.identity);
+            refillParticlesInstance.Play();
+        }
         entity.StartCoroutine(Die());
     }
 
@@ -38,7 +47,7 @@ public class DeadState : State
 
         if (stateData.refillParticles != null)
         {
-            ParticleSystem refillParticlesInstance = GameObject.Instantiate(stateData.refillParticles);
+            ParticleSystem refillParticlesInstance = GameObject.Instantiate(stateData.refillParticles, entity.transform.position, Quaternion.identity);
             refillParticlesInstance.Play();
         }
 

@@ -41,6 +41,8 @@ public class Boomerang : MonoBehaviour
     SpriteRenderer spriteRenderer;
     PlayerMovement playerMovement;
 
+    public AnimationCurve boomerangSpeed;
+
     private void Awake()
     {
         gm = GameManager.instance;
@@ -52,6 +54,7 @@ public class Boomerang : MonoBehaviour
         rgb2D = GetComponent<Rigidbody2D>();
 
         speedBonus = 0;
+        startTime = Time.time;
         //spriteRenderer = boomerangSprite.GetComponent<SpriteRenderer>();
     }
 
@@ -60,7 +63,7 @@ public class Boomerang : MonoBehaviour
         //spriteRenderer.color = IsAccesable() ? Color.white : Color.red;
         boomerangSprite.transform.Rotate(Vector3.forward * (boomerangLauncher.rotateSpeed * Time.deltaTime));
     }
-
+    float startTime;
     bool isComingBack = false;
     private void FixedUpdate()
     {
@@ -72,6 +75,7 @@ public class Boomerang : MonoBehaviour
         while (!back)
         {
             SetVelocity();
+            //SetVelocityCurve(startTime);
             if (timer == null)
                 timer = StartCoroutine(BoomerangCountdown());
 
@@ -95,11 +99,25 @@ public class Boomerang : MonoBehaviour
     }
 
     bool firstTake = true;
+
+    void SetVelocityCurve(float time)
+    {
+        Debug.Log(Time.time - time);
+        if (!isReflecting)
+        {
+            float targetSpeedX = boomerangSpeed.Evaluate(Time.time -time) + speedBonus + Mathf.Abs(playerMovement.Velocity.x * 0.5f);
+            float targetSpeedY = boomerangSpeed.Evaluate(Time.time -time);
+
+            targetVelocity = transform.up * new Vector2(targetSpeedX, targetSpeedY);
+        }
+
+        rb.velocity = targetVelocity;
+    }
     void SetVelocity()
     {
         if (!isReflecting)
         {
-            float targetSpeedX = boomerangLauncher.MoveSpeed + speedBonus + Mathf.Abs(playerMovement.Velocity.x);
+            float targetSpeedX = boomerangLauncher.MoveSpeed + speedBonus + Mathf.Abs(playerMovement.Velocity.x*0.5f);
             float targetSpeedY = boomerangLauncher.MoveSpeed;
 
             targetVelocity = transform.up * new Vector2(targetSpeedX, targetSpeedY);

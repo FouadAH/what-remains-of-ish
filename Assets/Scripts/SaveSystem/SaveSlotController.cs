@@ -10,6 +10,10 @@ public class SaveSlotController : MonoBehaviour
 {
     public List<SaveSlot> saveSlots;
     List<SaveFileSO> saveFiles;
+    public Canvas deletePrompt;
+
+    SaveSlot currentSaveSlot;
+    SaveFileSO currentSaveFile;
 
     private void Start()
     {
@@ -34,7 +38,30 @@ public class SaveSlotController : MonoBehaviour
             else
             {
                 saveSlot.GetComponent<Button>().onClick.AddListener(() => SaveManager.instance.LoadSavedGame(saveSlot.saveFile));
+                saveSlot.deleteButton.GetComponent<Button>().onClick.AddListener(() => DeletePrompt(saveSlot, saveSlot.saveFile));
             }
         }
     }
+
+    public void DeletePrompt(SaveSlot saveSlot, SaveFileSO saveFile)
+    {
+        currentSaveSlot = saveSlot;
+        currentSaveFile = saveFile;
+        deletePrompt.enabled = true;
+    }
+
+    public void OnClickYes()
+    {
+        currentSaveSlot.GetComponent<Button>().onClick.RemoveAllListeners();
+        currentSaveSlot.GetComponent<Button>().onClick.AddListener(() => SaveManager.instance.NewGameData(currentSaveSlot.transform.GetSiblingIndex()));
+
+        SaveManager.instance.DeleteSaveFile(currentSaveSlot, currentSaveFile);
+        deletePrompt.enabled = false;
+    }
+
+    public void OnClickNo()
+    {
+        deletePrompt.enabled = false;
+    }
+
 }
