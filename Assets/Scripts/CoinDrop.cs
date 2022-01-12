@@ -31,6 +31,10 @@ public class CoinDrop : Savable, IDamagable
         MaxHealth = health;
         Health = MaxHealth;
     }
+    private void Update()
+    {
+        OnDamage();
+    }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
@@ -39,18 +43,47 @@ public class CoinDrop : Savable, IDamagable
 
     public void ProcessHit(int amount)
     {
-        Health--;
-        if (Health == 0)
+        if (!invinsible)
         {
-            coinDropData.isDestroyed = true;
-            DestroyedCoinSpawner();
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            HitCoinSpawner();
+            iFrames = iFrameTime;
+            invinsible = true;
+            Debug.Log("process hit");
+            Health--;
+            if (Health == 0)
+            {
+                coinDropData.isDestroyed = true;
+                DestroyedCoinSpawner();
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                HitCoinSpawner();
+            }
         }
     }
+
+
+    float iFrames = 0f;
+    public float iFrameTime = 3f;
+    bool invinsible = false;
+
+    public void OnDamage()
+    {
+        if (invinsible)
+        {
+            if (iFrames > 0)
+            {
+                iFrames -= Time.deltaTime;
+
+            }
+            else
+            {
+                invinsible = false;
+            }
+        }
+    }
+
+
     public void DestroyedCoinSpawner()
     {
         for (int i = 0; i < coinAmountOnDestroy; i++)

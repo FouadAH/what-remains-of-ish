@@ -12,6 +12,7 @@ public class Door : Savable
 
     [SerializeField]
     private Data doorData;
+    public bool isOpenDefault;
 
     public Lever lever;
     public UnityEvent OnDoorOpen;
@@ -56,7 +57,7 @@ public class Door : Savable
 
     public override void LoadDefaultData()
     {
-        doorData.isOpen = false;
+        doorData.isOpen = isOpenDefault;
         SetStateInitial(doorData.isOpen);   
     }
 
