@@ -13,12 +13,36 @@ public class HedgehogCorruptedEnemy_MoveState : MoveState
 
     public override void Enter()
     {
-        base.Enter();
+        if (enemy.isVertical)
+        {
+            entity.SetVelocityY(-enemy.facingDirection * stateData.movementSpeed);
+        }
+        else
+        {
+            base.PhysicsUpdate();
+        }
     }
 
     public override void Exit()
     {
         base.Exit();
+    }
+
+    public override void DoChecks()
+    {
+        if (enemy.isVertical)
+        {
+            isDetectingLedge = entity.CheckWallFront();
+            isDetectingWall = entity.CheckLedge();
+
+        }
+        else
+        {
+            isDetectingLedge = entity.CheckLedge();
+            isDetectingWall = entity.CheckWallFront();
+        }
+
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 
     public override void LogicUpdate()
@@ -29,15 +53,35 @@ public class HedgehogCorruptedEnemy_MoveState : MoveState
         {
             stateMachine.ChangeState(enemy.playerDetectedState);
         }
-        else if (isDetectingWall || !isDetectingLedge)
+
+        if (enemy.isVertical)
         {
-            enemy.idleState.SetFlipAfterIdle(true);
-            stateMachine.ChangeState(enemy.idleState);
+            if (isDetectingWall)
+            {
+                enemy.idleState.SetFlipAfterIdle(true);
+                stateMachine.ChangeState(enemy.idleState);
+            }
+
+        }
+        else
+        {
+            if (isDetectingWall || !isDetectingLedge)
+            {
+                enemy.idleState.SetFlipAfterIdle(true);
+                stateMachine.ChangeState(enemy.idleState);
+            }
         }
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
+        if (enemy.isVertical)
+        {
+            entity.SetVelocityY(-enemy.facingDirection * stateData.movementSpeed);
+        }
+        else
+        {
+            base.PhysicsUpdate();
+        }
     }
 }

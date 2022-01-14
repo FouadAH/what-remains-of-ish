@@ -14,6 +14,7 @@ public class PlayerDash : MonoBehaviour
     public Material dashMaterial;
     [SerializeField] private ParticleSystem afterImage;
     public GameObject dashTrailParent;
+    public ParticleSystem dashPaticles;
 
     public ParticleSystem AfterImage { get => afterImage; set => afterImage = value; }
     public ParticleSystem dashRechargeEffect;
@@ -82,6 +83,7 @@ public class PlayerDash : MonoBehaviour
 
     public IEnumerator DashEffect(float effectTime)
     {
+        dashPaticles.Play();
         isDashingAnimation = true;
         foreach (TrailRenderer jumpTrail in dashTrailParent.GetComponentsInChildren<TrailRenderer>())
         {

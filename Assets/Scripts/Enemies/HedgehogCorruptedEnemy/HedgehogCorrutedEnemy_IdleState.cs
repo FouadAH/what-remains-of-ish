@@ -38,6 +38,11 @@ public class HedgehogCorrutedEnemy_IdleState : IdleState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        if (enemy.isVertical)
+        {
+            entity.SetVelocityY(0);
+        }
+
         entity.SetVelocity(0);
     }
 }

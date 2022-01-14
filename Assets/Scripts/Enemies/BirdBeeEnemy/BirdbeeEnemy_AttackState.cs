@@ -25,6 +25,7 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
         base.Enter();
         enemy.aIPath.canMove = false;
         enemy.aIPath.canSearch = false;
+        wallDetectionFirstTake = true;
     }
 
     public override void Exit()
@@ -33,6 +34,7 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
         enemy.aIPath.canMove = true;
         enemy.aIPath.canSearch = true;
     }
+
 
     public override void FinishAttack()
     {
@@ -52,6 +54,24 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    bool wallDetectionFirstTake = true;
+    Vector3 wallDetectedPos;
+
+    public override void LatePhysicsUpdate()
+    {
+        base.LatePhysicsUpdate();
+        if (entity.CheckGround() && wallDetectionFirstTake)
+        {
+            wallDetectionFirstTake = false;
+            wallDetectedPos = enemy.transform.position;
+            enemy.transform.position = wallDetectedPos;
+        }
+        else if (entity.CheckGround())
+        {
+            enemy.transform.position = wallDetectedPos;
+        }
     }
 
     public override void TriggerAttack()

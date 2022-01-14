@@ -73,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Effects")]
     public ParticleSystem dustParticles;
+    public ParticleSystem jumpLandParticles;
+    public ParticleSystem jumpDustTrail;
     public GameObject jumpTrailParent;
 
     TMPro.TMP_Text velocityXDebug;
@@ -123,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
         velocityXDebug = UI_HUD.instance.velocityXDebug;
         velocityYDebug = UI_HUD.instance.velocityYDebug;
     }
+    bool wasThouchingGround = false;
 
     private void FixedUpdate()
     {
@@ -149,6 +152,13 @@ public class PlayerMovement : MonoBehaviour
         {
             landed = false;
         }
+
+        if (landed && !wasThouchingGround)
+        {
+            jumpLandParticles.Play();
+        }
+
+        wasThouchingGround = controller.collitions.below;
 
         Movement();
     }
@@ -414,6 +424,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            jumpDustTrail.Play();
             foreach (TrailRenderer jumpTrail in jumpTrailParent.GetComponentsInChildren<TrailRenderer>())
             {
                 jumpTrail.emitting = true;
@@ -432,6 +443,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (jumpBufferCounter < MAX_JUMP_BUFFER_TIME)
         {
+            if (canJump)
+            {
+                jumpLandParticles.Play();
+            }
+
             jumpBufferCounter += 1;
             if (WallSliding && GameManager.instance.hasWallJump)
             {
@@ -449,6 +465,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (canJump)
             {
+                
                 cayoteTimer = MAX_JUMP_ASSIST_TIME;
 
                 if (controller.collitions.slidingDownMaxSlope)

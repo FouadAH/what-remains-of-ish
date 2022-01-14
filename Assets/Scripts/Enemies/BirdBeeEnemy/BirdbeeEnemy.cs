@@ -44,6 +44,11 @@ public class BirdbeeEnemy : Entity
         stateMachine.Initialize(flyState);
     }
 
+    public override void LateUpdate()
+    {
+        base.LateUpdate();
+    }
+
     public override void DamageHop(float velocity){}
 
     public override void KnockbackOnDamage(int amount, float dirX, float dirY)

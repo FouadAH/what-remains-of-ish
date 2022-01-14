@@ -25,6 +25,8 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
     [SerializeField] private D_PlayerDetected playerDetectedData;
     [SerializeField] private D_DeadState deadStateData;
 
+    public bool isVertical = false;
+
     public override void Start()
     {
         base.Start();

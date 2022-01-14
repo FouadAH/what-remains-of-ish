@@ -44,7 +44,6 @@ public class HedgehogEnemy : Entity
             return;
 
         base.ProcessHit(amount);
-
         if (isDead)
         {
             stateMachine.ChangeState(deadState);

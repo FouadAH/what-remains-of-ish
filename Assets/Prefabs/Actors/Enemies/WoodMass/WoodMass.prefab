@@ -954,6 +954,8 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 7102332077760321428, guid: e2ebcb2c9f1e539409b790d70e544d90,
     type: 3}
   BloodEffect: {fileID: 4470756260248699268}
+  HitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
+    type: 3}
   minAggroRange: 13
   maxAggroRange: 18
   isAffectedByGravity: 1
@@ -2039,12 +2041,12 @@ PrefabInstance:
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.05
+      value: -0.2339983
       objectReference: {fileID: 0}
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.087499954
+      value: -0.08749988
       objectReference: {fileID: 0}
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
@@ -2054,7 +2056,7 @@ PrefabInstance:
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.97719187
       objectReference: {fileID: 0}
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
@@ -2069,7 +2071,7 @@ PrefabInstance:
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.21235836
       objectReference: {fileID: 0}
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
@@ -2084,12 +2086,47 @@ PrefabInstance:
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -24.521
       objectReference: {fileID: 0}
     - target: {fileID: 4470756259782899940, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_Name
       value: BloodEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761097, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761097, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761097, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761097, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761097, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761097, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756260671761097, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4470756260671761111, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
