@@ -128,9 +128,16 @@ public class Player : MonoBehaviour, IAttacker{
         }
 
 #if UNITY_EDITOR
-        gm.lastCheckpointPos = transform.position;
-        gm.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
-        gm.lastCheckpointLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        if (SceneManager.GetActiveScene().path != "Assets/Scenes/BaseScenes/TestManagers.unity")
+        {
+            gm.lastCheckpointPos = transform.position;
+            gm.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
+            gm.lastCheckpointLevelIndex = SceneManager.GetActiveScene().buildIndex;
+
+            gm.lastSavepointPos = transform.position;
+            gm.lastSavepointLevelPath = SceneManager.GetActiveScene().path;
+            gm.lastSavepointLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        }
 #endif
 
     }

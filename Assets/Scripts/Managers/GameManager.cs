@@ -26,12 +26,12 @@ public class GameManager : MonoBehaviour
     private string levelToLoadPath;
 
      public Vector2 lastCheckpointPos;
-    [HideInInspector] public int lastCheckpointLevelIndex;
-    [HideInInspector] public string lastCheckpointLevelPath;
+    public int lastCheckpointLevelIndex;
+    public string lastCheckpointLevelPath;
 
-    [HideInInspector] public Vector2 lastSavepointPos;
-    [HideInInspector] public int lastSavepointLevelIndex;
-    [HideInInspector] public string lastSavepointLevelPath;
+   public Vector2 lastSavepointPos;
+     public int lastSavepointLevelIndex;
+     public string lastSavepointLevelPath;
 
     [Header("Player Settings")]
     public float health = 5;
@@ -181,6 +181,11 @@ public class GameManager : MonoBehaviour
 
         anim.Play("Fade_Out");
         yield return new WaitForSecondsRealtime(1f);
+        if (astarPath != null)
+        {
+            astarPath.gameObject.SetActive(false);
+            astarPath.enabled = false;
+        }
         SceneManager.LoadSceneAsync(levelToLoadPath, LoadSceneMode.Additive).completed += LoadScene_completed;
     }
 

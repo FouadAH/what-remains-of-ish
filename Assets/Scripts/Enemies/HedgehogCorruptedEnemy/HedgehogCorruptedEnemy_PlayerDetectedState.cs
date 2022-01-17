@@ -42,11 +42,12 @@ public class HedgehogCorruptedEnemy_PlayerDetectedState : PlayerDetectedState
             enemy.nextFireTime = Time.time + enemy.fireRate;
             enemy.RaiseOnFireEvent();
         }
-        if (entity.CheckPlayerInMinAgroRange())
+
+        if (entity.CheckPlayerInMinAgroRange() || entity.CheckPlayerInMaxAgroRange())
         {
             lastDetectedTime = Time.time;
         }
-        else if (!entity.CheckPlayerInMinAgroRange() && lastDetectedTime + waitTime <= Time.time)
+        else if ((!entity.CheckPlayerInMinAggroRadius() || !entity.CheckPlayerInMaxAgroRange()) && lastDetectedTime + waitTime <= Time.time)
         {
             stateMachine.ChangeState(enemy.moveState);
         }

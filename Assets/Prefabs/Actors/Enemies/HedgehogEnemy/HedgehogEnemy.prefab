@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9165612743457394728}
   - component: {fileID: 2514253259873845930}
-  - component: {fileID: 2351633683472075384}
   - component: {fileID: 636122185805665881}
   - component: {fileID: 1814319934256925559}
   - component: {fileID: 6370593800507702240}
@@ -19,6 +18,7 @@ GameObject:
   - component: {fileID: 8242452709017688214}
   - component: {fileID: 6237150870535999631}
   - component: {fileID: 5613945596916023460}
+  - component: {fileID: 6781673714596319526}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -34,7 +34,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 495062752850808488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.46, z: 0}
+  m_LocalPosition: {x: 0, y: 0.495, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2300bc7e452b604ebe5da95b083caf2, type: 3}
+  m_Sprite: {fileID: 1883099069, guid: 0f228d70037a32a4db0182d254f85d26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -102,22 +102,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2351633683472075384
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495062752850808488}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.11081815, y: -0.18945494}
-  serializedVersion: 2
-  m_Radius: 0.489387
 --- !u!50 &636122185805665881
 Rigidbody2D:
   serializedVersion: 4
@@ -208,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderObj: {fileID: 2351633683472075384}
+  colliderObj: {fileID: 6781673714596319526}
   ColorOpen: {r: 0.40571535, g: 1, b: 0, a: 0.4627451}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.5019608}
   stunTime: 0.5
@@ -304,6 +288,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedGuid: 
+--- !u!70 &6781673714596319526
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495062752850808488}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.011633944, y: -0.21578339}
+  m_Size: {x: 1.4134611, y: 0.6056119}
+  m_Direction: 1
 --- !u!1 &750142163913562119
 GameObject:
   m_ObjectHideFlags: 0
@@ -10731,7 +10731,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6209312910225746295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09, y: -0.068, z: 0}
+  m_LocalPosition: {x: -0.036, y: -0.068, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11152,7 +11152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8952374198424838915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11, y: -0.366, z: 0}
+  m_LocalPosition: {x: -0.009, y: -0.406, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11185,7 +11185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8983195993543331824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11, y: -0.191, z: 0}
+  m_LocalPosition: {x: -0.133, y: -0.229, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11217,6 +11217,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.043185424, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.3815735

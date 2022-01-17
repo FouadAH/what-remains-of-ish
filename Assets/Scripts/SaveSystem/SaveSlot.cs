@@ -11,6 +11,7 @@ public class SaveSlot : MonoBehaviour
     public TMP_Text timeElapsed;
     public TMP_Text progressPercentage;
     public GameObject deleteButton;
+    public bool isPreSaved;
 
     private void OnEnable()
     {

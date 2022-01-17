@@ -31,7 +31,14 @@ public class SaveSlotController : MonoBehaviour
             saveSlot.enabled = true;
             saveSlot.gameObject.SetActive(true);
 
-            if (saveSlot.saveFile == null)
+            if (saveSlot.isPreSaved)
+            {
+                saveSlot.GetComponent<Button>().onClick.AddListener(() => SaveManager.instance.LoadSavedGameFromSO(saveSlot.saveFile));
+                saveSlot.GetComponent<Image>().color = Color.red;
+                saveSlot.areaName.text = saveSlot.saveFile.fileName;
+                saveSlot.deleteButton.SetActive(false);
+            }
+            else if (saveSlot.saveFile == null)
             {
                 saveSlot.GetComponent<Button>().onClick.AddListener(() => SaveManager.instance.NewGameData(saveSlot.transform.GetSiblingIndex()));
             }

@@ -287,6 +287,35 @@ public class SaveManager : MonoBehaviour
         WriteDataToDisk();
     }
 
+    public string editorSaveFilePath = "Assets/ScriptableObjects/SaveFiles/";
+    public void SaveGameEditor()
+    {
+#if UNITY_EDITOR
+        SaveFileSO saveFileSO = ScriptableObject.CreateInstance<SaveFileSO>();
+
+        string[] guids = UnityEditor.AssetDatabase.FindAssets("t:SaveFileSO", null);
+        string saveFileName = "SaveFile_" + guids.Length;
+        string path = testSavePath + "/" + saveFileName;
+
+        PlayerData playerData = GetPlayerData();
+        SavablesToCache();
+
+        saveFileSO.fileName = saveFileName;
+        saveFileSO.path = path;
+        saveFileSO.creationTime = Directory.GetCreationTime(path).ToShortDateString();
+        saveFileSO.gameData = testSaveFile.gameData;
+
+        string fileEditorPath = editorSaveFilePath + saveFileName + ".asset";
+
+        UnityEditor.AssetDatabase.CreateAsset(saveFileSO, fileEditorPath);
+        UnityEditor.AssetDatabase.SaveAssets();
+        UnityEditor.AssetDatabase.Refresh();
+
+        
+#endif
+    }
+
+
     private void SavablesToCache()
     {
         if (sceneDataCache.data_entries == null)
@@ -337,6 +366,44 @@ public class SaveManager : MonoBehaviour
 
         SetPlayerData(saveFile);
         DataFileToCache();
+
+        loadSaveFileEvent.Raise();
+        StartCoroutine(IncrementTimePlayed());
+    }
+
+    public void LoadSavedGameFromSO(SaveFileSO saveFile)
+    {
+        saveFiles = null;
+
+        Debug.Log("Loading data from SO: " + saveFile.fileName);
+       
+        string path = testSavePath + "/" + saveFile.fileName + ".json";
+        saveFile.path = path;
+        if (!File.Exists(path))
+        {
+            StreamWriter sw = File.CreateText(path);
+            sw.Close();
+        }
+
+        currentSaveFile = saveFile;
+        currentSaveFile.gameData = saveFile.gameData;
+        sceneDataCache = currentSaveFile.gameData.scene_data;
+        enemyDataCache = currentSaveFile.gameData.enemy_data;
+        SetPlayerData(saveFile);
+
+        if (sceneDataCache.data_entries == null)
+        {
+            sceneDataCache.data_entries = new Dictionary<string, string>();
+        }
+        if (enemyDataCache.data_entries == null)
+        {
+            sceneDataCache.data_entries = new Dictionary<string, string>();
+        }
+
+        if (m_RegisteredSaveables == null)
+        {
+            m_RegisteredSaveables = new Dictionary<string, ISaveable>();
+        }
 
         loadSaveFileEvent.Raise();
         StartCoroutine(IncrementTimePlayed());

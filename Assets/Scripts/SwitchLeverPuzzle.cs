@@ -21,12 +21,12 @@ public class SwitchLeverPuzzle : MonoBehaviour
             foreach (SwitchLever switchLever in switchLevers)
             {
                 switchLever.SetActive(true);
-                door.SetState(true);
+                door.SetStateInitial(true);
             }
             return;
         }
 
-        door.SetState(false);
+        door.SetStateInitial(false);
         foreach (SwitchLever switchLever in switchLevers)
         {
             switchLever.OnTriggerLever += OnLeverTriggered;

@@ -1,12 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.UI;
-using UnityEditor;
-using System;
 
-[CanEditMultipleObjects]
 [CreateAssetMenu(fileName = "newRoom", menuName = "New Room", order = 1)]
 public class Level : ScriptableObject
 {

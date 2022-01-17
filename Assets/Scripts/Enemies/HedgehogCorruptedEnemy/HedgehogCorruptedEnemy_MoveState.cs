@@ -49,7 +49,7 @@ public class HedgehogCorruptedEnemy_MoveState : MoveState
     {
         base.LogicUpdate();
 
-        if (entity.CheckPlayerInMaxAgroRange())
+        if (entity.CheckPlayerInMaxAgroRange() || entity.CheckPlayerInMinAgroRange())
         {
             stateMachine.ChangeState(enemy.playerDetectedState);
         }

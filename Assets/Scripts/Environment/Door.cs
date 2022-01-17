@@ -24,7 +24,6 @@ public class Door : Savable
         base.Awake();
 
         anim = GetComponent<Animator>();
-        SetState(doorData.isOpen);
 
         if (lever != null)
         {
@@ -37,7 +36,7 @@ public class Door : Savable
         SetState(isOpen);
     }
 
-    void SetStateInitial(bool open)
+    public void SetStateInitial(bool open)
     {
         this.doorData.isOpen = open;
         anim.SetBool("isOpen", open);

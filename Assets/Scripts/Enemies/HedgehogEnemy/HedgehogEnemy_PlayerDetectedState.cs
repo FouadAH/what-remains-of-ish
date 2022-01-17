@@ -34,11 +34,11 @@ public class HedgehogEnemy_PlayerDetectedState : PlayerDetectedState
             enemy.Flip();
         }
 
-        if (entity.CheckPlayerInMinAgroRange())
+        if (entity.CheckPlayerInMinAgroRange() || entity.CheckPlayerInMaxAgroRange())
         {
             lastDetectedTime = Time.time;
         }
-        else if (!entity.CheckPlayerInMinAggroRadius() && lastDetectedTime + waitTime <= Time.time)
+        else if ((!entity.CheckPlayerInMinAggroRadius() || !entity.CheckPlayerInMaxAgroRange()) && lastDetectedTime + waitTime <= Time.time)
         {
             stateMachine.ChangeState(enemy.moveState);
         }
