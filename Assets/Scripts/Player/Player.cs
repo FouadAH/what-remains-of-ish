@@ -128,16 +128,16 @@ public class Player : MonoBehaviour, IAttacker{
         }
 
 #if UNITY_EDITOR
-        if (SceneManager.GetActiveScene().path != "Assets/Scenes/BaseScenes/TestManagers.unity")
-        {
-            gm.lastCheckpointPos = transform.position;
-            gm.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
-            gm.lastCheckpointLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        //if (playerDebugMode)
+        //{
+        //    gm.lastCheckpointPos = transform.position;
+        //    gm.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
+        //    gm.lastCheckpointLevelIndex = SceneManager.GetActiveScene().buildIndex;
 
-            gm.lastSavepointPos = transform.position;
-            gm.lastSavepointLevelPath = SceneManager.GetActiveScene().path;
-            gm.lastSavepointLevelIndex = SceneManager.GetActiveScene().buildIndex;
-        }
+        //    gm.lastSavepointPos = transform.position;
+        //    gm.lastSavepointLevelPath = SceneManager.GetActiveScene().path;
+        //    gm.lastSavepointLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        //}
 #endif
 
     }
@@ -215,7 +215,12 @@ public class Player : MonoBehaviour, IAttacker{
         anim.SetLayerWeight(3, 1f);
         anim.SetBool("isDead", true);
 
+        AudioManager.instance.StopAreaThemeWithFade();
+        AudioManager.instance.StopSFXWithFade();
+
         yield return new WaitForSeconds(2f);
+        
+        AudioManager.instance.PlayAreaTheme();
         GameManager.instance.Respawn();
 
         anim.SetBool("isDead", false);

@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem dustParticles;
     public ParticleSystem jumpLandParticles;
     public ParticleSystem jumpDustTrail;
+    public GameObject jumpDustPostion;
+
     public GameObject jumpTrailParent;
 
     TMPro.TMP_Text velocityXDebug;
@@ -424,7 +426,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            jumpDustTrail.Play();
             foreach (TrailRenderer jumpTrail in jumpTrailParent.GetComponentsInChildren<TrailRenderer>())
             {
                 jumpTrail.emitting = true;
@@ -446,6 +447,7 @@ public class PlayerMovement : MonoBehaviour
             if (canJump)
             {
                 jumpLandParticles.Play();
+                StartCoroutine(JumpTrail());
             }
 
             jumpBufferCounter += 1;
@@ -487,9 +489,24 @@ public class PlayerMovement : MonoBehaviour
                     spriteObj.localScale = new Vector2(.7f, 1.3f);
                 }
             }
+
+          
         }
     }
 
+    float jumpTrailTimeCurrent;
+    public float jumpTrailTime = 0.1f;
+    IEnumerator JumpTrail()
+    {
+        jumpTrailTimeCurrent = jumpTrailTime;
+
+        while(jumpTrailTimeCurrent > 0f)
+        {
+            jumpTrailTimeCurrent -= Time.deltaTime;
+            jumpDustTrail.Play();
+            yield return null;
+        }
+    }
 
     public void OnAttackStart()
     {

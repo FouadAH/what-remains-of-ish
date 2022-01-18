@@ -280,7 +280,7 @@ public class Entity : Savable, IDamagable
         if(currentStunResistance <= 0)
             isStunned = true;
 
-        if (Health <= 0)
+        if (Health <= 0 && !isDead)
         {
             isDead = true;
             OnDeath();

@@ -60,6 +60,7 @@ public class TimelinePlayer : Savable
 
     public void StartTimeline()
     {
+        cutsceneCAM.enabled = true;
         timelineData.hasPlayed = true;
         playableDirector.Play();
     }

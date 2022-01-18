@@ -95,7 +95,16 @@ public class RattlerEnemy : Entity
     public override void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         if (stateMachine.currentState == spinAttackState)
-            DamageHop(entityData.damageHopSpeed * dirX);
+        {
+            if (Health < phase2HealthThreshold)
+            {
+                DamageHop(entityData.damageHopSpeed*100 * dirX);
+            }
+            else
+            {
+                DamageHop(entityData.damageHopSpeed * dirX);
+            }
+        }
     }
 
     public override void ProcessHit(int amount)

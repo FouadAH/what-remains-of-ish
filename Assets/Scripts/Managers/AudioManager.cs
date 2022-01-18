@@ -6,8 +6,14 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     [FMODUnity.EventRef] public string currentTheme;
+    [FMODUnity.EventRef] public string currentAmbiance;
 
     public FMOD.Studio.EventInstance areaThemeInstance;
+    public FMOD.Studio.EventInstance areaAmbianceInstance;
+
+    FMOD.Studio.Bus MusicBus;
+    FMOD.Studio.Bus SFXBus;
+
     FMOD.Studio.EventDescription eventDescription;
     FMOD.Studio.PARAMETER_DESCRIPTION param;
 
@@ -29,10 +35,16 @@ public class AudioManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(this);
+        MusicBus = FMODUnity.RuntimeManager.GetBus("Bus:/Music");
+        SFXBus = FMODUnity.RuntimeManager.GetBus("Bus:/SFX");
+
     }
 
     public void PlayAreaTheme()
     {
+        areaAmbianceInstance = FMODUnity.RuntimeManager.CreateInstance(currentAmbiance);
+        areaAmbianceInstance.start();
+
         areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(currentTheme);
         areaThemeInstance.start();
 
@@ -58,13 +70,20 @@ public class AudioManager : MonoBehaviour
     public void StopAreaThemeWithFade()
     {
         areaThemeInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        currentTheme = null;
+        areaThemeInstance.release();
+        MusicBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
+
+    public void StopSFXWithFade()
+    {
+        SFXBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
 
     public void StopAreaThemeWithoutFade()
     {
+        areaThemeInstance.release();
         areaThemeInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        currentTheme = null;
     }
 
     public void SetIntensity(float value)

@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTheme: event:/Music/Old Village Ruins
+  currentAmbiance: event:/SFX/Locations/Underground Ruins
   playerHealth: 100
 --- !u!1 &2023344683
 GameObject:
@@ -268,6 +269,7 @@ MonoBehaviour:
   newGameEvent: {fileID: 11400000, guid: e19c2b2c7c5c40542964118003b0ddb6, type: 2}
   testSaveFile: {fileID: 11400000, guid: 5da0ddb0a8aa6db48bba185c108eb16e, type: 2}
   currentSaveFile: {fileID: 0}
+  editorSaveFilePath: Assets/ScriptableObjects/SaveFiles/
 --- !u!114 &2023344686
 MonoBehaviour:
   m_ObjectHideFlags: 0
