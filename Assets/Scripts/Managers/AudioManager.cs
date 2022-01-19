@@ -67,12 +67,43 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    public void SwitchLevelMusic()
+    {
+
+        if (GameManager.instance.currentLevel.theme != currentTheme)
+        {
+            Debug.Log("Switching level theme music");
+
+            StopAreaThemeWithFade();
+            currentTheme = GameManager.instance.currentLevel.theme;
+            areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(currentTheme);
+            areaThemeInstance.start();
+        }
+
+        if (GameManager.instance.currentLevel.ambiance != currentAmbiance)
+        {
+            Debug.Log("Switching level ambiance");
+
+            StopAreaAmbianceWithFade();
+            currentAmbiance = GameManager.instance.currentLevel.ambiance;
+            areaAmbianceInstance = FMODUnity.RuntimeManager.CreateInstance(currentAmbiance);
+            areaAmbianceInstance.start();
+        }
+    }
+
     public void StopAreaThemeWithFade()
     {
         areaThemeInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         areaThemeInstance.release();
         MusicBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
+
+    public void StopAreaAmbianceWithFade()
+    {
+        areaAmbianceInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        areaAmbianceInstance.release();
+    }
+
 
     public void StopSFXWithFade()
     {

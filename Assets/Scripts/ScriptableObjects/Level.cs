@@ -13,4 +13,8 @@ public class Level : ScriptableObject
 
     public bool isRevealed;
 
+    [Header("Level Audio Settings")]
+    [FMODUnity.EventRef] public string ambiance;
+    [FMODUnity.EventRef] public string theme;
+
 }

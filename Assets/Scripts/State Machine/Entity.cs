@@ -349,7 +349,7 @@ public class Entity : Savable, IDamagable
         isStunned = false;
 
         gameObject.SetActive(true);
-        damageBox.gameObject.SetActive(false);
+        damageBox.gameObject.SetActive(true);
 
         //facingDirection = 1;
         MaxHealth = (int)entityData.maxHealth;

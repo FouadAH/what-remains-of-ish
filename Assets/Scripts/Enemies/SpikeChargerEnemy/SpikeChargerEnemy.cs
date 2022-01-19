@@ -71,7 +71,7 @@ public class SpikeChargerEnemy : Entity, IAttacker
 
         IsAggro = true;
 
-        if (isDead)
+        if (isDead && stateMachine.currentState != DeadState)
         {
             stateMachine.ChangeState(DeadState);
         }
