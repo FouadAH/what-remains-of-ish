@@ -29,7 +29,7 @@ public class MapSystem : MonoBehaviour
     private void Start()
     {
         WorldObject = GameManager.instance.player;
-        initialPos = GameManager.instance.playerStartPosition;
+        initialPos = GameManager.instance.initalPlayerData.initialPlayerPosition;
     }
 
     private void Update()

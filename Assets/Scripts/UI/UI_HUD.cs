@@ -60,8 +60,19 @@ public class UI_HUD : MonoBehaviour
     {
         GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
         GameManager.instance.player.GetComponent<Player>().OnHeal += OnHeal;
-
+        InitHealingPods(GameManager.instance.healingPodFillAmounts);
         RefrechHealth();
+    }
+
+    void InitHealingPods(List<int> fillAmounts)
+    {
+        foreach(int fillAmount in fillAmounts)
+        {
+            GameObject healingPodObject = Instantiate(healingPodPrefab, healingPodsBar);
+            HealingPod healingPod = healingPodObject.GetComponent<HealingPod>();
+            healingPod.fillAmount = fillAmount;
+            healingFlasks.Add(healingPod);
+        }
     }
 
     void Update()
@@ -149,6 +160,8 @@ public class UI_HUD : MonoBehaviour
                 healingFlasks[i].fillAmount = 0;
             }
         }
+
+        GameManager.instance.UpdateHealingPodFillAmount();
 
     }
 

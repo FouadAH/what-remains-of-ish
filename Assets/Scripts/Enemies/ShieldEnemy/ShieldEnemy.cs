@@ -107,7 +107,7 @@ public class ShieldEnemy : Entity, IAttacker
 
         base.ProcessHit(amount);
 
-        if (isDead)
+        if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }

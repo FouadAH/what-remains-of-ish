@@ -87,7 +87,7 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
 
         IsAggro = true;
 
-        if (isDead)
+        if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }

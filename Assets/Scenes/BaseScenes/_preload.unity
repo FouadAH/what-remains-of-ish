@@ -413,9 +413,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 3297389817868415596, guid: 4d1345c3556595f4d89a987bc72a9652, type: 3}
   playerCurrentPosition: {fileID: 0}
+  initalPlayerData: {fileID: 11400000, guid: aca6fcf63f4b8da44b712b09f9cf6964, type: 2}
   playerStartPosition: {x: 660, y: 80, z: 0}
-  initialPlayerPosition: {x: 660, y: 80, z: 0}
-  initialLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-00.unity
   currentLevel: {fileID: 11400000, guid: 2100c21366a377242963e0894182d7c7, type: 2}
   currentSceneBuildIndex: 0
   currentScenePath: 
@@ -964,6 +963,7 @@ MonoBehaviour:
   newGameEvent: {fileID: 11400000, guid: e19c2b2c7c5c40542964118003b0ddb6, type: 2}
   testSaveFile: {fileID: 11400000, guid: 5da0ddb0a8aa6db48bba185c108eb16e, type: 2}
   currentSaveFile: {fileID: 0}
+  initialPlayerData: {fileID: 11400000, guid: aca6fcf63f4b8da44b712b09f9cf6964, type: 2}
   editorSaveFilePath: Assets/ScriptableObjects/SaveFiles/
 --- !u!4 &1143053992
 Transform:

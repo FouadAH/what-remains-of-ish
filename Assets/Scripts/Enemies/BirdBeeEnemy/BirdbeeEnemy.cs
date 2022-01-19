@@ -29,6 +29,8 @@ public class BirdbeeEnemy : Entity
     [SerializeField] private D_MeleeAttack attackStateData;
     [SerializeField] private D_DeadState deadStateData;
 
+    [FMODUnity.EventRef] public string birdbeeFlyLoop;
+
     public override void Start()
     {
         base.Start();
@@ -42,6 +44,7 @@ public class BirdbeeEnemy : Entity
         deadState = new BirdbeeEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(flyState);
+        GetComponent<EnemyAudio>().PlayEventOnce(birdbeeFlyLoop);
     }
 
     public override void LateUpdate()
@@ -90,8 +93,9 @@ public class BirdbeeEnemy : Entity
     {
         base.ProcessHit(amount);
         IsAggro = true;
-        if (isDead)
+        if (isDead && stateMachine.currentState != deadState)
         {
+            GetComponent<EnemyAudio>().StopPlayingEvent();
             stateMachine.ChangeState(deadState);
         }
     }

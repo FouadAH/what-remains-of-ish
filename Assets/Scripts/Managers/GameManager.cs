@@ -13,10 +13,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public GameObject player;
     [HideInInspector] public Transform playerCurrentPosition;
 
-    [Header("Scene Loading Settings")]
-    public Vector3 playerStartPosition;
-    public Vector3 initialPlayerPosition;
-    public string initialLevelPath;
+    [Header("Scene Settings")]
+    public PlayerConfig initalPlayerData;
+
+    [HideInInspector] public Vector3 playerStartPosition;
 
     public Level currentLevel;
     public int currentSceneBuildIndex;
@@ -25,19 +25,20 @@ public class GameManager : MonoBehaviour
     private string levelToUnloadPath;
     private string levelToLoadPath;
 
-     public Vector2 lastCheckpointPos;
-    public int lastCheckpointLevelIndex;
-    public string lastCheckpointLevelPath;
+    [HideInInspector] public Vector2 lastCheckpointPos;
+    [HideInInspector] public int lastCheckpointLevelIndex;
+    [HideInInspector] public string lastCheckpointLevelPath;
 
-   public Vector2 lastSavepointPos;
-     public int lastSavepointLevelIndex;
-     public string lastSavepointLevelPath;
+    [HideInInspector] public Vector2 lastSavepointPos;
+    [HideInInspector] public int lastSavepointLevelIndex;
+    [HideInInspector] public string lastSavepointLevelPath;
 
     [Header("Player Settings")]
     public float health = 5;
     public float maxHealth = 5;
 
     public int healingPodAmount = 2;
+    public List<int> healingPodFillAmounts;
     public int healingAmountPerPod = 2;
 
     int healthShardsNeeded = 3;
@@ -93,12 +94,12 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.DeleteAll();
 
-        lastSavepointLevelPath = initialLevelPath;
-        lastCheckpointLevelPath = initialLevelPath;
-        levelToLoadPath = initialLevelPath;
+        lastSavepointLevelPath = initalPlayerData.initialLevelPath;
+        lastCheckpointLevelPath = initalPlayerData.initialLevelPath;
+        levelToLoadPath = initalPlayerData.initialLevelPath;
 
-        lastCheckpointPos = initialPlayerPosition;
-        lastSavepointPos = initialPlayerPosition;
+        lastCheckpointPos = initalPlayerData.initialPlayerPosition;
+        lastSavepointPos = initalPlayerData.initialPlayerPosition;
     }
 
     public int AddHealthShard()
@@ -110,6 +111,21 @@ public class GameManager : MonoBehaviour
             maxHealth++;
         }
         return remainder;
+    }
+
+    public void UpdateHealingPodFillAmount()
+    {
+        for (int i = 0; i < UI_HUD.instance.healingFlasks.Count; i++)
+        {
+            healingPodFillAmounts[i] = (int)UI_HUD.instance.healingFlasks[i].fillAmount;
+        }
+    }
+
+    public void InitialSpawn()
+    {
+        playerCamera = Camera.main;
+        cameraController = Camera.main.GetComponent<CameraController>();
+        player.transform.position = playerStartPosition;
     }
 
     public void Respawn()
@@ -244,12 +260,13 @@ public class GameManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(initalPlayerData.initialPlayerPosition, 2);
+
         if (lastCheckpointPos != null)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(lastCheckpointPos, 2);
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(initialPlayerPosition, 2);
         }
     }
 }

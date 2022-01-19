@@ -46,7 +46,7 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
 
         base.ProcessHit(amount);
 
-        if (isDead)
+        if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }

@@ -104,7 +104,7 @@ public class FlyingShootingEnemy : Entity, FiringAI
     {
         base.ProcessHit(amount);
         IsAggro = true;
-        if (isDead)
+        if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }
