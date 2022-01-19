@@ -24,9 +24,8 @@ public class SaveManager : MonoBehaviour
     public SaveFileSO currentSaveFile;
     string savePath;  //TO:DO : get this from config file
     string testSavePath;  //TO:DO : get this from config file
-
+    public PlayerConfig initialPlayerData;
     public static SaveManager instance;
-
     private Dictionary<string, ISaveable> m_RegisteredSaveables = null;
 
     SceneData sceneDataCache;
@@ -287,7 +286,7 @@ public class SaveManager : MonoBehaviour
         WriteDataToDisk();
     }
 
-    public string editorSaveFilePath = "Assets/ScriptableObjects/SaveFiles/";
+    string editorSaveFilePath = "Assets/ScriptableObjects/SaveFiles/";
     public void SaveGameEditor()
     {
 #if UNITY_EDITOR
@@ -456,7 +455,7 @@ public class SaveManager : MonoBehaviour
         newGameEvent.Raise();
     }
 
-    private static GameData DefaultGameData()
+    private GameData DefaultGameData()
     {
         PlayerData playerData = DefaultPlayerData();
 
@@ -487,6 +486,13 @@ public class SaveManager : MonoBehaviour
         playerData.maxHealth = gm.maxHealth;
         playerData.health = gm.health;
         playerData.currency = gm.currency;
+
+        playerData.healingPodAmount = gm.healingPodAmount;
+        playerData.healingPods = new int[playerData.healingPodAmount];
+        for (int i = 0; i < playerData.healingPodAmount; i++)
+        {
+            playerData.healingPods[i] = gm.healingPodFillAmounts[i];
+        }
 
         playerData.playerPosition = new float[3];
         playerData.playerPosition[0] = gm.playerCurrentPosition.position.x;
@@ -520,11 +526,17 @@ public class SaveManager : MonoBehaviour
         GameManager.instance.maxHealth = data.maxHealth;
         GameManager.instance.currency = data.currency;
 
+        GameManager.instance.healingPodAmount = data.healingPodAmount;
+        for (int i = 0; i < data.healingPodAmount; i++)
+        {
+            GameManager.instance.healingPodFillAmounts.Add(data.healingPods[i]);
+        }
+
         Vector3 playerPosition;
         playerPosition.x = data.playerPosition[0];
         playerPosition.y = data.playerPosition[1];
         playerPosition.z = data.playerPosition[2];
-        GameManager.instance.initialPlayerPosition = playerPosition;
+        GameManager.instance.playerStartPosition = playerPosition;
 
         Vector2 checkpointPosition;
         checkpointPosition.x = data.lastCheckpointPos[0];
@@ -545,15 +557,21 @@ public class SaveManager : MonoBehaviour
         GameManager.instance.currentSceneBuildIndex = data.currentScene;
     }
 
-    private static PlayerData DefaultPlayerData()
+    private PlayerData DefaultPlayerData()
     {
         PlayerData playerData = new PlayerData();
+        Vector3 initialPosition = initialPlayerData.initialPlayerPosition;
 
-        Vector3 initialPosition = GameManager.instance.initialPlayerPosition;
+        playerData.health = initialPlayerData.health;
+        playerData.maxHealth = initialPlayerData.maxHealth;
+        playerData.currency = initialPlayerData.initialCurrency;
 
-        playerData.health = 5;
-        playerData.maxHealth = 5;
-        playerData.currency = 0;
+        playerData.healingPodAmount = initialPlayerData.healinPodAmount;
+        playerData.healingPods = new int[initialPlayerData.healinPodAmount];
+        for (int i = 0; i < playerData.healingPodAmount; i++)
+        {
+            playerData.healingPods[i] = initialPlayerData.healingPods[i];
+        }
 
         playerData.playerPosition = new float[3];
         playerData.playerPosition[0] = initialPosition.x;
@@ -568,9 +586,13 @@ public class SaveManager : MonoBehaviour
         playerData.lastCheckpointPos[0] = initialPosition.x;
         playerData.lastCheckpointPos[1] = initialPosition.y;
 
-        playerData.lastCheckpointLevelIndex = 3;
-        playerData.lastSavepointLevelIndex = 3;
-        playerData.currentScene = 3;
+        playerData.lastCheckpointLevelIndex = initialPlayerData.initialLevelIndex;
+        playerData.lastSavepointLevelIndex = initialPlayerData.initialLevelIndex;
+
+        playerData.lastCheckpointLevelPath = initialPlayerData.initialLevelPath;
+        playerData.lastSavepointLevelPath = initialPlayerData.initialLevelPath;
+
+        playerData.currentScene = initialPlayerData.initialLevelIndex;
         return playerData;
     }
 

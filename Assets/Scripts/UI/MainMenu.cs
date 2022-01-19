@@ -154,9 +154,7 @@ public class MainMenu : MonoBehaviour
     {
         if (obj.isDone)
         {
-            GameManager.instance.playerCamera = Camera.main;
-            GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
-            GameManager.instance.player.transform.position = GameManager.instance.initialPlayerPosition;
+            GameManager.instance.InitialSpawn();
             SceneManager.LoadSceneAsync(GameManager.instance.currentSceneBuildIndex, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
     }

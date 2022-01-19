@@ -298,7 +298,7 @@ MonoBehaviour:
   newGameEvent: {fileID: 11400000, guid: e19c2b2c7c5c40542964118003b0ddb6, type: 2}
   testSaveFile: {fileID: 11400000, guid: 5da0ddb0a8aa6db48bba185c108eb16e, type: 2}
   currentSaveFile: {fileID: 0}
-  editorSaveFilePath: Assets/ScriptableObjects/SaveFiles/
+  initialPlayerData: {fileID: 11400000, guid: aca6fcf63f4b8da44b712b09f9cf6964, type: 2}
 --- !u!114 &2023344686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,6 +462,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
+      propertyPath: initalPlayerData
+      value: 
+      objectReference: {fileID: 11400000, guid: aca6fcf63f4b8da44b712b09f9cf6964,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
       propertyPath: initialLevelPath
       value: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-00.unity
       objectReference: {fileID: 0}
@@ -520,6 +526,21 @@ PrefabInstance:
         type: 3}
       propertyPath: lastCheckpointLevelIndex
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: healingPodFillAmounts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: healingPodFillAmounts.Array.data[0]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: healingPodFillAmounts.Array.data[1]
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}

@@ -8,14 +8,14 @@ public class PlayerData
     public float health;
     public float maxHealth;
     public int currency;
-
+    public int healingPodAmount;
+    public int[] healingPods;
     public float[] playerPosition;
     public int currentScene;
 
     public float[] lastCheckpointPos;
     public int lastCheckpointLevelIndex;
     public string lastCheckpointLevelPath;
-
 
     public float[] lastSavepointPos;
     public int lastSavepointLevelIndex;
@@ -26,6 +26,13 @@ public class PlayerData
         health = gm.health;
         maxHealth = gm.maxHealth;
         currency = gm.currency;
+
+        healingPodAmount = gm.healingPodAmount;
+        healingPods = new int[healingPodAmount];
+        for(int i = 0; i < healingPodAmount; i++)
+        {
+            healingPods[i] = 100;
+        }
 
         playerPosition = new float[3];
         playerPosition[0] = gm.player.transform.position.x;
@@ -51,6 +58,7 @@ public class PlayerData
 
     public PlayerData()
     {
+        healingPods = new int[2];
         playerPosition = new float[3];
         lastCheckpointPos = new float[2];
         lastSavepointPos = new float[2];

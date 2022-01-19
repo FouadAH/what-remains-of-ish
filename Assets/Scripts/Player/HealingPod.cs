@@ -22,11 +22,13 @@ public class HealingPod : MonoBehaviour
     public void Refill(float amount)
     {
         fillAmount += amount;
+        GameManager.instance.UpdateHealingPodFillAmount();
     }
 
     public void EmptyFlask()
     {
         fillAmount = 0;
+        GameManager.instance.UpdateHealingPodFillAmount();
     }
-    
+
 }
