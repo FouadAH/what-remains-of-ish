@@ -52,6 +52,12 @@ public class AudioManager : MonoBehaviour
         eventDescription.getID(out eventID);
     }
 
+    public void PlayAreaAmbiance()
+    {
+        areaAmbianceInstance = FMODUnity.RuntimeManager.CreateInstance(currentAmbiance);
+        areaAmbianceInstance.start();
+    }
+
     public void PlayAreaTheme(string newTheme)
     {
         if (newTheme == currentTheme)

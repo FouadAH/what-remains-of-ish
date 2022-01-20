@@ -46,8 +46,8 @@ public class BossArena : MonoBehaviour, ISaveable
     {
         //if(bossThemeMusic != "")
         //    AudioManager.instance.PlayAreaTheme(bossThemeMusic);
-
-        AudioManager.instance.SetIntensity(100);
+        AudioManager.instance.StopAreaAmbianceWithFade();
+        AudioManager.instance.SetIntensity(0);
 
         hasBeenActivated = true;
 
@@ -62,12 +62,18 @@ public class BossArena : MonoBehaviour, ISaveable
         bossAreaCamera.LookAt = GameManager.instance.player.transform;
     }
 
+    public void OnEnterPhase2()
+    {
+        AudioManager.instance.SetIntensity(100);
+    }
+
     public void OnBossDead()
     {
         //if (bossThemeMusic != "")
         //    AudioManager.instance.StopAreaThemeWithFade();
 
         AudioManager.instance.SetIntensity(0);
+        AudioManager.instance.PlayAreaAmbiance();
 
         arenaData.isFinished = true;
 
