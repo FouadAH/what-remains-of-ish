@@ -62,22 +62,29 @@ public class RattlerEnemy_IdleState : IdleState
                 }
                 else if (random > 60)
                 {
-                    stateMachine.ChangeState(enemy.jumpStartState);
+                    stateMachine.ChangeState(enemy.jumpTowardseStartState);
                 }
             }
-            else if (stateMachine.previousState == enemy.jumpState)
+            else if (stateMachine.previousState == enemy.jumpTowardsState || stateMachine.previousState == enemy.jumpInPlaceState )
             {
-                if (random <= 10)
+                if (enemy.hasEnteredPhase2 && stateMachine.previousState != enemy.jumpInPlaceState)
                 {
-                    stateMachine.ChangeState(enemy.jumpStartState);
+                    stateMachine.ChangeState(enemy.jumpInPlaceStartState);
                 }
-                if (random > 10 && random <= 60)
+                else
                 {
-                    stateMachine.ChangeState(enemy.spitStateAttack_1);
-                }
-                else if (random > 60)
-                {
-                    stateMachine.ChangeState(enemy.spinStartState);
+                    if (random <= 10)
+                    {
+                        stateMachine.ChangeState(enemy.jumpTowardseStartState);
+                    }
+                    if (random > 10 && random <= 60)
+                    {
+                        stateMachine.ChangeState(enemy.spitStateAttack_1);
+                    }
+                    else if (random > 60)
+                    {
+                        stateMachine.ChangeState(enemy.spinStartState);
+                    }
                 }
             }
             else if (stateMachine.previousState == enemy.spinAttackState)
@@ -88,7 +95,7 @@ public class RattlerEnemy_IdleState : IdleState
                 }
                 if (random > 10 && random <= 60)
                 {
-                    stateMachine.ChangeState(enemy.jumpStartState);
+                    stateMachine.ChangeState(enemy.jumpTowardseStartState);
                 }
                 else if (random > 60)
                 {
@@ -99,7 +106,7 @@ public class RattlerEnemy_IdleState : IdleState
             {
                 if (random <= 33)
                 {
-                    stateMachine.ChangeState(enemy.jumpStartState);
+                    stateMachine.ChangeState(enemy.jumpTowardseStartState);
                 }
                 else if (random > 33 && random <= 66)
                 {

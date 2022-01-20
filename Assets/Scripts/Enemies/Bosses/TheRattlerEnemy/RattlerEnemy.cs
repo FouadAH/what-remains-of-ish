@@ -6,9 +6,12 @@ public class RattlerEnemy : Entity
 {
     public IdleState idleState { get; private set; }
     public AttackState spinStartState { get; private set; }
-    public AttackState jumpStartState { get; private set; }
+    public AttackState jumpInPlaceStartState { get; private set; }
+    public AttackState jumpTowardseStartState { get; private set; }
     public ChargeState spinAttackState { get; private set; }
-    public JumpState jumpState { get; private set; }
+    public JumpState jumpTowardsState { get; private set; }
+    public JumpState jumpInPlaceState { get; private set; }
+
     public ShootState spitStateAttack_1 { get; private set; }
     public ShootState spitStateAttack_2 { get; private set; }
 
@@ -42,8 +45,7 @@ public class RattlerEnemy : Entity
     public ParticleSystem jumpImpactVFX;
     public ParticleSystem shockwaveVFX;
 
-
-    public bool isVisibleOnScreen;
+    [FMODUnity.EventRef] public string spinLoop;
 
     public override void Start()
     {
@@ -54,8 +56,12 @@ public class RattlerEnemy : Entity
         spitStateAttack_1 = new RattlerEnemy_SpitState(this, stateMachine, "spit", null, spitStateData, projectileAttack_1, this);
         spitStateAttack_2 = new RattlerEnemy_SpitState_Attack2(this, stateMachine, "spit_attack2", null, spitStateData, projectileAttack_2, this);
 
-        jumpStartState = new RattlerEnemy_JumpStartState(this, stateMachine, "jump", null, this);
-        jumpState = new RattlerEnemy_JumpState(this, stateMachine, "jump", jumpStateData, this);
+        jumpTowardseStartState = new RattlerEnemy_JumpStartState(this, stateMachine, "jump", null, this, true);
+        jumpTowardsState = new RattlerEnemy_JumpState(this, stateMachine, "jump", jumpStateData, this, true);
+
+        jumpInPlaceStartState = new RattlerEnemy_JumpStartState(this, stateMachine, "jump", null, this, false);
+        jumpInPlaceState = new RattlerEnemy_JumpState(this, stateMachine, "jump", jumpStateData, this, false);
+
         spinStartState = new RattlerEnemy_SpinStartState(this, stateMachine, "spin_start", null, this);
         spinAttackState = new RattlerEnemy_SpinState(this, stateMachine, "spin_loop", spinAttackStateData, this);
         idleState = new RattlerEnemy_IdleState(this, stateMachine, "idle", idleStateData, this);
@@ -64,15 +70,19 @@ public class RattlerEnemy : Entity
         stateMachine.Initialize(idleState);
     }
 
+    public bool hasEnteredPhase2 = false;
     public override void Update()
     {
         base.Update();
-        if(Health < phase2HealthThreshold)
+        if(Health < phase2HealthThreshold && !hasEnteredPhase2)
         {
+            hasEnteredPhase2 = true;
             idleState = new RattlerEnemy_IdleState(this, stateMachine, "idle", idleStateData_Phase2, this);
             spinAttackState = new RattlerEnemy_SpinState(this, stateMachine, "spin_loop", spinAttackStateData_Phase2, this);
-            jumpState = new RattlerEnemy_JumpState(this, stateMachine, "jump", jumpStateData_Phase2, this);
+            jumpTowardsState = new RattlerEnemy_JumpState(this, stateMachine, "jump", jumpStateData_Phase2, this, true);
+            jumpInPlaceState = new RattlerEnemy_JumpState(this, stateMachine, "jump", jumpStateData_Phase2, this, false);
 
+            AudioManager.instance.SetIntensity(100);
             GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
@@ -124,13 +134,4 @@ public class RattlerEnemy : Entity
         projectileAttack_2.RaiseOnFireEvent();
     }
 
-    private void OnBecameVisible()
-    {
-        isVisibleOnScreen = true;
-    }
-
-    private void OnBecameInvisible()
-    {
-        isVisibleOnScreen = false;
-    }
 }

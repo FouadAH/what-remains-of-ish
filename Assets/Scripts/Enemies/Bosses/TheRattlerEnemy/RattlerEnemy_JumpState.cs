@@ -8,10 +8,12 @@ public class RattlerEnemy_JumpState : JumpState
     Transform playerPosition;
     bool hasJumped;
     bool isCollidingWithWall;
+    bool jumpTowards;
 
-    public RattlerEnemy_JumpState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_JumpState stateData, RattlerEnemy enemy) : base(etity, stateMachine, animBoolName, stateData)
+    public RattlerEnemy_JumpState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_JumpState stateData, RattlerEnemy enemy, bool jumpTowards) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
+        this.jumpTowards = jumpTowards;
     }
 
     public override void DoChecks()
@@ -22,8 +24,13 @@ public class RattlerEnemy_JumpState : JumpState
     public override void Enter()
     {
         base.Enter();
+
         hasJumped = false;
-        JumpAttack();
+
+        if (jumpTowards)
+            JumpAttack();
+        else
+            JumpInPlaceAttack();
     }
 
     public override void Exit()
@@ -68,5 +75,10 @@ public class RattlerEnemy_JumpState : JumpState
         playerPosition = GameManager.instance.player.transform;
         float directionToPlayer = playerPosition.position.x - enemy.transform.position.x;
         enemy.rb.AddForce(new Vector2(directionToPlayer* stateData.speedModifier, stateData.jumpHeight), ForceMode2D.Impulse);
+    }
+
+    void JumpInPlaceAttack()
+    {
+        enemy.rb.AddForce(new Vector2(0, stateData.jumpHeight), ForceMode2D.Impulse);
     }
 }

@@ -21,6 +21,7 @@ public class RattlerEnemy_SpinState : ChargeState
     {
         base.Enter();
         enemy.spinEffect.Play();
+        enemy.GetComponent<EnemyAudio>().PlayEventOnce(enemy.spinLoop);
     }
 
     public override void Exit()
@@ -28,7 +29,7 @@ public class RattlerEnemy_SpinState : ChargeState
         base.Exit();
         enemy.transform.rotation = Quaternion.identity;
         enemy.spinEffect.Stop();
-
+        enemy.GetComponent<EnemyAudio>().StopPlayingEvent();
     }
 
     public override void LatePhysicsUpdate()

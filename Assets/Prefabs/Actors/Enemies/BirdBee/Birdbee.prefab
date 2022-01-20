@@ -1524,6 +1524,8 @@ MonoBehaviour:
   isDead: 0
   stateDebugText: {fileID: 4160448357578225696}
   damageNumberPrefab: {fileID: 0}
+  BloodEffect: {fileID: 0}
+  HitEffect: {fileID: 0}
   minAggroRange: 8
   maxAggroRange: 20
   isAffectedByGravity: 0
@@ -1541,6 +1543,7 @@ MonoBehaviour:
   playerDetectedData: {fileID: 11400000, guid: 246442edac474a448ae1ba6f9541289d, type: 2}
   attackStateData: {fileID: 11400000, guid: 64ea609bb350dce4b9fbe769d6aaa843, type: 2}
   deadStateData: {fileID: 11400000, guid: 764646bb507bfa44ea8db4cb689a8977, type: 2}
+  birdbeeFlyLoop: event:/SFX/Enemies/Idle/Birdbee_Idle
   IsAggro: 0
 --- !u!114 &1366236473883835881
 MonoBehaviour:

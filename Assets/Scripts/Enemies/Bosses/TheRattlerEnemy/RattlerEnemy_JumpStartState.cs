@@ -5,10 +5,12 @@ using UnityEngine;
 public class RattlerEnemy_JumpStartState : AttackState
 {
     private RattlerEnemy enemy;
+    bool jumpTowards;
 
-    public RattlerEnemy_JumpStartState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, RattlerEnemy enemy) : base(etity, stateMachine, animBoolName, attackPosition)
+    public RattlerEnemy_JumpStartState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, RattlerEnemy enemy, bool jumpTowards) : base(etity, stateMachine, animBoolName, attackPosition)
     {
         this.enemy = enemy;
+        this.jumpTowards = jumpTowards;
     }
 
     public override void DoChecks()
@@ -34,7 +36,16 @@ public class RattlerEnemy_JumpStartState : AttackState
         base.LogicUpdate();
 
         if (isAnimationFinished)
-            stateMachine.ChangeState(enemy.jumpState);
+        {
+            if (jumpTowards)
+            {
+                stateMachine.ChangeState(enemy.jumpTowardsState);
+            }
+            else 
+            {
+                stateMachine.ChangeState(enemy.jumpInPlaceState);
+            }
+        }
     }
 
     public override void PhysicsUpdate()

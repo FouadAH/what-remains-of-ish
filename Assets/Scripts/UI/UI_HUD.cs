@@ -162,7 +162,6 @@ public class UI_HUD : MonoBehaviour
         }
 
         GameManager.instance.UpdateHealingPodFillAmount();
-
     }
 
     public void OnResetHP(float missingHealth)
