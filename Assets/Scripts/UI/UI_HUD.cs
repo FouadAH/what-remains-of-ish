@@ -66,7 +66,14 @@ public class UI_HUD : MonoBehaviour
 
     void InitHealingPods(List<int> fillAmounts)
     {
-        foreach(int fillAmount in fillAmounts)
+        healingFlasks.Clear();
+        for (int i = 0; i < healingPodsBar.childCount; i++)
+        {
+            Destroy(healingPodsBar.GetChild(i).gameObject);
+            
+        }
+
+        foreach (int fillAmount in fillAmounts)
         {
             GameObject healingPodObject = Instantiate(healingPodPrefab, healingPodsBar);
             HealingPod healingPod = healingPodObject.GetComponent<HealingPod>();
@@ -142,10 +149,7 @@ public class UI_HUD : MonoBehaviour
         anim.SetTrigger("OnHeal");
 
         //Adding hearts to health bar 
-        for (int i = 0; i < amount; i++)
-        {
-            Instantiate(heartPrefab, heartBar);
-        }
+        RefrechHealth();
 
         //Empty the first Flask
         healingFlasks[0].EmptyFlask();

@@ -25,17 +25,57 @@ public class PlayerAnimations
 
     private void OnAttack()
     {
-        if (playerInput.directionalInput.y > 0)
+        if (!playerInput.controllerConnected)
         {
-            animator.SetTrigger("isAttackingUp");
-        }
-        else if (playerInput.directionalInput.y < 0)
-        {
-            animator.SetTrigger("isAttackingDown");
+            if (GameManager.instance.useDirectionalAttack)
+            {
+                if (playerInput.directionalInput.y > 0)
+                {
+                    animator.SetTrigger("isAttackingUp");
+                }
+                else if (playerInput.directionalInput.y < 0 && playerMovement.isAirborne)
+                {
+                    animator.SetTrigger("isAttackingDown");
+                }
+                else
+                {
+                    animator.SetTrigger("Attack");
+                }
+            }
+            else
+            {
+                var pos = Camera.main.WorldToScreenPoint(playerInput.transform.position);
+                var dir = Input.mousePosition - pos;
+                var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+                if (angle >= 70 && angle <= 130)
+                {
+                    animator.SetTrigger("isAttackingUp");
+                }
+                else if ((angle >= -120 && angle <= -60) && playerMovement.isAirborne)
+                {
+                    animator.SetTrigger("isAttackingDown");
+                }
+                else
+                {
+                    animator.SetTrigger("Attack");
+                }
+            }
         }
         else
         {
-            animator.SetTrigger("Attack");
+            if (playerInput.directionalInput.y > 0)
+            {
+                animator.SetTrigger("isAttackingUp");
+            }
+            else if (playerInput.directionalInput.y < 0 && playerMovement.isAirborne)
+            {
+                animator.SetTrigger("isAttackingDown");
+            }
+            else
+            {
+                animator.SetTrigger("Attack");
+            }
         }
     }
 

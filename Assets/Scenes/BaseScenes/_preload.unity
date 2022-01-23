@@ -426,7 +426,8 @@ MonoBehaviour:
   lastSavepointLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
   health: 5
   maxHealth: 5
-  healingPodAmount: 2
+  healingPodAmount: 1
+  healingPodFillAmounts: 64000000
   healingAmountPerPod: 2
   healthShardAmount: 0
   currency: 0
@@ -964,7 +965,6 @@ MonoBehaviour:
   testSaveFile: {fileID: 11400000, guid: 5da0ddb0a8aa6db48bba185c108eb16e, type: 2}
   currentSaveFile: {fileID: 0}
   initialPlayerData: {fileID: 11400000, guid: aca6fcf63f4b8da44b712b09f9cf6964, type: 2}
-  editorSaveFilePath: Assets/ScriptableObjects/SaveFiles/
 --- !u!4 &1143053992
 Transform:
   m_ObjectHideFlags: 0

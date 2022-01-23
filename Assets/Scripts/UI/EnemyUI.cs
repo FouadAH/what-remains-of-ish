@@ -20,7 +20,6 @@ public class EnemyUI : MonoBehaviour
         previousHealthPercent = 1;
         enemy = GetComponent<Entity>().transform;
         GetComponent<Entity>().OnHitEnemy += OnHitEnemy;
-        canvas.enabled = false;
     }
 
     private void OnHitEnemy(float health, float maxHealth)
@@ -30,15 +29,10 @@ public class EnemyUI : MonoBehaviour
         MaxHealth= maxHealth;
     }
 
-    private void LateUpdate()
-    {
-        canvas.transform.position = new Vector3(enemy.position.x , enemy.position.y + offset);
-        canvas.transform.rotation = Quaternion.identity;
-    }
     void Update()
     {
         healthSlider.value = CalculateHealthPercent();
-        healthSliderGhost.value = Mathf.MoveTowards(previousHealthPercent, CalculateHealthPercent(), (1f / 5f) * Time.deltaTime);
+        healthSliderGhost.value = Mathf.MoveTowards(previousHealthPercent, CalculateHealthPercent(), 0.05f * Time.deltaTime);
         previousHealthPercent = healthSliderGhost.value;
     }
 

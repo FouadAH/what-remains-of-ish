@@ -59,7 +59,8 @@ public class Attack : MonoBehaviour, IHitboxResponder
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         if (hurtbox != null)
         {
-            timeStop.StopTime(changeTime, restoreSpeed, delay);
+            if(!hurtbox.ignoreHitstop)
+                timeStop.StopTime(changeTime, restoreSpeed, delay);
 
             if (dir.y == 1)
             {

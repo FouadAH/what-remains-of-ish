@@ -62,7 +62,7 @@ public class SavePoint: MonoBehaviour {
     private void Rest()
     {
         player = GameManager.instance.player;
-        StartCoroutine(MovePlayerToTarget());
+        //StartCoroutine(MovePlayerToTarget());
 
         if (!isLit)
         {

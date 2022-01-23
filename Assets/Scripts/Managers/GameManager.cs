@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int lastSavepointLevelIndex;
     [HideInInspector] public string lastSavepointLevelPath;
 
-    [Header("Player Settings")]
+    [Header("Player Values")]
     public float health = 5;
     public float maxHealth = 5;
 
@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     public int currency;
     public Camera playerCamera;
 
+
     [Header("Player Debug Settings")]
     public bool hasInfiniteLives = false;
 
@@ -59,6 +60,9 @@ public class GameManager : MonoBehaviour
     public bool hasWallJump = false;
     public bool hasTeleportAbility = false;
     public bool hasSprintAbility = false;
+
+    [Header("Player Control Settings")]
+    public bool useDirectionalAttack = false;
 
     [Header("Game State")]
     public bool isLoading = false;
@@ -133,16 +137,25 @@ public class GameManager : MonoBehaviour
         Debug.Log("Hard Respawn");
         if (!isRespawning)
         {
+            UI_HUD.instance.enabled = false;
             isRespawning = true;
             isLoading = true;
             player.GetComponent<Player>().enabled = false;
-            LoadScenePath(SceneManager.GetActiveScene().path, lastSavepointLevelPath);
+            if (SceneManager.GetActiveScene().path.Equals(lastSavepointLevelPath))
+            {
+                StartCoroutine(HardRespawnSameLevel());
+            }
+            else
+            {
+                LoadScenePath(SceneManager.GetActiveScene().path, lastSavepointLevelPath);
+            }
         }
     }
 
     public void SoftRespawn()
     {
         Debug.Log("Soft Respawn");
+        UI_HUD.instance.enabled = false;
         StartCoroutine(SoftRespawnRoutine());
     }
 
@@ -162,6 +175,28 @@ public class GameManager : MonoBehaviour
 
         player.GetComponent<Player>().enabled = true;
         player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
+        UI_HUD.instance.enabled = true;
+    }
+
+    private IEnumerator HardRespawnSameLevel()
+    {
+        anim.Play("Fade_Out");
+        player.GetComponent<Player>().enabled = false;
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        playerCamera.transform.position = player.transform.position;
+        player.transform.position = lastSavepointPos;
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        anim.Play("Fade_in");
+
+        player.GetComponent<Player>().enabled = true;
+        player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
+        isRespawning = false;
+        isLoading = false;
+        UI_HUD.instance.enabled = true;
     }
 
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath, Vector3 playerPos)

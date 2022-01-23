@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 612475583
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -123,7 +123,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.18912888}
-  m_ConnectedAnchor: {x: 0.004805918, y: 0.47622544}
+  m_ConnectedAnchor: {x: 0.0048352224, y: 0.47622544}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -222,7 +222,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 612475583
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -371,7 +371,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 612475583
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -460,7 +460,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.22499847}
-  m_ConnectedAnchor: {x: 0, y: -0.018981934}
+  m_ConnectedAnchor: {x: 0.000061035156, y: -0.018981934}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -543,7 +543,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 612475583
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -728,7 +728,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 612475583
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1004,7 +1004,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 612475583
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1
   m_Sprite: {fileID: -835817014, guid: 6d2806a0a3aaaf14a8da72c8bac82a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1089,6 +1089,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinDrop_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189498788609514098, guid: cdc10840f3ef2974f9f42982c44eade1,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1189498788609514099, guid: cdc10840f3ef2974f9f42982c44eade1,
         type: 3}
@@ -1250,7 +1255,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 6.677917
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1

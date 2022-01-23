@@ -9,7 +9,7 @@ public class BossArena : MonoBehaviour, ISaveable
     public Entity bossEntity;
 
     public CinemachineVirtualCamera bossAreaCamera;
-
+    public Canvas bossHealthCanvas;
     bool hasBeenActivated;
     public BossArenaData arenaData;
 
@@ -60,6 +60,7 @@ public class BossArena : MonoBehaviour, ISaveable
         bossAreaCamera.gameObject.SetActive(true);
         bossAreaCamera.Follow = GameManager.instance.player.transform;
         bossAreaCamera.LookAt = GameManager.instance.player.transform;
+        bossHealthCanvas.enabled = true;
     }
 
     public void OnEnterPhase2()
@@ -83,6 +84,8 @@ public class BossArena : MonoBehaviour, ISaveable
         }
 
         bossAreaCamera.enabled = false;
+        bossHealthCanvas.enabled = false;
+
     }
 
     public string SaveData()

@@ -13,14 +13,12 @@ public class HedgehogCorruptedEnemy_PlayerDetectedState : PlayerDetectedState
     public override void Enter()
     {
         base.Enter();
-        enemy.isProtected = true;
         firstTake = true;
     }
 
     public override void Exit()
     {
         base.Exit();
-        enemy.isProtected = false;
     }
 
     float initialWaitTime = 0.5f;
@@ -43,6 +41,11 @@ public class HedgehogCorruptedEnemy_PlayerDetectedState : PlayerDetectedState
             enemy.RaiseOnFireEvent();
         }
 
+        if (isDetectingWall || !isDetectingLedge)
+        {
+            enemy.Flip();
+        }
+
         if (entity.CheckPlayerInMinAgroRange() || entity.CheckPlayerInMaxAgroRange())
         {
             lastDetectedTime = Time.time;
@@ -56,7 +59,7 @@ public class HedgehogCorruptedEnemy_PlayerDetectedState : PlayerDetectedState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        entity.SetVelocity(0);
+        enemy.SetVelocity(0);
     }
 
     public bool CanFire()

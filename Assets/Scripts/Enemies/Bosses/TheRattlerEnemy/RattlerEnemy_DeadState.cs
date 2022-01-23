@@ -19,6 +19,7 @@ public class RattlerEnemy_DeadState : DeadState
     public override void Enter()
     {
         base.Enter();
+        enemy.GetComponent<EnemyAudio>().StopPlayingEvent();
     }
 
     public override void Exit()

@@ -5143,11 +5143,16 @@ MonoBehaviour:
   jumpStateData_Phase2: {fileID: 11400000, guid: 3748a473e8e6f514b823c6993071db13,
     type: 2}
   deadStateData: {fileID: 11400000, guid: 4501478326533a34aabc55c393dfa599, type: 2}
+  phase2HealthThreshold: 80
   shockwaveSpawner: {fileID: 77970201780271632}
   projectileAttack_1: {fileID: 349071768}
   projectileAttack_2: {fileID: 77970201890769788}
   spinEffect: {fileID: 859839551}
-  isVisibleOnScreen: 0
+  jumpDirtVFX: {fileID: 0}
+  jumpImpactVFX: {fileID: 0}
+  shockwaveVFX: {fileID: 0}
+  spinLoop: 
+  hasEnteredPhase2: 0
 --- !u!114 &77970200740909262
 MonoBehaviour:
   m_ObjectHideFlags: 0

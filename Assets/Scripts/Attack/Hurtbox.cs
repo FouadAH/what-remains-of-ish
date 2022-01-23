@@ -13,6 +13,8 @@ public class Hurtbox : MonoBehaviour
     [SerializeField] private float stunTime = 0.5f;
     IHittable hittable;
 
+    public bool ignoreHitstop;
+
     private void Awake()
     {
         attackProcessor = new AttackProcessor();
