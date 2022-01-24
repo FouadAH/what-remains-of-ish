@@ -47,7 +47,7 @@ public class BossArena : MonoBehaviour, ISaveable
         //if(bossThemeMusic != "")
         //    AudioManager.instance.PlayAreaTheme(bossThemeMusic);
         AudioManager.instance.StopAreaAmbianceWithFade();
-        AudioManager.instance.SetIntensity(0);
+        AudioManager.instance.SetIntensity(50);
 
         hasBeenActivated = true;
 
