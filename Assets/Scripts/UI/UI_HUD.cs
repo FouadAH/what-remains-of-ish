@@ -64,7 +64,7 @@ public class UI_HUD : MonoBehaviour
         RefrechHealth();
     }
 
-    void InitHealingPods(List<int> fillAmounts)
+    public void InitHealingPods(List<int> fillAmounts)
     {
         healingFlasks.Clear();
         for (int i = 0; i < healingPodsBar.childCount; i++)

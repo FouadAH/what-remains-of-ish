@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
     int healthShardsNeeded = 3;
     public int healthShardAmount = 0;
 
+    int healingFlaskShardsNeeded = 3;
+    public int healingFlaskShards = 0;
+
     public int currency;
     public Camera playerCamera;
 
@@ -113,6 +116,18 @@ public class GameManager : MonoBehaviour
         if (remainder == 0)
         {
             maxHealth++;
+        }
+        return remainder;
+    }
+
+    public int AddHealingFlaskShard()
+    {
+        healingFlaskShards++;
+        int remainder = (healingFlaskShards % healingFlaskShardsNeeded);
+        if (remainder == 0)
+        {
+            healingPodAmount++;
+            healingPodFillAmounts.Add(0);
         }
         return remainder;
     }

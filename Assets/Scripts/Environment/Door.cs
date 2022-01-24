@@ -18,16 +18,32 @@ public class Door : Savable
     public UnityEvent OnDoorOpen;
 
     Animator anim;
+    public bool shouldSaveData = true;
 
     public override void Awake()
     {
-        base.Awake();
-
         anim = GetComponent<Animator>();
 
+        if (shouldSaveData)
+        {
+            base.Awake();
+        }
+        else
+        {
+            SetStateInitial(isOpenDefault);
+        }
+       
         if (lever != null)
         {
             lever.OnToggle += Lever_OnToggle;
+        }
+    }
+
+    public override void Start()
+    {
+        if (shouldSaveData)
+        {
+            base.Start();
         }
     }
 
@@ -65,6 +81,12 @@ public class Door : Savable
         doorData = JsonUtility.FromJson<Data>(data);
         SetStateInitial(doorData.isOpen);
         Debug.Log("loading door state: " + data);
+    }
+
+    public override void OnDestroy()
+    {
+        if (shouldSaveData)
+            base.OnDestroy();
     }
 
 }
