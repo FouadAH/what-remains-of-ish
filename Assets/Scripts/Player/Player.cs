@@ -265,6 +265,7 @@ public class Player : MonoBehaviour, IAttacker{
         {
             AudioManager.instance.SetHealthParameter(100f);
         }
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Healing", GetComponent<Transform>().position);
     }
 
     Coroutine flashRoutine;
