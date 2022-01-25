@@ -5,8 +5,13 @@ using UnityEngine;
 public class DialogTrigger : MonoBehaviour
 {
     public Dialog dialog;
+
     [SerializeField] private Animator prompt;
     [HideInInspector] public DialogManager dialogueManager;
+
+    public int interactTime = 0;
+    public List<DialogueNodeSO> dialogs;
+
 
     private void Start()
     {
@@ -15,7 +20,12 @@ public class DialogTrigger : MonoBehaviour
     
     public void TriggerDialogue()
     {
-        dialogueManager.StartDialogue(dialog, GetType());
+        dialogueManager.StartDialogue(dialogs[interactTime].dialog, GetType());
+
+        if (interactTime < dialogs.Count - 1)
+        {
+            interactTime++;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,7 +45,7 @@ public class DialogTrigger : MonoBehaviour
             {
                 prompt.ResetTrigger("PopIn");
                 prompt.SetTrigger("PopOut");
-                dialogueManager.StartDialogue(dialog, GetType());
+                TriggerDialogue();
             }
         }
     }

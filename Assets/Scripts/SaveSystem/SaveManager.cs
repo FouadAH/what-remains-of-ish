@@ -527,6 +527,8 @@ public class SaveManager : MonoBehaviour
         GameManager.instance.currency = data.currency;
 
         GameManager.instance.healingPodAmount = data.healingPodAmount;
+
+        GameManager.instance.healingPodFillAmounts.Clear();
         for (int i = 0; i < data.healingPodAmount; i++)
         {
             GameManager.instance.healingPodFillAmounts.Add(data.healingPods[i]);

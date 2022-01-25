@@ -134,4 +134,10 @@ public class RattlerEnemy : Entity
         projectileAttack_2.RaiseOnFireEvent();
     }
 
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+        GetComponent<EnemyAudio>().StopPlayingEvent();
+    }
+
 }
