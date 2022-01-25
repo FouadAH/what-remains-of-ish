@@ -27,7 +27,7 @@ public class PlayerAnimations
     {
         if (!playerInput.controllerConnected)
         {
-            if (GameManager.instance.useDirectionalAttack)
+            if (!GameManager.instance.useDirectionalMouseAttack)
             {
                 if (playerInput.directionalInput.y > 0)
                 {

@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     public bool hasSprintAbility = false;
 
     [Header("Player Control Settings")]
-    public bool useDirectionalAttack = false;
+    public bool useDirectionalMouseAttack = false;
 
     [Header("Game State")]
     public bool isLoading = false;
@@ -156,14 +156,16 @@ public class GameManager : MonoBehaviour
             isRespawning = true;
             isLoading = true;
             player.GetComponent<Player>().enabled = false;
-            if (SceneManager.GetActiveScene().path.Equals(lastSavepointLevelPath))
-            {
-                StartCoroutine(HardRespawnSameLevel());
-            }
-            else
-            {
-                LoadScenePath(SceneManager.GetActiveScene().path, lastSavepointLevelPath);
-            }
+            LoadScenePath(SceneManager.GetActiveScene().path, lastSavepointLevelPath);
+
+            //if (SceneManager.GetActiveScene().path.Equals(lastSavepointLevelPath))
+            //{
+            //    StartCoroutine(HardRespawnSameLevel());
+            //}
+            //else
+            //{
+            //    LoadScenePath(SceneManager.GetActiveScene().path, lastSavepointLevelPath);
+            //}
         }
     }
 
@@ -252,15 +254,22 @@ public class GameManager : MonoBehaviour
             astarPath.gameObject.SetActive(false);
             astarPath.enabled = false;
         }
-        SceneManager.LoadSceneAsync(levelToLoadPath, LoadSceneMode.Additive).completed += LoadScene_completed;
+        SceneManager.UnloadSceneAsync(levelToUnloadPath).completed += UnloadScene_completed;
+    }
+
+    private void UnloadScene_completed(AsyncOperation obj)
+    {
+        if (obj.isDone)
+        {
+            SceneManager.LoadSceneAsync(levelToLoadPath, LoadSceneMode.Additive).completed += LoadScene_completed;
+
+        }
     }
 
     private void LoadScene_completed(AsyncOperation obj)
     {
         if (obj.isDone)
         {
-            SceneManager.UnloadSceneAsync(levelToUnloadPath).completed += UnloadScene_completed;
-
             if (!isRespawning)
             {
                 player.transform.position = newPlayerPos;
@@ -271,7 +280,7 @@ public class GameManager : MonoBehaviour
                 playerCamera.transform.position = player.transform.position;
                 player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
             }
-            
+
 
             isLoading = false;
             isRespawning = false;
@@ -279,13 +288,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(FadeIn());
 
             player.GetComponent<Player>().enabled = true;
-        }
-    }
 
-    private void UnloadScene_completed(AsyncOperation obj)
-    {
-        if (obj.isDone)
-        {
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
             currentSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
 

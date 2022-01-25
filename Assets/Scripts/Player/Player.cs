@@ -190,13 +190,13 @@ public class Player : MonoBehaviour, IAttacker{
     {
         if (gm.health <= 0)
         {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Death", GetComponent<Transform>().position);
             StartCoroutine(PlayerDeath());
         }
         else if(gm.health <=2)
         {
             AudioManager.instance.SetHealthParameter(20f);
         }
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Death", GetComponent<Transform>().position);
     }
 
     /// <summary>
@@ -216,6 +216,7 @@ public class Player : MonoBehaviour, IAttacker{
         anim.SetBool("isDead", true);
 
         AudioManager.instance.StopAreaThemeWithFade();
+        AudioManager.instance.StopAreaAmbianceWithFade();
         AudioManager.instance.StopSFXWithFade();
 
         yield return new WaitForSeconds(2f);

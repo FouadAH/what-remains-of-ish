@@ -15,8 +15,11 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject videoOptions;
     public GameObject audioOptions;
+    public GameObject gameOptions;
 
     public Toggle abilityToggle;
+    public Toggle directionalAttackToggle;
+
 
     EventSystem eventSystem;
     FMOD.Studio.EventInstance SFXVolumeTestEvent;
@@ -39,6 +42,10 @@ public class PauseMenu : MonoBehaviour
 
         abilityToggle.onValueChanged.AddListener(delegate {
             ToggleAbilities(abilityToggle);
+        });
+
+        directionalAttackToggle.onValueChanged.AddListener(delegate {
+            ToggleDirectionalAttack(directionalAttackToggle);
         });
 
         masterBus = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
@@ -107,6 +114,18 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void ToggleDirectionalAttack(Toggle directionalAttackToggle)
+    {
+        if (directionalAttackToggle.isOn)
+        {
+            GameManager.instance.useDirectionalMouseAttack = true;
+        }
+        else
+        {
+            GameManager.instance.useDirectionalMouseAttack = false;
+        }
+    }
+
     public void Resume()
     {
         OnPauseEnd();
@@ -114,6 +133,7 @@ public class PauseMenu : MonoBehaviour
         videoOptions.SetActive(false);
         audioOptions.SetActive(false);
         optionMenu.SetActive(false);
+        gameOptions.SetActive(false);
         controlsMenu.SetActive(false);
 
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
@@ -158,6 +178,20 @@ public class PauseMenu : MonoBehaviour
         optionMenu.SetActive(true);
         eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
     }
+
+    public void GameMenu()
+    {
+        gameOptions.SetActive(true);
+        optionMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(videoOptions.GetComponentInChildren<Button>().gameObject);
+    }
+    public void GameMenuBack()
+    {
+        gameOptions.SetActive(false);
+        optionMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
+    }
+
     public void AudioMenu()
     {
         audioOptions.SetActive(true);
