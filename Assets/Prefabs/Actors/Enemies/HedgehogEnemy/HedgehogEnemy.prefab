@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 6237150870535999631}
   - component: {fileID: 5613945596916023460}
   - component: {fileID: 6781673714596319526}
+  - component: {fileID: 7381051315584323100}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -196,6 +197,7 @@ MonoBehaviour:
   ColorOpen: {r: 0.40571535, g: 1, b: 0, a: 0.4627451}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.5019608}
   stunTime: 0.5
+  ignoreHitstop: 0
 --- !u!114 &5336478215804641229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +306,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0.011633944, y: -0.21578339}
   m_Size: {x: 1.4134611, y: 0.6056119}
   m_Direction: 1
+--- !u!114 &7381051315584323100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495062752850808488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3386223540da41908d463d4a87ada77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &750142163913562119
 GameObject:
   m_ObjectHideFlags: 0
