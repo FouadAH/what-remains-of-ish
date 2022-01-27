@@ -28,12 +28,23 @@ public class DialogTrigger : MonoBehaviour
         }
     }
 
+    void DisplayPrompt()
+    {
+        prompt.ResetTrigger("PopOut");
+        prompt.SetTrigger("PopIn");
+    }
+
+    void RemovePrompt()
+    {
+        prompt.ResetTrigger("PopIn");
+        prompt.SetTrigger("PopOut");
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            prompt.ResetTrigger("PopOut");
-            prompt.SetTrigger("PopIn");
+            DisplayPrompt();
         }
     }
 
@@ -43,10 +54,17 @@ public class DialogTrigger : MonoBehaviour
         {
             if (!dialogueManager.dialogueIsActive)
             {
-                prompt.ResetTrigger("PopIn");
-                prompt.SetTrigger("PopOut");
                 TriggerDialogue();
             }
+        }
+
+        if (!dialogueManager.dialogueIsActive)
+        {
+            DisplayPrompt();
+        }
+        else
+        {
+            RemovePrompt();
         }
     }
 
@@ -54,8 +72,7 @@ public class DialogTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            prompt.ResetTrigger("PopIn");
-            prompt.SetTrigger("PopOut");
+            RemovePrompt();
         }
     }
 }

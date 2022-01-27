@@ -42,7 +42,7 @@ public class Player_Input : MonoBehaviour
 
     float inputDeadZone = 0.19f;
 
-    PlayerInputMaster inputActions;
+    [HideInInspector] public PlayerInputMaster inputActions;
     PauseMenu pauseMenu;
     DialogManager dialogManager;
 

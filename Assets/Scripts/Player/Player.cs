@@ -260,13 +260,13 @@ public class Player : MonoBehaviour, IAttacker{
             OnHeal(amountHealed);
             flashEffect.Flash(Color.white);
             healingParticles.Play();
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Healing", GetComponent<Transform>().position);
         }
 
         if (gm.health > 2)
         {
             AudioManager.instance.SetHealthParameter(100f);
         }
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Healing", GetComponent<Transform>().position);
     }
 
     Coroutine flashRoutine;
@@ -339,9 +339,10 @@ public class Player : MonoBehaviour, IAttacker{
     {
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
         //playerMovement.knockbackDistance = amount;
-            
-        StopCoroutine(KnockbackOnHitRoutine());
-        StartCoroutine(KnockbackOnHitRoutine());
+        playerMovement.Knockback(playerMovement.dirKnockback, playerMovement.knockbackDistance);
+
+        //StopCoroutine(KnockbackOnHitRoutine());
+        //StartCoroutine(KnockbackOnHitRoutine());
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
@@ -351,9 +352,9 @@ public class Player : MonoBehaviour, IAttacker{
         
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
         playerMovement.knockbackDistance = amount;
-
-        StopCoroutine(KnockbackOnDamageRoutine());
-        StartCoroutine(KnockbackOnDamageRoutine());
+        playerMovement.Knockback(playerMovement.dirKnockback, playerMovement.knockbackDistance);
+        //StopCoroutine(KnockbackOnDamageRoutine());
+        //StartCoroutine(KnockbackOnDamageRoutine());
     }
 
     IEnumerator KnockbackOnDamageRoutine()

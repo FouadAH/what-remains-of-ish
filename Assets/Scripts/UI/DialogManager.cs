@@ -12,6 +12,10 @@ public class DialogManager : MonoBehaviour
     public TextMeshProUGUI speakerText;
 
     public float typingSpeed;
+    public float typingSpeedSkip;
+
+    float currentTypingSpeed;
+
     public bool dialogueIsActive = false;
 
     int index;
@@ -25,6 +29,9 @@ public class DialogManager : MonoBehaviour
     public event EventHandler OnDialogueClipEnd = delegate { };
     public static DialogManager instance;
     Player_Input player_Input;
+
+    bool isTyping = false;
+    string currentSentence;
 
     void Awake()
     {
@@ -50,21 +57,52 @@ public class DialogManager : MonoBehaviour
 
     private void Player_Input_OnDialogueNext()
     {
-        if (!dialogueIsActive || GameManager.instance.isPaused)
-            return;
+        //Debug.Log("Player_Input_OnDialogueNext");
 
-        if (!inputLock)
-        {
-            DisplayNextSentence();
-        }
+        //if (!dialogueIsActive || GameManager.instance.isPaused)
+        //    return;
+
+        //if (!inputLock)
+        //{
+        //    Debug.Log("inputlock check");
+
+        //    if (isTyping)
+        //    {
+        //        Debug.Log("Skip");
+
+        //        SkipToEndOfSentence();
+        //    }
+        //    else
+        //    {
+        //        DisplayNextSentence();
+        //        Debug.Log("Next");
+
+        //    }
+        //}
     }
 
     public bool inputLock = true;
-    //private void Update()
-    //{
-    //    if (!dialogueIsActive || GameManager.instance.isPaused)
-    //        return;
-    //}
+    private void Update()
+    {
+
+        if (!dialogueIsActive || GameManager.instance.isPaused)
+            return;
+
+        if (player_Input.inputActions.UI.DialogueNext.WasPressedThisFrame())
+        {
+            if (!inputLock)
+            {
+                if (isTyping)
+                {
+                    SkipToEndOfSentence();
+                }
+                else
+                {
+                    DisplayNextSentence();
+                }
+            }
+        }
+    }
 
     public void DisplaySentence(string sentence)
     {
@@ -120,24 +158,37 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
-        string sentence = sentences.Dequeue();
+        currentSentence = sentences.Dequeue();
 
         if(typeSentenceRoutine!=null)
             StopCoroutine(typeSentenceRoutine);
 
-        typeSentenceRoutine = StartCoroutine(TypeSentence(sentence));
+        currentTypingSpeed = typingSpeed;
+        typeSentenceRoutine = StartCoroutine(TypeSentence(currentSentence));
     }
+
 
     IEnumerator TypeSentence(string sentence)
     {
+        isTyping = true;
         dialogueText.text = "";
         sb.Clear();
         foreach (char letter in sentence.ToCharArray())
         {
             sb.Append(letter);
             dialogueText.text = sb.ToString();
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSeconds(currentTypingSpeed);
         }
+        isTyping = false;
+    }
+
+    void SkipToEndOfSentence()
+    {
+        isTyping = false;
+        if (typeSentenceRoutine != null)
+            StopCoroutine(typeSentenceRoutine);
+
+        dialogueText.text = currentSentence;
     }
 
     void EndDialogueClip()
