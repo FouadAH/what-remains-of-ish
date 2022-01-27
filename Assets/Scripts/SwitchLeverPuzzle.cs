@@ -44,6 +44,7 @@ public class SwitchLeverPuzzle : MonoBehaviour
         {
             CheckSwitches();
         }
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Ticking Puzzle", GetComponent<Transform>().position);
     }
     
     void CheckSwitches()
