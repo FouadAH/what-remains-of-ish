@@ -1168,7 +1168,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""ccf9de4d-2aed-4552-8fc9-6e8df3e52bfe"",
                     ""path"": ""<Keyboard>/anyKey"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""DialogueNext"",

@@ -33,6 +33,7 @@ public class PauseMenu : MonoBehaviour
     public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
+    Player_Input player_Input;
 
     public event Action OnPauseStart = delegate { };
     public event Action OnPauseEnd = delegate { };
@@ -212,6 +213,13 @@ public class PauseMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f;
+        GameManager.instance.isPaused = false;
+        StartCoroutine(GameManager.instance.LoadMainMenu());
+    }
+
     public void SaveGame()
     {
         SaveManager.instance.SaveGame();
@@ -247,6 +255,7 @@ public class PauseMenu : MonoBehaviour
         OnPauseStart();
         //GameManager.instance.player.GetComponent<Player_Input>().enabled = false;
         GameManager.instance.isPaused = true;
+        Debug.Log(pauseMenu);
         pauseMenu.SetActive(true);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
         Time.timeScale = 0f;

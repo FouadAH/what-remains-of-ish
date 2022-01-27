@@ -22,6 +22,7 @@ public class SavePoint: MonoBehaviour {
 
     GameObject player;
     Player_Input playerInput;
+    TutorialManager tutorialManager;
 
     private void Start()
     {
@@ -58,9 +59,15 @@ public class SavePoint: MonoBehaviour {
             prompt.SetTrigger("PopOut");
         }
     }
-
+    
     private void Rest()
     {
+        if (GameManager.instance.isFirstTimeResting)
+        {
+            GameManager.instance.isFirstTimeResting = false;
+            TutorialManager.instance.DisplayTutorial(TutorialType.Resting);
+        }
+
         player = GameManager.instance.player;
         //StartCoroutine(MovePlayerToTarget());
 

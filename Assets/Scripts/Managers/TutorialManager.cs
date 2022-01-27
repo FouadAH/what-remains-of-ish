@@ -10,6 +10,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject dashTutorial;
     public GameObject teleportTutorial;
     public GameObject boomerangTutorial;
+    public GameObject restingTutorial;
 
     public bool tutorialIsActive = false;
 
@@ -79,6 +80,10 @@ public class TutorialManager : MonoBehaviour
                 Display(boomerangTutorial);
                 break;
 
+            case TutorialType.Resting:
+                Display(restingTutorial);
+                break;
+
             default:
                 break;
         }
@@ -116,5 +121,6 @@ public enum TutorialType
     WallJump = 1,
     Dash = 2,
     Teleport = 3,
-    Boomerang = 4
+    Boomerang = 4,
+    Resting = 5
 }

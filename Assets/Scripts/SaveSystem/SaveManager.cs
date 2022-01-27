@@ -62,10 +62,16 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
+        InitSaveManager();
+    }
+
+    public void InitSaveManager()
+    {
 #if UNITY_EDITOR
         SetupTestingSaveFile();
 #endif
 
+        saveFiles.Clear();
         //Searching through disk for the save files
         foreach (string filePath in Directory.GetFiles(savePath))
         {
@@ -358,7 +364,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadSavedGame(SaveFileSO saveFile)
     {
-        saveFiles = null;
+        saveFiles.Clear();
 
         Debug.Log("Loading data from: " + saveFile.fileName);
         currentSaveFile = saveFile;
@@ -372,7 +378,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadSavedGameFromSO(SaveFileSO saveFile)
     {
-        saveFiles = null;
+        saveFiles.Clear();
 
         Debug.Log("Loading data from SO: " + saveFile.fileName);
        

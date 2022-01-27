@@ -352,9 +352,9 @@ public class Player : MonoBehaviour, IAttacker{
         
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
         playerMovement.knockbackDistance = amount;
-        playerMovement.Knockback(playerMovement.dirKnockback, playerMovement.knockbackDistance);
-        //StopCoroutine(KnockbackOnDamageRoutine());
-        //StartCoroutine(KnockbackOnDamageRoutine());
+        //playerMovement.Knockback(playerMovement.dirKnockback, playerMovement.knockbackDistance);
+        StopCoroutine(KnockbackOnDamageRoutine());
+        StartCoroutine(KnockbackOnDamageRoutine());
     }
 
     IEnumerator KnockbackOnDamageRoutine()

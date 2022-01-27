@@ -307,4 +307,10 @@ public class Player_Input : MonoBehaviour
         return Time.time >= nextAttackTime;
     }
 
+    private void OnDestroy()
+    {
+        inputActions.UI.Pause.started -= Pause_started;
+        pauseMenu.OnPauseStart -= PauseMenu_OnPauseStart;
+        pauseMenu.OnPauseEnd -= PauseMenu_OnPauseEnd;
+    }
 }
