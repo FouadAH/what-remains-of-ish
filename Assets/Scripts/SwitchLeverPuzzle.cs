@@ -13,9 +13,13 @@ public class SwitchLeverPuzzle : MonoBehaviour
     bool isDone;
     bool allLeversActive = true;
 
+    EnemyAudio enemyAudio;
+
     // Start is called before the first frame update
     void Start()
     {
+        enemyAudio = GetComponent<EnemyAudio>();
+
         if (isDone)
         {
             foreach (SwitchLever switchLever in switchLevers)
@@ -39,12 +43,13 @@ public class SwitchLeverPuzzle : MonoBehaviour
         if (!timerIsActive && !isDone)
         {
             StartCoroutine(TimerPuzzle());
+            enemyAudio.PlayEventOnce("event:/SFX/Interactive Objects/Ticking Puzzle");
+
         }
         else
         {
             CheckSwitches();
         }
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Ticking Puzzle", GetComponent<Transform>().position);
     }
     
     void CheckSwitches()
@@ -79,6 +84,7 @@ public class SwitchLeverPuzzle : MonoBehaviour
             switchLever.SetActive(false);
         }
         UI_HUD.instance.debugTimer.SetActive(false);
+        enemyAudio.StopPlayingEvent();
     }
 
     private void EndPuzzle()

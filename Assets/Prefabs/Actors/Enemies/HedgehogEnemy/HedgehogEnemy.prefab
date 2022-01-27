@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 5613945596916023460}
   - component: {fileID: 6781673714596319526}
   - component: {fileID: 7381051315584323100}
-  - component: {fileID: 3651394392234864934}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -319,14 +318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3386223540da41908d463d4a87ada77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &3651394392234864934
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495062752850808488}
-  m_Enabled: 1
 --- !u!1 &750142163913562119
 GameObject:
   m_ObjectHideFlags: 0
