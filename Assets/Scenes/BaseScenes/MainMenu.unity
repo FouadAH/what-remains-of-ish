@@ -22037,11 +22037,12 @@ PrefabInstance:
         type: 3}
       propertyPath: saveFile
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 3c8a836ff77be4348b4832cdebac745f,
+        type: 2}
     - target: {fileID: 2871761063347458634, guid: ed9b081284cbb534a9b12af3a5de3b23,
         type: 3}
       propertyPath: isPreSaved
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3718343143282787622, guid: ed9b081284cbb534a9b12af3a5de3b23,
         type: 3}
@@ -38007,6 +38008,7 @@ MonoBehaviour:
   playerSpawnPoint: {fileID: 0}
   playerTargetRight: {fileID: 0}
   playerTargetLeft: {fileID: 0}
+  OnRestEvent: {fileID: 0}
 --- !u!1 &8096696679265618807
 GameObject:
   m_ObjectHideFlags: 0

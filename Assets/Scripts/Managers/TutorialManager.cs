@@ -99,7 +99,8 @@ public class TutorialManager : MonoBehaviour
         DialogManager.instance.dialogueIsActive = true;
         tutorialIsActive = true;
 
-        gm.player.GetComponent<Player_Input>().enabled = false;
+        gm.player.GetComponent<Player_Input>().DisablePlayerInput();
+        gm.player.GetComponent<Player>().enabled = false;
     }
 
     void CloseTutorial()
@@ -111,7 +112,9 @@ public class TutorialManager : MonoBehaviour
         DialogManager.instance.dialogueIsActive = false;
         tutorialIsActive = false;
 
-        gm.player.GetComponent<Player_Input>().enabled = true;
+        gm.player.GetComponent<Player_Input>().EnablePlayerInput();
+        gm.player.GetComponent<Player>().enabled = true;
+
     }
 }
 

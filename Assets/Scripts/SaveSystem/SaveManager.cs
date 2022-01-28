@@ -41,12 +41,11 @@ public class SaveManager : MonoBehaviour
             Directory.CreateDirectory(savePath);
         }
 
-#if UNITY_EDITOR
         if (!Directory.Exists(testSavePath))
         {
             Directory.CreateDirectory(testSavePath);
         }
-#endif
+
 
         if (instance == null)
         {
