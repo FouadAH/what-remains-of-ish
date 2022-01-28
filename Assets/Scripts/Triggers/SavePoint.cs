@@ -19,7 +19,7 @@ public class SavePoint: MonoBehaviour {
     public Transform playerTargetLeft;
 
     bool playerIsInTrigger;
-
+    public GameEvent OnRestEvent;
     GameObject player;
     Player_Input playerInput;
     TutorialManager tutorialManager;
@@ -62,6 +62,7 @@ public class SavePoint: MonoBehaviour {
     
     private void Rest()
     {
+        OnRestEvent.Raise();
         if (GameManager.instance.isFirstTimeResting)
         {
             GameManager.instance.isFirstTimeResting = false;

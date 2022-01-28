@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 585.68, y: 57.49, z: 0}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5661525549404121528}
   m_Father: {fileID: 0}
@@ -99,11 +100,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
+    speakerName: 
     sentences:
     - Sample Text 1
     - Sample Text 2
   prompt: {fileID: 7656796459321418825}
   dialogueManager: {fileID: 0}
+  interactTime: 0
+  dialogs:
+  - {fileID: 11400000, guid: 6d94022f95b1d7745939461ecb131e87, type: 2}
+  - {fileID: 11400000, guid: 23f51ae1505c3254895ea324ebd64c05, type: 2}
+  - {fileID: 11400000, guid: 3eb58ab42a76dd6489e0b839d49e6e0d, type: 2}
 --- !u!61 &8498633356779290469
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -158,6 +165,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3698279, y: 0.3698279, z: 0.3698279}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5614445466404892379}
   m_RootOrder: 0
@@ -293,6 +301,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.17, y: 1.17, z: 1.17}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 302142074352417101}
   m_Father: {fileID: 5661525549404121528}
@@ -369,6 +378,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5661525549404121528}
   m_RootOrder: 0
@@ -506,6 +516,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.542, y: 1.542, z: 1.6962}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9144607126054270979}
   - {fileID: 5614445466404892379}
@@ -580,7 +591,7 @@ MonoBehaviour:
     m_Bits: 4294967295
 --- !u!95 &7656796459321418825
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -593,6 +604,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

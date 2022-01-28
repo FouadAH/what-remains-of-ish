@@ -20,6 +20,7 @@ public class MapSystem : MonoBehaviour
             {
                 if (mapLevel.level.isRevealed)
                 {
+                    Debug.Log("Revealing Room: " + mapLevel.level.name);
                     mapLevel.levelImage.enabled = true;
                 }
             }
