@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogTrigger : MonoBehaviour
+public class DialogTrigger : Savable
 {
     public Dialog dialog;
 
@@ -11,10 +11,15 @@ public class DialogTrigger : MonoBehaviour
 
     public int interactTime = 0;
     public List<DialogueNodeSO> dialogs;
-
-
-    private void Start()
+    public DialogueData dialogueData;
+    public struct DialogueData
     {
+        public int interactTimes;
+    }
+
+    public override void Start()
+    {
+        base.Start();
         dialogueManager = DialogManager.instance;
     }
     
@@ -74,5 +79,24 @@ public class DialogTrigger : MonoBehaviour
         {
             RemovePrompt();
         }
+    }
+
+    public override string SaveData()
+    {
+        dialogueData.interactTimes = interactTime;
+        return JsonUtility.ToJson(dialogueData);
+    }
+
+    public override void LoadDefaultData()
+    {
+        dialogueData.interactTimes = 0;
+        interactTime = 0;
+    }
+
+    public override void LoadData(string data, string version)
+    {
+        dialogueData = JsonUtility.FromJson<DialogueData>(data);
+        interactTime = dialogueData.interactTimes;
+        Debug.Log("Loading NPC dialogue data: " + data);
     }
 }

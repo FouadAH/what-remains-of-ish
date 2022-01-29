@@ -40,4 +40,10 @@ public class GameMenu : MonoBehaviour
         mapUI.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        inputActions.UI.Map.started -= Map_started;
+        inputActions.UI.Map.canceled -= Map_canceled;
+    }
+
 }

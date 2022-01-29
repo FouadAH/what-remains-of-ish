@@ -146,7 +146,7 @@ public class DialogManager : MonoBehaviour
     {
         if (sentences.Count == 0)
         {
-            Debug.Log(currentContext);
+            //Debug.Log(currentContext);
             if(currentContext.Equals(typeof(DialogueTriggerBehaviour)))
             {
                 EndDialogueClip();

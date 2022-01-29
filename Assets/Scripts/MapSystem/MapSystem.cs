@@ -8,7 +8,8 @@ public class MapSystem : MonoBehaviour
     public List<MapArea> areas;
     public RectTransform UI_Element;
     public Canvas mapCanvas;
-
+    public PlayerConfig initialPlayerData;
+    
     GameObject WorldObject;
     Vector3 initialPos;
 
@@ -37,6 +38,14 @@ public class MapSystem : MonoBehaviour
     {
         UI_Element.anchoredPosition = WorldObject.transform.position - initialPos;
     }
+
+    //private void OnValidate()
+    //{
+    //    WorldObject = FindObjectOfType<Player>().gameObject;
+    //    initialPos = new Vector2(660, 80); 
+    //    UI_Element.anchoredPosition = WorldObject.transform.position - initialPos;
+
+    //}
 
 
 }

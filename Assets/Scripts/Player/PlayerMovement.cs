@@ -221,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="kockbackDistance">Knockback force amount</param>
     public void Knockback(Vector3 dir, float kockbackDistance)
     {
-        Debug.Log("Knockback: Direction: " + dir.ToString() + " velocity: " + knockbackDistance);
+        //Debug.Log("Knockback: Direction: " + dir.ToString() + " velocity: " + knockbackDistance);
 
         if (dir.x != 0)
             velocity.x = dir.x * kockbackDistance * 1.5f;
