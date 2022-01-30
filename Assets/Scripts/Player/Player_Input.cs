@@ -229,10 +229,10 @@ public class Player_Input : MonoBehaviour
                     freeAimMode = true;
                 }
             }
-            else if (!aiming)
-            {
-                OnTeleport();
-            }
+            //else if (!aiming)
+            //{
+            //    OnTeleport();
+            //}
 
             aiming = true;
         }
