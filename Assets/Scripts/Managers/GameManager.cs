@@ -321,6 +321,7 @@ public class GameManager : MonoBehaviour
 
         SaveManager.instance.SaveGame();
         anim.Play("Fade_in");
+        
         SceneManager.LoadScene(0);
     }
 

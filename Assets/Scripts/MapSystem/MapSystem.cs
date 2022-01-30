@@ -13,7 +13,24 @@ public class MapSystem : MonoBehaviour
     GameObject WorldObject;
     Vector3 initialPos;
 
+    private void Start()
+    {
+        WorldObject = GameManager.instance.player;
+        initialPos = GameManager.instance.initalPlayerData.initialPlayerPosition;
+        RevealRooms();
+    }
+
+    private void Update()
+    {
+        UI_Element.anchoredPosition = WorldObject.transform.position - initialPos;
+    }
+
     public void OnNewLevelLoad()
+    {
+        RevealRooms();
+    }
+
+    public void RevealRooms()
     {
         foreach (MapArea mapArea in areas)
         {
@@ -22,30 +39,13 @@ public class MapSystem : MonoBehaviour
                 if (mapLevel.level.isRevealed)
                 {
                     Debug.Log("Revealing Room: " + mapLevel.level.name);
+
+                    if (mapLevel.levelImage == null)
+                        mapLevel.levelImage = mapLevel.GetComponent<Image>();
+
                     mapLevel.levelImage.enabled = true;
                 }
             }
         }
     }
-
-    private void Start()
-    {
-        WorldObject = GameManager.instance.player;
-        initialPos = GameManager.instance.initalPlayerData.initialPlayerPosition;
-    }
-
-    private void Update()
-    {
-        UI_Element.anchoredPosition = WorldObject.transform.position - initialPos;
-    }
-
-    //private void OnValidate()
-    //{
-    //    WorldObject = FindObjectOfType<Player>().gameObject;
-    //    initialPos = new Vector2(660, 80); 
-    //    UI_Element.anchoredPosition = WorldObject.transform.position - initialPos;
-
-    //}
-
-
 }

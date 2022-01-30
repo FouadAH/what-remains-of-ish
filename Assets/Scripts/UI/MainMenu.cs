@@ -213,6 +213,7 @@ public class MainMenu : MonoBehaviour
     {
         if (obj.isDone)
         {
+            //SceneManager.UnloadSceneAsync(1);
             GameManager.instance.InitialSpawn();
             SceneManager.LoadSceneAsync(GameManager.instance.currentSceneBuildIndex, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
@@ -242,8 +243,9 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.instance.isLoading = true;
         GameManager.instance.anim.Play("Fade_Out");
-        SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
-    
+        //SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive).completed += LoadBaseSceneComplete;
+        SceneManager.UnloadSceneAsync(1).completed += MainMenuUnloadComplete;
+
         yield return null;
     }
 }
