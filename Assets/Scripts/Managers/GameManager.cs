@@ -72,6 +72,10 @@ public class GameManager : MonoBehaviour
     public bool isRespawning = false;
     public bool isPaused = false;
 
+    [Header("Other")]
+    public bool isFirstTimeResting = true;
+    public bool hasOpenedMap = false;
+
     Vector3 newPlayerPos;
 
     public GameEvent loadNewSceneEvent;
@@ -303,6 +307,26 @@ public class GameManager : MonoBehaviour
                 astarPath.Scan();
             }
         }
+    }
+
+    public IEnumerator LoadMainMenu()
+    {
+        anim.Play("Fade_Out");
+        AudioManager.instance.StopAreaThemeWithFade();
+        AudioManager.instance.StopAreaAmbianceWithFade();
+        AudioManager.instance.StopSFXWithFade();
+        AudioManager.instance.StopAllAudio();
+
+        yield return new WaitForSeconds(1f);
+
+        SaveManager.instance.SaveGame();
+        anim.Play("Fade_in");
+        
+        SceneManager.LoadScene(0);
+    }
+
+    private void LoadMainMenuCompleted(AsyncOperation obj)
+    {
     }
 
     private IEnumerator FadeIn()

@@ -34,7 +34,6 @@ public class PlayerDash : MonoBehaviour
         {
             canDash = true;
         }
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Dash", GetComponent<Transform>().position);
     }
 
     public bool DashController(ref Vector2 velocity, Player_Input playerInput, PlayerMovementSettings playerSettings)
@@ -49,6 +48,7 @@ public class PlayerDash : MonoBehaviour
             StartCoroutine(FloatTime(floatTime));
             StartCoroutine(DashLogic(playerSettings.DashCooldown));
             StartCoroutine(DashEffect(effectTime));
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Dash", GetComponent<Transform>().position);
 
             if (playerInput.directionalInput.x == 0)
             {

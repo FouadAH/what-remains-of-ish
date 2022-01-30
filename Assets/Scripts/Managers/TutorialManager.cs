@@ -10,6 +10,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject dashTutorial;
     public GameObject teleportTutorial;
     public GameObject boomerangTutorial;
+    public GameObject restingTutorial;
 
     public bool tutorialIsActive = false;
 
@@ -79,6 +80,10 @@ public class TutorialManager : MonoBehaviour
                 Display(boomerangTutorial);
                 break;
 
+            case TutorialType.Resting:
+                Display(restingTutorial);
+                break;
+
             default:
                 break;
         }
@@ -94,7 +99,8 @@ public class TutorialManager : MonoBehaviour
         DialogManager.instance.dialogueIsActive = true;
         tutorialIsActive = true;
 
-        gm.player.GetComponent<Player_Input>().enabled = false;
+        gm.player.GetComponent<Player_Input>().DisablePlayerInput();
+        gm.player.GetComponent<Player>().enabled = false;
     }
 
     void CloseTutorial()
@@ -106,7 +112,9 @@ public class TutorialManager : MonoBehaviour
         DialogManager.instance.dialogueIsActive = false;
         tutorialIsActive = false;
 
-        gm.player.GetComponent<Player_Input>().enabled = true;
+        gm.player.GetComponent<Player_Input>().EnablePlayerInput();
+        gm.player.GetComponent<Player>().enabled = true;
+
     }
 }
 
@@ -116,5 +124,6 @@ public enum TutorialType
     WallJump = 1,
     Dash = 2,
     Teleport = 3,
-    Boomerang = 4
+    Boomerang = 4,
+    Resting = 5
 }

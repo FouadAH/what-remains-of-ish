@@ -68,18 +68,24 @@ public class Attack : MonoBehaviour, IHitboxResponder
                 return;
             }
 
-            Vector2 direction = (hurtbox.transform.position - transform.position).normalized;
+            if(dir.y == -1)
+            {
+                hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), 0, -1);
+                return;
+            }
 
+            Vector2 direction = (hurtbox.transform.position - transform.position).normalized;
             if (direction.x > 0)
             {
                 dir.x = -1;
+                dir.y = 0;
             }
             else
             {
                 dir.x = 1;
+                dir.y = 0;
             }
 
-            dir.y = direction.y;
         }
 
         //Debug.Log("Knockback Dir: X:" + (dir.x) + " Y: " + (dir.y));

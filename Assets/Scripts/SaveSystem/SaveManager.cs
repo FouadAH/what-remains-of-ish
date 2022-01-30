@@ -41,12 +41,11 @@ public class SaveManager : MonoBehaviour
             Directory.CreateDirectory(savePath);
         }
 
-#if UNITY_EDITOR
         if (!Directory.Exists(testSavePath))
         {
             Directory.CreateDirectory(testSavePath);
         }
-#endif
+
 
         if (instance == null)
         {
@@ -62,10 +61,16 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
+        InitSaveManager();
+    }
+
+    public void InitSaveManager()
+    {
 #if UNITY_EDITOR
         SetupTestingSaveFile();
 #endif
 
+        saveFiles.Clear();
         //Searching through disk for the save files
         foreach (string filePath in Directory.GetFiles(savePath))
         {
@@ -181,6 +186,19 @@ public class SaveManager : MonoBehaviour
                     saveablePair.Value.LoadDefaultData();
                 }
             }
+            else if (saveablePair.Value is LevelManager)
+            {
+                Debug.Log("LevelManager");
+                if (sceneDataCache.data_entries.ContainsKey(saveablePair.Key))
+                {
+                    saveablePair.Value.LoadData(sceneDataCache.data_entries[saveablePair.Key], "0");
+                }
+                else
+                {
+                    Debug.Log("SaveManager : Data from key " + saveablePair.Key.ToString() + " not found. Setting default values.");
+                    saveablePair.Value.LoadDefaultData();
+                }
+            }
             else
             {
                 if (sceneDataCache.data_entries.ContainsKey(saveablePair.Key))
@@ -194,6 +212,8 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
+
+        //OnFinishedLoadData
     }
 
 
@@ -358,7 +378,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadSavedGame(SaveFileSO saveFile)
     {
-        saveFiles = null;
+        saveFiles.Clear();
 
         Debug.Log("Loading data from: " + saveFile.fileName);
         currentSaveFile = saveFile;
@@ -372,7 +392,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadSavedGameFromSO(SaveFileSO saveFile)
     {
-        saveFiles = null;
+        saveFiles.Clear();
 
         Debug.Log("Loading data from SO: " + saveFile.fileName);
        

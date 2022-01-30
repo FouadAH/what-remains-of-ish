@@ -52,7 +52,7 @@ public class Lamp : MonoBehaviour, IDamagable
         ParticleSystem hitEffectInstance = Instantiate(spearHitEffect, transform.position, randomQuaternionRotation);
         hitEffectInstance.Play();
 
-        if (health == 0)
+        if (health <= 0)
         {
             gameObject.SetActive(false);
         }

@@ -42,7 +42,7 @@ public class Player_Input : MonoBehaviour
 
     float inputDeadZone = 0.19f;
 
-    PlayerInputMaster inputActions;
+    [HideInInspector] public PlayerInputMaster inputActions;
     PauseMenu pauseMenu;
     DialogManager dialogManager;
 
@@ -229,10 +229,10 @@ public class Player_Input : MonoBehaviour
                     freeAimMode = true;
                 }
             }
-            else if (!aiming)
-            {
-                OnTeleport();
-            }
+            //else if (!aiming)
+            //{
+            //    OnTeleport();
+            //}
 
             aiming = true;
         }
@@ -307,4 +307,10 @@ public class Player_Input : MonoBehaviour
         return Time.time >= nextAttackTime;
     }
 
+    private void OnDestroy()
+    {
+        inputActions.UI.Pause.started -= Pause_started;
+        pauseMenu.OnPauseStart -= PauseMenu_OnPauseStart;
+        pauseMenu.OnPauseEnd -= PauseMenu_OnPauseEnd;
+    }
 }

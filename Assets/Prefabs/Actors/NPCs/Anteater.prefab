@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3389380533147597863}
   - component: {fileID: 7298506153311654250}
   - component: {fileID: 4437764778363923638}
+  - component: {fileID: 6505507963677139344}
   m_Layer: 0
   m_Name: Anteater
   m_TagString: Untagged
@@ -29,6 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 577.39, y: 58.57, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8591402198647306725}
   m_Father: {fileID: 0}
@@ -99,10 +101,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
+    speakerName: 
     sentences:
-    - Why hello there weary traveller, care to look at my wares?
+    - Ahleeeeein, ahlein! Come in! Make yourself at home
+    - 'Unfortunatly the shop''s closed at the moment! '
   prompt: {fileID: 2671725159814007994}
   dialogueManager: {fileID: 0}
+  interactTime: 0
+  dialogs:
+  - {fileID: 11400000, guid: 734587aa183d9de45b02b88b709e23ed, type: 2}
+  - {fileID: 11400000, guid: d571715bb71022c4da3f3be423ebe773, type: 2}
+  - {fileID: 11400000, guid: f0d9b0091c94065459ec391a63e59d26, type: 2}
 --- !u!61 &4437764778363923638
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -129,6 +138,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 14.6405, y: 7.9210863}
   m_EdgeRadius: 0
+--- !u!114 &6505507963677139344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3389380533147597856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedGuid: 
 --- !u!1 &4417158525342867769
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +181,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.4134998, y: 1.4134998, z: 1.6962}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2352079296389045978}
   - {fileID: 48691128604955553}
@@ -233,7 +256,7 @@ MonoBehaviour:
     m_Bits: 4294967295
 --- !u!95 &2671725159814007994
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -246,6 +269,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -278,6 +302,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3698279, y: 0.3698279, z: 0.3698279}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 48691128604955553}
   m_RootOrder: 0
@@ -413,6 +438,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.17, y: 1.17, z: 1.17}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8328108837261718003}
   m_Father: {fileID: 8591402198647306725}
@@ -489,6 +515,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8591402198647306725}
   m_RootOrder: 0

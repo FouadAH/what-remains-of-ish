@@ -223,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Debug.Log("Knockback: Direction: " + dir.ToString() + " velocity: " + knockbackDistance);
 
-        if(dir.x != 0)
+        if (dir.x != 0)
             velocity.x = dir.x * kockbackDistance * 1.5f;
 
         velocity.y = dir.y * kockbackDistance;

@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour
 
     FMOD.Studio.Bus MusicBus;
     FMOD.Studio.Bus SFXBus;
+    FMOD.Studio.Bus MasterBus;
+
 
     FMOD.Studio.EventDescription eventDescription;
     FMOD.Studio.PARAMETER_DESCRIPTION param;
@@ -37,6 +39,8 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(this);
         MusicBus = FMODUnity.RuntimeManager.GetBus("Bus:/Music");
         SFXBus = FMODUnity.RuntimeManager.GetBus("Bus:/SFX");
+        MasterBus = FMODUnity.RuntimeManager.GetBus("Bus:/");
+
 
     }
 
@@ -95,6 +99,11 @@ public class AudioManager : MonoBehaviour
             areaAmbianceInstance = FMODUnity.RuntimeManager.CreateInstance(currentAmbiance);
             areaAmbianceInstance.start();
         }
+    }
+
+    public void StopAllAudio()
+    {
+        MasterBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
     public void StopAreaThemeWithFade()

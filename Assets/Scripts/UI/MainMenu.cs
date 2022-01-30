@@ -14,6 +14,11 @@ public class MainMenu : MonoBehaviour
     public GameObject optionMenu;
     public GameObject videoOptions;
     public GameObject audioOptions;
+    public GameObject gameOptions;
+
+    public Toggle abilityToggle;
+    public Toggle directionalAttackToggle;
+
     public EventSystem eventSystem;
     public AudioMixer audioMixer;
     public Transform lookat;
@@ -52,6 +57,15 @@ public class MainMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+
+        abilityToggle.onValueChanged.AddListener(delegate {
+            ToggleAbilities(abilityToggle);
+        });
+
+        directionalAttackToggle.onValueChanged.AddListener(delegate {
+            ToggleDirectionalAttack(directionalAttackToggle);
+        });
     }
 
     public void StartGame()
@@ -97,6 +111,20 @@ public class MainMenu : MonoBehaviour
         optionMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(mainMenu.GetComponentInChildren<Button>().gameObject);
     }
+
+    public void GameMenu()
+    {
+        gameOptions.SetActive(true);
+        optionMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(videoOptions.GetComponentInChildren<Button>().gameObject);
+    }
+    public void GameMenuBack()
+    {
+        gameOptions.SetActive(false);
+        optionMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
+    }
+
     public void VideoMenu()
     {
         videoOptions.SetActive(true);
@@ -142,6 +170,37 @@ public class MainMenu : MonoBehaviour
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
+    public void ToggleAbilities(Toggle abilityToggle)
+    {
+        if (abilityToggle.isOn)
+        {
+            GameManager.instance.hasDashAbility = true;
+            GameManager.instance.hasTeleportAbility = true;
+            GameManager.instance.hasSprintAbility = true;
+            GameManager.instance.hasWallJump = true;
+        }
+        else
+        {
+            GameManager.instance.hasDashAbility = false;
+            GameManager.instance.hasTeleportAbility = false;
+            GameManager.instance.hasSprintAbility = false;
+            GameManager.instance.hasWallJump = false;
+        }
+    }
+
+    public void ToggleDirectionalAttack(Toggle directionalAttackToggle)
+    {
+        if (directionalAttackToggle.isOn)
+        {
+            GameManager.instance.useDirectionalMouseAttack = true;
+        }
+        else
+        {
+            GameManager.instance.useDirectionalMouseAttack = false;
+        }
+    }
+
+
     private IEnumerator NewGame()
     {
         GameManager.instance.isLoading = true;
@@ -154,6 +213,7 @@ public class MainMenu : MonoBehaviour
     {
         if (obj.isDone)
         {
+            //SceneManager.UnloadSceneAsync(1);
             GameManager.instance.InitialSpawn();
             SceneManager.LoadSceneAsync(GameManager.instance.currentSceneBuildIndex, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
@@ -183,8 +243,9 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.instance.isLoading = true;
         GameManager.instance.anim.Play("Fade_Out");
-        SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
-    
+        //SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive).completed += LoadBaseSceneComplete;
+        SceneManager.UnloadSceneAsync(1).completed += MainMenuUnloadComplete;
+
         yield return null;
     }
 }

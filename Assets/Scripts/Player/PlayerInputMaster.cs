@@ -415,7 +415,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4f662eaa-bfea-4f1c-bd10-cb1f166a409a"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -1167,8 +1167,8 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ccf9de4d-2aed-4552-8fc9-6e8df3e52bfe"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""DialogueNext"",
@@ -1182,6 +1182,17 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff68a2fc-74cb-4c0e-be2b-6fcff0e03de7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""DialogueNext"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

@@ -17,6 +17,8 @@ public class SaveSlotController : MonoBehaviour
 
     private void Start()
     {
+        SaveManager.instance.InitSaveManager();
+
         saveFiles = SaveManager.instance.saveFiles;
 
         //Assigning save files to the save slots
