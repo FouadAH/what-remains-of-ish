@@ -34,6 +34,7 @@ public class Lamp : MonoBehaviour, IDamagable
         {
             int directionX = (collision.transform.position.x > transform.position.x) ? -1 : 1;
             rgb2D.AddForce(new Vector2(collitionForce * directionX, 0), ForceMode2D.Impulse);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Lamp Hit", GetComponent<Transform>().position);
         }
     }
 
