@@ -103,13 +103,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fed718fa9038a46aaf3e0a3efa9b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: be731a61-a498-4346-9a5f-8c3ca5d48625
   coinPrefab: {fileID: 5208554419654711270, guid: 8182013d07cba2c4db2670074e3bdbe2,
     type: 3}
   coinSpawnOrigin: {fileID: 7750812000394889668}
   coinAmountOnDestroy: 6
   coinAmountOnHit: 4
   health: 2
+  coinDropData:
+    isDestroyed: 0
+  iFrameTime: 0.1
 --- !u!114 &1189498788609514101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +128,7 @@ MonoBehaviour:
   ColorOpen: {r: 0.17200923, g: 1, b: 0, a: 1}
   ColorStunned: {r: 0, g: 0, b: 0, a: 0}
   stunTime: 0.5
+  ignoreHitstop: 0
 --- !u!58 &1189498788609514098
 CircleCollider2D:
   m_ObjectHideFlags: 0
