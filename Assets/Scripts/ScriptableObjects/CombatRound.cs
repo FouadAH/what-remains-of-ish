@@ -3,38 +3,36 @@ using UnityEngine;
 
 public class CombatRound : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public Transform[] spawnPoints;
     public GameEvent AllEnemiesDeadEvent;
+    public List<Spawner> spawners = new List<Spawner>();
 
-    List<Entity> enemies = new List<Entity>();
-    public bool allEnemiesDead;
-
-    public void SpawnEnemies()
+    public bool IsAllEnemiesDead()
     {
-        foreach(Transform spawnPoint in spawnPoints)
+        bool allDead = true;
+        foreach (Spawner spawner in spawners)
         {
-            GameObject enemyGO = Instantiate(enemyPrefab, spawnPoint);
-            Entity entity = enemyGO.GetComponentInChildren<Entity>();
-            enemies.Add(entity);
-            entity.OnDeath += OnEnemyDeath;
+            if (!spawner.allEnemiesDead)
+            {
+                allDead = false;
+            }
+        }
+        return allDead;
+    }
 
+    public void OnSpawnerEnemiesDead()
+    {
+        Debug.Log("OnSpawnerEnemiesDead");
+        if (IsAllEnemiesDead())
+        {
+            AllEnemiesDeadEvent.Raise();
         }
     }
 
-    public void OnEnemyDeath()
+    public void StartRound()
     {
-        allEnemiesDead = true;
-
-        foreach (Entity enemy in enemies)
+        foreach (Spawner spawner in spawners)
         {
-            if (!enemy.isDead)
-                allEnemiesDead = false;
-        }
-
-        if (allEnemiesDead)
-        {
-            AllEnemiesDeadEvent.Raise();
+            spawner.SpawnEnemies();
         }
     }
 }

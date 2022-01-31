@@ -24,22 +24,25 @@ public class CombatArena : MonoBehaviour
                 door.SetState(false);
             }
 
-            combatRounds[currentCombatRound].SpawnEnemies();
+            combatRounds[currentCombatRound].StartRound();
+            AudioManager.instance.SetIntensity(75);
         }
     }
 
-    public void OnComabatRoundOver()
+    public void OnCombatRoundOver()
     {
         allRoundsOver = true;
 
         foreach (CombatRound combatRound in combatRounds)
         {
-            if (!combatRound.allEnemiesDead)
+            if (!combatRound.IsAllEnemiesDead())
                 allRoundsOver = false;
         }
 
         if (allRoundsOver)
         {
+            AudioManager.instance.SetIntensity(0);
+
             foreach (Door door in arenaDoors)
             {
                 door.SetState(true);
@@ -48,7 +51,7 @@ public class CombatArena : MonoBehaviour
         else
         {
             currentCombatRound++;
-            combatRounds[currentCombatRound].SpawnEnemies();
+            combatRounds[currentCombatRound].StartRound();
         }
     }
 
@@ -56,11 +59,14 @@ public class CombatArena : MonoBehaviour
     {
         foreach (CombatRound spawnPoint in combatRounds)
         {
-            for (int i = 0; i < spawnPoint.spawnPoints.Length; i++)
+            foreach (Spawner spawner in spawnPoint.spawners)
             {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(spawnPoint.spawnPoints[i].position + transform.position, 0.5f);
-                GizmosUtils.DrawText(GUI.skin, spawnPoint.enemyPrefab.name, spawnPoint.spawnPoints[i].position + transform.position, Color.black, 10, -25);
+                for (int i = 0; i < spawner.spawnPoints.Length; i++)
+                {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawSphere(spawner.spawnPoints[i].position + transform.position, 0.5f);
+                    GizmosUtils.DrawText(GUI.skin, spawner.enemyPrefab.name, spawner.spawnPoints[i].position + transform.position, Color.black, 10, -25);
+                }
             }
         }
     }
