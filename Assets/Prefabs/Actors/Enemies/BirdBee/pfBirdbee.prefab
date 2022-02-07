@@ -1196,7 +1196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7845835762914786105}
   m_Layer: 10
-  m_Name: Birdbee
+  m_Name: pfBirdbee
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1448,6 +1448,8 @@ MonoBehaviour:
   ColorOpen: {r: 0.40571535, g: 1, b: 0, a: 0.4627451}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.5019608}
   stunTime: 0.5
+  ignoreHitstop: 0
+  ignoreFrames: 2
 --- !u!114 &3484212126327578213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,6 +1546,8 @@ MonoBehaviour:
   attackStateData: {fileID: 11400000, guid: 64ea609bb350dce4b9fbe769d6aaa843, type: 2}
   deadStateData: {fileID: 11400000, guid: 764646bb507bfa44ea8db4cb689a8977, type: 2}
   birdbeeFlyLoop: event:/SFX/Enemies/Idle/Birdbee_Idle
+  knockbackTime: 0.5
+  smoothTime: 0.2
   IsAggro: 0
 --- !u!114 &1366236473883835881
 MonoBehaviour:

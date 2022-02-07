@@ -10481,7 +10481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5696843882739678234}
   m_Layer: 10
-  m_Name: SpikeChargerEnemyArena
+  m_Name: pfSpikeChargerEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10495,7 +10495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5696843882739678225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 132, y: 13.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10754,7 +10754,6 @@ MonoBehaviour:
   ColorOpen: {r: 0.37647057, g: 1, b: 0, a: 0.12156863}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.12156863}
   stunTime: 0.5
-  ignoreHitstop: 0
 --- !u!114 &3160052033769545245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10864,7 +10863,7 @@ MonoBehaviour:
   isAffectedByGravity: 1
   gravity: -18
   accelerationTimeGrounded: 0.1
-  shouldSaveState: 0
+  shouldSaveState: 1
   meleeDamage: 1
   hitKnockbackAmount: 15
   idleStateData: {fileID: 11400000, guid: 66861ed30095f0c46a29965d1b97778d, type: 2}

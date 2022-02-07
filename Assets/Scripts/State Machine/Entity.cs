@@ -218,8 +218,37 @@ public class Entity : Savable, IDamagable
     {
         if (!CheckWallFront() && !CheckWallBack())
         {
-            velocityWorkspace.Set(velocity, rb.velocity.y);
+            StartCoroutine(KnockbackTimer(velocity));
+            //velocityWorkspace.Set(velocity, rb.velocity.y);
+            //rb.velocity = velocityWorkspace;
+        }
+    }
+
+    public float knockbackTime = 0.5f;
+    protected float knockbackTimeElapsed;
+
+    public float smoothTime = 0.1f;
+    protected Vector2 velocitySmoothing;
+    IEnumerator KnockbackTimer(float knockbackForce)
+    {
+        yield return new WaitForEndOfFrame();
+
+        velocityWorkspace.Set(knockbackForce, rb.velocity.y);
+        rb.velocity = velocityWorkspace;
+
+        knockbackTimeElapsed = 0;
+        while (knockbackTimeElapsed < knockbackTime)
+        {
+            if (CheckGround() || CheckWall())
+            {
+                rb.velocity = Vector2.zero;
+                break;
+            }
+
+            knockbackTimeElapsed += Time.deltaTime;
+            velocityWorkspace = Vector2.SmoothDamp(velocityWorkspace, Vector2.zero, ref velocitySmoothing, smoothTime);
             rb.velocity = velocityWorkspace;
+            yield return null;
         }
     }
 

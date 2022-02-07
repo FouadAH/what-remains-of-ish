@@ -10,7 +10,7 @@ public class Hurtbox : MonoBehaviour
     public Color ColorStunned;
     private ColliderState _state = ColliderState.Open;
     private bool stunned;
-    [SerializeField] private float stunTime = 0.5f;
+    [SerializeField] private float stunTime = 0.1f;
     IHittable hittable;
 
     public bool ignoreHitstop;
@@ -39,10 +39,17 @@ public class Hurtbox : MonoBehaviour
         }
     }
 
+    int currentFrames;
+    public int ignoreFrames = 2;
     private IEnumerator StunTimer()
     {
         stunned = true;
-        yield return new WaitForSeconds(stunTime);
+        currentFrames = 0;
+        while(currentFrames <= ignoreFrames)
+        {
+            currentFrames++;
+            yield return null;
+        }
         stunned = false;
     }
 

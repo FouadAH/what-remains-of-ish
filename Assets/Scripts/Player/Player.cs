@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using UnityEngine.Rendering;
+
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Controller_2D))]
 
@@ -70,6 +73,17 @@ public class Player : MonoBehaviour, IAttacker{
     public float restoreSpeed = 10f;
     public float delay = 0.1f;
 
+    [Header("Player SFX")]
+    public int damageThreshold = 2;
+    [FMODUnity.EventRef] public string playerBreathingSFX;
+    public FMOD.Studio.EventInstance playerBreathingInstance;
+
+    [Header("Player VFX")]
+    private Volume volume;
+    private Vignette vignette;
+    public float lowHealthIntensity;
+    float initalIntensity;
+
     [Header("Debug Settings")]
     public bool playerDebugMode;
     public TrailRenderer playerPath;
@@ -122,6 +136,11 @@ public class Player : MonoBehaviour, IAttacker{
         flashEffect = GetComponentInChildren<ColouredFlash>();
         cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
 
+        volume = FindObjectOfType<Volume>();
+        Debug.Log(volume.name);
+        volume.profile.TryGet(out vignette);
+        initalIntensity = vignette.intensity.value;
+        Debug.Log(initalIntensity);
         if (playerDebugMode)
         {
             playerPath.emitting = true;
@@ -183,6 +202,8 @@ public class Player : MonoBehaviour, IAttacker{
         velocity.y += dir.y * kockbackDistance.y;
     }
 
+    FMOD.Studio.PLAYBACK_STATE PLAYBACK_STATE;
+    Coroutine lowHealthRoutine;
     /// <summary>
     /// Helper method that check if the player is dead or not 
     /// </summary>
@@ -191,12 +212,35 @@ public class Player : MonoBehaviour, IAttacker{
         if (gm.health <= 0)
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Death", GetComponent<Transform>().position);
+            playerBreathingInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             StartCoroutine(PlayerDeath());
         }
-        else if(gm.health <=2)
+        else if(gm.health <= 1)
+        {
+            lowHealthRoutine = StartCoroutine(LowHealthVig());
+            playerBreathingInstance.getPlaybackState(out PLAYBACK_STATE);
+
+            if (PLAYBACK_STATE != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+            {
+                playerBreathingInstance = FMODUnity.RuntimeManager.CreateInstance(playerBreathingSFX);
+                playerBreathingInstance.start();
+                playerBreathingInstance.setParameterByName("Health", 40);
+            }
+        }
+        else if (gm.health <= 2)
         {
             AudioManager.instance.SetHealthParameter(20f);
         }
+    }
+
+    IEnumerator LowHealthVig()
+    {
+        while(vignette.intensity.value < lowHealthIntensity)
+        {
+            vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, lowHealthIntensity, 0.1f);
+            yield return null;
+        }
+        yield return null;
     }
 
     /// <summary>
@@ -220,7 +264,13 @@ public class Player : MonoBehaviour, IAttacker{
         AudioManager.instance.StopSFXWithFade();
 
         yield return new WaitForSeconds(2f);
-        
+
+        if (lowHealthRoutine != null)
+        {
+            StopCoroutine(lowHealthRoutine);
+            vignette.intensity.value = initalIntensity;
+        }
+
         AudioManager.instance.PlayAreaTheme();
         GameManager.instance.Respawn();
 
@@ -265,7 +315,20 @@ public class Player : MonoBehaviour, IAttacker{
 
         if (gm.health > 2)
         {
+            if (lowHealthRoutine != null)
+            {
+                StopCoroutine(lowHealthRoutine);
+            }
+            vignette.intensity.value = initalIntensity;
+
             AudioManager.instance.SetHealthParameter(100f);
+            playerBreathingInstance.getPlaybackState(out PLAYBACK_STATE);
+
+            if (PLAYBACK_STATE == FMOD.Studio.PLAYBACK_STATE.PLAYING)
+            {
+                playerBreathingInstance.release();
+                playerBreathingInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
         }
     }
 
@@ -328,21 +391,10 @@ public class Player : MonoBehaviour, IAttacker{
         cameraOffset.m_Offset.y = Mathf.Lerp(cameraOffset.m_Offset.y, cameraOffsetTarget, 0.1f);
     }
 
-    //IEnumerator DisableInputTemp(float disableTime)
-    //{
-    //    playerInput.enabled = false;
-    //    yield return new WaitForSecondsRealtime(disableTime);
-    //    playerInput.enabled = true;
-    //}
-
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
-        //playerMovement.knockbackDistance = amount;
         playerMovement.Knockback(playerMovement.dirKnockback, playerMovement.knockbackDistance);
-
-        //StopCoroutine(KnockbackOnHitRoutine());
-        //StartCoroutine(KnockbackOnHitRoutine());
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
@@ -352,7 +404,6 @@ public class Player : MonoBehaviour, IAttacker{
         
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
         playerMovement.knockbackDistance = amount;
-        //playerMovement.Knockback(playerMovement.dirKnockback, playerMovement.knockbackDistance);
         StopCoroutine(KnockbackOnDamageRoutine());
         StartCoroutine(KnockbackOnDamageRoutine());
     }
@@ -363,16 +414,22 @@ public class Player : MonoBehaviour, IAttacker{
         yield return new WaitForSeconds(knockbackOnDamageTimer);
         playerMovement.isKnockedback = false;
     }
-    IEnumerator KnockbackOnHitRoutine()
-    {
-        playerMovement.isKnockedback = true;
-        yield return new WaitForSeconds(knockbackOnHitTimer);
-        playerMovement.isKnockedback = false;
-    }
 
     private void OnParticleCollision(GameObject other)
     {
         Debug.Log("Particle collision");
+    }
+
+    private void OnDestroy()
+    {
+        playerBreathingInstance.getPlaybackState(out PLAYBACK_STATE);
+
+
+        if (PLAYBACK_STATE == FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        {
+            playerBreathingInstance.release();
+            playerBreathingInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        }
     }
 
     private void OnDrawGizmos()

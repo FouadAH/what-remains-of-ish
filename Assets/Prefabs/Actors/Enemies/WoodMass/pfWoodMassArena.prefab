@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 732945987077275940}
   m_Layer: 10
-  m_Name: WoodMass
+  m_Name: pfWoodMassArena
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -962,7 +962,7 @@ MonoBehaviour:
   isAffectedByGravity: 1
   gravity: -18
   accelerationTimeGrounded: 0.05
-  shouldSaveState: 1
+  shouldSaveState: 0
   meleeDamage: 1
   hitKnockbackAmount: 25
   idleStateData: {fileID: 11400000, guid: 37c55b2cb0488634485623edb358292d, type: 2}
@@ -981,7 +981,7 @@ MonoBehaviour:
   - {fileID: 8864161690563877917}
   - {fileID: 2293382028885755011}
   AggroTime: 0
-  IsAggro: 0
+  IsAggro: 1
 --- !u!114 &7997955044489143075
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,6 +22,7 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxRespond
     {
         base.Enter();
         wallDetectionFirstTake = true;
+        entity.SetVelocity(0);
     }
 
     public override void Exit()
@@ -54,7 +55,6 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxRespond
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        entity.SetVelocity(0);
     }
 
     public override void LatePhysicsUpdate()

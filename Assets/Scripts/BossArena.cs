@@ -10,7 +10,7 @@ public class BossArena : MonoBehaviour, ISaveable
 
     public CinemachineVirtualCamera bossAreaCamera;
     public Canvas bossHealthCanvas;
-    bool hasBeenActivated;
+    bool hasBeenActivated;  
     public BossArenaData arenaData;
 
     //[FMODUnity.EventRef] public string bossThemeMusic;
@@ -60,7 +60,7 @@ public class BossArena : MonoBehaviour, ISaveable
         bossAreaCamera.gameObject.SetActive(true);
         bossAreaCamera.Follow = GameManager.instance.player.transform;
         bossAreaCamera.LookAt = GameManager.instance.player.transform;
-        bossHealthCanvas.enabled = true;
+        //bossHealthCanvas.enabled = true;
     }
 
     public void OnEnterPhase2()

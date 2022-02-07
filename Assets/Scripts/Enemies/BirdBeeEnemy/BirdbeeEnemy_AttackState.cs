@@ -67,6 +67,7 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
             wallDetectionFirstTake = false;
             wallDetectedPos = enemy.transform.position;
             enemy.transform.position = wallDetectedPos;
+            stateMachine.ChangeState(enemy.playerDetectedState);
         }
         else if (entity.CheckGround())
         {
@@ -90,6 +91,12 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
         base.AttackStart();
         isAnticipation = false;
         isAttacking = true;
+    }
+
+    void DiagonalAttack()
+    {
+        Vector2 direction = (enemy.transform.position - GameManager.instance.playerCurrentPosition.position).normalized;
+        enemy.rb.AddForce(direction*5f);
     }
 
     void IHitboxResponder.collisionedWith(Collider2D collider)

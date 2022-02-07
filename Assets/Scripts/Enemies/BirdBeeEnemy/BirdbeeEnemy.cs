@@ -52,32 +52,56 @@ public class BirdbeeEnemy : Entity
         base.LateUpdate();
     }
 
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        if (CheckGround())
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+    }
+
     public override void DamageHop(float velocity){}
 
     public override void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         Vector3 knockbackForce = new Vector3(entityData.damageHopSpeed * dirX, entityData.damageHopSpeed * dirY, 0);
         StartCoroutine(KnockbackTimer(knockbackForce));
+        rb.AddForce(knockbackForce, ForceMode2D.Impulse);
+        //rb.velocity = knockbackForce;
     }
 
     int frames;
+    
+
     IEnumerator KnockbackTimer(Vector3 knockbackForce)
     {
         frames = 0;
         aIPath.canMove = false;
-
+        aIPath.canSearch = false;
         yield return new WaitForEndOfFrame();
 
         rb.velocity = knockbackForce;
-        while (frames < knockbackFrames)
+        knockbackTimeElapsed = 0;
+        while (knockbackTimeElapsed < knockbackTime)
         {
-            frames++;
+            knockbackTimeElapsed += Time.deltaTime;
+            rb.velocity = Vector2.SmoothDamp(rb.velocity, Vector2.zero, ref velocitySmoothing, smoothTime);
+            if (CheckGround())
+            {
+                rb.velocity = Vector2.zero;
+                break;
+            }
+
             yield return null;
         }
-        rb.velocity = Vector3.zero;
 
         if (stateMachine.currentState != attackState)
+        {
             aIPath.canMove = true;
+            aIPath.canSearch = true;
+        }
     }
 
     [Header("Aggro Settings")]
