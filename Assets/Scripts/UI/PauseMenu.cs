@@ -86,6 +86,9 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePause()
     {
+        if (ShopManager.instance.shopIsActive)
+            return;
+
         if (GameManager.instance.isPaused)
         {
             Resume();

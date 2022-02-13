@@ -239,9 +239,10 @@ public class Entity : Savable, IDamagable
         knockbackTimeElapsed = 0;
         while (knockbackTimeElapsed < knockbackTime)
         {
-            if (CheckGround() || CheckWall())
+            if (CheckWall())
             {
-                rb.velocity = Vector2.zero;
+                velocityWorkspace = Vector2.zero;
+                rb.velocity = velocityWorkspace;
                 break;
             }
 

@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class MapSystem : MonoBehaviour
 {
     public List<MapArea> areas;
-    public RectTransform UI_Element;
-    public Canvas mapCanvas;
+    public RectTransform playerIcon;
     public PlayerConfig initialPlayerData;
-    
+    public RectTransform mapContent;
+
     GameObject WorldObject;
     Vector3 initialPos;
 
@@ -22,7 +22,7 @@ public class MapSystem : MonoBehaviour
 
     private void Update()
     {
-        UI_Element.anchoredPosition = WorldObject.transform.position - initialPos;
+        playerIcon.anchoredPosition = WorldObject.transform.position - initialPos;
     }
 
     public void OnNewLevelLoad()
@@ -47,5 +47,10 @@ public class MapSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        mapContent.anchoredPosition = playerIcon.anchoredPosition;
     }
 }

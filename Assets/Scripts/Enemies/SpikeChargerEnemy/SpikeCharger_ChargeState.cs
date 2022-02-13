@@ -19,6 +19,7 @@ public class SpikeCharger_ChargeState : ChargeState
     public override void Enter()
     {
         base.Enter();
+        enemy.accelerationTimeGrounded = 0.4f;
         enemy.chargeDustParticles.Play();
     }
 
@@ -26,6 +27,7 @@ public class SpikeCharger_ChargeState : ChargeState
     {
         base.Exit();
         enemy.chargeDustParticles.Stop();
+        enemy.accelerationTimeGrounded = 0.1f;
     }
 
     public override void LatePhysicsUpdate()
@@ -50,6 +52,10 @@ public class SpikeCharger_ChargeState : ChargeState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        if (isDetectingWall)
+        {
+            enemy.SetVelocityX(0);
+        }
         //Debug.Log(enemy.chargeSpeedCurve.Evaluate(Time.time - startTime));
 
     }

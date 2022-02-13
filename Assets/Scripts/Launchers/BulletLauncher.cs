@@ -14,7 +14,6 @@ public class BulletLauncher : MonoBehaviour, ILauncher
     [SerializeField] private float damageMod = 1;
     [SerializeField] private float hitKnockbackAmount = 15;
 
-
     private AttackProcessor attackProcessor;
     
     public int MinRangeDamage { get => minDamage; set => minDamage = value; }

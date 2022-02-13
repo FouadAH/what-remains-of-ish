@@ -7,7 +7,8 @@ public class Attack : MonoBehaviour, IHitboxResponder
     public List<Hitbox> hitboxes;
     Vector3 dir;
     PlayerMovement player;
-    
+
+    public LayerMask obstacleLayer;
     public float knockbackBasicAttack = 10f;
     public float knockbackUpAttack = 10f;
     public float knockbackDownAttack = 25f;
@@ -19,10 +20,16 @@ public class Attack : MonoBehaviour, IHitboxResponder
     public float restoreSpeed = 10f;
     public float delay = 0.1f;
 
+    private AttackProcessor attackProcessor;
+    protected Cinemachine.CinemachineImpulseSource impulseListener;
+    public ParticleSystem HitEffect;
+
     void Start()
     {
         player = GetComponent<PlayerMovement>();
         timeStop = GetComponent<TimeStop>();
+        attackProcessor = new AttackProcessor();
+        impulseListener = GetComponent<Cinemachine.CinemachineImpulseSource>();
     }
 
     public void AttackDefault()
@@ -64,13 +71,13 @@ public class Attack : MonoBehaviour, IHitboxResponder
 
             if (dir.y == 1)
             {
-                hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (dir.y));
+                hurtbox.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (dir.y));
                 return;
             }
 
             if(dir.y == -1)
             {
-                hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), 0, -1);
+                hurtbox.getHitBy(gameObject.GetComponent<IAttacker>(), 0, -1);
                 return;
             }
 
@@ -85,10 +92,24 @@ public class Attack : MonoBehaviour, IHitboxResponder
                 dir.x = 1;
                 dir.y = 0;
             }
-
         }
+        else if(IsInLayerMask(collider.gameObject.layer, obstacleLayer))
+        {
+            attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), (dir.x), 0);
+            impulseListener.GenerateImpulse();
 
+            if (HitEffect != null)
+            {
+                ParticleSystem hitEffectInstance = Instantiate(HitEffect, transform.position, Quaternion.identity);
+                hitEffectInstance.Play();
+            }
+        }
         //Debug.Log("Knockback Dir: X:" + (dir.x) + " Y: " + (dir.y));
         hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (-dir.y));
+    }
+
+    public static bool IsInLayerMask(int layer, LayerMask layermask)
+    {
+        return layermask == (layermask | (1 << layer));
     }
 }

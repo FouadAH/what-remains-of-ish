@@ -208,4 +208,14 @@ public class DialogManager : MonoBehaviour
         OnDialogueEnd();
         animator.SetBool("isOpen", false);
     }
+
+    public void OnInteractStart()
+    {
+        OnDialogueStart();
+    }
+
+    public void OnInteractEnd()
+    {
+        OnDialogueEnd();
+    }
 }

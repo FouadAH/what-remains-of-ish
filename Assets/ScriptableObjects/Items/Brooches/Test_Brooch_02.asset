@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2cd14364805f74c9fdd795718bbc89, type: 3}
+  m_Name: Test_Brooch_02
+  m_EditorClassIdentifier: 
+  itemName: Increase flask healing
+  itemDescription: This is a test brooch. Equip to increase flask healing by one.
+  itemCost: 200
+  itemIcon: {fileID: 21300000, guid: 493afe6870d038240a2e078ec17a5d52, type: 3}
+  hasBeenSold: 0
+  canBuy: 0
+  prefab: {fileID: 3070440436462063202, guid: b330644ee4d56004abe90c7ffafe5d5f, type: 3}
+  broochID: 2
+  width: 2
+  height: 2
+  canInteract: 1

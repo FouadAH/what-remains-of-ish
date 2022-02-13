@@ -16,7 +16,9 @@ public class Player_Input : MonoBehaviour
     public bool aiming { get; set; }
     public bool freeAimMode;
 
-    [SerializeField] private float attackRate = 0.1f;
+    public float attackRate = 0.3f;
+    public float attackRateFast = 0.2f;
+
     private float nextAttackTime;
 
     public event Action OnFire = delegate{};
@@ -46,7 +48,7 @@ public class Player_Input : MonoBehaviour
     PauseMenu pauseMenu;
     DialogManager dialogManager;
 
-    private void Start()
+    private void Awake()
     {
         inputActions = new PlayerInputMaster();
 
@@ -208,7 +210,9 @@ public class Player_Input : MonoBehaviour
     {
         if (GameManager.instance.healingPodAmount > 0)
         {
-            OnHeal(GameManager.instance.healingAmountPerPod);
+            int healingAmount = GameManager.instance.healingAmountPerPod;
+            int tempHealAmount = (GameManager.instance.equippedBrooch_02) ? healingAmount + 1 : healingAmount;
+            OnHeal(tempHealAmount);
         }
     }
 
@@ -253,7 +257,8 @@ public class Player_Input : MonoBehaviour
     {
         if (CanAttack())
         {
-            nextAttackTime = Time.time + attackRate;
+            float tempAttackRate = (GameManager.instance.equippedBrooch_01) ? attackRateFast : attackRate;
+            nextAttackTime = Time.time + tempAttackRate;
             OnAttack();
         }
     }

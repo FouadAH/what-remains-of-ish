@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryItem : MonoBehaviour
 {
-    private InventoryItemSO inventoryItemSO;
+    public InventoryItemSO inventoryItemSO;
     private Vector2Int origin;
 
     public static InventoryItem CreateCanvas(Transform parent, Vector2 anchoredPosition, Vector2Int origin, InventoryItemSO inventoryItemSO)
@@ -19,7 +19,6 @@ public class InventoryItem : MonoBehaviour
 
         return inventoryItem;
     }
-
 
     public Vector2Int GetGridPosition()
     {
@@ -43,7 +42,7 @@ public class InventoryItem : MonoBehaviour
 
     public override string ToString()
     {
-        return inventoryItemSO.nameString;
+        return inventoryItemSO.itemName;
     }
 
     public InventoryItemSO GetPlacedObjectTypeSO()

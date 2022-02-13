@@ -92,7 +92,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462087598337450667}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8085719, y: -0.5942867, z: 0}
+  m_LocalPosition: {x: 1.11, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1534,6 +1534,8 @@ MonoBehaviour:
   gravity: -12
   accelerationTimeGrounded: 0.05
   shouldSaveState: 1
+  knockbackTime: 0.5
+  smoothTime: 0.2
   destinationSetter: {fileID: 1366236473883835881}
   aIPath: {fileID: 1437208573}
   TargetPoint: {fileID: 1927955263}
@@ -1546,8 +1548,6 @@ MonoBehaviour:
   attackStateData: {fileID: 11400000, guid: 64ea609bb350dce4b9fbe769d6aaa843, type: 2}
   deadStateData: {fileID: 11400000, guid: 764646bb507bfa44ea8db4cb689a8977, type: 2}
   birdbeeFlyLoop: event:/SFX/Enemies/Idle/Birdbee_Idle
-  knockbackTime: 0.5
-  smoothTime: 0.2
   IsAggro: 0
 --- !u!114 &1366236473883835881
 MonoBehaviour:
@@ -1578,10 +1578,10 @@ MonoBehaviour:
   version: 2
   radius: 0.75
   height: 2
-  repathRate: 0.5
+  repathRate: 0.33
   canSearch: 1
   canMove: 1
-  maxSpeed: 3
+  maxSpeed: 8
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -1590,12 +1590,12 @@ MonoBehaviour:
   orientation: 1
   enableRotation: 0
   targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
+  maxAcceleration: 9
   rotationSpeed: 360
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 2
-  endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
+  slowdownDistance: 2.4
+  pickNextWaypointDist: 3.52
+  endReachedDistance: 1.76
+  alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0

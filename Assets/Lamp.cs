@@ -6,12 +6,24 @@ public class Lamp : MonoBehaviour, IDamagable
 {
     Rigidbody2D rgb2D;
     SpriteRenderer spriteRenderer;
+    Collider2D col2D;
 
     public float collitionForce = 2f;
 
     public float health;
     public int maxHealth;
+
+    [Header("Physics settings")]
     public int knockbackForce;
+    [SerializeField] private float upForce = 3f;
+    [SerializeField] private float sideForce = 3f;
+
+    [Header("Hinges")]
+    public GameObject hingesParent;
+    public BreakableObject fixedHinge;
+    public bool isFalling;
+
+    public LayerMask obstacleLayer;
 
     [Header("Particles")]
     public ParticleSystem spearHitEffect;
@@ -22,20 +34,49 @@ public class Lamp : MonoBehaviour, IDamagable
     int IDamagable.MaxHealth { get => maxHealth; set => maxHealth = value; }
     int IDamagable.knockbackGiven { get => knockbackForce; set => knockbackForce = value; }
 
+    public event System.Action OnExplode = delegate { };
+
     private void Start()
     {
         rgb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        col2D = GetComponent<Collider2D>();
+        fixedHinge.OnBreak += FixedHinge_OnBreak;
+    }
+
+    private void FixedHinge_OnBreak()
+    {
+        isFalling = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       if(collision.GetComponent<Player>())
+        if(collision.GetComponent<Player>())
         {
             int directionX = (collision.transform.position.x > transform.position.x) ? -1 : 1;
             rgb2D.AddForce(new Vector2(collitionForce * directionX, 0), ForceMode2D.Impulse);
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Lamp Hit", GetComponent<Transform>().position);
         }
+
+        if (isFalling) 
+        {
+            if (IsInLayerMask(collision.gameObject.layer, obstacleLayer))
+            {
+                Debug.Log("Explode");
+                OnExplode();
+                Physics2D.IgnoreCollision(col2D, GameManager.instance.player.GetComponent<Collider2D>());
+                col2D.isTrigger = false;
+                rgb2D.gravityScale = 1;
+                rgb2D.mass = 2;
+
+                float xForce = Random.Range(sideForce, -sideForce);
+                float yForce = Random.Range(upForce / 2f, upForce);
+                rgb2D.AddForce(new Vector2(xForce, yForce), ForceMode2D.Impulse);
+
+                breakEffect.Play();
+            }
+        }
+        
     }
 
     void IDamagable.KnockbackOnDamage(int amount, float dirX, float dirY)
@@ -47,6 +88,7 @@ public class Lamp : MonoBehaviour, IDamagable
     {
         health -= hitAmount;
         breakEffect.Play();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Lamp Hit", GetComponent<Transform>().position);
 
         Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
         Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
@@ -57,6 +99,10 @@ public class Lamp : MonoBehaviour, IDamagable
         {
             gameObject.SetActive(false);
         }
+    }
+    public static bool IsInLayerMask(int layer, LayerMask layermask)
+    {
+        return layermask == (layermask | (1 << layer));
     }
 
     private void OnDisable()

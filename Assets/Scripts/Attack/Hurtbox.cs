@@ -10,9 +10,7 @@ public class Hurtbox : MonoBehaviour
     public Color ColorStunned;
     private ColliderState _state = ColliderState.Open;
     private bool stunned;
-    [SerializeField] private float stunTime = 0.1f;
     IHittable hittable;
-
     public bool ignoreHitstop;
 
     private void Awake()

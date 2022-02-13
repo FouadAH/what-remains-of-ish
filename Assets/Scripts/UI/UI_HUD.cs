@@ -19,6 +19,10 @@ public class UI_HUD : MonoBehaviour
 
     public List<HealingPod> healingFlasks = new List<HealingPod>();
 
+    [Header("Brooch Inventory")]
+    public InventoryGrid broochInventoryGrid;
+    public InventoryGrid broochEquipGrid;
+
     [Header("Tips UI elements")]
 
     public GameObject tipsPanel;
@@ -87,33 +91,19 @@ public class UI_HUD : MonoBehaviour
         currencyText.SetText(GameManager.instance.currency.ToString());
     }
 
+    float refillMod;
+    float refillModNormal = 1f;
+    float refillModExtra = 1.5f;
+
     public void RefillFlask(float amount)
     {
-        //float amountToFill = 0;
-        //for (int i = 0; i < healingFlasks.Count; i++)
-        //{
-        //    if (i == 0)
-        //    {
-        //        amountToFill = amount;
-        //    }
-
-        //    if (healingFlasks[i].fillAmount != 100)
-        //    {
-        //        if (amountToFill + healingFlasks[i].fillAmount > 100)
-        //        {
-        //            amountToFill -= healingFlasks[i].fillAmount;
-        //        }
-
-        //        healingFlasks[i].Refill(amountToFill);
-        //        Debug.Log(amountToFill);
-        //    }
-        //}
-
         foreach (HealingPod flask in healingFlasks)
         {
             if (flask.fillAmount < 100)
             {
-                flask.Refill(amount);
+                refillMod = (GameManager.instance.equippedBrooch_03) ? refillModExtra : refillModNormal;
+                Debug.Log("Reffiling flask: " + amount * refillMod);
+                flask.Refill(amount * refillMod);
                 break;
             }
         }

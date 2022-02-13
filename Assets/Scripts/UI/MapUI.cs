@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameMenu : MonoBehaviour
+public class MapUI : MonoBehaviour
 {
     public GameObject mapUI;
 
@@ -11,7 +11,7 @@ public class GameMenu : MonoBehaviour
 
     private void Start()
     {
-        inputActions = new PlayerInputMaster();
+        inputActions = FindObjectOfType<Player_Input>().inputActions;
         inputActions.Player.Enable();
         inputActions.UI.Enable();
 
@@ -30,12 +30,12 @@ public class GameMenu : MonoBehaviour
     }
 
 
-    void OpenMap()
+    public void OpenMap()
     {
         mapUI.SetActive(true);
     }
 
-    void CloseMap()
+    public void CloseMap()
     {
         mapUI.SetActive(false);
     }

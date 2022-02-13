@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class DialogTrigger : Savable
 {
-    public Dialog dialog;
+    protected Animator promptAnimator;
+    protected DialogManager dialogueManager;
+    protected Canvas promptCanvas;
 
-    [SerializeField] private Animator prompt;
-    [HideInInspector] public DialogManager dialogueManager;
-
-    public int interactTime = 0;
+    int interactTime = 0;
     public List<DialogueNodeSO> dialogs;
     public DialogueData dialogueData;
     public struct DialogueData
@@ -20,6 +19,8 @@ public class DialogTrigger : Savable
     public override void Start()
     {
         base.Start();
+        promptCanvas = GetComponentInChildren<Canvas>();
+        promptAnimator = promptCanvas.GetComponent<Animator>();
         dialogueManager = DialogManager.instance;
     }
     
@@ -33,16 +34,16 @@ public class DialogTrigger : Savable
         }
     }
 
-    void DisplayPrompt()
+    protected void DisplayPrompt()
     {
-        prompt.ResetTrigger("PopOut");
-        prompt.SetTrigger("PopIn");
+        promptAnimator.ResetTrigger("PopOut");
+        promptAnimator.SetTrigger("PopIn");
     }
 
-    void RemovePrompt()
+    protected void RemovePrompt()
     {
-        prompt.ResetTrigger("PopIn");
-        prompt.SetTrigger("PopOut");
+        promptAnimator.ResetTrigger("PopIn");
+        promptAnimator.SetTrigger("PopOut");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,14 +54,11 @@ public class DialogTrigger : Savable
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public virtual void OnTriggerStay2D(Collider2D collision)
     {
         if (Input.GetButtonDown("Interact"))
         {
-            if (!dialogueManager.dialogueIsActive)
-            {
-                TriggerDialogue();
-            }
+            Interact();
         }
 
         if (!dialogueManager.dialogueIsActive)
@@ -78,6 +76,14 @@ public class DialogTrigger : Savable
         if (collision.gameObject.tag.Equals("Player"))
         {
             RemovePrompt();
+        }
+    }
+
+    public virtual void Interact()
+    {
+        if (!dialogueManager.dialogueIsActive)
+        {
+            TriggerDialogue();
         }
     }
 

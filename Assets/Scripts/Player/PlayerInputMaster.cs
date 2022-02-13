@@ -171,31 +171,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""8180e8bd-4097-4f4e-ab88-4523101a6ce9"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""down"",
                     ""id"": ""320bffee-a40b-4347-ac70-c210eb8bc73a"",
                     ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""1c5327b5-f71c-4f60-99c7-4e737386f1d1"",
-                    ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -215,31 +193,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""2e46982e-44cc-431b-9f0b-c11910bf467a"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""right"",
                     ""id"": ""fcfe95b8-67b9-4526-84b5-5d0bc98d6400"",
                     ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""77bff152-3580-4b21-b6de-dcd0c7e41164"",
-                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -686,6 +642,15 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""name"": ""Map"",
                     ""type"": ""Button"",
                     ""id"": ""c38ddece-de07-4785-a902-3d6d8e32c9ce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GameMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d1e2f2f-9d79-4072-bcc0-aac2fe60bc6b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
@@ -1196,6 +1161,28 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""DialogueNext"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae0c5ce9-482e-4c87-bc39-fea8b1457a3e"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""GameMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""edb4b2f6-e5aa-49bd-aba3-49a723634c04"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GameMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1291,6 +1278,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
         m_UI_Map = m_UI.FindAction("Map", throwIfNotFound: true);
+        m_UI_GameMenu = m_UI.FindAction("GameMenu", throwIfNotFound: true);
         m_UI_DialogueNext = m_UI.FindAction("DialogueNext", throwIfNotFound: true);
     }
 
@@ -1484,6 +1472,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_Pause;
     private readonly InputAction m_UI_Map;
+    private readonly InputAction m_UI_GameMenu;
     private readonly InputAction m_UI_DialogueNext;
     public struct UIActions
     {
@@ -1501,6 +1490,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @Pause => m_Wrapper.m_UI_Pause;
         public InputAction @Map => m_Wrapper.m_UI_Map;
+        public InputAction @GameMenu => m_Wrapper.m_UI_GameMenu;
         public InputAction @DialogueNext => m_Wrapper.m_UI_DialogueNext;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
@@ -1547,6 +1537,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @Map.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMap;
                 @Map.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMap;
                 @Map.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMap;
+                @GameMenu.started -= m_Wrapper.m_UIActionsCallbackInterface.OnGameMenu;
+                @GameMenu.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnGameMenu;
+                @GameMenu.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnGameMenu;
                 @DialogueNext.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDialogueNext;
                 @DialogueNext.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDialogueNext;
                 @DialogueNext.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDialogueNext;
@@ -1590,6 +1583,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @Map.started += instance.OnMap;
                 @Map.performed += instance.OnMap;
                 @Map.canceled += instance.OnMap;
+                @GameMenu.started += instance.OnGameMenu;
+                @GameMenu.performed += instance.OnGameMenu;
+                @GameMenu.canceled += instance.OnGameMenu;
                 @DialogueNext.started += instance.OnDialogueNext;
                 @DialogueNext.performed += instance.OnDialogueNext;
                 @DialogueNext.canceled += instance.OnDialogueNext;
@@ -1671,6 +1667,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
+        void OnGameMenu(InputAction.CallbackContext context);
         void OnDialogueNext(InputAction.CallbackContext context);
     }
 }

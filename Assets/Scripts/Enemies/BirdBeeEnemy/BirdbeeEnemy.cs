@@ -8,6 +8,7 @@ public class BirdbeeEnemy : Entity
 {
     [HideInInspector]public AIDestinationSetter destinationSetter;
     [HideInInspector] public AIPath aIPath;
+    Seeker seeker;
 
     [Header("Fly Settings")]
     public GameObject TargetPoint;
@@ -59,6 +60,7 @@ public class BirdbeeEnemy : Entity
         {
             rb.velocity = Vector2.zero;
         }
+
 
     }
 

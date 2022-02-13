@@ -259,7 +259,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         isAiming = true;
         yield return new WaitForSecondsRealtime(slowDownTime);
         slowDown = false;
-        Debug.Log(slowDown);
+        //Debug.Log(slowDown);
         yield return null;
     }
 

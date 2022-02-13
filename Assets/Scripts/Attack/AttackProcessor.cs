@@ -76,16 +76,9 @@ public class AttackProcessor
     /// <param name="attacker">Attacker object</param>
     /// <param name="knockbackDirX">X Knockback direction</param>
     /// <param name="knockbackDirY">Y Knockback direction</param>
-    private void ProcessKnockbackOnHit(IAttacker attacker, float knockbackDirX, float knockbackDirY)
+    public void ProcessKnockbackOnHit(IAttacker attacker, float knockbackDirX, float knockbackDirY)
     {
-        if(knockbackDirY == 1)
-        {
-            attacker.KnockbackOnHit(25, knockbackDirX, knockbackDirY);
-        }
-        else
-        {
-            attacker.KnockbackOnHit(attacker.HitKnockbackAmount, knockbackDirX, knockbackDirY);
-        }
+        attacker.KnockbackOnHit(attacker.HitKnockbackAmount, knockbackDirX, knockbackDirY);
     }
 
     /// <summary>

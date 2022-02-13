@@ -123,7 +123,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.21400023}
-  m_ConnectedAnchor: {x: 0, y: 0.22500035}
+  m_ConnectedAnchor: {x: 0, y: 0.22500873}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -271,7 +271,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.2119999}
-  m_ConnectedAnchor: {x: 0, y: 0.22496685}
+  m_ConnectedAnchor: {x: 0, y: 0.2249501}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -419,7 +419,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.21400023}
-  m_ConnectedAnchor: {x: 0, y: 0.22500035}
+  m_ConnectedAnchor: {x: 0, y: 0.2250171}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -869,6 +869,14 @@ MonoBehaviour:
   health: 20
   maxHealth: 20
   knockbackForce: 5
+  upForce: 3
+  sideForce: 3
+  hingesParent: {fileID: 0}
+  fixedHinge: {fileID: 3450801813010755229}
+  isFalling: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 512
   spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
   hitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
@@ -891,6 +899,7 @@ MonoBehaviour:
   ColorStunned: {r: 0, g: 0, b: 0, a: 0}
   stunTime: 0.5
   ignoreHitstop: 1
+  ignoreFrames: 2
 --- !u!1 &1119423097589489787
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +977,7 @@ GameObject:
   - component: {fileID: 1119423098234207057}
   - component: {fileID: 3407143195749507548}
   - component: {fileID: 1445517757}
+  - component: {fileID: 3450801813010755229}
   m_Layer: 0
   m_Name: FixedHinge
   m_TagString: Untagged
@@ -1050,6 +1060,24 @@ DistanceJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 6.91
   m_MaxDistanceOnly: 0
+--- !u!114 &3450801813010755229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119423098234207062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3cb28544cb69a44bac4e55881dfdba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 15
+  maxHealth: 15
+  knockbackForce: 0
+  spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
+    type: 3}
+  breakEffect: {fileID: 0}
 --- !u!1 &1281776199046876836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,7 +1540,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.22}
-  m_ConnectedAnchor: {x: 0, y: 0.21893737}
+  m_ConnectedAnchor: {x: 0, y: 0.21894574}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1832,7 +1860,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.21099997}
-  m_ConnectedAnchor: {x: 0, y: 0.2249836}
+  m_ConnectedAnchor: {x: 0, y: 0.22497523}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -6850,7 +6878,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.21899986}
-  m_ConnectedAnchor: {x: 0, y: 0.22500035}
+  m_ConnectedAnchor: {x: 0, y: 0.22499198}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -7256,7 +7284,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.21400023}
-  m_ConnectedAnchor: {x: 0, y: 0.22500035}
+  m_ConnectedAnchor: {x: 0, y: 0.22500873}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0

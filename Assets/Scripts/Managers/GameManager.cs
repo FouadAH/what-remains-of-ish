@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
     public int currency;
     public Camera playerCamera;
 
-
     [Header("Player Debug Settings")]
     public bool hasInfiniteLives = false;
 
@@ -63,6 +62,23 @@ public class GameManager : MonoBehaviour
     public bool hasWallJump = false;
     public bool hasTeleportAbility = false;
     public bool hasSprintAbility = false;
+
+    [Header("Brooches")]
+
+    [Header("Brooche 01")]
+    public bool ownsBrooch_1 = false;
+    //Increase attack rate
+    public bool equippedBrooch_01 = false;
+
+    [Header("Brooche 02")]
+    public bool ownsBrooch_2 = false;
+    //Increase flask healing
+    public bool equippedBrooch_02 = false;
+
+    [Header("Brooche 03")]
+    //Increase refill from enemies
+    public bool ownsBrooch_3 = false;
+    public bool equippedBrooch_03 = false;
 
     [Header("Player Control Settings")]
     public bool useDirectionalMouseAttack = false;
@@ -111,6 +127,24 @@ public class GameManager : MonoBehaviour
 
         lastCheckpointPos = initalPlayerData.initialPlayerPosition;
         lastSavepointPos = initalPlayerData.initialPlayerPosition;
+    }
+
+    bool emptyRef;
+    public ref bool GetBool(string attribute)
+    {
+        switch (attribute)
+        {
+            case "equippedBrooch_1":
+                return ref equippedBrooch_01;
+            case "equippedBrooch_2":
+                return ref equippedBrooch_02;
+            case "equippedBrooch_3":
+                return ref equippedBrooch_03;
+            case null:
+                return ref emptyRef;
+        }
+
+        return ref emptyRef;
     }
 
     public int AddHealthShard()

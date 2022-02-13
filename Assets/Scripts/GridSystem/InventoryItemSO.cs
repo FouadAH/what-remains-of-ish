@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu()]
-public class InventoryItemSO : ScriptableObject
+public class InventoryItemSO : ShopItemSO
 {
-    public string nameString;
+    [Header("Brooch Info")]
     public Transform prefab;
-    public Transform visual;
+    public int broochID;
     public int width;
     public int height;
+    public bool canInteract = true;
+    bool isEquipped;
 
     public void CreateVisualGrid(Transform visualParentTransform, InventoryItemSO itemTetrisSO, float cellSize)
     {
@@ -38,8 +40,6 @@ public class InventoryItemSO : ScriptableObject
         visualTransform.SetAsFirstSibling();
     }
 
-
-
     public List<Vector2Int> GetGridPositionList(Vector2Int offset)
     {
         List<Vector2Int> gridPositionList = new List<Vector2Int>();
@@ -52,6 +52,34 @@ public class InventoryItemSO : ScriptableObject
         }
         return gridPositionList;
     }
+
+    public override void OnBuyItem()
+    {
+        base.OnBuyItem();
+        UI_HUD.instance.broochInventoryGrid.TryAutoPlaceObject(this);
+    }
+
+    public void Equip()
+    {
+        if (!isEquipped)
+        {
+            isEquipped = true;
+            Debug.Log("Equipped brooch: " + itemName);
+            GameManager.instance.GetBool("equippedBrooch_" + broochID) = true;
+        }
+    }
+
+    public void Unequip()
+    {
+        if (isEquipped)
+        {
+            isEquipped = false;
+            Debug.Log("Unequipped brooch: " + itemName);
+            GameManager.instance.GetBool("equippedBrooch_" + broochID) = false;
+
+        }
+    }
+
 
 
 }

@@ -10,10 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc2cd14364805f74c9fdd795718bbc89, type: 3}
-  m_Name: TestItem 2x2
+  m_Name: Test_Brooch_01
   m_EditorClassIdentifier: 
-  nameString: Test Item 2x2
-  prefab: {fileID: 3070440436462063202, guid: b330644ee4d56004abe90c7ffafe5d5f, type: 3}
-  visual: {fileID: 3070440436462063202, guid: b330644ee4d56004abe90c7ffafe5d5f, type: 3}
-  width: 2
+  itemName: Attack Rate Up
+  itemDescription: This is a test brooch. Equip to increase attack rate.
+  itemCost: 200
+  itemIcon: {fileID: 21300000, guid: 4bf47ba585ea4b64c877724d44223519, type: 3}
+  hasBeenSold: 0
+  canBuy: 0
+  prefab: {fileID: 3070440436462063202, guid: 88aaaba600ede994cb01d95b7d83a288, type: 3}
+  broochID: 1
+  width: 1
   height: 2
+  canInteract: 1

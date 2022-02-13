@@ -54,7 +54,7 @@ public class InventoryDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragH
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //Debug.Log("OnPointerDown");
+        InventoryDragDropSystem.Instance.OnClickedInventoryItem(inventoryTetris, placedObject);
     }
 
 

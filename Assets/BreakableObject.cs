@@ -17,6 +17,8 @@ public class BreakableObject : MonoBehaviour, IDamagable
     public ParticleSystem spearHitEffect;
     public ParticleSystem breakEffect;
 
+    public event System.Action OnBreak = delegate { };
+
     void IDamagable.KnockbackOnDamage(int amount, float dirX, float dirY){}
 
     void IHittable.ProcessHit(int hitAmount)
@@ -31,6 +33,7 @@ public class BreakableObject : MonoBehaviour, IDamagable
 
         if (health <= 0)
         {
+            OnBreak();
             gameObject.SetActive(false);
         }
     }

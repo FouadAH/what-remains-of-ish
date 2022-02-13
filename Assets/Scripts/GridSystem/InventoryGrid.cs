@@ -11,9 +11,8 @@ public class InventoryGrid : MonoBehaviour
     public int gridWidth;
     public int gridHeight;
     public RectTransform itemContainer;
-    public InventoryItemSO currentItemTest;
-
-    public List<InventoryItemSO> items = new List<InventoryItemSO>();
+    public bool isEquipScreen;
+    public InventoryItemSO blockedTileSO;
 
 
     private void Awake()
@@ -22,8 +21,22 @@ public class InventoryGrid : MonoBehaviour
 
         float cellSize = 100f;
         grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(0, 0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
+
+        if (isEquipScreen)
+        {
+            BlockTile(0, 0);
+            BlockTile(1, 0);
+            BlockTile(2, 0);
+            BlockTile(2, 1);
+        }
     }
- 
+
+    void BlockTile(int x, int y)
+    {
+        grid.GetGridObject(x, y).isBlocked = true;
+        InventoryItem inventoryItem = InventoryItem.CreateCanvas(itemContainer, grid.GetWorldPosition(x, y), new Vector2Int(x, y), blockedTileSO);
+        grid.GetGridObject(x, y).inventoryItem = inventoryItem;
+    }
 
     public class GridObject
     {
@@ -31,6 +44,7 @@ public class InventoryGrid : MonoBehaviour
         private int x;
         private int y;
         public InventoryItem inventoryItem;
+        public bool isBlocked = false;
 
         public GridObject(Grid<GridObject> grid, int x, int y)
         {
@@ -43,6 +57,11 @@ public class InventoryGrid : MonoBehaviour
         public override string ToString()
         {
             return x + ", " + y + "\n" + inventoryItem;
+        }
+
+        public void SetBlockedTile(Vector2Int origin)
+        {
+            isBlocked = true;
         }
 
         public void SetPlacedObject(InventoryItem inventoryItem)
@@ -64,7 +83,7 @@ public class InventoryGrid : MonoBehaviour
 
         public bool CanBuild()
         {
-            return inventoryItem == null;
+            return inventoryItem == null && !isBlocked;
         }
 
         public bool HasPlacedObject()
@@ -90,48 +109,22 @@ public class InventoryGrid : MonoBehaviour
         return grid.IsValidGridPosition(gridPosition);
     }
 
-    private void Start()
+    public bool TryAutoPlaceObject(InventoryItemSO inventoryItemSO)
     {
-        foreach (InventoryItemSO item in items)
-        {
-            TryAutoPlaceObject(item);
-        }
-    }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { currentItemTest = items[0]; }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) { currentItemTest = items[1]; }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) { currentItemTest = items[2]; }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) { currentItemTest = items[3]; }
-
-
-        // Test Can Build
-        if (Input.GetMouseButtonDown(0))
-        {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(itemContainer, Input.mousePosition, null, out Vector2 testAnchoredPosition);
-            grid.GetXY(testAnchoredPosition, out int anchoredX, out int anchoredY);
-            Vector2Int placedObjectOrigin = GetGridPosition(testAnchoredPosition);
-
-            TryPlace(currentItemTest, placedObjectOrigin);
-        }
-    }
-
-    public void TryAutoPlaceObject(InventoryItemSO inventoryItemSO)
-    {
+        bool isPlaced = false;
         for (int y = grid.GetHeight(); y >= 0; y--)
         {
             for (int x = 0; x < grid.GetWidth(); x++)
             {
-                bool isPlaced = TryPlace(inventoryItemSO, new Vector2Int(x, y));
+                isPlaced = TryPlace(inventoryItemSO, new Vector2Int(x, y));
 
                 if (isPlaced)
                 {
-                    return;
+                    return isPlaced;
                 }
             }
         }
+        return isPlaced;
     }
 
     public bool TryPlace(InventoryItemSO inventoryItemSO, Vector2Int placedObjectOrigin)

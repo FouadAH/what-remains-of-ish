@@ -15,11 +15,13 @@ public class SpikeCharger_PlayerDetectedState : AttackState
     public override void Enter()
     {
         base.Enter();
+        enemy.accelerationTimeGrounded = 0.5f;
     }
 
     public override void Exit()
     {
         base.Exit();
+        enemy.accelerationTimeGrounded = 0.1f;
     }
 
     public override void LogicUpdate()

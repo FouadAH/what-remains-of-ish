@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class InventoryDragDropSystem : MonoBehaviour
 {
-
     public static InventoryDragDropSystem Instance { get; private set; }
 
-
-
     [SerializeField] private List<InventoryGrid> inventoryTetrisList;
+
+    public TMPro.TMP_Text itemName;
+    public TMPro.TMP_Text itemDescription;
 
     private InventoryGrid draggingInventoryTetris;
     private InventoryItem draggingPlacedObject;
@@ -103,24 +103,61 @@ public class InventoryDragDropSystem : MonoBehaviour
             Vector2Int placedObjectOrigin = toInventoryTetris.GetGridPosition(anchoredPosition);
             placedObjectOrigin = placedObjectOrigin - mouseDragGridPositionOffset;
 
-            bool tryPlaceItem = toInventoryTetris.TryPlace(placedObject.GetPlacedObjectTypeSO() as InventoryItemSO, placedObjectOrigin);
+            bool tryPlaceItem = toInventoryTetris.TryPlace(placedObject.GetPlacedObjectTypeSO(), placedObjectOrigin);
 
             if (tryPlaceItem)
             {
                 // Item placed!
+                if (toInventoryTetris == inventoryTetrisList[0])
+                {
+                    placedObject.GetPlacedObjectTypeSO().Equip();
+                }
+                else
+                {
+                    placedObject.GetPlacedObjectTypeSO().Unequip();
+                }
             }
             else
             {
                 // Drop on original position
-                fromInventoryTetris.TryPlace(placedObject.GetPlacedObjectTypeSO() as InventoryItemSO, placedObject.GetGridPosition());
+                fromInventoryTetris.TryPlace(placedObject.GetPlacedObjectTypeSO(), placedObject.GetGridPosition());
             }
         }
         else
         {
             // Drop on original position
-            fromInventoryTetris.TryPlace(placedObject.GetPlacedObjectTypeSO() as InventoryItemSO, placedObject.GetGridPosition());
+            fromInventoryTetris.TryPlace(placedObject.GetPlacedObjectTypeSO(), placedObject.GetGridPosition());
         }
     }
 
+    InventoryItem currentInventoryItem;
+    public void OnClickedInventoryItem(InventoryGrid fromInventoryGrid, InventoryItem inventoryItem)
+    {
+        Debug.Log(fromInventoryGrid);
+
+        if (currentInventoryItem == inventoryItem)
+        {
+            InventoryGrid toInventoryGrid = inventoryTetrisList[0];
+            foreach (InventoryGrid inventory in inventoryTetrisList)
+            {
+                if(inventory != fromInventoryGrid) {
+                    Debug.Log(toInventoryGrid);
+                    toInventoryGrid = inventory;
+                }
+            }
+
+            if (toInventoryGrid.TryAutoPlaceObject(inventoryItem.GetPlacedObjectTypeSO()))
+            {
+                currentInventoryItem = null;
+                fromInventoryGrid.RemoveItemAt(inventoryItem.GetGridPosition());
+            }
+
+            Debug.Log("Double Click");
+        }
+
+        currentInventoryItem = inventoryItem;
+        itemName.text = inventoryItem.GetPlacedObjectTypeSO().itemName;
+        itemDescription.text = inventoryItem.GetPlacedObjectTypeSO().itemDescription;
+    }
 
 }
