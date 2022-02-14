@@ -10753,8 +10753,8 @@ MonoBehaviour:
   colliderObj: {fileID: 2612439734438031860}
   ColorOpen: {r: 0.37647057, g: 1, b: 0, a: 0.12156863}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.12156863}
-  stunTime: 0.5
   ignoreHitstop: 0
+  ignoreFrames: 2
 --- !u!114 &3160052033769545245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10863,8 +10863,10 @@ MonoBehaviour:
   maxAggroRange: 8
   isAffectedByGravity: 1
   gravity: -18
-  accelerationTimeGrounded: 0.1
+  accelerationTimeGrounded: 0.2
   shouldSaveState: 0
+  knockbackTime: 0.5
+  smoothTime: 0.1
   meleeDamage: 1
   hitKnockbackAmount: 15
   idleStateData: {fileID: 11400000, guid: 66861ed30095f0c46a29965d1b97778d, type: 2}
