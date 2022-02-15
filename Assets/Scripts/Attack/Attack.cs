@@ -96,11 +96,13 @@ public class Attack : MonoBehaviour, IHitboxResponder
         else if(IsInLayerMask(collider.gameObject.layer, obstacleLayer))
         {
             attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), (dir.x), 0);
-            impulseListener.GenerateImpulse();
+            //impulseListener.GenerateImpulse();
 
             if (HitEffect != null)
             {
-                ParticleSystem hitEffectInstance = Instantiate(HitEffect, transform.position, Quaternion.identity);
+                Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
+                Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
+                ParticleSystem hitEffectInstance = Instantiate(HitEffect, transform.position, randomQuaternionRotation);
                 hitEffectInstance.Play();
             }
         }

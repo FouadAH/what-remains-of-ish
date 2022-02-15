@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForceX = 25f;
     public float jumpApexGravityModifier = 0.8f;
     public bool canJump;
+    public bool canDoubleJump;
     float MAX_JUMP_ASSIST_TIME;
     float cayoteTimer = 0f;
     int MAX_JUMP_BUFFER_TIME;
@@ -372,6 +373,7 @@ public class PlayerMovement : MonoBehaviour
         if ((controller.collitions.left || controller.collitions.right) && !controller.collitions.below && velocity.y < 0)
         {
             WallSliding = true;
+            canDoubleJump = GameManager.instance.hasDoubleJump;
 
             if (velocity.y < playerSettings.WallSlideSpeedMax)
             {
@@ -405,6 +407,15 @@ public class PlayerMovement : MonoBehaviour
     {
         jumpBufferCounter = 0;
         initialHeight = transform.position.y;
+
+        if (!canJump && canDoubleJump && !WallSliding)
+        {
+            Debug.Log("Double jump");
+            canDoubleJump = false;
+            jumpLandParticles.Play();
+            cayoteTimer = MAX_JUMP_ASSIST_TIME;
+            Jump(maxJumpVelocity * 0.75f, jumpForceX * 0.75f);
+        }
     }
 
     /// <summary>
@@ -441,12 +452,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            canDoubleJump = GameManager.instance.hasDoubleJump;
             cayoteTimer = 0;
         }
         canJump = cayoteTimer < MAX_JUMP_ASSIST_TIME;
 
         if (jumpBufferCounter < MAX_JUMP_BUFFER_TIME)
         {
+            
             if (canJump)
             {
                 jumpLandParticles.Play();
@@ -470,30 +483,33 @@ public class PlayerMovement : MonoBehaviour
 
             if (canJump)
             {
-                
                 cayoteTimer = MAX_JUMP_ASSIST_TIME;
-
-                if (controller.collitions.slidingDownMaxSlope)
-                {
-                    if (playerInput.directionalInput.x != -Mathf.Sign(controller.collitions.slopeNormal.x))
-                    {
-                        velocity.y = maxJumpVelocity * controller.collitions.slopeNormal.y;
-                        velocity.x = maxJumpVelocity * controller.collitions.slopeNormal.x;
-                    }
-                }
-                else
-                {
-                    velocity.y = maxJumpVelocity;
-
-                    if ((!controller.collitions.left || !controller.collitions.right))
-                    {
-                        velocity.x += jumpForceX * playerInput.directionalInput.x;
-                    }
-                    spriteObj.localScale = new Vector2(.7f, 1.3f);
-                }
+                Jump(maxJumpVelocity, jumpForceX);
             }
 
           
+        }
+    }
+
+    void Jump(float jumpVelocityY, float jumpVelocityX)
+    {
+        if (controller.collitions.slidingDownMaxSlope)
+        {
+            if (playerInput.directionalInput.x != -Mathf.Sign(controller.collitions.slopeNormal.x))
+            {
+                velocity.y = jumpVelocityY * controller.collitions.slopeNormal.y;
+                velocity.x = jumpVelocityX * controller.collitions.slopeNormal.x;
+            }
+        }
+        else
+        {
+            velocity.y = jumpVelocityY;
+
+            if ((!controller.collitions.left || !controller.collitions.right))
+            {
+                velocity.x += jumpVelocityX * playerInput.directionalInput.x;
+            }
+            spriteObj.localScale = new Vector2(.7f, 1.3f);
         }
     }
 

@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
     public bool hasWallJump = false;
     public bool hasTeleportAbility = false;
     public bool hasSprintAbility = false;
+    public bool hasDoubleJump = false;
 
     [Header("Brooches")]
 
