@@ -28,7 +28,7 @@ public class Boomerang : MonoBehaviour
 
     BoomerangLauncher boomerangLauncher;
     GameManager gm;
-    Rigidbody2D rb;
+    Rigidbody2D rgd2D;
 
     [HideInInspector] 
     bool isReflecting = false;
@@ -37,24 +37,29 @@ public class Boomerang : MonoBehaviour
 
     Coroutine timer;
     Transform[] wallDetectionObjs;
-    Rigidbody2D rgb2D;
     SpriteRenderer spriteRenderer;
     PlayerMovement playerMovement;
 
     public AnimationCurve boomerangSpeed;
 
+    public ParticleSystem freezeBurst;
+
+    Rumbler rumbler;
+
     private void Awake()
     {
         gm = GameManager.instance;
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), gm.player.GetComponent<Collider2D>());
         playerMovement = gm.player.GetComponent<PlayerMovement>();
         boomerangLauncher = gm.player.GetComponent<Player>().boomerangLauncher;
-        rb = GetComponent<Rigidbody2D>();
+        rgd2D = GetComponent<Rigidbody2D>();
+        
         //StartCoroutine(BommerangBehaviour());
         wallDetectionObjs = wallDetectionObjects.GetComponentsInChildren<Transform>();
-        rgb2D = GetComponent<Rigidbody2D>();
 
         speedBonus = 0;
         startTime = Time.time;
+        rumbler = playerMovement.gameObject.GetComponent<Rumbler>();
         //spriteRenderer = boomerangSprite.GetComponent<SpriteRenderer>();
     }
 
@@ -63,6 +68,7 @@ public class Boomerang : MonoBehaviour
         //spriteRenderer.color = IsAccesable() ? Color.white : Color.red;
         boomerangSprite.transform.Rotate(Vector3.forward * (boomerangLauncher.rotateSpeed * Time.deltaTime));
     }
+
     float startTime;
     bool isComingBack = false;
     private void FixedUpdate()
@@ -72,9 +78,15 @@ public class Boomerang : MonoBehaviour
             return;
 
         BounceOffWall();
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            StopBoomerang();
+        }
+
         while (!back)
         {
-            SetVelocity();
+            //SetVelocity();
             //SetVelocityCurve(startTime);
             if (timer == null)
                 timer = StartCoroutine(BoomerangCountdown());
@@ -82,23 +94,23 @@ public class Boomerang : MonoBehaviour
             return;
         }
 
-        rb.velocity = Vector2.zero;
+        StartCoroutine(Callback());
 
-        if (instantCallback)
+        if (Input.GetKeyDown(KeyCode.R))
         {
             isComingBack = true;
             CallbackImediate();
         }
-        else
-        {
-            isComingBack = true;
-            StartCoroutine(Callback());
-        }
 
-        
+
     }
 
     bool firstTake = true;
+
+    public void Launch()
+    {
+        rgd2D.AddForce(transform.up * boomerangLauncher.throwForce, ForceMode2D.Impulse);
+    }
 
     void SetVelocityCurve(float time)
     {
@@ -111,19 +123,20 @@ public class Boomerang : MonoBehaviour
             targetVelocity = transform.up * new Vector2(targetSpeedX, targetSpeedY);
         }
 
-        rb.velocity = targetVelocity;
+        rgd2D.velocity = targetVelocity;
     }
     void SetVelocity()
     {
         if (!isReflecting)
         {
-            float targetSpeedX = boomerangLauncher.MoveSpeed + speedBonus + Mathf.Abs(playerMovement.Velocity.x*0.5f);
-            float targetSpeedY = boomerangLauncher.MoveSpeed;
+            float speed = (isComingBack) ? boomerangLauncher.returnMoveSpeed : boomerangLauncher.MoveSpeed;
+            float targetSpeedX = speed + speedBonus + Mathf.Abs(playerMovement.Velocity.x*0.5f);
+            float targetSpeedY = speed;
 
             targetVelocity = transform.up * new Vector2(targetSpeedX, targetSpeedY);
         }
 
-        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity , ref velocityXSmoothing, boomerangLauncher.accelerationTime);
+        rgd2D.velocity = Vector2.SmoothDamp(rgd2D.velocity, targetVelocity , ref velocityXSmoothing, boomerangLauncher.accelerationTime);
     }
 
     float boomerangDuration;
@@ -139,21 +152,40 @@ public class Boomerang : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        rb.velocity = Vector2.zero;
+        //rb.isKinematic = false;
+        //rb.velocity = Vector2.zero;
+        rgd2D.isKinematic = false;
+        rgd2D.angularDrag = boomerangLauncher.angularDrag;
+        rgd2D.drag = boomerangLauncher.linearDrag;
+        rgd2D.gravityScale = boomerangLauncher.gravityScale;
+        //rb.AddForce(transform.up * boomerangLauncher.stopForceImpulseSpeed, ForceMode2D.Impulse);
+
+        GetComponent<Collider2D>().isTrigger = false;
+
         back = true;
         timer = null;
     }
 
     private IEnumerator Callback()
     {
-        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(boomerangLauncher.boomerangHoverTime);
-        StartCoroutine(Recall());
+
+        if (!isStopped)
+        {
+            rgd2D.isKinematic = true;
+            rgd2D.velocity = Vector2.zero;
+            StartCoroutine(Recall());
+        }
     }
 
     private void CallbackImediate()
     {
-        rb.velocity = Vector2.zero;
+        GetComponent<Collider2D>().isTrigger = true;
+
+        StopAllCoroutines();
+        rgd2D.isKinematic = true;
+        rgd2D.velocity = Vector2.zero;
+
         instantCallback = false;
         StartCoroutine(Recall());
     }
@@ -167,7 +199,7 @@ public class Boomerang : MonoBehaviour
 
             Quaternion q = Quaternion.AngleAxis(AngleDeg - 90, Vector3.forward);
             transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * boomerangLauncher.rotateSpeed);
-            rb.velocity = transform.up * boomerangLauncher.MoveSpeed;
+            rgd2D.velocity = transform.up * boomerangLauncher.returnMoveSpeed;
             if (Vector2.Distance(transform.position, gm.player.transform.position) <= 0.8f)
             {
                 boomerangLauncher.canFire = true;
@@ -177,10 +209,29 @@ public class Boomerang : MonoBehaviour
         }
     }
 
+    bool isStopped = false;
     public void StopBoomerang()
     {
-        StopAllCoroutines();
-        rb.velocity = Vector2.zero;
+        if (!isStopped)
+        {
+            isStopped = true;
+            StopAllCoroutines();
+            rgd2D.isKinematic = true;
+            rgd2D.velocity = Vector2.zero;
+            freezeBurst.Play();
+        }
+    }
+
+    public void HaltBoomerang()
+    {
+        rgd2D.isKinematic = false;
+        rgd2D.angularDrag = boomerangLauncher.angularDrag;
+        rgd2D.drag = boomerangLauncher.linearDrag;
+        rgd2D.gravityScale = boomerangLauncher.gravityScale;
+        //rgd2D.AddForce(transform.up * boomerangLauncher.stopForceImpulseSpeed, ForceMode2D.Impulse);
+        instantCallback = true;
+        back = true;
+        GetComponent<Collider2D>().isTrigger = false;
     }
 
     void BounceOffWall()
@@ -192,18 +243,26 @@ public class Boomerang : MonoBehaviour
 
             if (hit.collider != null && !back)
             {
-                if (IsInLayerMask(hit.collider.gameObject.layer, boomerangLauncher.damagable)) 
+                if (IsInLayerMask(hit.collider.gameObject.layer, boomerangLauncher.damagable))
                 {
-                    Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
-                    Vector2 hitPos = transform.position;
-                    OnRangedHit.Invoke(hit.collider, hitPos);
+                    if (enemiesDamaged < 2)
+                    {
+                        Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+                        enemiesDamaged++;
+                        Vector2 hitPos = transform.position;
+                        OnRangedHit.Invoke(hit.collider, hitPos);
+                    }
+                    else
+                    {
+                        HaltBoomerang();
+                    }
                 }
 
-                Vector2 inDirection = rgb2D.velocity;
+                Vector2 inDirection = rgd2D.velocity;
                 Vector2 normal = hit.normal;
                 Vector2 reflectionVelocity = Vector2.Reflect(inDirection, normal).normalized;
 
-                rb.velocity = Vector2.zero;
+                rgd2D.velocity = Vector2.zero;
                 Instantiate(boomerangLauncher.hitEffect, hit.point, Quaternion.identity);
                 
                 if(hit.collider.gameObject.tag.ToString().Equals("Bounce"))
@@ -219,11 +278,13 @@ public class Boomerang : MonoBehaviour
 
                 float angle = Mathf.Atan2(reflectionVelocity.y, reflectionVelocity.x) * Mathf.Rad2Deg - 90;
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                rgd2D.AddForce(transform.up * boomerangLauncher.throwForce, ForceMode2D.Impulse);
                 break;
             }
         }
     }
 
+    int enemiesDamaged = 0;
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.interactable))
@@ -236,6 +297,7 @@ public class Boomerang : MonoBehaviour
         if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.damagable))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+            enemiesDamaged++;
             Vector2 hitPos = transform.position;
             OnRangedHit.Invoke(collider, hitPos);
         }
@@ -269,5 +331,10 @@ public class Boomerang : MonoBehaviour
         {
             Gizmos.DrawLine(item.position, item.position + transform.up * wallDetectionDistance);
         }
+    }
+
+    private void OnDestroy()
+    {
+        rumbler.RumblePulse(1, 2, 0.5f, 0.5f);
     }
 }

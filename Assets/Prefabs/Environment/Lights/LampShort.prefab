@@ -5834,8 +5834,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae3cb28544cb69a44bac4e55881dfdba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  maxHealth: 10
+  health: 1
+  maxHealth: 1
   knockbackForce: 0
   spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
@@ -5983,9 +5983,11 @@ MonoBehaviour:
   collitionForce: 3
   health: 10
   maxHealth: 10
+  explosionPrefab: {fileID: 4450728317717581539, guid: a7d6ab362bfa0604d9b07def51619dd8,
+    type: 3}
   knockbackForce: 5
-  upForce: 3
-  sideForce: 3
+  upForce: 100
+  sideForce: 50
   hingesParent: {fileID: 0}
   fixedHinge: {fileID: 1591066129}
   isFalling: 0

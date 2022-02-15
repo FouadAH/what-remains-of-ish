@@ -28,6 +28,7 @@ public class SpikeCharger_ChargeState : ChargeState
         base.Exit();
         enemy.chargeDustParticles.Stop();
         enemy.accelerationTimeGrounded = 0.1f;
+        
     }
 
     public override void LatePhysicsUpdate()
@@ -51,11 +52,22 @@ public class SpikeCharger_ChargeState : ChargeState
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
         if (isDetectingWall)
         {
             enemy.SetVelocityX(0);
+            return;
         }
+
+        Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+        int directionX = (entity.transform.position.x < playerPos.x) ? 1 : -1;
+
+        if(directionX != entity.facingDirection)
+        {
+            entity.Flip();
+        }
+
+        entity.SetVelocity(stateData.chargeSpeed);
+
         //Debug.Log(enemy.chargeSpeedCurve.Evaluate(Time.time - startTime));
 
     }

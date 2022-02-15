@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu()]
+[CreateAssetMenu(fileName = "newBrooch", menuName = "Items/New Brooch", order = 1)]
 public class InventoryItemSO : ShopItemSO
 {
     [Header("Brooch Info")]
@@ -53,9 +53,16 @@ public class InventoryItemSO : ShopItemSO
         return gridPositionList;
     }
 
+    public override void ReceiveItem()
+    {
+        UI_HUD.instance.SetDebugText("Picked up a brooche!");
+        UI_HUD.instance.broochInventoryGrid.TryAutoPlaceObject(this);
+    }
+
     public override void OnBuyItem()
     {
         base.OnBuyItem();
+        UI_HUD.instance.SetDebugText("Purchased a brooche!");
         UI_HUD.instance.broochInventoryGrid.TryAutoPlaceObject(this);
     }
 
@@ -79,7 +86,5 @@ public class InventoryItemSO : ShopItemSO
 
         }
     }
-
-
 
 }

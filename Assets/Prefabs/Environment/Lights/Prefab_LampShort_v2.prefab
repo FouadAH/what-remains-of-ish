@@ -139,7 +139,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508909637266921624}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -821,6 +821,9 @@ MonoBehaviour:
   health: 20
   maxHealth: 20
   knockbackForce: 5
+  upForce: 3
+  sideForce: 3
+  hingesParent: {fileID: 0}
   fixedHinge: {fileID: 363076010599838043}
   isFalling: 0
   obstacleLayer:
@@ -846,7 +849,6 @@ MonoBehaviour:
   colliderObj: {fileID: 363076009900479956}
   ColorOpen: {r: 0, g: 0, b: 0, a: 0}
   ColorStunned: {r: 0, g: 0, b: 0, a: 0}
-  stunTime: 0.5
   ignoreHitstop: 1
   ignoreFrames: 2
 --- !u!1 &1495246874934362105
@@ -988,7 +990,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495246874934362105}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -1172,7 +1174,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3122735120279518125}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -1321,7 +1323,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5542622145480628823}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -6363,7 +6365,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6390481153114413583}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

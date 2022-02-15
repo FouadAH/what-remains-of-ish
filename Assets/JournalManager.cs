@@ -18,16 +18,30 @@ public class JournalManager : MonoBehaviour
         {
             if (entry.hasBeenFound)
             {
-                Instantiate(entryViewPrefab, journalEntryContent.transform);
+                JournalEntry journalEntry = Instantiate(entryViewPrefab, journalEntriesContent.transform).GetComponent<JournalEntry>();
+                journalEntry.journalTitle.text = entry.journalTitle;
+                journalEntry.button.onClick.AddListener(() => OnClickJournalEntry(entry));
             }
         }
     }
 
     public void ClearEntries()
     {
-        for (int i = 0; i < journalEntryContent.transform.childCount; i++)
+        for (int i = 0; i < journalEntriesContent.transform.childCount; i++)
         {
-            Destroy(journalEntryContent.transform.GetChild(i).gameObject);
+            Destroy(journalEntriesContent.transform.GetChild(i).gameObject);
         }
+    }
+
+    void OnClickJournalEntry(JournalEntrySO journalEntry)
+    {
+        journalEntryTitle.text = journalEntry.journalTitle;
+        journalEntryContent.text = journalEntry.journalContent;
+        journalEntry.hasBeenRead = true;
+    }
+
+    private void OnEnable()
+    {
+        DisplayEntries();
     }
 }

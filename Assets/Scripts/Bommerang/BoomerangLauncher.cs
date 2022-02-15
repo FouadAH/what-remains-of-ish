@@ -28,10 +28,18 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     [Header("Movement values")]
     public float rotateSpeed = 2000f;
-    public float MoveSpeed = 1f;
+    public float MoveSpeed = 50f;
+    public float returnMoveSpeed = 80f;
+
+    public float throwForce = 100f;
     public float boomerangHoverTime = 1f;
     public float boomerangAirTime = 0.38f;
     public float accelerationTime = 0.05f;
+
+    public float gravityScale;
+    public float angularDrag;
+    public float linearDrag;
+    public float stopForceImpulseSpeed;
 
     [Header("Aim assist values")]
     public float aimSnapTime = 0.02f;
@@ -273,9 +281,12 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         {
             canFire = false;
             var Boomerang = Instantiate(boomerangPrefab, firingPoint.position, firingPoint.rotation);
+
             boomerangReference = Boomerang.GetComponent<Boomerang>();
-            Boomerang.GetComponent<Boomerang>().OnRangedHit += RangedHit;
+            boomerangReference.OnRangedHit += RangedHit;
+            boomerangReference.Launch();
             OnBoomerangLaunched.Invoke();
+
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Attack", GetComponent<Transform>().position);
         }
     }

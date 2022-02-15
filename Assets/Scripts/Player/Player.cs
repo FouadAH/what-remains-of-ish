@@ -343,6 +343,9 @@ public class Player : MonoBehaviour, IAttacker{
         {
             CinemachineImpulseSource impulseListener = GetComponent<CinemachineImpulseSource>();
             impulseListener.GenerateImpulse();
+
+            GetComponent<Rumbler>().RumblePulse(1, 5, 0.5f, 0.5f);
+
             timeStop.StopTime(changeTime, restoreSpeed, delay);
             damageParticle.Play();
             if (!GameManager.instance.hasInfiniteLives)

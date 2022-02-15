@@ -10,6 +10,8 @@ public class GameMenu : MonoBehaviour
     public GameObject mapScreen;
     public GameObject broochesScreen;
     public GameObject inventoryScreen;
+    public GameObject journalScreen;
+
 
     private void Start()
     {
@@ -39,6 +41,7 @@ public class GameMenu : MonoBehaviour
         mapScreen.SetActive(true);
         broochesScreen.SetActive(false);
         inventoryScreen.SetActive(false);
+        journalScreen.SetActive(false);
     }
 
     public void OnClickInventory()
@@ -46,6 +49,7 @@ public class GameMenu : MonoBehaviour
         mapScreen.SetActive(false);
         broochesScreen.SetActive(false);
         inventoryScreen.SetActive(true);
+        journalScreen.SetActive(false);
     }
 
     public void OnClickBrooches()
@@ -53,5 +57,14 @@ public class GameMenu : MonoBehaviour
         mapScreen.SetActive(false);
         broochesScreen.SetActive(true);
         inventoryScreen.SetActive(false);
+        journalScreen.SetActive(false);
+    }
+
+    public void OnClickJournal()
+    {
+        mapScreen.SetActive(false);
+        broochesScreen.SetActive(false);
+        inventoryScreen.SetActive(false);
+        journalScreen.SetActive(true);
     }
 }

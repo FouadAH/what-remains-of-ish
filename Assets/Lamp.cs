@@ -13,6 +13,8 @@ public class Lamp : MonoBehaviour, IDamagable
     public float health;
     public int maxHealth;
 
+    public GameObject explosionPrefab;
+
     [Header("Physics settings")]
     public int knockbackForce;
     [SerializeField] private float upForce = 3f;
@@ -64,14 +66,14 @@ public class Lamp : MonoBehaviour, IDamagable
             {
                 Debug.Log("Explode");
                 OnExplode();
+
                 Physics2D.IgnoreCollision(col2D, GameManager.instance.player.GetComponent<Collider2D>());
+
                 col2D.isTrigger = false;
                 rgb2D.gravityScale = 1;
                 rgb2D.mass = 2;
 
-                float xForce = Random.Range(sideForce, -sideForce);
-                float yForce = Random.Range(upForce / 2f, upForce);
-                rgb2D.AddForce(new Vector2(xForce, yForce), ForceMode2D.Impulse);
+                Instantiate(explosionPrefab, new Vector2(transform.position.x, transform.position.y -2), Quaternion.identity);
 
                 breakEffect.Play();
             }
@@ -104,6 +106,7 @@ public class Lamp : MonoBehaviour, IDamagable
     {
         return layermask == (layermask | (1 << layer));
     }
+
 
     private void OnDisable()
     {
