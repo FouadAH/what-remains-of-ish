@@ -24,7 +24,7 @@ public class BasicMeleeEnemy_IdleState : IdleState
     {
         base.LogicUpdate();
 
-        if ((entity.CheckPlayerInMaxAgroRange() || isPlayerInMinAgroRange || enemy.IsAggro))
+        if ((entity.CheckPlayerInMaxAgroRange() || enemy.IsAggro))
         {
             if (!entity.CheckLedge())
             {
@@ -34,6 +34,11 @@ public class BasicMeleeEnemy_IdleState : IdleState
             {
                 stateMachine.ChangeState(enemy.playerDetectedState);
             }
+        }
+        else if (isPlayerInMinAgroRange)
+        {
+            //entity.Flip();
+            stateMachine.ChangeState(enemy.playerDetectedState);
         }
         else if (isIdleTimeOver)
         {

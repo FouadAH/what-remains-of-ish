@@ -44,15 +44,18 @@ public class SpikeCharger_ChargeState : ChargeState
         {
             stateMachine.ChangeState(enemy.MoveState);
         }
-        else if (isDetectingWall)
+        
+        if (entity.CheckWallFront())
         {
+            Debug.Log("WALLLLL");
+            enemy.SetVelocityX(0);
             stateMachine.ChangeState(enemy.IdleState);
         }
     }
 
     public override void PhysicsUpdate()
     {
-        if (isDetectingWall)
+        if (entity.CheckWallFront())
         {
             enemy.SetVelocityX(0);
             return;

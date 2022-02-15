@@ -24,7 +24,7 @@ public class SpikeCharger_IdleState : IdleState
     {
         base.LogicUpdate();
 
-        if ((entity.CheckPlayerInMaxAgroRange() || enemy.IsAggro))
+        if ((entity.CheckPlayerInMaxAgroRange()))
         {
             stateMachine.ChangeState(enemy.PlayerDetectedState);
         }
