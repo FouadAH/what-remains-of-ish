@@ -410,7 +410,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (!canJump && canDoubleJump && !WallSliding)
         {
-            Debug.Log("Double jump");
             canDoubleJump = false;
             jumpLandParticles.Play();
             cayoteTimer = MAX_JUMP_ASSIST_TIME;
