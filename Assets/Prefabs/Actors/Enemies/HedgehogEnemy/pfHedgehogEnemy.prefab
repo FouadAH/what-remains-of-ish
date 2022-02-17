@@ -176,6 +176,8 @@ MonoBehaviour:
   gravity: -12
   accelerationTimeGrounded: 0.05
   shouldSaveState: 0
+  knockbackTime: 0.5
+  smoothTime: 0.1
   idleStateData: {fileID: 11400000, guid: 83ba856c938cc8049bc47e34ccd7e071, type: 2}
   moveStateData: {fileID: 11400000, guid: 1af78f24e60b7b546bce3ba3eb6921f9, type: 2}
   playerDetectedData: {fileID: 11400000, guid: 4be1586635447f14394e27f8df0d8249, type: 2}
@@ -196,8 +198,8 @@ MonoBehaviour:
   colliderObj: {fileID: 6781673714596319526}
   ColorOpen: {r: 0.40571535, g: 1, b: 0, a: 0.4627451}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.5019608}
-  stunTime: 0.5
   ignoreHitstop: 0
+  ignoreFrames: 2
 --- !u!114 &5336478215804641229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11218,6 +11220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2386ede2f13eb464b8cc54f51bd1c8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagables:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!58 &1375983051002740539
 CircleCollider2D:
   m_ObjectHideFlags: 0

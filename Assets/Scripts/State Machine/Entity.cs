@@ -283,12 +283,25 @@ public class Entity : Savable, IDamagable
         stateDebugText.transform.Rotate(0f, 180f, 0f);
     }
 
+    public void ProcessStunDamage(int amount, float stunDamageMod = 1)
+    {
+        if (!isHittable)
+            return;
+
+        currentStunResistance -= amount * stunDamageMod;
+        if (currentStunResistance <= 0)
+            isStunned = true;
+    }
+
     public virtual void ProcessHit(int amount)
     {
+        if (!isHittable)
+            return;
+
+        StartCoroutine(StunTimer());
         lastDamageTime = Time.time;
 
         Health -= amount;
-        currentStunResistance -= amount;
 
         RaiseOnHitEnemyEvent(Health, MaxHealth);
         impulseListener.GenerateImpulse();
@@ -307,15 +320,28 @@ public class Entity : Savable, IDamagable
         if (colouredFlash != null)
             colouredFlash.Flash(Color.white);
 
-        if(currentStunResistance <= 0)
-            isStunned = true;
-
         if (Health <= 0 && !isDead)
         {
             isDead = true;
             OnDeath();
             UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
         }
+    }
+
+    int currentFrames;
+    int ignoreFrames = 2;
+    protected bool isHittable = true;
+
+    private IEnumerator StunTimer()
+    {
+        isHittable = false;
+        currentFrames = 0;
+        while (currentFrames <= ignoreFrames)
+        {
+            currentFrames++;
+            yield return null;
+        }
+        isHittable = true;
     }
 
     public virtual void KnockbackOnDamage(int amount, float dirX, float dirY)

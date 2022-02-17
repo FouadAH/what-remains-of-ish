@@ -2,24 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreakableObject : MonoBehaviour, IDamagable
+public class BreakableObject : MonoBehaviour, IHittable
 {
     [Header("Damagable Stats")]
     public float health;
-    public int maxHealth;
     public int knockbackForce;
-
-    float IDamagable.Health { get => health; set => health = value; }
-    int IDamagable.MaxHealth { get => maxHealth; set => maxHealth = value; }
-    int IDamagable.knockbackGiven { get => knockbackForce; set => knockbackForce = value; }
 
     [Header("Particles")]
     public ParticleSystem spearHitEffect;
     public ParticleSystem breakEffect;
 
     public event System.Action OnBreak = delegate { };
-
-    void IDamagable.KnockbackOnDamage(int amount, float dirX, float dirY){}
 
     void IHittable.ProcessHit(int hitAmount)
     {

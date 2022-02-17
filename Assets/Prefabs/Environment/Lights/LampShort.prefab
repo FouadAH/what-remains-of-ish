@@ -5671,6 +5671,7 @@ GameObject:
   - component: {fileID: 1591066130}
   - component: {fileID: 1591066131}
   - component: {fileID: 1591066129}
+  - component: {fileID: 6906615959609257954}
   m_Layer: 20
   m_Name: FixedHinge
   m_TagString: Untagged
@@ -5764,7 +5765,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5835,11 +5836,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  maxHealth: 1
   knockbackForce: 0
   spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
   breakEffect: {fileID: 1430902891}
+--- !u!114 &6906615959609257954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107141644613229957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderObj: {fileID: 1591066130}
+  ColorOpen: {r: 0, g: 1, b: 0, a: 1}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
+  ColorStunned: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ignoreHitstop: 0
+  hurtboxType: 0
 --- !u!1 &5107141644956066563
 GameObject:
   m_ObjectHideFlags: 0
@@ -5853,6 +5871,7 @@ GameObject:
   - component: {fileID: 5107141644956066562}
   - component: {fileID: 5289701117985948250}
   - component: {fileID: 8498414783605537344}
+  - component: {fileID: 3908682439903672888}
   m_Layer: 20
   m_Name: RuinsTempleLamp
   m_TagString: Untagged
@@ -5994,11 +6013,32 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 512
+  damagables:
+    serializedVersion: 2
+    m_Bits: 1280
   spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
   hitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
   breakEffect: {fileID: 2953867629271313613}
+--- !u!114 &3908682439903672888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107141644956066563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderObj: {fileID: 5289701117985948250}
+  ColorOpen: {r: 0, g: 1, b: 0, a: 1}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
+  ColorStunned: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ignoreHitstop: 0
+  hurtboxType: 0
 --- !u!1 &5107141645110544040
 GameObject:
   m_ObjectHideFlags: 0

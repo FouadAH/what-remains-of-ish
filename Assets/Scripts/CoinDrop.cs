@@ -117,4 +117,8 @@ public class CoinDrop : Savable, IDamagable
         gameObject.SetActive(!coinDropData.isDestroyed);
     }
 
+    public void ProcessStunDamage(int amount, float stunDamageMod = 1)
+    {
+        //throw new NotImplementedException();
+    }
 }

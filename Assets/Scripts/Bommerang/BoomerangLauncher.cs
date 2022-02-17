@@ -25,6 +25,8 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public LayerMask hittable;
     public LayerMask interactable;
     public LayerMask damagable;
+    public LayerMask knockbackable;
+    public LayerMask weakSpot;
 
     [Header("Movement values")]
     public float rotateSpeed = 2000f;
@@ -293,11 +295,20 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     public void RangedHit(Collider2D collider, Vector2 pos)
     {
-        if (IsInLayerMask(collider.gameObject.layer, damagable) && collider.GetComponent<IHittable>() != null)
+        Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
+        if (IsInLayerMask(collider.gameObject.layer, damagable) && hurtbox != null)
         {
             OnBoomerangHit.Invoke();
             Vector2 direction = (pos - (Vector2)collider.transform.position).normalized;
-            attackProcessor.ProcessRanged(this, collider.GetComponent<IHittable>());
+            if (hurtbox.hurtboxType == Hurtbox.HurtboxType.Weakspot)
+            {
+                Debug.Log("Hit weak spot");
+                hurtbox.getHitByRanged(this, direction.x, direction.y, 5);
+            }
+            else
+            {
+                hurtbox.getHitByRanged(this, direction.x, direction.y, 1);
+            }
         }
     }
 

@@ -19,6 +19,7 @@ public class AttackProcessor
         if (target is IDamagable damagable)
         {
             KnockbackOnMeleeDamage(attacker, damagable, -knockbackDirX, -knockbackDirY);
+            damagable.ProcessStunDamage(attacker.MeleeDamage);
         }
 
         ProcessAttack(target, attacker.MeleeDamage);
@@ -40,13 +41,19 @@ public class AttackProcessor
         if (target is IDamagable damagable)
         {
             KnockbackOnRangedDamage(attacker, damagable, -knockbackDirX, -knockbackDirY);
+            damagable.ProcessStunDamage(attacker.MaxRangeDamage);
         }
 
         ProcessAttack(target, CalculateAttackAmountRanged(attacker));
     }
 
-    public void ProcessRanged(ILauncher attacker, IHittable target)
+    public void ProcessPlayerRangedAttack(ILauncher attacker, IHittable target, float knockbackDirX, float knockbackDirY, float stunDamageMod = 1)
     {
+        if (target is IDamagable damagable)
+        {
+            damagable.ProcessStunDamage(attacker.MaxRangeDamage, stunDamageMod);
+        }
+
         ProcessAttack(target, CalculateAttackAmountRanged(attacker));
     }
 

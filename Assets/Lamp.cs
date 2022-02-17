@@ -26,6 +26,7 @@ public class Lamp : MonoBehaviour, IDamagable
     public bool isFalling;
 
     public LayerMask obstacleLayer;
+    public LayerMask damagables;
 
     [Header("Particles")]
     public ParticleSystem spearHitEffect;
@@ -64,7 +65,7 @@ public class Lamp : MonoBehaviour, IDamagable
         {
             if (IsInLayerMask(collision.gameObject.layer, obstacleLayer))
             {
-                Debug.Log("Explode");
+                isFalling = false;
                 OnExplode();
 
                 Physics2D.IgnoreCollision(col2D, GameManager.instance.player.GetComponent<Collider2D>());
@@ -76,6 +77,28 @@ public class Lamp : MonoBehaviour, IDamagable
                 Instantiate(explosionPrefab, new Vector2(transform.position.x, transform.position.y -2), Quaternion.identity);
 
                 breakEffect.Play();
+            }
+            else if(IsInLayerMask(collision.gameObject.layer, damagables))
+            {
+                Hurtbox hurtbox = collision.gameObject.GetComponent<Hurtbox>();
+                int damageDealt = (collision.gameObject.CompareTag("Player")) ? 1 : 10;
+
+                Vector2 dir = Vector2.zero;
+
+                if (hurtbox != null)
+                {
+                    Vector2 direction = (hurtbox.transform.position - transform.position).normalized;
+
+                    if (direction.x > 0.1)
+                        dir.x = -1;
+                    else if (direction.x < -0.1)
+                        dir.x = 1;
+
+                    dir.y = direction.y;
+                }
+
+                hurtbox?.collisionDamage(damageDealt, dir.x, -dir.y);
+
             }
         }
         
@@ -111,5 +134,10 @@ public class Lamp : MonoBehaviour, IDamagable
     private void OnDisable()
     {
         //breakEffect.Play();
+    }
+
+    public void ProcessStunDamage(int amount, float stunDamageMod = 1)
+    {
+        //throw new System.NotImplementedException();
     }
 }

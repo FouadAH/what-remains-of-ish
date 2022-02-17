@@ -9,5 +9,6 @@ public interface IDamagable : IHittable
     int MaxHealth { get; set; }
     int knockbackGiven { get; set; }
     void KnockbackOnDamage(int amount, float dirX, float dirY);
+    void ProcessStunDamage(int amount, float stunDamageMod = 1);
     
 }

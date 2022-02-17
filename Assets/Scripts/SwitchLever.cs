@@ -3,18 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchLever : MonoBehaviour, IDamagable
+public class SwitchLever : MonoBehaviour, IHittable
 {
     public bool isActive;
     Animator animator;
 
     public event Action OnTriggerLever = delegate { };
-
-    public float Health { get => 0; set => throw new System.NotImplementedException(); }
-    public int MaxHealth { get => 0; set => throw new System.NotImplementedException(); }
-    public int knockbackGiven { get => 0; set => throw new System.NotImplementedException(); }
-
-    int iFrames = 10;
 
     void Awake()
     {

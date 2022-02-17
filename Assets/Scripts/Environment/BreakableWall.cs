@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreakableWall : MonoBehaviour, IDamagable
+public class BreakableWall : MonoBehaviour, IHittable
 {
     public float Health { get; set; }
-    public int MaxHealth { get; set; }
-    public int knockbackGiven { get; set; }
 
     public GameObject wall;
     public GameObject shadow;
@@ -28,8 +26,7 @@ public class BreakableWall : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        MaxHealth = 3;
-        Health = MaxHealth;
+        Health = 3;
 
         shadowAnimator = GetComponentInChildren<Animator>();
 
@@ -38,10 +35,6 @@ public class BreakableWall : MonoBehaviour, IDamagable
 
         startValueX = transform.position.x;
         endValueX = transform.position.x - moveDistanceX;
-    }
-    public void KnockbackOnDamage(int amount, float dirX, float dirY)
-    {
-        return;
     }
 
     public void ProcessHit(int amount)

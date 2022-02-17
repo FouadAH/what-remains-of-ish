@@ -24272,7 +24272,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4450728317023520603}
   - component: {fileID: 4450728317023520602}
-  - component: {fileID: 4450728317023520549}
   - component: {fileID: 4450728317023520601}
   - component: {fileID: 4450728317023520598}
   m_Layer: 0
@@ -24352,18 +24351,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4450728317023520549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4450728317023520600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2386ede2f13eb464b8cc54f51bd1c8a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &4450728317023520601
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -24393,6 +24380,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionParticles: {fileID: 1719548103482827968}
+  isDamaging: 1
+  damagables:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!1 &4450728317717581539
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DamageBox : MonoBehaviour
 {
+    public LayerMask damagables;
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Player>())
+        if (collision.gameObject.GetComponent<Player>() || IsInLayerMask(collision.gameObject.layer, damagables))
         {
             Hurtbox hurtbox = collision.gameObject.GetComponent<Hurtbox>();
 
@@ -32,5 +34,10 @@ public class DamageBox : MonoBehaviour
             hurtbox?.collisionDamage(1, dir.x, -dir.y);
         }
 
+    }
+
+    public static bool IsInLayerMask(int layer, LayerMask layermask)
+    {
+        return layermask == (layermask | (1 << layer));
     }
 }

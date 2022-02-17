@@ -457,4 +457,9 @@ public class Player : MonoBehaviour, IAttacker{
         startPos = new Vector3(colliderCenter.x - colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
         Gizmos.DrawLine(startPos, new Vector3(startPos.x - playerSettings.MoveSpeed, startPos.y, startPos.z));
     }
+
+    public void ProcessStunDamage(int amount, float stunDamageMod = 1)
+    {
+        //throw new NotImplementedException();
+    }
 }
