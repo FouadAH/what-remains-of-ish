@@ -94,9 +94,6 @@ public class Entity : Savable, IDamagable
         colouredFlash = GetComponent<ColouredFlash>();
         impulseListener = GetComponent<CinemachineImpulseSource>();
 
-        hurtbox = GetComponent<Hurtbox>();
-        hurtbox.colliderObj.enabled = true;
-
         if (stateMachine == null)
             stateMachine = new FiniteStateMachine();
     }
@@ -420,9 +417,6 @@ public class Entity : Savable, IDamagable
         atsm = aliveGO.GetComponent<AnimationToStatemachine>();
         colouredFlash = GetComponent<ColouredFlash>();
         impulseListener = GetComponent<CinemachineImpulseSource>();
-
-        hurtbox = GetComponent<Hurtbox>();
-        hurtbox.colliderObj.enabled = true;
 
         if (stateMachine == null)
             stateMachine = new FiniteStateMachine();

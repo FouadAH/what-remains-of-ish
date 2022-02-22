@@ -38,7 +38,6 @@ public class TeleportRefill : MonoBehaviour
             playerTeleport.StopCoroutine(playerTeleport.teleportLockRoutine);
 
         playerTeleport.teleportLock = false;
-
         StartCoroutine(ResetTime());
         
     }

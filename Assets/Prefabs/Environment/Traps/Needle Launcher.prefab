@@ -31,6 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.35000002, y: 0.35000002, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6865929946026600227}
   m_Father: {fileID: 0}
@@ -45,19 +46,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6865929946676658929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cf294ae67d65384c87938a7682adf93, type: 3}
+  m_Script: {fileID: 11500000, guid: e04127861afa67b41b35c902d8cf4fc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targeting: 0
-  isDamagable: 0
+  isDamagable: 1
   isStatic: 1
   rotateSpeed: 0
   target: {fileID: 0}
-  fireRate: 1.5
+  fireRate: 1
   delay: 0
-  maxHealth: 8
-  damageNumberPrefab: {fileID: 7102332077760321428, guid: e2ebcb2c9f1e539409b790d70e544d90,
-    type: 3}
+  maxHealth: 0
+  damageNumberPrefab: {fileID: 0}
   flaskRefillAmount: 5
 --- !u!212 &2503763177542027666
 SpriteRenderer:
@@ -141,8 +141,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderObj: {fileID: 6028930523136478469}
   ColorOpen: {r: 0, g: 0, b: 0, a: 0}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
   ColorStunned: {r: 0, g: 0, b: 0, a: 0}
-  stunTime: 0.5
+  ignoreHitstop: 0
+  hurtboxType: 0
 --- !u!114 &7383406289239110004
 MonoBehaviour:
   m_ObjectHideFlags: 0

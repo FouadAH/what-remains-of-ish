@@ -29,6 +29,7 @@ public class Boomerang : MonoBehaviour
     BoomerangLauncher boomerangLauncher;
     GameManager gm;
     Rigidbody2D rgd2D;
+    Collider2D col2D;
 
     [HideInInspector] 
     bool isReflecting = false;
@@ -49,7 +50,8 @@ public class Boomerang : MonoBehaviour
     private void Awake()
     {
         gm = GameManager.instance;
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), gm.player.GetComponent<Collider2D>());
+        col2D = GetComponent<Collider2D>();
+        Physics2D.IgnoreCollision(col2D, gm.player.GetComponent<Collider2D>());
         playerMovement = gm.player.GetComponent<PlayerMovement>();
         boomerangLauncher = gm.player.GetComponent<Player>().boomerangLauncher;
         rgd2D = GetComponent<Rigidbody2D>();
@@ -94,7 +96,7 @@ public class Boomerang : MonoBehaviour
             return;
         }
 
-        StartCoroutine(Callback());
+        Callback();
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -152,24 +154,19 @@ public class Boomerang : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        //rb.isKinematic = false;
-        //rb.velocity = Vector2.zero;
         rgd2D.isKinematic = false;
         rgd2D.angularDrag = boomerangLauncher.angularDrag;
         rgd2D.drag = boomerangLauncher.linearDrag;
         rgd2D.gravityScale = boomerangLauncher.gravityScale;
-        //rb.AddForce(transform.up * boomerangLauncher.stopForceImpulseSpeed, ForceMode2D.Impulse);
+        col2D.isTrigger = true;
 
-        GetComponent<Collider2D>().isTrigger = false;
-
+        yield return new WaitForSeconds(boomerangLauncher.boomerangHoverTime);
         back = true;
         timer = null;
     }
 
-    private IEnumerator Callback()
+    private void Callback()
     {
-        yield return new WaitForSeconds(boomerangLauncher.boomerangHoverTime);
-
         if (!isStopped)
         {
             rgd2D.isKinematic = true;
@@ -192,6 +189,9 @@ public class Boomerang : MonoBehaviour
 
     IEnumerator Recall()
     {
+        back = true;
+        col2D.isTrigger = true;
+
         while (true)
         {
             float AngleRad = Mathf.Atan2(gm.player.transform.position.y - transform.position.y, gm.player.transform.position.x - transform.position.x);
@@ -228,12 +228,10 @@ public class Boomerang : MonoBehaviour
         rgd2D.angularDrag = boomerangLauncher.angularDrag;
         rgd2D.drag = boomerangLauncher.linearDrag;
         rgd2D.gravityScale = boomerangLauncher.gravityScale;
-        //rgd2D.AddForce(transform.up * boomerangLauncher.stopForceImpulseSpeed, ForceMode2D.Impulse);
-        instantCallback = true;
-        back = true;
-        GetComponent<Collider2D>().isTrigger = false;
+        col2D.isTrigger = true;
     }
 
+    int bounceCount = 0;
     void BounceOffWall()
     {
         foreach(Transform wallDetectionObject in wallDetectionObjs)
@@ -243,6 +241,7 @@ public class Boomerang : MonoBehaviour
 
             if (hit.collider != null && !back)
             {
+                bounceCount++;
                 if (IsInLayerMask(hit.collider.gameObject.layer, boomerangLauncher.damagable))
                 {
                     if (enemiesDamaged < 2)
@@ -278,7 +277,8 @@ public class Boomerang : MonoBehaviour
 
                 float angle = Mathf.Atan2(reflectionVelocity.y, reflectionVelocity.x) * Mathf.Rad2Deg - 90;
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                rgd2D.AddForce(transform.up * boomerangLauncher.throwForce, ForceMode2D.Impulse);
+
+                rgd2D.AddForce(transform.up * (boomerangLauncher.bounceForce / bounceCount), ForceMode2D.Impulse);
                 break;
             }
         }

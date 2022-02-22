@@ -5553,7 +5553,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3609927720469622426}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06, y: 0.76, z: 0}
+  m_LocalPosition: {x: -0.06, y: 2.82, z: 0}
   m_LocalScale: {x: 2.5, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5721,9 +5721,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderObj: {fileID: 5278020085346473805}
   ColorOpen: {r: 0.40571535, g: 1, b: 0, a: 0.4627451}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.5019608}
   ignoreHitstop: 0
-  ignoreFrames: 2
+  hurtboxType: 0
 --- !u!114 &5090415306659788964
 MonoBehaviour:
   m_ObjectHideFlags: 0
