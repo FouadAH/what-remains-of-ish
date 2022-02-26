@@ -76,7 +76,11 @@ public class Lamp : MonoBehaviour, IDamagable
 
                 Instantiate(explosionPrefab, new Vector2(transform.position.x, transform.position.y -2), Quaternion.identity);
 
+                ParticleSystem breakEffectInstance = Instantiate(breakEffect, transform.position, Quaternion.identity);
+                breakEffectInstance.Play();
+
                 breakEffect.Play();
+                Destroy(gameObject);
             }
             else if(IsInLayerMask(collision.gameObject.layer, damagables))
             {
@@ -122,6 +126,9 @@ public class Lamp : MonoBehaviour, IDamagable
 
         if (health <= 0)
         {
+            ParticleSystem breakEffectInstance = Instantiate(breakEffect, transform.position, Quaternion.identity);
+            breakEffectInstance.Play();
+
             gameObject.SetActive(false);
         }
     }

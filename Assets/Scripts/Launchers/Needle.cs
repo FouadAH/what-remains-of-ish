@@ -51,6 +51,8 @@ public class Needle : MonoBehaviour
             rend.material.color = Color.Lerp(initialColor, targetColor, elapsedTime / fadeDuration);
             yield return null;
         }
+
+        Destroy(gameObject);
     }
 
     public static bool IsInLayerMask(int layer, LayerMask layermask)

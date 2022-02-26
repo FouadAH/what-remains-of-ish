@@ -25,6 +25,11 @@ public class AttackProcessor
         ProcessAttack(target, attacker.MeleeDamage);
     }
 
+    public void ProcessMeleeNoKnockback(IAttacker attacker, IHittable target)
+    {
+        ProcessAttack(target, attacker.MeleeDamage);
+    }
+
     public void ProcessCollisionDamage(int damageAmount, IDamagable target, float knockbackDirX, float knockbackDirY)
     {
         ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);

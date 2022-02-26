@@ -17,12 +17,16 @@ public class BreakableObject : MonoBehaviour, IHittable
     void IHittable.ProcessHit(int hitAmount)
     {
         health -= hitAmount;
+
         breakEffect.Play();
 
         Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
         Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
         ParticleSystem hitEffectInstance = Instantiate(spearHitEffect, transform.position, randomQuaternionRotation);
         hitEffectInstance.Play();
+
+        ParticleSystem breakEffectInstance = Instantiate(breakEffect, transform.position, Quaternion.identity);
+        breakEffectInstance.Play();
 
         if (health <= 0)
         {

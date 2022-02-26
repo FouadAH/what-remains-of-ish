@@ -62,9 +62,16 @@ public class Entity : Savable, IDamagable
     public float accelerationTimeGrounded = 0.05f;
     private float velocityXSmoothing = 0;
 
+    [Header("Knockback Settings")]
+    public float knockbackTime = 0.5f;
+    protected float knockbackTimeElapsed;
+
+    public float smoothTime = 0.1f;
+    protected Vector2 velocitySmoothing;
+    protected bool canMove = true;
+
     protected ColouredFlash colouredFlash;
     protected CinemachineImpulseSource impulseListener;
-    Hurtbox hurtbox;
 
     [Header("Save Settings")]
     public bool shouldSaveState = true;
@@ -80,7 +87,7 @@ public class Entity : Savable, IDamagable
         if(shouldSaveState)
             base.Start();
 
-        facingDirection = 1;
+        facingDirection = (int)transform.localScale.x;
         MaxHealth = (int)entityData.maxHealth;
 
         currentStunResistance = entityData.stunResistance;
@@ -102,6 +109,7 @@ public class Entity : Savable, IDamagable
     {
         string state = stateMachine.currentState.ToString().Split('_')[1];
         stateDebugText.SetText(state);
+
         stateMachine.currentState.LogicUpdate();
 
         //anim.SetFloat("yVelocity", rb.velocity.y);
@@ -114,12 +122,15 @@ public class Entity : Savable, IDamagable
 
     public virtual void FixedUpdate()
     {
-        stateMachine.currentState.PhysicsUpdate();
-
-        if (isAffectedByGravity)
+        if (canMove)
         {
-            float velocityY = CheckGround() ? 0 : rb.velocity.y + gravity * Time.deltaTime;
-            SetVelocityY(velocityY);
+            stateMachine.currentState.PhysicsUpdate();
+
+            if (isAffectedByGravity)
+            {
+                float velocityY = CheckGround() ? 0 : rb.velocity.y + gravity * Time.deltaTime;
+                SetVelocityY(velocityY);
+            }
         }
     }
 
@@ -133,7 +144,6 @@ public class Entity : Savable, IDamagable
         float targetVelocity = velocity * facingDirection;
         velocityWorkspace.x = Mathf.SmoothDamp(velocityWorkspace.x, targetVelocity, ref velocityXSmoothing, accelerationTimeGrounded);
         velocityWorkspace.y = rb.velocity.y;
-
         rb.velocity = velocityWorkspace;
     }
 
@@ -155,6 +165,31 @@ public class Entity : Savable, IDamagable
         angle.Normalize();
         velocityWorkspace.Set(angle.x * velocity * direction, angle.y * velocity);
         rb.velocity = velocityWorkspace;
+    }
+
+    IEnumerator KnockbackImpulse(float knockbackForce)
+    {
+        canMove = false;
+
+        velocityWorkspace.Set(knockbackForce, rb.velocity.y);
+        rb.velocity = velocityWorkspace;
+
+        knockbackTimeElapsed = 0;
+        while (knockbackTimeElapsed < knockbackTime)
+        {
+            if (CheckWall())
+            {
+                velocityWorkspace = Vector2.zero;
+                rb.velocity = velocityWorkspace;
+                break;
+            }
+
+            knockbackTimeElapsed += Time.deltaTime;
+            velocityWorkspace = Vector2.SmoothDamp(velocityWorkspace, Vector2.zero, ref velocitySmoothing, smoothTime);
+            rb.velocity = velocityWorkspace;
+            yield return new WaitForFixedUpdate();
+        }
+        canMove = true;
     }
 
     public virtual bool CheckWallFront()
@@ -215,38 +250,7 @@ public class Entity : Savable, IDamagable
     {
         if (!CheckWallFront() && !CheckWallBack())
         {
-            StartCoroutine(KnockbackTimer(velocity));
-            //velocityWorkspace.Set(velocity, rb.velocity.y);
-            //rb.velocity = velocityWorkspace;
-        }
-    }
-
-    public float knockbackTime = 0.5f;
-    protected float knockbackTimeElapsed;
-
-    public float smoothTime = 0.1f;
-    protected Vector2 velocitySmoothing;
-    IEnumerator KnockbackTimer(float knockbackForce)
-    {
-        yield return new WaitForEndOfFrame();
-
-        velocityWorkspace.Set(knockbackForce, rb.velocity.y);
-        rb.velocity = velocityWorkspace;
-
-        knockbackTimeElapsed = 0;
-        while (knockbackTimeElapsed < knockbackTime)
-        {
-            if (CheckWall())
-            {
-                velocityWorkspace = Vector2.zero;
-                rb.velocity = velocityWorkspace;
-                break;
-            }
-
-            knockbackTimeElapsed += Time.deltaTime;
-            velocityWorkspace = Vector2.SmoothDamp(velocityWorkspace, Vector2.zero, ref velocitySmoothing, smoothTime);
-            rb.velocity = velocityWorkspace;
-            yield return null;
+            StartCoroutine(KnockbackImpulse(velocity));
         }
     }
 
@@ -298,7 +302,8 @@ public class Entity : Savable, IDamagable
         StartCoroutine(StunTimer());
         lastDamageTime = Time.time;
 
-        Health -= amount;
+        float damageAmount = (isStunned) ? amount : amount;
+        Health -= damageAmount;
 
         RaiseOnHitEnemyEvent(Health, MaxHealth);
         impulseListener.GenerateImpulse();
@@ -325,8 +330,8 @@ public class Entity : Savable, IDamagable
         }
     }
 
-    int currentFrames;
-    int ignoreFrames = 2;
+    private int currentFrames;
+    private readonly int ignoreFrames = 2;
     protected bool isHittable = true;
 
     private IEnumerator StunTimer()

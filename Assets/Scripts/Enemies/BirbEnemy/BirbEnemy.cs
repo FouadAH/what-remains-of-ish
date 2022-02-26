@@ -40,8 +40,8 @@ public class BirbEnemy : Entity
     public override void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         DamageHop(entityData.damageHopSpeed * dirX);
-        Vector3 knockbackForce = new Vector3(entityData.damageHopSpeed * dirX, entityData.damageHopSpeed * dirY, 0);
-        rb.AddForce(knockbackForce, ForceMode2D.Impulse);
+        //Vector3 knockbackForce = new Vector3(entityData.damageHopSpeed * dirX, entityData.damageHopSpeed * dirY, 0);
+        //rb.AddForce(knockbackForce, ForceMode2D.Impulse);
     }
 
     public override void ProcessHit(int amount)

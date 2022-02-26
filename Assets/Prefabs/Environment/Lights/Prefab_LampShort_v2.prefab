@@ -759,14 +759,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0.3
+  m_Mass: 10
+  m_LinearDrag: 0.1
   m_AngularDrag: 0.2
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!70 &363076009900479956
 CapsuleCollider2D:
@@ -817,7 +817,8 @@ MonoBehaviour:
     type: 3}
   hitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
-  breakEffect: {fileID: 7059445246391431503}
+  breakEffect: {fileID: 962961980079634889, guid: 64bfe36b91b84704e8f5931d0d9df74d,
+    type: 3}
 --- !u!114 &4380489618910336083
 MonoBehaviour:
   m_ObjectHideFlags: 0

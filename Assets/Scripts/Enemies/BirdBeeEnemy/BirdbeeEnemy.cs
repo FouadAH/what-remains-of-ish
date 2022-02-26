@@ -55,12 +55,12 @@ public class BirdbeeEnemy : Entity
 
     public override void FixedUpdate()
     {
-        base.FixedUpdate();
+        stateMachine.currentState.PhysicsUpdate();
+
         if (CheckGround())
         {
             rb.velocity = Vector2.zero;
         }
-
 
     }
 

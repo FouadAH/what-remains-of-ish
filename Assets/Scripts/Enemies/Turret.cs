@@ -144,6 +144,6 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
 
     public void ProcessStunDamage(int amount, float stunDamageMod = 1)
     {
-        throw new NotImplementedException();
+        return;
     }
 }

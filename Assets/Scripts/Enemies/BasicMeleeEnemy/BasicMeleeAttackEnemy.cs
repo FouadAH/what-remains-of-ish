@@ -11,7 +11,7 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
     public MeleeAttackState meleeAttackState { get; private set; }
     public StunState stunState { get; private set; }
     public DeadState deadState { get; private set; }
-
+    public GameObject stunnedSprite;
     [SerializeField] private int meleeDamage;
     [SerializeField] private int hitKnockbackAmount;
     public int MeleeDamage { get => meleeDamage; set => meleeDamage = value; }
@@ -48,7 +48,7 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
         playerDetectedState = new BasicMeleeEnemy_PlayerDetectedState(this, stateMachine, "move", playerDetectedData, this);
         lookForPlayerState = new BasicMeleeEnemy_LookForPlayerState(this, stateMachine, "idle", lookForPlayerStateData, this);
         meleeAttackState = new BasicMeleeEnemy_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
-        stunState = new BasicMeleeEnemy_StunState(this, stateMachine, "stun", stunStateData, this);
+        stunState = new BasicMeleeEnemy_StunState(this, stateMachine, "idle", stunStateData, this);
         deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "idle", deadStateData, this);
 
         stateMachine.Initialize(moveState);

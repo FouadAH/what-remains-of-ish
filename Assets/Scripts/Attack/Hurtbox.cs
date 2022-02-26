@@ -37,6 +37,11 @@ public class Hurtbox : MonoBehaviour
         
     }
 
+    public void GetHitByNoKnockback(IAttacker attacker)
+    {
+        attackProcessor.ProcessMeleeNoKnockback(attacker, hittable);
+    }
+
     public void getHitByRanged(ILauncher attacker, float knockbackDirX, float knockbackDirY, float stunDamageMod = 1)
     {
         attackProcessor.ProcessPlayerRangedAttack(attacker, hittable, knockbackDirX, knockbackDirY, stunDamageMod);

@@ -981,7 +981,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -990,6 +990,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -3096,7 +3108,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -40, y: 40}
+        - {x: -40, y: -40}
+        - {x: 40, y: -40}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 69ac5d5bac969f9d0800000000000000
@@ -7565,9 +7581,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ruins_cave_tilemap (3)_207: -1220762411200033391
+      ruins_cave_tilemap (3)_52: -3564742900303412004
       ruins_cave_tilemap (3)_169: -1487460738361292411
-      ruins_cave_tilemap (3)_241: 6931486565527700852
+      ruins_cave_tilemap (3)_302: 5647494149346450818
       ruins_cave_tilemap (3)_323: 956756877320213462
       ruins_cave_tilemap (3)_12: 5249382776680034328
       ruins_cave_tilemap (3)_39: -4139916664327626783
@@ -7589,11 +7605,11 @@ TextureImporter:
       ruins_cave_tilemap (3)_5: -7526719639973926877
       ruins_cave_tilemap (3)_178: 792399911450075088
       ruins_cave_tilemap (3)_9: 7777765604096817626
-      ruins_cave_tilemap (3)_121: 3159241648114281053
-      ruins_cave_tilemap (3)_71: -8072274649241927887
-      ruins_cave_tilemap (3)_264: -6185808667625319427
       ruins_cave_tilemap (3)_98: 6538002794056337813
+      ruins_cave_tilemap (3)_121: 3159241648114281053
+      ruins_cave_tilemap (3)_264: -6185808667625319427
       ruins_cave_tilemap (3)_133: -4487508066268843229
+      ruins_cave_tilemap (3)_71: -8072274649241927887
       ruins_cave_tilemap (3)_161: -7093818150369378191
       ruins_cave_tilemap (3)_180: -1902519132634485234
       ruins_cave_tilemap (3)_40: -3403371994865315968
@@ -7624,8 +7640,8 @@ TextureImporter:
       ruins_cave_tilemap (3)_151: -6080255270064014791
       ruins_cave_tilemap (3)_194: 1633752080703910467
       ruins_cave_tilemap (3)_314: -836482318147339061
-      ruins_cave_tilemap (3)_154: 7432593127978625584
       ruins_cave_tilemap (3)_290: 8209424426548963573
+      ruins_cave_tilemap (3)_154: 7432593127978625584
       ruins_cave_tilemap (3)_119: -4505423201005569563
       ruins_cave_tilemap (3)_231: 8561658323460238207
       ruins_cave_tilemap (3)_215: 8357066181401711112
@@ -7634,16 +7650,16 @@ TextureImporter:
       ruins_cave_tilemap (3)_94: 3564823508235955561
       ruins_cave_tilemap (3)_216: 417348458294770442
       ruins_cave_tilemap (3)_45: -4100412546509662494
-      ruins_cave_tilemap (3)_145: -547774411972933808
       ruins_cave_tilemap (3)_56: 6402869038479946893
-      ruins_cave_tilemap (3)_33: -5525485756461332617
       ruins_cave_tilemap (3)_208: -6721142014031686404
-      ruins_cave_tilemap (3)_202: 6932100832711771921
+      ruins_cave_tilemap (3)_145: -547774411972933808
+      ruins_cave_tilemap (3)_255: -4043463056050076588
+      ruins_cave_tilemap (3)_33: -5525485756461332617
       ruins_cave_tilemap (3)_221: -1451570185610206443
       ruins_cave_tilemap (3)_64: 6104788081499112623
+      ruins_cave_tilemap (3)_202: 6932100832711771921
       ruins_cave_tilemap (3)_25: -4072441096516645273
       ruins_cave_tilemap (3)_97: 629171684466291602
-      ruins_cave_tilemap (3)_255: -4043463056050076588
       ruins_cave_tilemap (3)_125: -7924871056012212447
       ruins_cave_tilemap (3)_34: -840729612894192977
       ruins_cave_tilemap (3)_146: 7958276804536607486
@@ -7706,26 +7722,26 @@ TextureImporter:
       ruins_cave_tilemap (3)_278: 2082701513051807114
       ruins_cave_tilemap (3)_16: 2900127655970863125
       ruins_cave_tilemap (3)_134: 7640230253010839125
-      ruins_cave_tilemap (3)_266: -1827846935613640502
+      ruins_cave_tilemap (3)_239: -8836960185247471426
       ruins_cave_tilemap (3)_272: -2223804614836013976
       ruins_cave_tilemap (3)_116: 154253704291195394
-      ruins_cave_tilemap (3)_132: -2115961278096171510
+      ruins_cave_tilemap (3)_266: -1827846935613640502
       ruins_cave_tilemap (3)_6: -3365072906936856219
       ruins_cave_tilemap (3)_198: -3678857480925535978
-      ruins_cave_tilemap (3)_285: -5998796691305605312
+      ruins_cave_tilemap (3)_132: -2115961278096171510
       ruins_cave_tilemap (3)_127: 9000686249429426977
-      ruins_cave_tilemap (3)_81: 956234294109753099
+      ruins_cave_tilemap (3)_285: -5998796691305605312
       ruins_cave_tilemap (3)_189: -6379273063487705592
-      ruins_cave_tilemap (3)_209: -6055394432874324257
+      ruins_cave_tilemap (3)_81: 956234294109753099
       ruins_cave_tilemap (3)_148: 4797539977616431337
       ruins_cave_tilemap (3)_205: -3159802821208791617
-      ruins_cave_tilemap (3)_124: 4133003302846136202
-      ruins_cave_tilemap (3)_239: -8836960185247471426
-      ruins_cave_tilemap (3)_153: -4547818910215008234
+      ruins_cave_tilemap (3)_209: -6055394432874324257
       ruins_cave_tilemap (3)_168: -6874652662068773725
+      ruins_cave_tilemap (3)_51: -3705307808874672639
+      ruins_cave_tilemap (3)_153: -4547818910215008234
+      ruins_cave_tilemap (3)_124: 4133003302846136202
       ruins_cave_tilemap (3)_80: -5008192798773374726
       ruins_cave_tilemap (3)_15: 6335847690138441448
-      ruins_cave_tilemap (3)_51: -3705307808874672639
       ruins_cave_tilemap (3)_83: -4035310622649656266
       ruins_cave_tilemap (3)_229: 7456780009019995259
       ruins_cave_tilemap (3)_240: 6418502206298968769
@@ -7856,14 +7872,14 @@ TextureImporter:
       ruins_cave_tilemap (3)_214: -4344414528134384234
       ruins_cave_tilemap (3)_23: 7228489135870661769
       ruins_cave_tilemap (3)_254: 1270745906522752311
-      ruins_cave_tilemap (3)_130: 3566111418439795449
+      ruins_cave_tilemap (3)_312: 7212302223802563937
       ruins_cave_tilemap (3)_43: 5440399384702759637
       ruins_cave_tilemap (3)_316: -2960627925487665472
-      ruins_cave_tilemap (3)_312: 7212302223802563937
+      ruins_cave_tilemap (3)_207: -1220762411200033391
       ruins_cave_tilemap (3)_303: 3143511452850355119
-      ruins_cave_tilemap (3)_52: -3564742900303412004
+      ruins_cave_tilemap (3)_130: 3566111418439795449
       ruins_cave_tilemap (3)_176: 4536711168218771720
-      ruins_cave_tilemap (3)_302: 5647494149346450818
+      ruins_cave_tilemap (3)_241: 6931486565527700852
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

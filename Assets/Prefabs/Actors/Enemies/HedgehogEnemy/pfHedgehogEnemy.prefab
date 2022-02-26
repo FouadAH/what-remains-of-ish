@@ -175,9 +175,9 @@ MonoBehaviour:
   isAffectedByGravity: 1
   gravity: -12
   accelerationTimeGrounded: 0.05
-  shouldSaveState: 0
   knockbackTime: 0.5
   smoothTime: 0.1
+  shouldSaveState: 0
   idleStateData: {fileID: 11400000, guid: 83ba856c938cc8049bc47e34ccd7e071, type: 2}
   moveStateData: {fileID: 11400000, guid: 1af78f24e60b7b546bce3ba3eb6921f9, type: 2}
   playerDetectedData: {fileID: 11400000, guid: 4be1586635447f14394e27f8df0d8249, type: 2}
@@ -306,8 +306,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.011633944, y: -0.21578339}
-  m_Size: {x: 1.4134611, y: 0.6056119}
+  m_Offset: {x: -0.008049618, y: -0.23886019}
+  m_Size: {x: 1.281489, y: 0.52401656}
   m_Direction: 1
 --- !u!114 &7381051315584323100
 MonoBehaviour:
@@ -11169,7 +11169,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8952374198424838915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.009, y: -0.406, z: 0}
+  m_LocalPosition: {x: -0.009, y: -0.424, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

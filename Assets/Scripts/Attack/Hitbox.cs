@@ -14,7 +14,6 @@ public class Hitbox : MonoBehaviour
     public Color collidingColor;
 
     private IHitboxResponder _responder = null;
-
     private ColliderState _state;
 
     private void Update()

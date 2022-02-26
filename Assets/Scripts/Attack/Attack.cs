@@ -9,6 +9,8 @@ public class Attack : MonoBehaviour, IHitboxResponder
     PlayerMovement player;
 
     public LayerMask obstacleLayer;
+    public LayerMask breakableLayer;
+
     public float knockbackBasicAttack = 10f;
     public float knockbackUpAttack = 10f;
     public float knockbackDownAttack = 25f;
@@ -66,9 +68,6 @@ public class Attack : MonoBehaviour, IHitboxResponder
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         if (hurtbox != null)
         {
-            if(!hurtbox.ignoreHitstop)
-                timeStop.StopTime(changeTime, restoreSpeed, delay);
-
             if (dir.y == 1)
             {
                 hurtbox.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (dir.y));
@@ -92,6 +91,17 @@ public class Attack : MonoBehaviour, IHitboxResponder
                 dir.x = 1;
                 dir.y = 0;
             }
+            if (!hurtbox.ignoreHitstop)
+                timeStop.StopTime(changeTime, restoreSpeed, delay);
+
+            if (IsInLayerMask(collider.gameObject.layer, breakableLayer))
+            {
+                hurtbox.GetHitByNoKnockback(gameObject.GetComponent<IAttacker>());
+            }
+            else
+            {
+                hurtbox.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (-dir.y));
+            }
         }
         else if(IsInLayerMask(collider.gameObject.layer, obstacleLayer))
         {
@@ -106,8 +116,6 @@ public class Attack : MonoBehaviour, IHitboxResponder
                 hitEffectInstance.Play();
             }
         }
-        //Debug.Log("Knockback Dir: X:" + (dir.x) + " Y: " + (dir.y));
-        hurtbox?.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (-dir.y));
     }
 
     public static bool IsInLayerMask(int layer, LayerMask layermask)

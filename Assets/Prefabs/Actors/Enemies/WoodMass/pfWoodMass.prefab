@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 696465852}
   - component: {fileID: 696465853}
+  - component: {fileID: 1689456841838987917}
   m_Layer: 10
   m_Name: StunnedSprite
   m_TagString: Untagged
@@ -25,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 696465851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 2.38, z: 0}
-  m_LocalScale: {x: 0.6988, y: 0.6988, z: 0.6988}
+  m_LocalPosition: {x: 0.532, y: 1.854, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7183151898004253597}
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 45031f9bd69d47944aeed1162955045b, type: 3}
-  m_Color: {r: 0.90254116, g: 1, b: 0, a: 1}
+  m_Sprite: {fileID: -2137632064, guid: 60a7f07418acc0245b13eea49640d354, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,6 +85,93 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1689456841838987917
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696465851}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ad771e457a2d3a742a3f8f06c636c049, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1778699612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1778699613}
+  - component: {fileID: 1778699615}
+  - component: {fileID: 1778699614}
+  m_Layer: 10
+  m_Name: WeakSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1778699613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778699612}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7183151898004253597}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1778699615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778699612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderObj: {fileID: 1778699614}
+  ColorOpen: {r: 0.37342238, g: 1, b: 0, a: 1}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
+  ColorStunned: {r: 1, g: 0.8410894, b: 0, a: 1}
+  ignoreHitstop: 0
+  hurtboxType: 1
+--- !u!58 &1778699614
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778699612}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.39527297, y: 1.0387974}
+  serializedVersion: 2
+  m_Radius: 0.4429777
 --- !u!1 &732945987077275951
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +805,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654062410559480754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.11, y: -2.22, z: 0}
+  m_LocalPosition: {x: 2.72, y: -2.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -775,6 +863,7 @@ Transform:
   - {fileID: 4779167797938036246}
   - {fileID: 2749991556540315968}
   - {fileID: 696465852}
+  - {fileID: 1778699613}
   - {fileID: 4470756260248699270}
   m_Father: {fileID: 732945987077275940}
   m_RootOrder: 0
@@ -792,7 +881,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06607869, y: -0.4597571}
+  m_Offset: {x: -0.06607866, y: -0.7753196}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.48339692, y: 0.45801508}
@@ -803,7 +892,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2619548, y: 3.6907506}
+  m_Size: {x: 1.2619548, y: 2.8498793}
   m_EdgeRadius: 0
 --- !u!50 &1463273421672820204
 Rigidbody2D:
@@ -963,9 +1052,10 @@ MonoBehaviour:
   isAffectedByGravity: 1
   gravity: -18
   accelerationTimeGrounded: 0.05
-  shouldSaveState: 1
   knockbackTime: 0.3
   smoothTime: 0.1
+  shouldSaveState: 1
+  stunnedSprite: {fileID: 696465851}
   meleeDamage: 1
   hitKnockbackAmount: 25
   idleStateData: {fileID: 11400000, guid: 37c55b2cb0488634485623edb358292d, type: 2}
@@ -1443,7 +1533,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.13, y: 1.6}
+  m_AnchoredPosition: {x: 0.34, y: 2.27}
   m_SizeDelta: {x: 6.6529, y: 1.5745}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &342498009240026572
@@ -1702,7 +1792,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6962664305101183158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.34, y: -2.18, z: 0}
+  m_LocalPosition: {x: -0.34, y: -1.952, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2012,6 +2102,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4470756259782899937, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470756259782899937, guid: 3d6462dd30646d44381f6fec89467356,
+        type: 3}
       propertyPath: VelocityModule.x.minScalar
       value: 45
       objectReference: {fileID: 0}
@@ -2063,7 +2158,7 @@ PrefabInstance:
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
@@ -2078,7 +2173,7 @@ PrefabInstance:
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.089998245
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4470756259782899939, guid: 3d6462dd30646d44381f6fec89467356,
         type: 3}

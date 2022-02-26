@@ -15,7 +15,7 @@ public class Explosion : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.attachedRigidbody.AddExplosionForce(50f, transform.position, 12f);
+        //collision.attachedRigidbody.AddExplosionForce(50f, transform.position, 12f);
 
         if (IsInLayerMask(collision.gameObject.layer, damagables)) 
         {
