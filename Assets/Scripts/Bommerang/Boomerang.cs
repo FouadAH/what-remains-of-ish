@@ -81,10 +81,10 @@ public class Boomerang : MonoBehaviour
 
         BounceOffWall();
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            StopBoomerang();
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    StopBoomerang();
+        //}
 
         while (!back)
         {
@@ -335,6 +335,6 @@ public class Boomerang : MonoBehaviour
 
     private void OnDestroy()
     {
-        rumbler.RumblePulse(1, 2, 0.5f, 0.5f);
+        //rumbler.RumblePulse(1, 2, 0.5f, 0.5f);
     }
 }
