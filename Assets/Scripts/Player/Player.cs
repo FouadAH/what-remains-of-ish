@@ -104,7 +104,7 @@ public class Player : MonoBehaviour, IAttacker{
         gm = GameManager.instance;
 
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
-        AudioManager.instance.PlayAreaTheme();
+        //AudioManager.instance.PlayAreaTheme();
     }
 
     void Start()
