@@ -2,8 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatArena : MonoBehaviour
+public class CombatArena : Savable
 {
+    [System.Serializable]
+    public struct Data
+    {
+        public bool isDone;
+    }
+
+    [SerializeField]
+    private Data combatArenaData;
+
     public List<Door> arenaDoors;
     public List<CombatRound> combatRounds;
 
@@ -41,6 +50,7 @@ public class CombatArena : MonoBehaviour
 
         if (allRoundsOver)
         {
+            combatArenaData.isDone = true;
             AudioManager.instance.SetIntensity(0);
 
             foreach (Door door in arenaDoors)
@@ -68,6 +78,40 @@ public class CombatArena : MonoBehaviour
                     GizmosUtils.DrawText(GUI.skin, spawner.enemyPrefab.name, spawner.spawnPoints[i].position + transform.position, Color.black, 10, -25);
                 }
             }
+        }
+    }
+
+    public override string SaveData()
+    {
+        return JsonUtility.ToJson(combatArenaData);
+    }
+
+    public override void LoadDefaultData()
+    {
+        combatArenaData.isDone = false;
+        foreach (Door door in arenaDoors)
+        {
+            door.SetState(true);
+        }
+
+    }
+
+    public override void LoadData(string data, string version)
+    {
+        combatArenaData = JsonUtility.FromJson<Data>(data);
+        Debug.Log("loading puzzle state: " + combatArenaData.isDone);
+
+        foreach (Door door in arenaDoors)
+        {
+            door.SetState(true);
+        }
+        if (combatArenaData.isDone)
+        {
+            allRoundsOver = true;
+        }
+        else
+        {
+            allRoundsOver = false;
         }
     }
 }

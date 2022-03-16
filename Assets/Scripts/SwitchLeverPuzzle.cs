@@ -3,8 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchLeverPuzzle : MonoBehaviour
+public class SwitchLeverPuzzle : Savable
 {
+    [System.Serializable]
+    public struct Data
+    {
+        public bool isDone;
+    }
+
+    [SerializeField]
+    private Data puzzleData;
+
     public List<SwitchLever> switchLevers = new List<SwitchLever>();
     public float timeInSeconds = 30f;
     public Door door;
@@ -15,27 +24,14 @@ public class SwitchLeverPuzzle : MonoBehaviour
 
     EnemyAudio enemyAudio;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
+    public override void Start()
     {
         enemyAudio = GetComponent<EnemyAudio>();
-
-        if (isDone)
-        {
-            foreach (SwitchLever switchLever in switchLevers)
-            {
-                switchLever.SetActive(true);
-                door.SetStateInitial(true);
-            }
-            return;
-        }
-
-        door.SetStateInitial(false);
-        foreach (SwitchLever switchLever in switchLevers)
-        {
-            switchLever.OnTriggerLever += OnLeverTriggered;
-            switchLever.SetActive(false);
-        }
     }
 
     void OnLeverTriggered()
@@ -90,6 +86,7 @@ public class SwitchLeverPuzzle : MonoBehaviour
     private void EndPuzzle()
     {
         isDone = true;
+        puzzleData.isDone = true;
         door.SetState(true);
         StopAllCoroutines();
         timerIsActive = false;
@@ -114,5 +111,46 @@ public class SwitchLeverPuzzle : MonoBehaviour
 
         CheckPuzzleState();
         timerIsActive = false;
+    }
+
+    public override string SaveData()
+    {
+        return JsonUtility.ToJson(puzzleData);
+    }
+
+    public override void LoadDefaultData()
+    {
+        puzzleData.isDone = false;
+        door.SetStateInitial(false);
+        foreach (SwitchLever switchLever in switchLevers)
+        {
+            switchLever.OnTriggerLever += OnLeverTriggered;
+            switchLever.SetActive(false);
+        }
+    }
+
+    public override void LoadData(string data, string version)
+    {
+        puzzleData = JsonUtility.FromJson<Data>(data);
+        Debug.Log("loading puzzle state: " + puzzleData.isDone);
+
+        if (puzzleData.isDone)
+        {
+            foreach (SwitchLever switchLever in switchLevers)
+            {
+                switchLever.SetActive(true);
+                door.SetStateInitial(true);
+            }
+            return;
+        }
+        else
+        {
+            door.SetStateInitial(false);
+            foreach (SwitchLever switchLever in switchLevers)
+            {
+                switchLever.OnTriggerLever += OnLeverTriggered;
+                switchLever.SetActive(false);
+            }
+        }
     }
 }

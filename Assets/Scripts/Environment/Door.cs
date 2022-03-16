@@ -80,7 +80,7 @@ public class Door : Savable
     {
         doorData = JsonUtility.FromJson<Data>(data);
         SetStateInitial(doorData.isOpen);
-        Debug.Log("loading door state: " + data);
+        Debug.Log("loading door state: " + doorData.isOpen);
     }
 
     public override void OnDestroy()
