@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6028930523136478469}
   - component: {fileID: 2228686784722019389}
   - component: {fileID: 7383406289239110004}
-  m_Layer: 10
+  m_Layer: 20
   m_Name: Needle Launcher
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targeting: 0
-  isDamagable: 1
+  isDamagable: 0
   isStatic: 1
   rotateSpeed: 0
   target: {fileID: 0}
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0000001250346, y: 1.0488664}
@@ -200,6 +200,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TurretHead
+      objectReference: {fileID: 0}
+    - target: {fileID: 6927183780741002940, guid: ec472a5d35990b449b9baa1c4ff1f43f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6927183780741002941, guid: ec472a5d35990b449b9baa1c4ff1f43f,
         type: 3}

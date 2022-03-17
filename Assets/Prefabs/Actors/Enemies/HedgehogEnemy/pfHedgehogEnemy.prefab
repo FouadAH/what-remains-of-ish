@@ -303,7 +303,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.008049618, y: -0.23886019}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 1203904984147925618}
   - component: {fileID: 6257907838637686477}
   - component: {fileID: 4712838622072473647}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1282527456941007311}
   - component: {fileID: 1282527456941007310}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HP SliderGhost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 1282527456992680878}
   - component: {fileID: 1282527456992680876}
   - component: {fileID: 1282527456992680877}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 1282527457437489684}
   - component: {fileID: 1282527457437489690}
   - component: {fileID: 1282527457437489691}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1282527457679590552}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 6659945154209285947}
   - component: {fileID: 8545790133091898989}
   - component: {fileID: 822464778674063336}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -826,7 +826,7 @@ GameObject:
   - component: {fileID: 4565572634818835811}
   - component: {fileID: 7527546082379737945}
   - component: {fileID: 4893287863383685512}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: StateDebugText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -992,7 +992,7 @@ GameObject:
   - component: {fileID: 5972961491727806708}
   - component: {fileID: 5972961491727806698}
   - component: {fileID: 5972961491727806709}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: BloodSplash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5863,7 +5863,7 @@ GameObject:
   - component: {fileID: 5972961493220778718}
   - component: {fileID: 5972961493220778716}
   - component: {fileID: 5972961493220778719}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: BloodEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10866,7 +10866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7286890467550585877}
   - component: {fileID: 5402787863497595940}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HP Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10968,7 +10968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6065602559205161133}
   - component: {fileID: 3657409531288926105}
-  m_Layer: 20
+  m_Layer: 10
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11018,7 +11018,7 @@ GameObject:
   - component: {fileID: 945530972656118082}
   - component: {fileID: 3908072255676373507}
   - component: {fileID: 5698596975552675042}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11117,7 +11117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3730950863584623654}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11187,7 +11187,7 @@ GameObject:
   - component: {fileID: 966198791017714065}
   - component: {fileID: 7171969026196038797}
   - component: {fileID: 1375983051002740539}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DamageBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

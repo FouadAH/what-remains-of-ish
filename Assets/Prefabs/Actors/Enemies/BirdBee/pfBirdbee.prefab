@@ -6205,7 +6205,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -6335,9 +6335,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderObj: {fileID: 6554493094464195536}
   ColorOpen: {r: 0.40571535, g: 1, b: 0, a: 0.4627451}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.5019608}
   ignoreHitstop: 0
-  ignoreFrames: 2
+  hurtboxType: 0
 --- !u!114 &3484212126327578213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6422,9 +6423,9 @@ MonoBehaviour:
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.05
-  shouldSaveState: 1
   knockbackTime: 0.5
   smoothTime: 0.2
+  shouldSaveState: 1
   destinationSetter: {fileID: 1366236473883835881}
   aIPath: {fileID: 1437208573}
   TargetPoint: {fileID: 1927955263}

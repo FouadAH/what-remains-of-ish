@@ -106,6 +106,9 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
 
     public void ProcessHit(int amount)
     {
+        if (!isDamagable)
+            return;
+
         Health -= amount;
         RaiseOnHitEnemyEvent(Health, MaxHealth);
 
