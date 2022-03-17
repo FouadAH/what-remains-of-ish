@@ -94,6 +94,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
                 dir.x = 1;
                 dir.y = 0;
             }
+
             if (!hurtbox.ignoreHitstop)
                 timeStop.StopTime(changeTime, restoreSpeed, delay);
 

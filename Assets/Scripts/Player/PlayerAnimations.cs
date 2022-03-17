@@ -74,10 +74,6 @@ public class PlayerAnimations
             }
             else
             {
-                if (!playerMovement.isAirborne)
-                {
-                    playerMovement.Knockback(new Vector3(playerInput.gameObject.transform.localScale.x, 0, 0), 5);
-                }
                 animator.SetTrigger("Attack");
             }
         }
