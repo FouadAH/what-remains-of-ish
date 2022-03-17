@@ -56,12 +56,15 @@ public class Attack : MonoBehaviour, IHitboxResponder
 
     private void CheckHitboxes()
     {
+        hasHitWall = false;
         foreach (var hitbox in hitboxes)
         {
             hitbox.useResponder(this);
             hitbox.startCheckingCollision();
         }
     }
+
+    bool hasHitWall;
 
     void IHitboxResponder.collisionedWith(Collider2D collider)
     {
@@ -108,13 +111,14 @@ public class Attack : MonoBehaviour, IHitboxResponder
             attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), (dir.x), 0);
             //impulseListener.GenerateImpulse();
 
-            if (HitEffect != null)
-            {
-                Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
-                Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
-                ParticleSystem hitEffectInstance = Instantiate(HitEffect, transform.position, randomQuaternionRotation);
-                hitEffectInstance.Play();
-            }
+            //if (HitEffect != null && !hasHitWall )
+            //{
+            //    hasHitWall = true;
+            //    Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
+            //    Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
+            //    //ParticleSystem hitEffectInstance = Instantiate(HitEffect, hitbox.transform.position, randomQuaternionRotation);
+            //    //hitEffectInstance.Play();
+            //}
         }
     }
 
