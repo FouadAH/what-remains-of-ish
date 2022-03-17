@@ -48,6 +48,8 @@ public class DialogTrigger : Savable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        promptCanvas.GetComponentInChildren<TMPro.TMP_Text>().text = "Talk";
+
         if (collision.gameObject.tag.Equals("Player"))
         {
             DisplayPrompt();

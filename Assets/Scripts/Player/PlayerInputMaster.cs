@@ -550,7 +550,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1231,7 +1231,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""edb4b2f6-e5aa-49bd-aba3-49a723634c04"",
-                    ""path"": ""<Gamepad>/select"",
+                    ""path"": ""<Gamepad>/touchpadButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

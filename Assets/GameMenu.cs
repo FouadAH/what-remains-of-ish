@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameMenu : MonoBehaviour
 {
@@ -12,9 +13,16 @@ public class GameMenu : MonoBehaviour
     public GameObject inventoryScreen;
     public GameObject journalScreen;
 
+    public GameObject mapButton;
+    public GameObject broochesButton;
+    public GameObject inventoryButton;
+    public GameObject journalButton;
+
+    EventSystem eventSystem;
 
     private void Start()
     {
+        eventSystem = EventSystem.current;
         inputActions = FindObjectOfType<Player_Input>().inputActions;
         inputActions.UI.GameMenu.started += GameMenu_started;
     }
@@ -30,6 +38,8 @@ public class GameMenu : MonoBehaviour
         }
         else
         {
+            eventSystem.firstSelectedGameObject = inventoryButton;
+            eventSystem.SetSelectedGameObject(inventoryButton);
             gameMenu.enabled = true;
             DialogManager.instance.dialogueIsActive = true;
             DialogManager.instance.OnInteractStart();

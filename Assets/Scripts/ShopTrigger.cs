@@ -2,70 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopTrigger : DialogTrigger
+public class ShopTrigger : MonoBehaviour
 {
+    public Animator promptAnimator;
+    public Canvas promptCanvas;
+
     public List<ShopItemSO> shopItems;
     public GameEvent onBuyEvent;
 
     bool isInteracting = false;
 
-    public override void Awake()
-    {
-        base.Awake();
-    }
-
-    public override void Interact()
+    public void Interact()
     {
         isInteracting = true;
-        if (isInDialogueMode)
-        {
-            if (!dialogueManager.dialogueIsActive)
-            {
-                TriggerDialogue();
-            }
-        }
-        else 
-        {
-            OpenShopWindow();
-        }
+        OpenShopWindow();
     }
-
-    public override void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            SwitchMode();
-        }
+        promptCanvas.GetComponentInChildren<TMPro.TMP_Text>().text = "Shop";
 
-        if (Input.GetButtonDown("Interact"))
-        {
-            Interact();
-        }
-
-        if (!dialogueManager.dialogueIsActive)
+        if (collision.gameObject.tag.Equals("Player"))
         {
             DisplayPrompt();
         }
-        else
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Player"))
         {
             RemovePrompt();
         }
     }
 
-    bool isInDialogueMode = true;
-    void SwitchMode()
+    public void OnTriggerStay2D(Collider2D collision)
     {
-        isInDialogueMode = !isInDialogueMode;
-
-        if (isInDialogueMode)
+        if (Input.GetButtonDown("Interact"))
         {
-            promptCanvas.GetComponentInChildren<TMPro.TMP_Text>().text = "Talk";
-        }
-        else
-        {
-            promptCanvas.GetComponentInChildren<TMPro.TMP_Text>().text = "Shop";
+            Interact();
         }
     }
+
+    protected void DisplayPrompt()
+    {
+        promptAnimator.ResetTrigger("PopOut");
+        promptAnimator.SetTrigger("PopIn");
+    }
+
+    protected void RemovePrompt()
+    {
+        promptAnimator.ResetTrigger("PopIn");
+        promptAnimator.SetTrigger("PopOut");
+    }
+
+    bool isInDialogueMode = true;
 
     public void OpenShopWindow()
     {
@@ -79,9 +69,8 @@ public class ShopTrigger : DialogTrigger
         ShopManager.instance.DisableShopUI();
     }
 
-    public override void OnDestroy()
+    public void OnDestroy()
     {
-        base.OnDestroy();
 
 #if UNITY_EDITOR
         for (int i = 0; i < shopItems.Count; i++)
