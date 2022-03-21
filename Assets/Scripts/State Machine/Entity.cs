@@ -435,7 +435,8 @@ public class Entity : Savable, IDamagable
 
         if (entitySavedData.isDead)
         {
-            gameObject.SetActive(false);
+            if (gameObject != null)
+                gameObject.SetActive(false);
         }
         else
         {
