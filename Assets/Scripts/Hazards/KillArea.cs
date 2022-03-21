@@ -28,12 +28,12 @@ public class KillArea : MonoBehaviour {
             {
                 if (GameManager.instance.health > 1 && !GameManager.instance.isRespawning)
                 {
-                    player.ProcessHit(damageDealt);
+                    player.ProcessForcedHit(damageDealt);
                     GameManager.instance.SoftRespawn();
                 }
                 else
                 {
-                    player.ProcessHit(damageDealt);
+                    player.ProcessForcedHit(damageDealt);
                 }
             }
         }

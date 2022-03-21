@@ -7,9 +7,13 @@ public class EnemyAudio : MonoBehaviour
     FMOD.Studio.EventInstance Event;
     FMOD.Studio.EventInstance attackEvent;
 
-
     void PlayEvent(string path)
     {
+        foreach (FMODUnity.StudioListener item in FMODUnity.RuntimeManager.Listeners)
+        {
+            Debug.Log(item);
+
+        }
         FMODUnity.RuntimeManager.PlayOneShotAttached(path, gameObject);
     }
 
@@ -48,5 +52,12 @@ public class EnemyAudio : MonoBehaviour
         FMOD.Studio.PLAYBACK_STATE state;
         instance.getPlaybackState(out state);
         return state != FMOD.Studio.PLAYBACK_STATE.STOPPED;
+    }
+
+    private void OnDestroy()
+    {
+        FMODUnity.RuntimeManager.DetachInstanceFromGameObject(Event);
+        Event.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        Event.release();
     }
 }

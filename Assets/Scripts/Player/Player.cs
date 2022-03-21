@@ -341,32 +341,45 @@ public class Player : MonoBehaviour, IAttacker{
     {
         if (!invinsible && gm.health > 0 && !gm.isRespawning)
         {
-            CinemachineImpulseSource impulseListener = GetComponent<CinemachineImpulseSource>();
-            impulseListener.GenerateImpulse();
-
-            GetComponent<Rumbler>().RumblePulse(1, 5, 0.5f, 0.5f);
-
-            timeStop.StopTime(changeTime, restoreSpeed, delay);
-            damageParticle.Play();
-            if (!GameManager.instance.hasInfiniteLives)
-            {
-                gm.health -= amount;
-                OnHit(amount);
-            }
-
-            CheckDeath();
-
-            iFrames = iFrameTime;
-
-            if (flashRoutine != null)
-            {
-                StopCoroutine(flashRoutine);
-            }
-
-            flashRoutine = StartCoroutine(flashEffect.FlashMultiple(Color.white, iFrameTime));
-            invinsible = true;
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Damage", GetComponent<Transform>().position);
+            TakeDamage(amount);
         }
+    }
+
+    public void ProcessForcedHit(int amount)
+    {
+        if (gm.health > 0 && !gm.isRespawning)
+        {
+            TakeDamage(amount);
+        }
+    }
+
+    void TakeDamage(int amount)
+    {
+        CinemachineImpulseSource impulseListener = GetComponent<CinemachineImpulseSource>();
+        impulseListener.GenerateImpulse();
+
+        GetComponent<Rumbler>().RumblePulse(1, 5, 0.5f, 0.5f);
+
+        timeStop.StopTime(changeTime, restoreSpeed, delay);
+        damageParticle.Play();
+        if (!GameManager.instance.hasInfiniteLives)
+        {
+            gm.health -= amount;
+            OnHit(amount);
+        }
+
+        CheckDeath();
+
+        iFrames = iFrameTime;
+
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+
+        flashRoutine = StartCoroutine(flashEffect.FlashMultiple(Color.white, iFrameTime));
+        invinsible = true;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Damage", GetComponent<Transform>().position);
     }
 
     void Look()
