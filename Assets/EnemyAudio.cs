@@ -9,11 +9,6 @@ public class EnemyAudio : MonoBehaviour
 
     void PlayEvent(string path)
     {
-        foreach (FMODUnity.StudioListener item in FMODUnity.RuntimeManager.Listeners)
-        {
-            Debug.Log(item);
-
-        }
         FMODUnity.RuntimeManager.PlayOneShotAttached(path, gameObject);
     }
 
