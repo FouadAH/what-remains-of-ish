@@ -35,7 +35,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     public float throwForce = 100f;
     public float bounceForce = 100f;
-    [Range(0,1)] public float falloutStrenght = 0.5f;
+    [Range(0,2)] public float falloutStrenght = 0.5f;
 
     public float boomerangHoverTime = 1f;
     public float boomerangAirTime = 0.38f;

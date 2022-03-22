@@ -278,7 +278,11 @@ public class Boomerang : MonoBehaviour
                 float angle = Mathf.Atan2(reflectionVelocity.y, reflectionVelocity.x) * Mathf.Rad2Deg - 90;
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                rgd2D.AddForce(transform.up * (boomerangLauncher.bounceForce / bounceCount), ForceMode2D.Impulse);
+                float bounceForce = ((boomerangLauncher.bounceForce / ( bounceCount * boomerangLauncher.falloutStrenght)) );
+                bounceForce = Mathf.Clamp(bounceForce, 0, boomerangLauncher.bounceForce);
+                rgd2D.AddForce(transform.up * bounceForce, ForceMode2D.Impulse);
+                //rgd2D.AddForce(transform.up * boomerangLauncher.bounceForce, ForceMode2D.Impulse);
+
                 break;
             }
         }

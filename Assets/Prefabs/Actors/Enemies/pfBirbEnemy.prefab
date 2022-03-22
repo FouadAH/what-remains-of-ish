@@ -5793,7 +5793,7 @@ Transform:
   m_GameObject: {fileID: 6283906727477383766}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1336102225753015795}
@@ -6084,9 +6084,9 @@ MonoBehaviour:
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.05
-  shouldSaveState: 1
   knockbackTime: 0.5
   smoothTime: 0.1
+  shouldSaveState: 1
   startPosition: {x: 0, y: 0}
   flyStateData: {fileID: 11400000, guid: ebc1d581a6a6fd7498f5dedd5ef3f685, type: 2}
   deadStateData: {fileID: 11400000, guid: af43533b85cd41247bde16f1684ffcac, type: 2}

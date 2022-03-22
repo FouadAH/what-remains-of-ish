@@ -23,6 +23,7 @@ public class Lamp : MonoBehaviour, IDamagable
     [Header("Hinges")]
     public GameObject hingesParent;
     public BreakableObject fixedHinge;
+
     public bool isFalling;
 
     public LayerMask obstacleLayer;
@@ -45,6 +46,10 @@ public class Lamp : MonoBehaviour, IDamagable
         spriteRenderer = GetComponent<SpriteRenderer>();
         col2D = GetComponent<Collider2D>();
         fixedHinge.OnBreak += FixedHinge_OnBreak;
+        foreach (BreakableObject chain in hingesParent.GetComponentsInChildren<BreakableObject>())
+        {
+            chain.OnBreak += FixedHinge_OnBreak;
+        }
     }
 
     private void FixedHinge_OnBreak()

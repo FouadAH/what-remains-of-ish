@@ -5132,7 +5132,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   freezeBurst: {fileID: 1173588368880399243}
-  wallCheckersDistance: 3
+  wallCheckersDistance: 4
 --- !u!58 &8817289101165079723
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5143,12 +5143,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.37
+  m_Radius: 0.15
 --- !u!1 &2089601387123578024
 GameObject:
   m_ObjectHideFlags: 0
@@ -10060,7 +10060,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4466144697940967129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalPosition: {x: -0.09, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15139,7 +15139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8590270071415124775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalPosition: {x: 0.117, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

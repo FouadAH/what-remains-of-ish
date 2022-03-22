@@ -4883,8 +4883,9 @@ GameObject:
   - component: {fileID: 1540541355827536750}
   - component: {fileID: 2022239314184875061}
   - component: {fileID: 5289701118967483588}
-  - component: {fileID: 6246172511813987424}
-  m_Layer: 0
+  - component: {fileID: 6497915268286210689}
+  - component: {fileID: 1667024729669486170}
+  m_Layer: 10
   m_Name: ChainLink_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5010,16 +5011,16 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38973189107846617}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.2, y: 0.43}
+  m_Size: {x: 0.41, y: 0.43}
   m_Direction: 0
---- !u!114 &6246172511813987424
+--- !u!114 &6497915268286210689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5028,12 +5029,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 38973189107846617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ee30edc3024e74491c9e60cda49283, type: 3}
+  m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lamp: {fileID: 8498414783605537344}
-  upForce: 10
-  sideForce: 10
+  colliderObj: {fileID: 5289701118967483588}
+  ColorOpen: {r: 0, g: 1, b: 0, a: 1}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
+  ColorStunned: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ignoreHitstop: 0
+  hurtboxType: 0
+--- !u!114 &1667024729669486170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38973189107846617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3cb28544cb69a44bac4e55881dfdba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  knockbackForce: 0
+  spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
+    type: 3}
+  breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
+    type: 3}
 --- !u!1 &1499311996756626817
 GameObject:
   m_ObjectHideFlags: 0
@@ -5047,8 +5069,9 @@ GameObject:
   - component: {fileID: 685931626921991513}
   - component: {fileID: 308507094622442456}
   - component: {fileID: 5289701118960617274}
-  - component: {fileID: 6088332126726035132}
-  m_Layer: 0
+  - component: {fileID: 7536349430331519795}
+  - component: {fileID: 5292049460572387416}
+  m_Layer: 10
   m_Name: ChainLink_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5174,16 +5197,16 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499311996756626817}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.07338029}
-  m_Size: {x: 0.2, y: 0.69676054}
+  m_Size: {x: 0.41, y: 0.69676054}
   m_Direction: 0
---- !u!114 &6088332126726035132
+--- !u!114 &7536349430331519795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5192,12 +5215,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1499311996756626817}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ee30edc3024e74491c9e60cda49283, type: 3}
+  m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lamp: {fileID: 8498414783605537344}
-  upForce: 10
-  sideForce: 10
+  colliderObj: {fileID: 5289701118967483588}
+  ColorOpen: {r: 0, g: 1, b: 0, a: 1}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
+  ColorStunned: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ignoreHitstop: 0
+  hurtboxType: 0
+--- !u!114 &5292049460572387416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499311996756626817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3cb28544cb69a44bac4e55881dfdba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  knockbackForce: 0
+  spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
+    type: 3}
+  breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
+    type: 3}
 --- !u!1 &3459553576294069804
 GameObject:
   m_ObjectHideFlags: 0
@@ -5212,8 +5256,9 @@ GameObject:
   - component: {fileID: 8544896127414705365}
   - component: {fileID: 5289701118762315043}
   - component: {fileID: 3459553576294069803}
-  - component: {fileID: 7286195316903896326}
-  m_Layer: 0
+  - component: {fileID: 8730310439654040249}
+  - component: {fileID: 8927860815863931941}
+  m_Layer: 10
   m_Name: ChainLink_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5339,14 +5384,14 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3459553576294069804}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.2, y: 0.43}
+  m_Size: {x: 0.41, y: 0.43}
   m_Direction: 0
 --- !u!233 &3459553576294069803
 HingeJoint2D:
@@ -5372,7 +5417,7 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
---- !u!114 &7286195316903896326
+--- !u!114 &8730310439654040249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5381,12 +5426,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 3459553576294069804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ee30edc3024e74491c9e60cda49283, type: 3}
+  m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lamp: {fileID: 8498414783605537344}
-  upForce: 10
-  sideForce: 10
+  colliderObj: {fileID: 5289701118967483588}
+  ColorOpen: {r: 0, g: 1, b: 0, a: 1}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
+  ColorStunned: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ignoreHitstop: 0
+  hurtboxType: 0
+--- !u!114 &8927860815863931941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459553576294069804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3cb28544cb69a44bac4e55881dfdba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  knockbackForce: 0
+  spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
+    type: 3}
+  breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
+    type: 3}
 --- !u!1 &5107141643182576568
 GameObject:
   m_ObjectHideFlags: 0
@@ -6118,8 +6184,9 @@ GameObject:
   - component: {fileID: 7529802467863372255}
   - component: {fileID: 1797570052696400523}
   - component: {fileID: 5289701118695440034}
-  - component: {fileID: 6070762173681558206}
-  m_Layer: 0
+  - component: {fileID: 1281082397938994989}
+  - component: {fileID: 7032984515228623766}
+  m_Layer: 10
   m_Name: ChainLink_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6245,16 +6312,16 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5436176869136191254}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.2, y: 0.43}
+  m_Size: {x: 0.41, y: 0.43}
   m_Direction: 0
---- !u!114 &6070762173681558206
+--- !u!114 &1281082397938994989
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6263,12 +6330,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 5436176869136191254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ee30edc3024e74491c9e60cda49283, type: 3}
+  m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lamp: {fileID: 8498414783605537344}
-  upForce: 10
-  sideForce: 10
+  colliderObj: {fileID: 5289701118967483588}
+  ColorOpen: {r: 0, g: 1, b: 0, a: 1}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
+  ColorStunned: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ignoreHitstop: 0
+  hurtboxType: 0
+--- !u!114 &7032984515228623766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5436176869136191254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3cb28544cb69a44bac4e55881dfdba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  knockbackForce: 0
+  spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
+    type: 3}
+  breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
+    type: 3}
 --- !u!1 &6120052552840118611
 GameObject:
   m_ObjectHideFlags: 0
@@ -6319,8 +6407,9 @@ GameObject:
   - component: {fileID: 3921423176458914604}
   - component: {fileID: 5986146029545692585}
   - component: {fileID: 5289701118484852039}
-  - component: {fileID: 8421830100496943608}
-  m_Layer: 0
+  - component: {fileID: 5909307203137827593}
+  - component: {fileID: 5802181805151541571}
+  m_Layer: 10
   m_Name: ChainLink_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6446,16 +6535,16 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6386389652104161399}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.2, y: 0.43}
+  m_Size: {x: 0.41, y: 0.43}
   m_Direction: 0
---- !u!114 &8421830100496943608
+--- !u!114 &5909307203137827593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6464,12 +6553,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 6386389652104161399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ee30edc3024e74491c9e60cda49283, type: 3}
+  m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lamp: {fileID: 8498414783605537344}
-  upForce: 10
-  sideForce: 10
+  colliderObj: {fileID: 5289701118967483588}
+  ColorOpen: {r: 0, g: 1, b: 0, a: 1}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
+  ColorStunned: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ignoreHitstop: 0
+  hurtboxType: 0
+--- !u!114 &5802181805151541571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386389652104161399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3cb28544cb69a44bac4e55881dfdba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  knockbackForce: 0
+  spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
+    type: 3}
+  breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
+    type: 3}
 --- !u!1 &7437417282990124067
 GameObject:
   m_ObjectHideFlags: 0
@@ -6483,8 +6593,9 @@ GameObject:
   - component: {fileID: 2210821104174165297}
   - component: {fileID: 2227526601470472434}
   - component: {fileID: 5289701119635633151}
-  - component: {fileID: 3334028270309410062}
-  m_Layer: 0
+  - component: {fileID: 8939050844693430008}
+  - component: {fileID: 750979956322388327}
+  m_Layer: 10
   m_Name: ChainLink_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6610,16 +6721,16 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7437417282990124067}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.2, y: 0.43}
+  m_Size: {x: 0.41, y: 0.43}
   m_Direction: 0
---- !u!114 &3334028270309410062
+--- !u!114 &8939050844693430008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6628,12 +6739,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 7437417282990124067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ee30edc3024e74491c9e60cda49283, type: 3}
+  m_Script: {fileID: 11500000, guid: ed255d4398c55a146aa82b30139afe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lamp: {fileID: 8498414783605537344}
-  upForce: 10
-  sideForce: 10
+  colliderObj: {fileID: 5289701118967483588}
+  ColorOpen: {r: 0, g: 1, b: 0, a: 1}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
+  ColorStunned: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  ignoreHitstop: 0
+  hurtboxType: 0
+--- !u!114 &750979956322388327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7437417282990124067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3cb28544cb69a44bac4e55881dfdba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  knockbackForce: 0
+  spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
+    type: 3}
+  breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
+    type: 3}
 --- !u!1 &8476355610093859055
 GameObject:
   m_ObjectHideFlags: 0
