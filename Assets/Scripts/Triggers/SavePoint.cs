@@ -91,8 +91,8 @@ public class SavePoint: MonoBehaviour {
         GameManager.instance.lastCheckpointPos = playerSpawnPoint.position;
 
         float missingHealth = GameManager.instance.maxHealth - GameManager.instance.health;
-        GameManager.instance.health = GameManager.instance.maxHealth;
-        UI_HUD.instance.OnResetHP(missingHealth);
+        player.GetComponent<Player>().RestoreHP((int)missingHealth);
+        UI_HUD.instance.OnResetHealingFlasks();
 
         SaveManager.instance.RestPointSave();
         //SaveManager.instance.SaveGame();

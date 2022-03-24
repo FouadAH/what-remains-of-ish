@@ -796,6 +796,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 256006876041394943, guid: 6c2ae8129d6b5974cb16498ec19f53f7,
+        type: 3}
+      propertyPath: hingesParent
+      value: 
+      objectReference: {fileID: 1858992293804682284}
+    - target: {fileID: 256006876041394943, guid: 6c2ae8129d6b5974cb16498ec19f53f7,
+        type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 4450728317717581539, guid: 72b6c4685d3b1944a978b60945845343,
+        type: 3}
     - target: {fileID: 290312108524112340, guid: 6c2ae8129d6b5974cb16498ec19f53f7,
         type: 3}
       propertyPath: m_Layer
@@ -945,6 +956,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 15.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031029374025529887, guid: 6c2ae8129d6b5974cb16498ec19f53f7,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031029374025529887, guid: 6c2ae8129d6b5974cb16498ec19f53f7,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1456256491
       objectReference: {fileID: 0}
     - target: {fileID: 3341610146460682992, guid: 6c2ae8129d6b5974cb16498ec19f53f7,
         type: 3}
@@ -1234,6 +1255,12 @@ MonoBehaviour:
     type: 3}
   breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
     type: 3}
+--- !u!1 &1858992293804682284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2127388403092252544, guid: 6c2ae8129d6b5974cb16498ec19f53f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 309191325733079980}
+  m_PrefabAsset: {fileID: 0}
 --- !u!50 &2719969466397854439 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 2446917012375355723, guid: 6c2ae8129d6b5974cb16498ec19f53f7,

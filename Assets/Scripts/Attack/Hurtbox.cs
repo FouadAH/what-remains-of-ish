@@ -50,7 +50,7 @@ public class Hurtbox : MonoBehaviour
 
     public void collisionDamage(int damageAmount, float knockbackDirX, float knockbackDirY)
     {
-        attackProcessor.ProcessCollisionDamage(damageAmount, hittable as IDamagable, knockbackDirX, knockbackDirY);
+        attackProcessor.ProcessCollisionDamage(damageAmount, hittable, knockbackDirX, knockbackDirY);
     }
 
     private void OnDrawGizmos()

@@ -30,9 +30,13 @@ public class AttackProcessor
         ProcessAttack(target, attacker.MeleeDamage);
     }
 
-    public void ProcessCollisionDamage(int damageAmount, IDamagable target, float knockbackDirX, float knockbackDirY)
+    public void ProcessCollisionDamage(int damageAmount, IHittable target, float knockbackDirX, float knockbackDirY)
     {
-        ProcessKnockbackOnDamage(target, -knockbackDirX, -knockbackDirY);
+        if (target is IDamagable)
+        {
+            ProcessKnockbackOnDamage(target as IDamagable, -knockbackDirX, -knockbackDirY);
+        }
+
         ProcessAttack(target, damageAmount);
     }
 

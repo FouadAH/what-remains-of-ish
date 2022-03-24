@@ -302,16 +302,21 @@ public class Player : MonoBehaviour, IAttacker{
 
         if (flask.fillAmount >= 100 && gm.health < gm.maxHealth)
         {
-            flask.EmptyFlask();
-            float previousHP = gm.health;
-            gm.health = Mathf.Clamp(gm.health + amount, 0, gm.maxHealth);
-
-            int amountHealed = (int)(gm.health - previousHP);
-            OnHeal(amountHealed);
-            flashEffect.Flash(Color.white);
-            healingParticles.Play();
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Healing", GetComponent<Transform>().position);
+            RestoreHP(amount);
         }
+
+    }
+
+    public void RestoreHP(int amount)
+    {
+        float previousHP = gm.health;
+        gm.health = Mathf.Clamp(gm.health + amount, 0, gm.maxHealth);
+
+        int amountHealed = (int)(gm.health - previousHP);
+        OnHeal(amountHealed);
+        flashEffect.Flash(Color.white);
+        healingParticles.Play();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Healing", GetComponent<Transform>().position);
 
         if (gm.health > 2)
         {

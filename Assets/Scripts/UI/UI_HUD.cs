@@ -168,12 +168,21 @@ public class UI_HUD : MonoBehaviour
             Instantiate(heartPrefab, heartBar);
         }
 
-        //Refill healing
+       //Refill healing
         for (int i = 0; i < healingFlasks.Count; i++)
         {
             healingFlasks[i].fillAmount = 100;
         }
 
+    }
+
+    public void OnResetHealingFlasks()
+    {
+        //Refill healing
+        for (int i = 0; i < healingFlasks.Count; i++)
+        {
+            healingFlasks[i].fillAmount = 100;
+        }
     }
 
     public void SetDebugText(string text)
