@@ -21,6 +21,9 @@ public class PlayerTeleport : MonoBehaviour
     public float teleporEffectDuration = 0.8f;
 
     public ParticleSystem teleportRechargeEffect;
+    public ParticleSystem teleportOutEffect;
+    public ParticleSystem teleportInEffect;
+
     public TrailRenderer teleportTrail;
     public GameObject teleportTrailParent;
 
@@ -51,6 +54,9 @@ public class PlayerTeleport : MonoBehaviour
 
         if (canTeleport)
         {
+            ParticleSystem psTeleportOut = Instantiate(teleportOutEffect, transform.position, Quaternion.identity);
+            psTeleportOut.Play();
+
             canTeleport = false;
 
             StartCoroutine(TeleportLock(teleportCooldownTimer));
@@ -88,6 +94,8 @@ public class PlayerTeleport : MonoBehaviour
         }
 
         TeleportPlayer(transformToMove);
+        ParticleSystem psTeleportIn = Instantiate(teleportInEffect, transform.position, Quaternion.identity);
+        psTeleportIn.Play();
 
         if (boomerang != null)
         {
