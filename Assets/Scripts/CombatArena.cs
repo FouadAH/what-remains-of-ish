@@ -61,6 +61,7 @@ public class CombatArena : Savable
         else
         {
             currentCombatRound++;
+            Debug.Log("Current: " + currentCombatRound);
             combatRounds[currentCombatRound].StartRound();
         }
     }

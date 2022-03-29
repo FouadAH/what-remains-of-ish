@@ -48,6 +48,7 @@ public class DeadState : State
         if (stateData.refillParticles != null)
         {
             ParticleSystem refillParticlesInstance = GameObject.Instantiate(stateData.refillParticles, entity.transform.position, Quaternion.identity);
+            refillParticlesInstance.emission.SetBurst(0, new ParticleSystem.Burst(0f, stateData.flaskRefillAmount/2));
             refillParticlesInstance.Play();
         }
 
