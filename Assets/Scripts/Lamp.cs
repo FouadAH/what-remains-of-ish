@@ -86,6 +86,7 @@ public class Lamp : MonoBehaviour, IDamagable
 
                 breakEffect.Play();
                 Destroy(gameObject);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lamp Break", GetComponent<Transform>().position);
             }
             else if(IsInLayerMask(collision.gameObject.layer, damagables))
             {
