@@ -131,7 +131,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: -4016827116424350148, guid: e35956ae8ef058d42b9b65d62aea126f,
     type: 3}
   m_Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
@@ -212,6 +212,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  shouldSaveData: 1
 --- !u!95 &458602867935252852
 Animator:
   serializedVersion: 4

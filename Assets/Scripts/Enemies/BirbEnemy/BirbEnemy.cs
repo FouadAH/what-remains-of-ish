@@ -1,16 +1,29 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BirbEnemy : Entity
 {
+    [HideInInspector] public AIDestinationSetter destinationSetter;
+    [HideInInspector] public AIPath aIPath;
+    Seeker seeker;
+
     [Header("Fly Settings")]
+    public GameObject TargetPoint;
     [HideInInspector] public Vector2 startPosition;
+    public int knockbackFrames = 5;
+
     public FlyState flyState { get; private set; }
+    public PlayerDetectedState playerDetectedState { get; private set; }
     public DeadState deadState { get; private set; }
+
+    [Header("Aggro Settings")]
+    public bool IsAggro = false;
 
     [Header("States")]
     [SerializeField] private D_FlyState flyStateData;
+    [SerializeField] private D_PlayerDetected playerDetectedData;
     [SerializeField] private D_DeadState deadStateData;
 
     [FMODUnity.EventRef] public string birdbeeFlyLoop;
@@ -19,8 +32,11 @@ public class BirbEnemy : Entity
     {
         base.Start();
         startPosition = transform.position;
+        destinationSetter = GetComponent<AIDestinationSetter>();
+        aIPath = GetComponent<AIPath>();
 
-        flyState = new BirbEnemy_FlyState(this, stateMachine, "move", flyStateData, this);
+        flyState = new BlueBirbEnemy_FlyState(this, stateMachine, "move", flyStateData, this);
+        playerDetectedState = new BlueBirdEnemy_PlayerDetectedState(this, stateMachine, "detected", playerDetectedData, this);
         deadState = new BirbEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(flyState);
@@ -39,9 +55,35 @@ public class BirbEnemy : Entity
 
     public override void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
-        DamageHop(entityData.damageHopSpeed * dirX);
-        //Vector3 knockbackForce = new Vector3(entityData.damageHopSpeed * dirX, entityData.damageHopSpeed * dirY, 0);
-        //rb.AddForce(knockbackForce, ForceMode2D.Impulse);
+        Vector3 knockbackForce = new Vector3(entityData.damageHopSpeed * dirX, entityData.damageHopSpeed * dirY, 0);
+        StartCoroutine(KnockbackTimer(knockbackForce));
+        rb.AddForce(knockbackForce, ForceMode2D.Impulse);
+    }
+
+    IEnumerator KnockbackTimer(Vector3 knockbackForce)
+    {
+        aIPath.canMove = false;
+        aIPath.canSearch = false;
+        yield return new WaitForEndOfFrame();
+
+        rb.velocity = knockbackForce;
+        knockbackTimeElapsed = 0;
+        while (knockbackTimeElapsed < knockbackTime)
+        {
+            knockbackTimeElapsed += Time.deltaTime;
+            rb.velocity = Vector2.SmoothDamp(rb.velocity, Vector2.zero, ref velocitySmoothing, smoothTime);
+            if (CheckGround())
+            {
+                rb.velocity = Vector2.zero;
+                break;
+            }
+
+            yield return null;
+        }
+        rb.velocity = Vector2.zero;
+        TargetPoint.transform.position = transform.position;
+        aIPath.canMove = true;
+        aIPath.canSearch = true;
     }
 
     public override void ProcessHit(int amount)

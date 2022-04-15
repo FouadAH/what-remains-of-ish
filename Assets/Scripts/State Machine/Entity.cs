@@ -87,7 +87,7 @@ public class Entity : Savable, IDamagable
         if(shouldSaveState)
             base.Start();
 
-        facingDirection = (int)transform.localScale.x;
+        facingDirection = (int)Mathf.Sign(transform.localScale.x);
         MaxHealth = (int)entityData.maxHealth;
 
         currentStunResistance = entityData.stunResistance;
