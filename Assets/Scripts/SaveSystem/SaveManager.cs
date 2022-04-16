@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System;
-using Newtonsoft.Json;
 
 public class SaveManager : MonoBehaviour
 {
@@ -150,7 +149,7 @@ public class SaveManager : MonoBehaviour
 
         reader.Close();
 
-        currentSaveFile.gameData = JsonConvert.DeserializeObject<GameData>(data);
+        currentSaveFile.gameData = JsonUtility.FromJson<GameData>(data);
         sceneDataCache = currentSaveFile.gameData.scene_data;
         enemyDataCache = currentSaveFile.gameData.enemy_data;
         currentSaveFile.gameData.OnLoad();
@@ -224,7 +223,7 @@ public class SaveManager : MonoBehaviour
 
         currentSaveFile.gameData.OnWrite();
 
-        string data = JsonConvert.SerializeObject(currentSaveFile.gameData); 
+        string data = JsonUtility.ToJson(currentSaveFile.gameData); 
         string path = currentSaveFile.path;
         if (!File.Exists(path))
         {
@@ -367,7 +366,7 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            gameData = JsonConvert.DeserializeObject<GameData>(json); 
+            gameData = JsonUtility.FromJson<GameData>(json); 
             return gameData;
         }
         else
