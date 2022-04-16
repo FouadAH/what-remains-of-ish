@@ -44,6 +44,7 @@ public class Boomerang : MonoBehaviour
     public AnimationCurve boomerangSpeed;
 
     public ParticleSystem freezeBurst;
+    public GameObject explosionPrefab;
 
     Rumbler rumbler;
 
@@ -81,10 +82,15 @@ public class Boomerang : MonoBehaviour
 
         BounceOffWall();
 
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    StopBoomerang();
-        //}
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            InitiateExplosion();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            BoomerangFreeze();
+        }
 
         while (!back)
         {
@@ -105,6 +111,23 @@ public class Boomerang : MonoBehaviour
         }
 
 
+    }
+    void InitiateExplosion()
+    {
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        HaltBoomerang();
+    }
+
+    public void BoomerangFreeze()
+    {
+        if (!isStopped)
+        {
+            isStopped = true;
+            StopAllCoroutines();
+            rgd2D.isKinematic = true;
+            rgd2D.velocity = Vector2.zero;
+            freezeBurst.Play();
+        }
     }
 
     bool firstTake = true;
@@ -218,7 +241,6 @@ public class Boomerang : MonoBehaviour
             StopAllCoroutines();
             rgd2D.isKinematic = true;
             rgd2D.velocity = Vector2.zero;
-            freezeBurst.Play();
         }
     }
 

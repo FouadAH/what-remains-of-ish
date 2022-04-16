@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1298915129}
   - component: {fileID: 1298915130}
-  - component: {fileID: 2748439591903732266}
   m_Layer: 11
   m_Name: Coin Collider
   m_TagString: Untagged
@@ -49,30 +48,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.8
---- !u!114 &2748439591903732266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298915128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5c16fe019f7454296ed2f427adbf2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ignoreCollitionLayers:
-  - serializedVersion: 2
-    m_Bits: 1024
-  - serializedVersion: 2
-    m_Bits: 256
-  - serializedVersion: 2
-    m_Bits: 1
-  - serializedVersion: 2
-    m_Bits: 1048576
-  coinLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!1 &5208554419654711270
 GameObject:
   m_ObjectHideFlags: 0

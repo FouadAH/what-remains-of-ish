@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 1690755531032133236}
   - component: {fileID: 1690755531032133237}
   - component: {fileID: 1690755531032133238}
-  m_Layer: 9
+  m_Layer: 20
   m_Name: BreakableWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,9 +201,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderObj: {fileID: 1690755531032133238}
   ColorOpen: {r: 0.04937911, g: 1, b: 0, a: 0}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
   ColorStunned: {r: 1, g: 0.9019314, b: 0, a: 0}
-  stunTime: 0.5
   ignoreHitstop: 0
+  hurtboxType: 0
 --- !u!61 &1690755531032133238
 BoxCollider2D:
   m_ObjectHideFlags: 0

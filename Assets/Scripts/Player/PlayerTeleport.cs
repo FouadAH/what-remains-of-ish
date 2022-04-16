@@ -27,7 +27,6 @@ public class PlayerTeleport : MonoBehaviour
     public TrailRenderer teleportTrail;
     public GameObject teleportTrailParent;
 
-
     BoomerangLauncher boomerangLauncher;
     PlayerMovement playerMovement;
     Boomerang boomerang;
@@ -191,6 +190,7 @@ public class PlayerTeleport : MonoBehaviour
     public IEnumerator TeleportLock(float teleportCooldownTimer)
     {
         teleportLock = true;
+        UI_HUD.instance.Cooldown(PlayerAbility.BoomerangTeleport, teleportCooldownTimer);
         yield return new WaitForSeconds(teleportCooldownTimer);
         yield return new WaitWhile(() => playerMovement.isAirborne);
         teleportRechargeEffect.Play();

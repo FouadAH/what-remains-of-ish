@@ -19,6 +19,10 @@ public class UI_HUD : MonoBehaviour
 
     public List<HealingPod> healingFlasks = new List<HealingPod>();
 
+    public Image TeleportCooldown;
+    public Image ExplosionCooldown;
+    public Image FreezeCooldown;
+
     [Header("Brooch Inventory")]
     public InventoryGrid broochInventoryGrid;
     public InventoryGrid broochEquipGrid;
@@ -182,6 +186,36 @@ public class UI_HUD : MonoBehaviour
         for (int i = 0; i < healingFlasks.Count; i++)
         {
             healingFlasks[i].fillAmount = 100;
+        }
+    }
+
+    public void Cooldown(PlayerAbility playerAbility, float cooldownDuration)
+    {
+        switch (playerAbility)
+        {
+            case PlayerAbility.BoomerangTeleport:
+                StartCoroutine(CooldownRoutine(TeleportCooldown, cooldownDuration));
+                break;
+            case PlayerAbility.BoomerangExplosion:
+                StartCoroutine(CooldownRoutine(ExplosionCooldown, cooldownDuration));
+                break;
+            case PlayerAbility.BoomerangFreeze:
+                StartCoroutine(CooldownRoutine(FreezeCooldown, cooldownDuration));
+                break;
+            default:
+                break;
+        }
+    }
+
+    IEnumerator CooldownRoutine(Image image, float cooldownDuration)
+    {
+        image.fillAmount = 0;
+        float cooldownTime = 0;
+        while(cooldownDuration > cooldownTime)
+        {
+            cooldownTime += Time.deltaTime;
+            image.fillAmount = (cooldownTime / cooldownDuration);
+            yield return null;
         }
     }
 
