@@ -15,7 +15,6 @@ public class AudioManager : MonoBehaviour
     FMOD.Studio.Bus SFXBus;
     FMOD.Studio.Bus MasterBus;
 
-
     FMOD.Studio.EventDescription eventDescription;
     FMOD.Studio.PARAMETER_DESCRIPTION param;
 
@@ -40,8 +39,6 @@ public class AudioManager : MonoBehaviour
         MusicBus = FMODUnity.RuntimeManager.GetBus("Bus:/Music");
         SFXBus = FMODUnity.RuntimeManager.GetBus("Bus:/SFX");
         MasterBus = FMODUnity.RuntimeManager.GetBus("Bus:/");
-
-
     }
 
     public void PlayAreaTheme()
@@ -77,25 +74,27 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    public void SwitchLevelMusic()
+    public void SwitchLevelMusicEvent(string theme)
     {
-
-        if (GameManager.instance.currentLevel.theme != currentTheme)
+        if (theme != currentTheme)
         {
             Debug.Log("Switching level theme music");
 
             StopAreaThemeWithFade();
-            currentTheme = GameManager.instance.currentLevel.theme;
+            currentTheme = theme;
             areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(currentTheme);
             areaThemeInstance.start();
         }
+    }
 
-        if (GameManager.instance.currentLevel.ambiance != currentAmbiance)
+    public void SwitchLevelAmbianceEvent(string ambiance)
+    {
+        if (ambiance != currentAmbiance)
         {
             Debug.Log("Switching level ambiance");
 
             StopAreaAmbianceWithFade();
-            currentAmbiance = GameManager.instance.currentLevel.ambiance;
+            currentAmbiance = ambiance;
             areaAmbianceInstance = FMODUnity.RuntimeManager.CreateInstance(currentAmbiance);
             areaAmbianceInstance.start();
         }
@@ -103,6 +102,9 @@ public class AudioManager : MonoBehaviour
 
     public void StopAllAudio()
     {
+        StopAreaThemeWithFade();
+        StopAreaAmbianceWithFade();
+        StopSFXWithFade();
         MasterBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 

@@ -8,12 +8,14 @@ public class Checkpoint : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
-        if (player != null)
-        {
-            GameManager.instance.lastCheckpointPos = this.transform.position;
-            GameManager.instance.lastCheckpointLevelIndex = SceneManager.GetActiveScene().buildIndex;
-            GameManager.instance.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
+        PlayerDataSO playerData = player.playerData;
 
+        if (playerData != null)
+        {
+            playerData.lastCheckpointLevelIndex.Value = SceneManager.GetActiveScene().buildIndex;
+            playerData.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
+            playerData.lastCheckpointPos.X = transform.position.x;
+            playerData.lastCheckpointPos.Y = transform.position.y;
         }
     }
 }

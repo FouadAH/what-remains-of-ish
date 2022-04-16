@@ -11,6 +11,7 @@ public class Coin : MonoBehaviour
     [SerializeField] private float sideForce = 3f;
     [SerializeField] private int value = 1;
 
+    public IntegerReference playerCurrency;
     /// <summary>
     /// Called when a coin is intantiated.
     /// </summary>
@@ -29,7 +30,7 @@ public class Coin : MonoBehaviour
     {
         if (collider.tag == "Player")
         {
-            GameManager.instance.currency += value;
+            playerCurrency.Value += value;
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Scraps", GetComponent<Transform>().position);
             Destroy(gameObject);
         }

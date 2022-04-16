@@ -60,6 +60,8 @@ public class Player : MonoBehaviour, IAttacker{
     float cameraOffsetTarget = 0f;
     Vector2 lookVelocityTreshhold = new Vector2(0.2f, 0.2f);
 
+    public PlayerDataSO playerData;
+
     [Header("Effects")]
     public ParticleSystem dustParticles;
     public ParticleSystem damageParticle;
@@ -88,6 +90,7 @@ public class Player : MonoBehaviour, IAttacker{
     public bool playerDebugMode;
     public TrailRenderer playerPath;
 
+    CameraController cameraController;
     void Awake()
     {
         if(GameManager.instance == null)
@@ -99,8 +102,8 @@ public class Player : MonoBehaviour, IAttacker{
         GameManager.instance.player = gameObject;
         GameManager.instance.playerCurrentPosition = GetComponentInChildren<SpriteRenderer>().transform;
         GameManager.instance.playerCamera = Camera.main;
-        GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
-        GameManager.instance.cameraController.virtualCamera.Follow = transform;
+        cameraController = Camera.main.GetComponent<CameraController>();
+        cameraController.virtualCamera.Follow = transform;
         gm = GameManager.instance;
 
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
@@ -134,7 +137,7 @@ public class Player : MonoBehaviour, IAttacker{
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
         flashEffect = GetComponentInChildren<ColouredFlash>();
-        cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
+        cameraOffset = cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
 
         volume = FindObjectOfType<Volume>();
         Debug.Log(volume.name);
@@ -209,13 +212,13 @@ public class Player : MonoBehaviour, IAttacker{
     /// </summary>
     private void CheckDeath()
     {
-        if (gm.health <= 0)
+        if (playerData.playerHealth.Value <= 0)
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Death", GetComponent<Transform>().position);
             playerBreathingInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             StartCoroutine(PlayerDeath());
         }
-        else if(gm.health <= 1)
+        else if(playerData.playerHealth.Value <= 1)
         {
             lowHealthRoutine = StartCoroutine(LowHealthVig());
             playerBreathingInstance.getPlaybackState(out PLAYBACK_STATE);
@@ -227,7 +230,7 @@ public class Player : MonoBehaviour, IAttacker{
                 playerBreathingInstance.setParameterByName("Health", 40);
             }
         }
-        else if (gm.health <= 2)
+        else if (playerData.playerHealth.Value <= 2)
         {
             AudioManager.instance.SetHealthParameter(20f);
         }
@@ -280,7 +283,7 @@ public class Player : MonoBehaviour, IAttacker{
         anim.SetLayerWeight(2, 1f);
         anim.SetLayerWeight(3, 0f);
 
-        gm.health = gm.maxHealth;
+        playerData.playerHealth.Value = playerData.playerMaxHealth.Value;
         UI_HUD.instance.enabled = true;
         UI_HUD.instance.RefrechHealth();
 
@@ -296,29 +299,35 @@ public class Player : MonoBehaviour, IAttacker{
         GameManager.instance.Respawn();
     }
 
-    public void Heal(int amount)
+    public void Heal()
     {
-        HealingPod flask = UI_HUD.instance.healingFlasks[0];
-
-        if (flask.fillAmount >= 100 && gm.health < gm.maxHealth)
+        if (playerData.playerHealingPodAmount.Value > 0)
         {
-            RestoreHP(amount);
+            int healingAmount = playerData.playerHealingAmountPerPod.Value;
+            int tempHealAmount = (GameManager.instance.equippedBrooch_02) ? healingAmount + 1 : healingAmount;
+
+            HealingPod flask = UI_HUD.instance.healingFlasks[0];
+
+            if (flask.fillAmount >= 100 && playerData.playerHealth.Value < playerData.playerMaxHealth.Value)
+            {
+                RestoreHP(tempHealAmount);
+            }
         }
 
     }
 
     public void RestoreHP(int amount)
     {
-        float previousHP = gm.health;
-        gm.health = Mathf.Clamp(gm.health + amount, 0, gm.maxHealth);
+        float previousHP = playerData.playerHealth.Value;
+        playerData.playerHealth.Value = Mathf.Clamp(playerData.playerHealth.Value + amount, 0, playerData.playerMaxHealth.Value);
 
-        int amountHealed = (int)(gm.health - previousHP);
+        int amountHealed = (int)(playerData.playerHealth.Value - previousHP);
         OnHeal(amountHealed);
         flashEffect.Flash(Color.white);
         healingParticles.Play();
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Healing", GetComponent<Transform>().position);
 
-        if (gm.health > 2)
+        if (playerData.playerHealth.Value > 2)
         {
             if (lowHealthRoutine != null)
             {
@@ -344,7 +353,7 @@ public class Player : MonoBehaviour, IAttacker{
     /// <param name="amount"></param>
     public void ProcessHit(int amount)
     {
-        if (!invinsible && gm.health > 0 && !gm.isRespawning)
+        if (!invinsible && playerData.playerHealth.Value > 0 && !gm.isRespawning)
         {
             TakeDamage(amount);
         }
@@ -352,7 +361,7 @@ public class Player : MonoBehaviour, IAttacker{
 
     public void ProcessForcedHit(int amount)
     {
-        if (gm.health > 0 && !gm.isRespawning)
+        if (playerData.playerHealth.Value > 0 && !gm.isRespawning)
         {
             TakeDamage(amount);
         }
@@ -369,7 +378,7 @@ public class Player : MonoBehaviour, IAttacker{
         damageParticle.Play();
         if (!GameManager.instance.hasInfiniteLives)
         {
-            gm.health -= amount;
+            playerData.playerHealth.Value -= amount;
             OnHit(amount);
         }
 

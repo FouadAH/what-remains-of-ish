@@ -180,7 +180,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1242246546}
   - component: {fileID: 1242246547}
-  - component: {fileID: 1242246548}
+  - component: {fileID: 1242246549}
+  - component: {fileID: 1242246551}
+  - component: {fileID: 1242246550}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -218,7 +220,7 @@ MonoBehaviour:
   currentTheme: event:/Music/Old Village Ruins
   currentAmbiance: event:/SFX/Locations/Underground Ruins
   playerHealth: 100
---- !u!114 &1242246548
+--- !u!114 &1242246549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,14 +232,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 049faeadb6e5f7f4cb44c2f5c6249cc5, type: 2}
+  Event: {fileID: 11400000, guid: e62a35374e091b44dbfa14cf97933dec, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1242246547}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: SwitchLevelMusic
+        m_MethodName: StopAllAudio
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1242246550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242246545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e884c98953d59a14fa5322c3738223a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: d361d9b540d1e4942ad508decc182238, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1242246547}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SwitchLevelMusicEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1242246551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242246545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e884c98953d59a14fa5322c3738223a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 2fcec76a3e6720f4794f5d24f84564b2, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1242246547}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SwitchLevelAmbianceEvent
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -299,6 +357,7 @@ MonoBehaviour:
   testSaveFile: {fileID: 11400000, guid: 5da0ddb0a8aa6db48bba185c108eb16e, type: 2}
   currentSaveFile: {fileID: 0}
   initialPlayerData: {fileID: 11400000, guid: aca6fcf63f4b8da44b712b09f9cf6964, type: 2}
+  playerDataSO: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f, type: 2}
 --- !u!114 &2023344686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +483,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
+      propertyPath: playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: currencyInt
+      value: 
+      objectReference: {fileID: 11400000, guid: 6178b6f8abe9a924a87e040b10ec70d0,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
       propertyPath: hasWallJump
       value: 1
       objectReference: {fileID: 0}
@@ -493,9 +564,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
+      propertyPath: switchMusicEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d361d9b540d1e4942ad508decc182238,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: loadNewLevelEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 049faeadb6e5f7f4cb44c2f5c6249cc5,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
       propertyPath: loadNewSceneEvent
       value: 
       objectReference: {fileID: 11400000, guid: 049faeadb6e5f7f4cb44c2f5c6249cc5,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: stopAllAudioEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: e62a35374e091b44dbfa14cf97933dec,
         type: 2}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
@@ -529,6 +618,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
+      propertyPath: switchAmbianceEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fcec76a3e6720f4794f5d24f84564b2,
+        type: 2}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
       propertyPath: playerStartPosition.x
       value: 660
       objectReference: {fileID: 0}
@@ -547,6 +642,12 @@ PrefabInstance:
       propertyPath: initialPlayerPosition.y
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: playerCurrency.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 6178b6f8abe9a924a87e040b10ec70d0,
+        type: 2}
     - target: {fileID: 1712162022798405230, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: lastCheckpointLevelIndex

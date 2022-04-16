@@ -20,7 +20,8 @@ public class SavePoint: MonoBehaviour {
 
     bool playerIsInTrigger;
     public GameEvent OnRestEvent;
-    GameObject player;
+    GameObject playerObj;
+    Player player;
     Player_Input playerInput;
     TutorialManager tutorialManager;
 
@@ -45,6 +46,8 @@ public class SavePoint: MonoBehaviour {
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
+            playerObj = collision.gameObject;
+            player = playerObj.GetComponent<Player>();
             playerIsInTrigger = true;
             prompt.SetTrigger("PopIn");
         }
@@ -69,7 +72,6 @@ public class SavePoint: MonoBehaviour {
             TutorialManager.instance.DisplayTutorial(TutorialType.Resting);
         }
 
-        player = GameManager.instance.player;
         //StartCoroutine(MovePlayerToTarget());
 
         if (!isLit)
@@ -80,30 +82,43 @@ public class SavePoint: MonoBehaviour {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Save Point", GetComponent<Transform>().position);
         }
 
-        GameManager.instance.lastSavepointLevelPath = levelPath;
-        GameManager.instance.lastSavepointLevelIndex = levelIndex;
+        PlayerDataSO playerData = player.playerData;
+        if (playerData != null)
+        {
+            playerData.playerPosition.X = playerSpawnPoint.position.x;
+            playerData.playerPosition.Y = playerSpawnPoint.position.y;
 
-        GameManager.instance.lastSavepointPos = playerSpawnPoint.position;
+            playerData.lastSavepointLevelIndex.Value = levelIndex;
+            playerData.lastSavepointLevelPath = levelPath;
 
-        GameManager.instance.lastCheckpointLevelIndex = levelIndex;
-        GameManager.instance.lastCheckpointLevelPath = levelPath;
+            playerData.lastSavepointPos.X = playerSpawnPoint.position.x;
+            playerData.lastSavepointPos.Y = playerSpawnPoint.position.y;
 
-        GameManager.instance.lastCheckpointPos = playerSpawnPoint.position;
+            playerData.lastCheckpointLevelIndex.Value = levelIndex;
+            playerData.lastCheckpointLevelPath = levelPath;
 
-        float missingHealth = GameManager.instance.maxHealth - GameManager.instance.health;
-        player.GetComponent<Player>().RestoreHP((int)missingHealth);
+            playerData.lastCheckpointPos.X = playerSpawnPoint.position.x;
+            playerData.lastCheckpointPos.Y = playerSpawnPoint.position.y;
+
+            for (int i = 0; i < playerData.playerHealingPodAmount.Value; i++)
+            {
+                playerData.playerHealingPodFillAmounts[i] = 100;
+            }
+        }
+
+        float missingHealth = player.playerData.playerMaxHealth.Value - player.playerData.playerHealth.Value;
+        player.RestoreHP((int)missingHealth);
+
         UI_HUD.instance.OnResetHealingFlasks();
+        UI_HUD.instance.SetDebugText("Player health and flasks restored. Checkpoint set.");
 
         SaveManager.instance.RestPointSave();
-        //SaveManager.instance.SaveGame();
-
-        UI_HUD.instance.SetDebugText("Player health and flasks restored. Checkpoint set.");
     }
 
     float marginOfError = 1f;
     IEnumerator MovePlayerToTarget()
     {
-        playerInput = player.GetComponent<Player_Input>();
+        playerInput = playerObj.GetComponent<Player_Input>();
         playerInput.OnRestStart();
 
         Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;

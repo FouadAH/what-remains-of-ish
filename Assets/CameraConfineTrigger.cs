@@ -6,11 +6,13 @@ public class CameraConfineTrigger : MonoBehaviour
 {
     PolygonCollider2D polygonCollider2D;
     PolygonCollider2D globalPolygonCollider2D;
+    CameraController cameraController;
 
     private void Start()
     {
         polygonCollider2D = GetComponent<PolygonCollider2D>();
         globalPolygonCollider2D = FindObjectOfType<SceneController>().colCameraBounds;
+        cameraController = Camera.main.GetComponent<CameraController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -18,8 +20,8 @@ public class CameraConfineTrigger : MonoBehaviour
         if (collision.tag.Equals("Player"))
         {
             StopAllCoroutines();
-            GameManager.instance.cameraController.confiner.m_Damping = 4;
-            GameManager.instance.cameraController.confiner.m_BoundingShape2D = polygonCollider2D;
+            cameraController.confiner.m_Damping = 4;
+            cameraController.confiner.m_BoundingShape2D = polygonCollider2D;
         }
     }
 
@@ -28,20 +30,20 @@ public class CameraConfineTrigger : MonoBehaviour
         if (collision.tag.Equals("Player"))
         {
             StartCoroutine(RemoveDamping());
-            GameManager.instance.cameraController.confiner.m_BoundingShape2D = globalPolygonCollider2D;
+            cameraController.confiner.m_BoundingShape2D = globalPolygonCollider2D;
         }
     }
     float dampingRef;
     IEnumerator RemoveDamping()
     {
-        float damping = GameManager.instance.cameraController.confiner.m_Damping;
+        float damping = cameraController.confiner.m_Damping;
         while (damping > 0)
         {
             damping = Mathf.SmoothDamp(damping, -1, ref damping, 0.1f);
-            GameManager.instance.cameraController.confiner.m_Damping = damping;
+            cameraController.confiner.m_Damping = damping;
             yield return null;
         }
 
-        GameManager.instance.cameraController.confiner.m_Damping = 0;
+        cameraController.confiner.m_Damping = 0;
     }
 }

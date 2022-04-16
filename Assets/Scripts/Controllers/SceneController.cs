@@ -8,12 +8,13 @@ using UnityEngine;
 public class SceneController : MonoBehaviour
 {
     public PolygonCollider2D colCameraBounds;
-
+    CameraController cameraController;
     void Start()
     {
-        GameManager.instance.cameraController.virtualCamera.PreviousStateIsValid = false;
-        GameManager.instance.cameraController.confiner.m_BoundingShape2D = colCameraBounds;
-        GameManager.instance.cameraController.confiner.InvalidatePathCache();
+        cameraController = Camera.main.GetComponent<CameraController>();
+        cameraController.virtualCamera.PreviousStateIsValid = false;
+        cameraController.confiner.m_BoundingShape2D = colCameraBounds;
+        cameraController.confiner.InvalidatePathCache();
     }
     
 }

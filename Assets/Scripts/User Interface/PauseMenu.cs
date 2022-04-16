@@ -20,7 +20,6 @@ public class PauseMenu : MonoBehaviour
     public Toggle abilityToggle;
     public Toggle directionalAttackToggle;
 
-
     EventSystem eventSystem;
     FMOD.Studio.EventInstance SFXVolumeTestEvent;
 
@@ -128,6 +127,16 @@ public class PauseMenu : MonoBehaviour
         {
             GameManager.instance.useDirectionalMouseAttack = false;
         }
+    }
+
+    void Pause()
+    {
+        OnPauseStart();
+        GameManager.instance.isPaused = true;
+        Debug.Log(pauseMenu);
+        pauseMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
+        Time.timeScale = 0f;
     }
 
     public void Resume()
@@ -239,7 +248,7 @@ public class PauseMenu : MonoBehaviour
         if (obj.isDone)
         {
             
-            SceneManager.UnloadSceneAsync(GameManager.instance.currentSceneBuildIndex).completed += UnloadScene_completed;
+            SceneManager.UnloadSceneAsync(GameManager.instance.playerData.currentSceneBuildIndex.Value).completed += UnloadScene_completed;
             SceneManager.UnloadSceneAsync(1);
             SceneManager.UnloadSceneAsync("AStar");
         }
@@ -251,17 +260,6 @@ public class PauseMenu : MonoBehaviour
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
         }
-    }
-
-    void Pause()
-    {
-        OnPauseStart();
-        //GameManager.instance.player.GetComponent<Player_Input>().enabled = false;
-        GameManager.instance.isPaused = true;
-        Debug.Log(pauseMenu);
-        pauseMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
-        Time.timeScale = 0f;
     }
 
     float masterVolume = 1;

@@ -8,11 +8,6 @@ public class HealingPod : MonoBehaviour
     public float fillAmount = 0;
     public Image image;
 
-    private void Awake()
-    {
-        //image = GetComponentInChildren<Image>();
-    }
-
     private void Update()
     {
         if(image.fillAmount != fillAmount)
@@ -22,13 +17,20 @@ public class HealingPod : MonoBehaviour
     public void Refill(float amount)
     {
         fillAmount += amount;
-        GameManager.instance.UpdateHealingPodFillAmount();
+        UpdateHealingPodFillAmount();
     }
 
     public void EmptyFlask()
     {
         fillAmount = 0;
-        GameManager.instance.UpdateHealingPodFillAmount();
+        UpdateHealingPodFillAmount();
     }
 
+    void UpdateHealingPodFillAmount()
+    {
+        for (int i = 0; i < UI_HUD.instance.healingFlasks.Count; i++)
+        {
+            UI_HUD.instance.playerData.playerHealingPodFillAmounts[i] = (int)UI_HUD.instance.healingFlasks[i].fillAmount;
+        }
+    }
 }

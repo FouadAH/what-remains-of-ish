@@ -278,41 +278,36 @@ MonoBehaviour:
   player: {fileID: 3297389817868415596, guid: 4d1345c3556595f4d89a987bc72a9652, type: 3}
   playerCurrentPosition: {fileID: 0}
   initalPlayerData: {fileID: 11400000, guid: aca6fcf63f4b8da44b712b09f9cf6964, type: 2}
-  playerStartPosition: {x: 660, y: 80, z: 0}
   currentLevel: {fileID: 11400000, guid: 2100c21366a377242963e0894182d7c7, type: 2}
-  currentSceneBuildIndex: 0
   currentScenePath: 
-  lastCheckpointPos: {x: 792, y: 64}
-  lastCheckpointLevelIndex: 4
-  lastCheckpointLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
-  lastSavepointPos: {x: 792, y: 64}
-  lastSavepointLevelIndex: 4
-  lastSavepointLevelPath: Assets/Scenes/Levels/VillageRuinsScenes/VillageRuins_Room-06.unity
-  health: 5
-  maxHealth: 5
-  healingPodAmount: 1
-  healingPodFillAmounts: 64000000
-  healingAmountPerPod: 2
-  healthShardAmount: 0
-  healingFlaskShards: 0
-  currency: 0
+  playerData: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f, type: 2}
   playerCamera: {fileID: 0}
   hasInfiniteLives: 0
-  cameraController: {fileID: 0}
   anim: {fileID: 413757533}
   hasDashAbility: 0
   hasWallJump: 0
   hasTeleportAbility: 0
   hasSprintAbility: 0
+  hasDoubleJump: 0
+  ownsBrooch_1: 0
+  equippedBrooch_01: 0
+  ownsBrooch_2: 0
+  equippedBrooch_02: 0
+  ownsBrooch_3: 0
+  equippedBrooch_03: 0
   useDirectionalMouseAttack: 0
   isLoading: 0
   isRespawning: 0
   isPaused: 0
   isFirstTimeResting: 1
   hasOpenedMap: 0
-  loadNewSceneEvent: {fileID: 11400000, guid: 049faeadb6e5f7f4cb44c2f5c6249cc5, type: 2}
+  loadNewLevelEvent: {fileID: 11400000, guid: 049faeadb6e5f7f4cb44c2f5c6249cc5, type: 2}
   loadDataEvent: {fileID: 11400000, guid: f1d8bfa69a32d1c40854f7e2c0e1f845, type: 2}
   saveDataEvent: {fileID: 11400000, guid: ba37e1345cfc485448bfc1ddaf380036, type: 2}
+  stopAllAudioEvent: {fileID: 11400000, guid: e62a35374e091b44dbfa14cf97933dec, type: 2}
+  switchMusicEvent: {fileID: 11400000, guid: d361d9b540d1e4942ad508decc182238, type: 2}
+  switchAmbianceEvent: {fileID: 11400000, guid: 2fcec76a3e6720f4794f5d24f84564b2,
+    type: 2}
 --- !u!4 &413757535
 Transform:
   m_ObjectHideFlags: 0
@@ -327,7 +322,7 @@ Transform:
   m_Children:
   - {fileID: 152013234}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1122772071
 GameObject:
@@ -499,6 +494,7 @@ MonoBehaviour:
   testSaveFile: {fileID: 11400000, guid: 5da0ddb0a8aa6db48bba185c108eb16e, type: 2}
   currentSaveFile: {fileID: 0}
   initialPlayerData: {fileID: 11400000, guid: aca6fcf63f4b8da44b712b09f9cf6964, type: 2}
+  playerDataSO: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f, type: 2}
 --- !u!4 &1143053992
 Transform:
   m_ObjectHideFlags: 0
@@ -652,7 +648,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1718419627
+--- !u!1 &1904344118
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -660,8 +656,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1718419629}
-  - component: {fileID: 1718419628}
+  - component: {fileID: 1904344123}
+  - component: {fileID: 1904344122}
+  - component: {fileID: 1904344121}
+  - component: {fileID: 1904344120}
+  - component: {fileID: 1904344119}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -669,13 +668,97 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1718419628
+--- !u!114 &1904344119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1718419627}
+  m_GameObject: {fileID: 1904344118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e884c98953d59a14fa5322c3738223a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: d361d9b540d1e4942ad508decc182238, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1904344122}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SwitchLevelMusicEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1904344120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904344118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e884c98953d59a14fa5322c3738223a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 2fcec76a3e6720f4794f5d24f84564b2, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1904344122}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SwitchLevelAmbianceEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1904344121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904344118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: e62a35374e091b44dbfa14cf97933dec, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1904344122}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: StopAllAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1904344122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904344118}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba8b57dfc377e9742be548df62a15c0d, type: 3}
@@ -683,19 +766,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTheme: event:/Music/Old Village Ruins
   currentAmbiance: event:/SFX/Locations/Underground Ruins
-  playerHealth: 0
---- !u!4 &1718419629
+  playerHealth: 100
+--- !u!4 &1904344123
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1718419627}
+  m_GameObject: {fileID: 1904344118}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10.870582}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

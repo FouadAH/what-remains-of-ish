@@ -33,7 +33,7 @@ public class Player_Input : MonoBehaviour
     public event Action OnDashUp = delegate { };
 
     public event Action OnTeleport = delegate { };
-    public event Action<int> OnHeal = delegate { };
+    public event Action OnHeal = delegate { };
 
     public event Action MapOpen = delegate { };
     public event Action MapClose = delegate { };
@@ -60,8 +60,6 @@ public class Player_Input : MonoBehaviour
         inputActions.UI.Enable();
 
         dialogManager = DialogManager.instance;
-        dialogManager.OnDialogueStart += DialogManager_OnDialogueStart;
-        dialogManager.OnDialogueEnd += DialogManager_OnDialogueEnd;
 
         inputActions.Player.Interact.started += Interact_started;
         inputActions.Player.Attack.performed += Attack_performed;
@@ -142,24 +140,14 @@ public class Player_Input : MonoBehaviour
 
     private void PauseMenu_OnPauseEnd()
     {
-        if(!dialogManager.dialogueIsActive)
+        if(!DialogManager.instance.dialogueIsActive)
             inputActions.Player.Enable();
     }
 
     private void PauseMenu_OnPauseStart()
     {
-        if (!dialogManager.dialogueIsActive)
+        if (!DialogManager.instance.dialogueIsActive)
             inputActions.Player.Disable();
-    }
-
-    private void DialogManager_OnDialogueEnd()
-    {
-        inputActions.Player.Enable();
-    }
-
-    private void DialogManager_OnDialogueStart()
-    {
-        inputActions.Player.Disable();
     }
 
     private void Pause_started(InputAction.CallbackContext obj)
@@ -208,12 +196,7 @@ public class Player_Input : MonoBehaviour
 
     private void Heal_performed(InputAction.CallbackContext obj)
     {
-        if (GameManager.instance.healingPodAmount > 0)
-        {
-            int healingAmount = GameManager.instance.healingAmountPerPod;
-            int tempHealAmount = (GameManager.instance.equippedBrooch_02) ? healingAmount + 1 : healingAmount;
-            OnHeal(tempHealAmount);
-        }
+        OnHeal();
     }
 
     private void Jump_performed(InputAction.CallbackContext obj)

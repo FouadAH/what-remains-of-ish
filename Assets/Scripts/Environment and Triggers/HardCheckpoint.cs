@@ -14,11 +14,17 @@ public class HardCheckpoint : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            GameManager.instance.lastSavepointLevelIndex = levelIndex;
-            GameManager.instance.lastSavepointPos = transform.position;
+            PlayerDataSO playerData = collision.gameObject.GetComponent<Player>().playerData;
+            if (playerData != null)
+            {
+                playerData.lastSavepointLevelIndex.Value = levelIndex;
+                playerData.lastSavepointPos.X = transform.position.x;
+                playerData.lastSavepointPos.Y = transform.position.y;
 
-            GameManager.instance.lastCheckpointLevelIndex = levelIndex;
-            GameManager.instance.lastCheckpointPos = transform.position;
+                playerData.lastCheckpointLevelIndex.Value = levelIndex;
+                playerData.lastCheckpointPos.X = transform.position.x;
+                playerData.lastCheckpointPos.Y = transform.position.y;
+            }
         }
     }
 

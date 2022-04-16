@@ -68,6 +68,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public float cameraZoom = 15f;
     float fixedDeltaTime;
 
+    CameraController cameraController;
     CinemachineCameraOffset cameraOffset;
     private Volume volume;
     private ChromaticAberration chromaticAberration;
@@ -102,7 +103,8 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         gm = GameManager.instance;
         playerInput = GetComponentInParent<Player_Input>();
         timeStop = GetComponentInParent<TimeStop>();
-        cameraOffset = gm.cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
+        cameraController = Camera.main.GetComponent<CameraController>();
+        cameraOffset = cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
 
         volume = FindObjectOfType<Volume>();
         volume.profile.TryGet(out chromaticAberration);

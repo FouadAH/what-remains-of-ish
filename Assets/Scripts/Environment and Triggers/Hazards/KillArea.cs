@@ -26,7 +26,7 @@ public class KillArea : MonoBehaviour {
 
             if (player.enabled)
             {
-                if (GameManager.instance.health > 1 && !GameManager.instance.isRespawning)
+                if (player.playerData.playerHealth.Value > 1 && !GameManager.instance.isRespawning)
                 {
                     player.ProcessForcedHit(damageDealt);
                     GameManager.instance.SoftRespawn();

@@ -28,13 +28,13 @@ public class MainMenu : MonoBehaviour
     Resolution[] resolutions;
     public AudioSource titleScreenTheme;
     public GameEvent loadInitialScene;
-
+    CameraController cameraController;
     public void Start()
     {
         lookat.GetComponent<Animator>().Play("camera");
-        GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
-        GameManager.instance.cameraController.virtualCamera.transform.position = lookat.position;
-        GameManager.instance.cameraController.virtualCamera.Follow = lookat;
+        cameraController = Camera.main.GetComponent<CameraController>();
+        cameraController.virtualCamera.transform.position = lookat.position;
+        cameraController.virtualCamera.Follow = lookat;
 
         resolutions = Screen.resolutions;
 
@@ -215,7 +215,7 @@ public class MainMenu : MonoBehaviour
         {
             //SceneManager.UnloadSceneAsync(1);
             GameManager.instance.InitialSpawn();
-            SceneManager.LoadSceneAsync(GameManager.instance.currentSceneBuildIndex, LoadSceneMode.Additive).completed += LoadLevelComplete;
+            SceneManager.LoadSceneAsync(GameManager.instance.playerData.currentSceneBuildIndex.Value, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
     }
 
@@ -223,7 +223,7 @@ public class MainMenu : MonoBehaviour
     {
         if(obj.isDone)
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(GameManager.instance.currentSceneBuildIndex));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(GameManager.instance.playerData.currentSceneBuildIndex.Value));
             loadInitialScene.Raise();
             GameManager.instance.isLoading = false;
             GameManager.instance.anim.Play("Fade_in");

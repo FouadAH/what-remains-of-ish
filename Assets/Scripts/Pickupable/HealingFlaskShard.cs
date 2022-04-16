@@ -14,7 +14,7 @@ public class HealingFlaskShard : MonoBehaviour
             if (remainder == 0)
             {
                 UI_HUD.instance.SetDebugText("3 healing pod shards collected. Healing pods increased by 1");
-                UI_HUD.instance.InitHealingPods(GameManager.instance.healingPodFillAmounts);
+                UI_HUD.instance.InitHealingPods();
             }
             else
             {

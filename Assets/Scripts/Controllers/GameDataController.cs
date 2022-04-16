@@ -4,11 +4,12 @@ using UnityEngine;
 public class GameDataController
 {
     public static PlayerData saveData;
+    public static PlayerDataSO playerDataSO;
     
     [ContextMenu("Save Data")]
     public static void SaveGame()
     {
-        saveData = new PlayerData(GameManager.instance);
+        saveData = new PlayerData(playerDataSO);
         var data = JsonUtility.ToJson(saveData);
         string path = SaveManager.instance.currentSaveFile.path; //Application.persistentDataPath + "/SaveFiles/player.json";
         StreamWriter sw = File.CreateText(path);
