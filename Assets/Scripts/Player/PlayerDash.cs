@@ -64,6 +64,11 @@ public class PlayerDash : MonoBehaviour
         return isDashing;
     }
 
+    public void ResetDash()
+    {
+        dashLock = false;
+    }
+
     public IEnumerator DashLogic(float dashCooldown)
     {
         dashLock = true;
@@ -78,7 +83,6 @@ public class PlayerDash : MonoBehaviour
         isDashing = true;
         yield return new WaitForSeconds(floatTime);
         isDashing = false;
-
     }
 
     public IEnumerator DashEffect(float effectTime)

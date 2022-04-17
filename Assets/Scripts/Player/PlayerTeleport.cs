@@ -53,23 +53,48 @@ public class PlayerTeleport : MonoBehaviour
 
         if (canTeleport)
         {
-            ParticleSystem psTeleportOut = Instantiate(teleportOutEffect, transform.position, Quaternion.identity);
-            psTeleportOut.Play();
-
-            canTeleport = false;
-
-            StartCoroutine(TeleportLock(teleportCooldownTimer));
-
-            isTeleporting = true;
-
-            boomerangPos = boomerang.transform.position;
-            boomerang.StopBoomerang();
-            boostDir = (boomerangPos - (Vector2)boomerangLauncher.transform.position).normalized;
-
-            StartCoroutine(TeleportEffect(teleporEffectDuration));
-            StartCoroutine(Teleport(transformToMove, teleportDelay));
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Teleport", GetComponent<Transform>().position);
+            TeleportAbility(transformToMove);
         }
+    }
+
+    public void TeleportAbility(Transform transformToMove)
+    {
+        ParticleSystem psTeleportOut = Instantiate(teleportOutEffect, transform.position, Quaternion.identity);
+        psTeleportOut.Play();
+
+        canTeleport = false;
+
+        StartCoroutine(TeleportCooldown(teleportCooldownTimer));
+
+        isTeleporting = true;
+
+        if (boomerang == null)
+        {
+            boomerang = boomerangLauncher.boomerangReference;
+        }
+
+        boomerangPos = boomerang.transform.position;
+        boomerang.StopBoomerang();
+        boostDir = (boomerangPos - (Vector2)boomerangLauncher.transform.position).normalized;
+
+        StartCoroutine(TeleportEffect(teleporEffectDuration));
+        StartCoroutine(Teleport(transformToMove, teleportDelay));
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Teleport", GetComponent<Transform>().position);
+    }
+
+    public void TeleportToPosition(Transform transformToMove, Vector2 targetPosition)
+    {
+        if(boomerang == null)
+        {
+            boomerang = boomerangLauncher.boomerangReference;
+        }
+
+        boomerang.StopBoomerang();
+        boostDir = (targetPosition - (Vector2)boomerangLauncher.transform.position).normalized;
+
+        StartCoroutine(TeleportEffect(teleporEffectDuration));
+        StartCoroutine(Teleport(transformToMove, teleportDelay));
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Teleport", GetComponent<Transform>().position);
     }
 
     public IEnumerator Teleport(Transform transformToMove, float timer)
@@ -92,7 +117,7 @@ public class PlayerTeleport : MonoBehaviour
 
         }
 
-        TeleportPlayer(transformToMove);
+        PlayerCollisionCheck(transformToMove);
         ParticleSystem psTeleportIn = Instantiate(teleportInEffect, transform.position, Quaternion.identity);
         psTeleportIn.Play();
 
@@ -106,7 +131,7 @@ public class PlayerTeleport : MonoBehaviour
         StartCoroutine(BoomerangDashBoost(0.1f));
     }
 
-    void TeleportPlayer(Transform transformToMove)
+    void PlayerCollisionCheck(Transform transformToMove)
     {
         Vector2 teleportPosition = boomerangPos;
         float playerColliderSizeX = playerCollider.bounds.size.x/2;
@@ -187,7 +212,7 @@ public class PlayerTeleport : MonoBehaviour
         }
     }
 
-    public IEnumerator TeleportLock(float teleportCooldownTimer)
+    public IEnumerator TeleportCooldown(float teleportCooldownTimer)
     {
         teleportLock = true;
         UI_HUD.instance.Cooldown(PlayerAbility.BoomerangTeleport, teleportCooldownTimer);
