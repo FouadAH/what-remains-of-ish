@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AbilityPickup : MonoBehaviour
 {
+    public bool isBoomerang = false;
     public bool isDashPickup = false;
     public bool isTeleportPickup = false;
     public bool isWallJumpPickup = false;
@@ -27,6 +28,11 @@ public class AbilityPickup : MonoBehaviour
             {
                 GameManager.instance.hasWallJump = true;
                 UI_HUD.instance.SetDebugText("Picked Up Wall Jump Ability");
+            }
+            else if (isBoomerang)
+            {
+                GameManager.instance.hasBoomerang = true;
+                UI_HUD.instance.SetDebugText("Picked Up Boomerang Ability");
             }
 
             Destroy(gameObject);

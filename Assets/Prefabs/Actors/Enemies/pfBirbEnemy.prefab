@@ -5778,7 +5778,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5142173732384941668}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -85.8, y: -2.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6115,13 +6115,13 @@ MonoBehaviour:
   BloodEffect: {fileID: 2895359358710418480}
   HitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
-  minAggroRange: 10
-  maxAggroRange: 14
+  minAggroRange: 9
+  maxAggroRange: 13
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.05
-  knockbackTime: 0.5
-  smoothTime: 0.1
+  knockbackTime: 1.5
+  smoothTime: 0.5
   shouldSaveState: 1
   destinationSetter: {fileID: 0}
   aIPath: {fileID: 0}
@@ -6188,7 +6188,7 @@ MonoBehaviour:
   orientation: 1
   enableRotation: 0
   targetCompatibility: {fileID: 0}
-  maxAcceleration: 9
+  maxAcceleration: -2.5
   rotationSpeed: 360
   slowdownDistance: 2.4
   pickNextWaypointDist: 3.52

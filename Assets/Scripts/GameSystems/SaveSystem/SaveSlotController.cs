@@ -24,10 +24,10 @@ public class SaveSlotController : MonoBehaviour
         //Assigning save files to the save slots
         for (int i = 0; i < saveFiles.Count; i++)
         {
-            saveSlots[i].saveFile = saveFiles[i];
+            saveSlots[saveFiles[i].slotIndex].saveFile = saveFiles[i];
         }
 
-        //Enabaling the save slot displays
+        //Enabling the save slot displays
         foreach (SaveSlot saveSlot in saveSlots)
         {
             saveSlot.enabled = true;
@@ -35,19 +35,26 @@ public class SaveSlotController : MonoBehaviour
 
             if (saveSlot.isPreSaved)
             {
-                saveSlot.GetComponent<Button>().onClick.AddListener(() => SaveManager.instance.LoadSavedGameFromSO(saveSlot.saveFile));
+                saveSlot.GetComponent<Button>().onClick.AddListener(
+                    () => SaveManager.instance.LoadSavedGameFromSO(saveSlot.saveFile));
+
                 saveSlot.GetComponent<Image>().color = Color.red;
                 saveSlot.areaName.text = saveSlot.saveFile.fileName;
                 saveSlot.deleteButton.SetActive(false);
             }
             else if (saveSlot.saveFile == null)
             {
-                saveSlot.GetComponent<Button>().onClick.AddListener(() => SaveManager.instance.NewGameData(saveSlot.transform.GetSiblingIndex()));
+                saveSlot.GetComponent<Button>().onClick.AddListener(
+                    () => SaveManager.instance.NewGameData(saveSlot.transform.GetSiblingIndex()));
+                saveSlot.areaName.text = "New Game";
             }
             else
             {
-                saveSlot.GetComponent<Button>().onClick.AddListener(() => SaveManager.instance.LoadSavedGame(saveSlot.saveFile));
-                saveSlot.deleteButton.GetComponent<Button>().onClick.AddListener(() => DeletePrompt(saveSlot, saveSlot.saveFile));
+                saveSlot.GetComponent<Button>().onClick.AddListener(
+                    () => SaveManager.instance.LoadSavedGame(saveSlot.saveFile));
+
+                saveSlot.deleteButton.GetComponent<Button>().onClick.AddListener(
+                    () => DeletePrompt(saveSlot, saveSlot.saveFile));
             }
         }
     }

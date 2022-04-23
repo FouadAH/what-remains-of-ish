@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1037362819229341982}
   - component: {fileID: 1037362819229341977}
   - component: {fileID: 5035308076186197782}
-  m_Layer: 21
+  m_Layer: 10
   m_Name: TeleportBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,3 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e9722d0113f724bb5660210cff6f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldownTime: 1
+  inactiveColor: {r: 0.5845646, g: 0.46978462, b: 0.6509434, a: 1}
+  activeColor: {r: 0.49019608, g: 0.16470589, b: 0.6784314, a: 1}

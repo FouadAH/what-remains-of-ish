@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     AstarPath astarPath;
 
     [Header("Player Abilities")]
+    public bool hasBoomerang = false;
     public bool hasDashAbility = true;
     public bool hasWallJump = false;
     public bool hasTeleportAbility = false;

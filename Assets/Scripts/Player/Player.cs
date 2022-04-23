@@ -137,6 +137,7 @@ public class Player : MonoBehaviour, IAttacker{
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
         flashEffect = GetComponentInChildren<ColouredFlash>();
+        cameraController = Camera.main.GetComponent<CameraController>();
         cameraOffset = cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
 
         volume = FindObjectOfType<Volume>();

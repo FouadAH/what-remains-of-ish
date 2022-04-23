@@ -120,6 +120,9 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     private void Update()
     {
+        if (!GameManager.instance.hasBoomerang)
+            return;
+
         if (GameManager.instance.isPaused || DialogManager.instance.dialogueIsActive)
             return;
 

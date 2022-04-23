@@ -16,6 +16,7 @@ public class PlayerTeleport : MonoBehaviour
 
     public float teleportDamage = 10f;
     public float teleportCooldownTimer = 0.6f;
+    public float teleportBoostTimer = 0.2f;
     public float boomerangTeleportDamage = 15f;
     public float teleportDelay = 0.08f;
     public float teleporEffectDuration = 0.8f;
@@ -128,7 +129,7 @@ public class PlayerTeleport : MonoBehaviour
             boomerangLauncher.canFire = true;
         }
 
-        StartCoroutine(BoomerangDashBoost(0.1f));
+        StartCoroutine(BoomerangDashBoost(teleportBoostTimer));
     }
 
     void PlayerCollisionCheck(Transform transformToMove)

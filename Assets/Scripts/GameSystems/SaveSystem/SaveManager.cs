@@ -421,7 +421,7 @@ public class SaveManager : MonoBehaviour
         }
         if (enemyDataCache.data_entries == null)
         {
-            sceneDataCache.data_entries = new Dictionary<string, string>();
+            enemyDataCache.data_entries = new Dictionary<string, string>();
         }
 
         if (m_RegisteredSaveables == null)
@@ -464,6 +464,7 @@ public class SaveManager : MonoBehaviour
         SaveFileSO saveFileSO = ScriptableObject.CreateInstance<SaveFileSO>();
         saveFileSO.fileName = fileName;
         saveFileSO.path = newGameSavePath;
+        saveFileSO.slotIndex = saveSlotID;
         saveFileSO.creationTime = Directory.GetCreationTime(savePath).ToShortDateString();
         saveFileSO.gameData = gameData;
 

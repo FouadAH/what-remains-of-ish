@@ -20,6 +20,7 @@ public class SaveSlot : MonoBehaviour
             areaName.text = "Save Slot " + (transform.GetSiblingIndex() + 1);
             timeElapsed.text = saveFile.gameData.metaData.timePlayed;
             progressPercentage.text = saveFile.gameData.metaData.creationDate;
+            saveFile.slotIndex = transform.GetSiblingIndex();
             deleteButton.SetActive(true);
         }
         else

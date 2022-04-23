@@ -82,15 +82,15 @@ public class Boomerang : MonoBehaviour
 
         BounceOffWall();
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            InitiateExplosion();
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    InitiateExplosion();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            BoomerangFreeze();
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    BoomerangFreeze();
+        //}
 
         while (!back)
         {

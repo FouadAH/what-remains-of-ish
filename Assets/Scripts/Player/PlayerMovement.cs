@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     Transform transformToMove;
     Transform spriteObj;
     PlayerDash playerDash;
-    PlayerTeleport boomerangDash;
+    PlayerTeleport playerTeleport;
     PlayerAnimations playerAnimations;
     BoomerangLauncher boomerangLauncher;
 
@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         playerInput = transformToMove.GetComponent<Player_Input>();
         controller = transformToMove.GetComponent<Controller_2D>();
         playerDash = transformToMove.GetComponent<PlayerDash>();
-        boomerangDash = transformToMove.GetComponent<PlayerTeleport>();
+        playerTeleport = transformToMove.GetComponent<PlayerTeleport>();
         spriteObj = GetComponentInChildren<SpriteRenderer>().transform;
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
 
@@ -199,10 +199,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (boomerangDash.doBoost)
+        if (playerTeleport.doBoost)
         {
+            SetPlayerOrientation(playerInput.directionalInput);
             BoomerandBoost();
-            CalculateVelocity(true);
+            CalculateVelocity();
             HandleWallSliding();
             return;
         }
@@ -233,8 +234,8 @@ public class PlayerMovement : MonoBehaviour
     public void BoomerandBoost()
     {
         velocity = Vector3.zero;
-        velocity.x += boomerangDash.boostDir.x * boostForceX;
-        velocity.y += boomerangDash.boostDir.y * boostForceY;
+        velocity.x += playerTeleport.boostDir.x * boostForceX;
+        velocity.y += playerTeleport.boostDir.y * boostForceY;
     }
 
     void OnDashInput()
@@ -267,14 +268,14 @@ public class PlayerMovement : MonoBehaviour
         Boomerang boomerang = boomerangLauncher.boomerangReference;
 
         if (GameManager.instance.hasTeleportAbility && boomerang != null)
-            boomerangDash.OnTeleportInput(transformToMove, ref velocity, boomerang);
+            playerTeleport.OnTeleportInput(transformToMove, ref velocity, boomerang);
     }
 
     /// <summary>
     /// Method that calculates the players' velocity based on the players' speed and input 
     /// </summary>
     /// <param name="velocityXSmoothing"></param>
-    public void CalculateVelocity(bool isTeleporting = false)
+    public void CalculateVelocity()
     {
         float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
         moveSpeed = playerDash.isDashing ? dashSpeed : moveSpeed;
@@ -285,7 +286,7 @@ public class PlayerMovement : MonoBehaviour
 
         currentJumpHeight = transform.position.y - initialHeight;
         float mult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? jumpApexGravityModifier : 1f;
-        mult = (isTeleporting) ? boostGravityMultiplier : mult;
+        mult = (playerTeleport.doBoost) ? boostGravityMultiplier : mult;
 
         //Debug.Log("Velocity X: " + velocity.x);
 

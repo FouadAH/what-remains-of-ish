@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     public static bool gameIsPaused = false;
     public GameObject mainMenu;
     public GameObject loadView;
+    public GameObject chapterSelect;
     public GameObject optionMenu;
     public GameObject videoOptions;
     public GameObject audioOptions;
@@ -96,6 +97,19 @@ public class MainMenu : MonoBehaviour
     {
         mainMenu.SetActive(true);
         loadView.SetActive(false);
+        eventSystem.SetSelectedGameObject(mainMenu.GetComponentInChildren<Button>().gameObject);
+    }
+
+    public void ChapeterSelectOpen()
+    {
+        mainMenu.SetActive(false);
+        chapterSelect.SetActive(true);
+        eventSystem.SetSelectedGameObject(chapterSelect.GetComponentInChildren<Button>().gameObject);
+    }
+    public void ChapterSelectClose()
+    {
+        mainMenu.SetActive(true);
+        chapterSelect.SetActive(false);
         eventSystem.SetSelectedGameObject(mainMenu.GetComponentInChildren<Button>().gameObject);
     }
 
@@ -215,7 +229,7 @@ public class MainMenu : MonoBehaviour
         {
             //SceneManager.UnloadSceneAsync(1);
             GameManager.instance.InitialSpawn();
-            SceneManager.LoadSceneAsync(GameManager.instance.playerData.currentSceneBuildIndex.Value, LoadSceneMode.Additive).completed += LoadLevelComplete;
+            SceneManager.LoadSceneAsync(GameManager.instance.playerData.lastSavepointLevelIndex.Value, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
     }
 
@@ -223,7 +237,7 @@ public class MainMenu : MonoBehaviour
     {
         if(obj.isDone)
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(GameManager.instance.playerData.currentSceneBuildIndex.Value));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(GameManager.instance.playerData.lastSavepointLevelIndex.Value));
             loadInitialScene.Raise();
             GameManager.instance.isLoading = false;
             GameManager.instance.anim.Play("Fade_in");
