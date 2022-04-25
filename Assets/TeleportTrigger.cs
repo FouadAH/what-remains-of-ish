@@ -23,6 +23,7 @@ public class TeleportTrigger : MonoBehaviour
         {
             GameObject player = GameManager.instance.player;
             player.GetComponent<PlayerTeleport>().TeleportAbility(player.transform);
+            player.GetComponent<PlayerTeleport>().ResetTeleport();
             player.GetComponent<PlayerDash>().ResetDash();
             StartCoroutine(CooldownTimer());
         }

@@ -212,7 +212,10 @@ public class PlayerTeleport : MonoBehaviour
             trail.emitting = false;
         }
     }
-
+    public void ResetTeleport()
+    {
+        teleportLock = false;
+    }
     public IEnumerator TeleportCooldown(float teleportCooldownTimer)
     {
         teleportLock = true;
