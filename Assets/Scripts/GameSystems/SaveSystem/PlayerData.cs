@@ -26,6 +26,13 @@ public class PlayerData
     public int lastSavepointLevelIndex;
     public string lastSavepointLevelPath;
 
+    public bool hasBoomerangAbility;
+    public bool hasDashAbility;
+    public bool hasTeleportAbility;
+    public bool hasWallJumpAbility;
+    public bool hasSprintAbility;
+    public bool hasDoubleJumpAbility;
+
     public PlayerData(PlayerDataSO playerDataSO)
     {
         health = playerDataSO.playerHealth.Value;

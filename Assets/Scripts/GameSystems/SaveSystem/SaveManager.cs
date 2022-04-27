@@ -544,6 +544,13 @@ public class SaveManager : MonoBehaviour
         playerData.lastSavepointLevelPath = playerDataSO.lastSavepointLevelPath;
 
         playerData.currentScene = playerDataSO.currentSceneBuildIndex.Value;
+
+        playerData.hasBoomerangAbility = playerDataSO.hasBoomerangAbility;
+        playerData.hasDoubleJumpAbility = playerDataSO.hasDoubleJumpAbility;
+        playerData.hasDashAbility = playerDataSO.hasDashAbility;
+        playerData.hasTeleportAbility = playerDataSO.hasTeleportAbility;
+        playerData.hasSprintAbility = playerDataSO.hasSprintAbility;
+        playerData.hasWallJumpAbility = playerDataSO.hasWallJumpAbility;
         return playerData;
     }
 
@@ -595,6 +602,13 @@ public class SaveManager : MonoBehaviour
         playerDataSO.lastSavepointLevelPath = data.lastSavepointLevelPath;
 
         playerDataSO.currentSceneBuildIndex.Value = data.currentScene;
+
+        playerDataSO.hasBoomerangAbility = data.hasBoomerangAbility;
+        playerDataSO.hasDoubleJumpAbility = data.hasDoubleJumpAbility;
+        playerDataSO.hasDashAbility = data.hasDashAbility;
+        playerDataSO.hasTeleportAbility = data.hasTeleportAbility;
+        playerDataSO.hasSprintAbility = data.hasSprintAbility;
+        playerDataSO.hasWallJumpAbility = data.hasWallJumpAbility;
     }
 
     private PlayerData DefaultPlayerData()
@@ -638,6 +652,14 @@ public class SaveManager : MonoBehaviour
         playerData.lastSavepointLevelPath = initialPlayerData.initialLevelPath;
 
         playerData.currentScene = initialPlayerData.initialLevelIndex;
+
+        playerData.hasBoomerangAbility = true;
+        playerData.hasDoubleJumpAbility = false;
+        playerData.hasDashAbility = false;
+        playerData.hasTeleportAbility = false;
+        playerData.hasSprintAbility = false;
+        playerData.hasWallJumpAbility = false;
+
         return playerData;
     }
 

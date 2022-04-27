@@ -267,6 +267,11 @@ public class Player : MonoBehaviour, IAttacker{
         AudioManager.instance.StopAreaAmbianceWithFade();
         AudioManager.instance.StopSFXWithFade();
 
+        if(boomerangLauncher.boomerangReference != null)
+        {
+            boomerangLauncher.boomerangReference.DestroyBoomerang();
+        }
+
         yield return new WaitForSeconds(2f);
 
         if (lowHealthRoutine != null)

@@ -16,22 +16,22 @@ public class AbilityPickup : MonoBehaviour
         {
             if (isDashPickup)
             {
-                GameManager.instance.hasDashAbility = true;
+                GameManager.instance.playerData.hasDashAbility = true;
                 UI_HUD.instance.SetDebugText("Picked Up Dash Ability");
             }
             else if (isTeleportPickup)
             {
-                GameManager.instance.hasTeleportAbility = true;
+                GameManager.instance.playerData.hasTeleportAbility = true;
                 UI_HUD.instance.SetDebugText("Picked Up Teleport Ability");
             }
             else if (isWallJumpPickup)
             {
-                GameManager.instance.hasWallJump = true;
+                GameManager.instance.playerData.hasWallJumpAbility = true;
                 UI_HUD.instance.SetDebugText("Picked Up Wall Jump Ability");
             }
             else if (isBoomerang)
             {
-                GameManager.instance.hasBoomerang = true;
+                GameManager.instance.playerData.hasBoomerangAbility = true;
                 UI_HUD.instance.SetDebugText("Picked Up Boomerang Ability");
             }
 

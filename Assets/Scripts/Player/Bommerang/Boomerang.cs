@@ -223,11 +223,12 @@ public class Boomerang : MonoBehaviour
             Quaternion q = Quaternion.AngleAxis(AngleDeg - 90, Vector3.forward);
             transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * boomerangLauncher.rotateSpeed);
             rgd2D.velocity = transform.up * boomerangLauncher.returnMoveSpeed;
+
             if (Vector2.Distance(transform.position, gm.player.transform.position) <= 0.8f)
             {
-                boomerangLauncher.canFire = true;
-                Destroy(gameObject);
+                DestroyBoomerang();
             }
+
             yield return null;
         }
     }
@@ -242,6 +243,12 @@ public class Boomerang : MonoBehaviour
             rgd2D.isKinematic = true;
             rgd2D.velocity = Vector2.zero;
         }
+    }
+
+    public void DestroyBoomerang()
+    {
+        boomerangLauncher.canFire = true;
+        Destroy(gameObject);
     }
 
     public void HaltBoomerang()

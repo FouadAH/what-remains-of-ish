@@ -38,13 +38,13 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Animator anim;
     AstarPath astarPath;
 
-    [Header("Player Abilities")]
-    public bool hasBoomerang = false;
-    public bool hasDashAbility = true;
-    public bool hasWallJump = false;
-    public bool hasTeleportAbility = false;
-    public bool hasSprintAbility = false;
-    public bool hasDoubleJump = false;
+    //[Header("Player Abilities")]
+    //public bool hasBoomerang = false;
+    //public bool hasDashAbility = true;
+    //public bool hasWallJump = false;
+    //public bool hasTeleportAbility = false;
+    //public bool hasSprintAbility = false;
+    //public bool hasDoubleJump = false;
 
     [Header("Brooches")]
 

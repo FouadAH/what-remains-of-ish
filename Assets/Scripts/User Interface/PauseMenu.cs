@@ -103,17 +103,21 @@ public class PauseMenu : MonoBehaviour
     {
         if (abilityToggle.isOn)
         {
-            GameManager.instance.hasDashAbility = true;
-            GameManager.instance.hasTeleportAbility = true;
-            GameManager.instance.hasSprintAbility = true;
-            GameManager.instance.hasWallJump = true;
+            GameManager.instance.playerData.hasDashAbility = true;
+            GameManager.instance.playerData.hasTeleportAbility = true;
+            GameManager.instance.playerData.hasSprintAbility = true;
+            GameManager.instance.playerData.hasWallJumpAbility = true;
+            GameManager.instance.playerData.hasDoubleJumpAbility = true;
+
         }
         else
         {
-            GameManager.instance.hasDashAbility = false;
-            GameManager.instance.hasTeleportAbility = false;
-            GameManager.instance.hasSprintAbility = false;
-            GameManager.instance.hasWallJump = false;
+            GameManager.instance.playerData.hasDashAbility = false;
+            GameManager.instance.playerData.hasTeleportAbility = false;
+            GameManager.instance.playerData.hasSprintAbility = false;
+            GameManager.instance.playerData.hasWallJumpAbility = false;
+            GameManager.instance.playerData.hasDoubleJumpAbility = false;
+
         }
     }
 

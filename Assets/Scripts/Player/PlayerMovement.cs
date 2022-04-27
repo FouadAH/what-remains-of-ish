@@ -240,10 +240,10 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDashInput()
     {
-        if(GameManager.instance.hasDashAbility)
+        if(GameManager.instance.playerData.hasDashAbility)
             playerDash.OnDashInput();
 
-        if (GameManager.instance.hasSprintAbility && controller.collitions.below)
+        if (GameManager.instance.playerData.hasSprintAbility && controller.collitions.below)
         {
             isSprinting = true;
         }
@@ -267,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Boomerang boomerang = boomerangLauncher.boomerangReference;
 
-        if (GameManager.instance.hasTeleportAbility && boomerang != null)
+        if (GameManager.instance.playerData.hasTeleportAbility && boomerang != null)
             playerTeleport.OnTeleportInput(transformToMove, ref velocity, boomerang);
     }
 
@@ -366,7 +366,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="velocityXSmoothing"></param>    
     void HandleWallSliding()
     {
-        if (!GameManager.instance.hasWallJump)
+        if (!GameManager.instance.playerData.hasWallJumpAbility)
             return;
 
         wallDirX = (controller.collitions.left) ? -1 : 1;
@@ -374,7 +374,7 @@ public class PlayerMovement : MonoBehaviour
         if ((controller.collitions.left || controller.collitions.right) && !controller.collitions.below && velocity.y < 0)
         {
             WallSliding = true;
-            canDoubleJump = GameManager.instance.hasDoubleJump;
+            canDoubleJump = GameManager.instance.playerData.hasDoubleJumpAbility;
 
             if (velocity.y < playerSettings.WallSlideSpeedMax)
             {
@@ -452,7 +452,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            canDoubleJump = GameManager.instance.hasDoubleJump;
+            canDoubleJump = GameManager.instance.playerData.hasDoubleJumpAbility;
             cayoteTimer = 0;
         }
         canJump = cayoteTimer < MAX_JUMP_ASSIST_TIME;
@@ -467,7 +467,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             jumpBufferCounter += 1;
-            if (WallSliding && GameManager.instance.hasWallJump)
+            if (WallSliding && GameManager.instance.playerData.hasWallJumpAbility)
             {
                 if (wallDirX == playerInput.directionalInput.x)
                 {

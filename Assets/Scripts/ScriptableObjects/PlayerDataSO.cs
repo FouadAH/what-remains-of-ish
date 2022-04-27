@@ -28,4 +28,11 @@ public class PlayerDataSO : ScriptableObject
 
     public IntegerReference currentSceneBuildIndex;
 
+    public bool hasBoomerangAbility;
+    public bool hasDashAbility;
+    public bool hasTeleportAbility;
+    public bool hasWallJumpAbility;
+    public bool hasSprintAbility;
+    public bool hasDoubleJumpAbility;
+
 }
