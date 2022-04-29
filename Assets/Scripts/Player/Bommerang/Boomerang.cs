@@ -368,6 +368,6 @@ public class Boomerang : MonoBehaviour
 
     private void OnDestroy()
     {
-        //rumbler.RumblePulse(1, 2, 0.5f, 0.5f);
+        boomerangLauncher.canFire = true;
     }
 }
