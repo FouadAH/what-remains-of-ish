@@ -7,6 +7,9 @@ public class Explosion : MonoBehaviour
     public ParticleSystem explosionParticles;
     public bool isDamaging = true;
     public LayerMask damagables;
+    public int damageAmount = 1;
+    public int playerDamageAmount = 1;
+
 
     private void Start()
     {
@@ -35,7 +38,14 @@ public class Explosion : MonoBehaviour
                 dir.y = direction.y;
             }
 
-            hurtbox?.collisionDamage(1, dir.x, -dir.y);
+            if (hurtbox.gameObject.tag == "Player")
+            {
+                hurtbox?.collisionDamage(playerDamageAmount, dir.x, -dir.y);
+            }
+            else
+            {
+                hurtbox?.collisionDamage(damageAmount, dir.x, -dir.y);
+            }
         }
     }
 
