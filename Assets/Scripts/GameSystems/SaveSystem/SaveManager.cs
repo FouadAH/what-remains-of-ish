@@ -551,6 +551,8 @@ public class SaveManager : MonoBehaviour
         playerData.hasTeleportAbility = playerDataSO.hasTeleportAbility;
         playerData.hasSprintAbility = playerDataSO.hasSprintAbility;
         playerData.hasWallJumpAbility = playerDataSO.hasWallJumpAbility;
+        playerData.hasAirDashAbility = playerDataSO.hasAirDashAbility;
+
         return playerData;
     }
 
@@ -609,6 +611,7 @@ public class SaveManager : MonoBehaviour
         playerDataSO.hasTeleportAbility = data.hasTeleportAbility;
         playerDataSO.hasSprintAbility = data.hasSprintAbility;
         playerDataSO.hasWallJumpAbility = data.hasWallJumpAbility;
+        playerDataSO.hasAirDashAbility = data.hasAirDashAbility;
     }
 
     private PlayerData DefaultPlayerData()
@@ -655,10 +658,11 @@ public class SaveManager : MonoBehaviour
 
         playerData.hasBoomerangAbility = true;
         playerData.hasDoubleJumpAbility = false;
-        playerData.hasDashAbility = false;
+        playerData.hasDashAbility = true;
         playerData.hasTeleportAbility = false;
         playerData.hasSprintAbility = false;
         playerData.hasWallJumpAbility = false;
+        playerData.hasAirDashAbility = false;
 
         return playerData;
     }

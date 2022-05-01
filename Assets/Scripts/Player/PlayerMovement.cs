@@ -240,7 +240,12 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDashInput()
     {
-        if(GameManager.instance.playerData.hasDashAbility)
+        isAirborne = (!controller.collitions.below && !WallSliding);
+
+        if (!isAirborne &&  GameManager.instance.playerData.hasDashAbility)
+            playerDash.OnDashInput();
+
+        if (isAirborne && GameManager.instance.playerData.hasAirDashAbility)
             playerDash.OnDashInput();
 
         if (GameManager.instance.playerData.hasSprintAbility && controller.collitions.below)
@@ -259,7 +264,15 @@ public class PlayerMovement : MonoBehaviour
         isAirborne = (!controller.collitions.below && !WallSliding);
 
         if ((!controller.collitions.left || !controller.collitions.right)){
-            playerDash.DashController(ref velocity, playerInput, playerSettings);
+
+            if (isAirborne && GameManager.instance.playerData.hasAirDashAbility)
+            {
+                playerDash.DashController(ref velocity, playerInput, playerSettings);
+            }
+            else if(!isAirborne)
+            {
+                playerDash.DashController(ref velocity, playerInput, playerSettings);
+            }
         }
     }
 

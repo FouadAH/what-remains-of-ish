@@ -63,7 +63,7 @@ public class Player_Input : MonoBehaviour
 
         inputActions.Player.Interact.started += Interact_started;
         inputActions.Player.Attack.performed += Attack_performed;
-        inputActions.Player.Dash.started += Dash_started;
+        inputActions.Player.Dash.performed += Dash_started;
         inputActions.Player.Aim.started += Aim_started;
         inputActions.Player.Jump.performed += Jump_performed;
         inputActions.Player.Heal.performed += Heal_performed;

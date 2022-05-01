@@ -28,6 +28,7 @@ public class PlayerData
 
     public bool hasBoomerangAbility;
     public bool hasDashAbility;
+    public bool hasAirDashAbility;
     public bool hasTeleportAbility;
     public bool hasWallJumpAbility;
     public bool hasSprintAbility;

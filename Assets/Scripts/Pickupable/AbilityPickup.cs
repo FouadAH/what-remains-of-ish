@@ -16,8 +16,8 @@ public class AbilityPickup : MonoBehaviour
         {
             if (isDashPickup)
             {
-                GameManager.instance.playerData.hasDashAbility = true;
-                UI_HUD.instance.SetDebugText("Picked Up Dash Ability");
+                GameManager.instance.playerData.hasAirDashAbility = true;
+                UI_HUD.instance.SetDebugText("Picked Up the Air Dash Ability");
             }
             else if (isTeleportPickup)
             {

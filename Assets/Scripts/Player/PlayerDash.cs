@@ -11,6 +11,8 @@ public class PlayerDash : MonoBehaviour
 
     public float floatTime = 0.1f;
     public float effectTime = 0.2f;
+    public float dashIFrames = 0.1f;
+
     public Material dashMaterial;
     [SerializeField] private ParticleSystem afterImage;
     public GameObject dashTrailParent;
@@ -20,10 +22,12 @@ public class PlayerDash : MonoBehaviour
     public ParticleSystem dashRechargeEffect;
 
     PlayerMovement playerMovement;
+    Player player;
     SpriteRenderer spriteRenderer;
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        player = GetComponent<Player>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         afterImage.Pause();
     }
@@ -45,18 +49,20 @@ public class PlayerDash : MonoBehaviour
                 velocity.y = 0;
             }
 
+            StartCoroutine(DashIFrames(dashIFrames));
             StartCoroutine(FloatTime(floatTime));
             StartCoroutine(DashLogic(playerSettings.DashCooldown));
             StartCoroutine(DashEffect(effectTime));
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Dash", GetComponent<Transform>().position);
 
+            float dashSpeedMod = (playerMovement.isAirborne) ? 3 : playerSettings.DashSpeedModifier;
             if (playerInput.directionalInput.x == 0)
             {
-                velocity.x = transform.localScale.x * playerSettings.MoveSpeed * playerSettings.DashSpeedModifier;
+                velocity.x = transform.localScale.x * playerSettings.MoveSpeed * dashSpeedMod;
             }
             else
             {
-                velocity.x = ((Mathf.Sign(playerInput.directionalInput.x) == -1) ? -1 : 1) * playerSettings.MoveSpeed * playerSettings.DashSpeedModifier;
+                velocity.x = ((Mathf.Sign(playerInput.directionalInput.x) == -1) ? -1 : 1) * playerSettings.MoveSpeed * dashSpeedMod;
             }
         }
         canDash = false;
@@ -84,6 +90,14 @@ public class PlayerDash : MonoBehaviour
         yield return new WaitForSeconds(floatTime);
         isDashing = false;
     }
+
+    public IEnumerator DashIFrames(float floatTime)
+    {
+        player.invinsible = true;
+        yield return new WaitForSeconds(floatTime);
+        player.invinsible = false;
+    }
+
 
     public IEnumerator DashEffect(float effectTime)
     {

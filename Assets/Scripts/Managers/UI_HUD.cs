@@ -239,7 +239,7 @@ public class UI_HUD : MonoBehaviour
     {
         debugTextPanel.SetActive(true);
         pickupDebugText.SetText(text);
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(4f);
         pickupDebugText.SetText("");
         debugTextPanel.SetActive(false);
     }
@@ -254,7 +254,7 @@ public class UI_HUD : MonoBehaviour
     {
         tipsPanel.SetActive(true);
         tipsText.SetText(text);
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(8f);
         tipsText.SetText("");
         tipsPanel.SetActive(false);
     }

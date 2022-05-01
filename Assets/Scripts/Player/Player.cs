@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IAttacker{
 
     float iFrames = 0f;
     public float iFrameTime = 1f;
-    bool invinsible = false;
+    public bool invinsible = false;
     
     Animator anim;
     GameManager gm;
@@ -170,7 +170,6 @@ public class Player : MonoBehaviour, IAttacker{
         if (GameManager.instance.isLoading)
             return;
 
-        OnDamage();
         Look();
     }
 
@@ -197,6 +196,18 @@ public class Player : MonoBehaviour, IAttacker{
             }
         }
     }
+
+    public IEnumerator DamageIFrames()
+    {
+        iFrames = iFrameTime;
+        while (iFrames > 0)
+        {
+            iFrames -= Time.deltaTime;
+            yield return null;
+        }
+        invinsible = false;
+    }
+
 
     // not used 
     public void Knockback(Vector3 dir, Vector2 kockbackDistance)
@@ -389,8 +400,8 @@ public class Player : MonoBehaviour, IAttacker{
         }
 
         CheckDeath();
-
-        iFrames = iFrameTime;
+        StartCoroutine(DamageIFrames());
+       
 
         if (flashRoutine != null)
         {
