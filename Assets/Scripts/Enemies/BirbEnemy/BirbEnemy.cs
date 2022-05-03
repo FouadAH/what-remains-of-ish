@@ -62,9 +62,10 @@ public class BirbEnemy : Entity
 
     IEnumerator KnockbackTimer(Vector3 knockbackForce)
     {
+       
         aIPath.canMove = false;
         aIPath.canSearch = false;
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForFixedUpdate();
 
         rb.velocity = knockbackForce;
         knockbackTimeElapsed = 0;

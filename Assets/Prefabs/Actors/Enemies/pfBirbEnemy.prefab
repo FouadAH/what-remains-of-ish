@@ -6120,8 +6120,8 @@ MonoBehaviour:
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.05
-  knockbackTime: 1.5
-  smoothTime: 0.5
+  knockbackTime: 1.2
+  smoothTime: 0.3
   shouldSaveState: 0
   destinationSetter: {fileID: 0}
   aIPath: {fileID: 0}
@@ -6188,7 +6188,7 @@ MonoBehaviour:
   orientation: 1
   enableRotation: 0
   targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
+  maxAcceleration: 6
   rotationSpeed: 360
   slowdownDistance: 2.4
   pickNextWaypointDist: 3.52

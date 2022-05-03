@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10,7 +10,8 @@ Material:
   m_Name: Shader Graphs_WindShader_Lit 1
   m_Shader: {fileID: -6465566751694194690, guid: 5040165cf8e152a429ecb75d4fb8a8f5,
     type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -38,8 +39,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_22e44075e7b04156bfab72660ca81048: 6
-    - Vector1_79d61c81632a4b68907e5c9ade0f4877: 5
+    - Vector1_22e44075e7b04156bfab72660ca81048: 3.5
+    - Vector1_79d61c81632a4b68907e5c9ade0f4877: 8
     - Vector1_adcd4e9caef34d7eae41590e0b117ba4: 6
     m_Colors:
     - Vector2_cc37111eb0344985975cb3296cc49f48: {r: 0.43, g: 0, b: 0, a: 0}
