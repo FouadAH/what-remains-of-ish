@@ -39,12 +39,12 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
         stateMachine.Initialize(moveState);
     }
 
-    public override void ProcessHit(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
         if (isProtected)
             return;
 
-        base.ProcessHit(amount);
+        base.ProcessHit(amount, type);
 
         if (isDead && stateMachine.currentState != deadState)
         {

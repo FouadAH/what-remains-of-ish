@@ -22,12 +22,12 @@ public class AttackProcessor
             damagable.ProcessStunDamage(attacker.MeleeDamage);
         }
 
-        ProcessAttack(target, attacker.MeleeDamage);
+        ProcessAttack(target, attacker.MeleeDamage, DamageType.Melee);
     }
 
     public void ProcessMeleeNoKnockback(IAttacker attacker, IHittable target)
     {
-        ProcessAttack(target, attacker.MeleeDamage);
+        ProcessAttack(target, attacker.MeleeDamage, DamageType.Melee);
     }
 
     public void ProcessCollisionDamage(int damageAmount, IHittable target, float knockbackDirX, float knockbackDirY)
@@ -37,7 +37,7 @@ public class AttackProcessor
             ProcessKnockbackOnDamage(target as IDamagable, -knockbackDirX, -knockbackDirY);
         }
 
-        ProcessAttack(target, damageAmount);
+        ProcessAttack(target, damageAmount, DamageType.Melee);
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public class AttackProcessor
             damagable.ProcessStunDamage(attacker.MaxRangeDamage);
         }
 
-        ProcessAttack(target, CalculateAttackAmountRanged(attacker));
+        ProcessAttack(target, CalculateAttackAmountRanged(attacker), DamageType.Ranged);
     }
 
     public void ProcessPlayerRangedAttack(ILauncher attacker, IHittable target, float knockbackDirX, float knockbackDirY, float stunDamageMod = 1)
@@ -63,7 +63,7 @@ public class AttackProcessor
             damagable.ProcessStunDamage(attacker.MaxRangeDamage, stunDamageMod);
         }
 
-        ProcessAttack(target, CalculateAttackAmountRanged(attacker));
+        ProcessAttack(target, CalculateAttackAmountRanged(attacker), DamageType.Ranged);
     }
 
     /// <summary>
@@ -81,9 +81,11 @@ public class AttackProcessor
     /// </summary>
     /// <param name="target">Damagable target object</param>
     /// <param name="amount">Damage amount</param>
-    private void ProcessAttack(IHittable target, int amount)
+    private void ProcessAttack(IHittable target, int amount, DamageType type)
     {
-        target.ProcessHit(amount);
+        Debug.Log(type.ToString());
+
+        target.ProcessHit(amount, type);
     }
 
     /// <summary>
@@ -117,4 +119,12 @@ public class AttackProcessor
     {
         target.KnockbackOnDamage((int)attacker.HitKnockbackAmount, knockbackDirX, knockbackDirY);
     }
+}
+
+public enum DamageType
+{
+    Melee,
+    Ranged,
+    Explosive,
+    Ice
 }

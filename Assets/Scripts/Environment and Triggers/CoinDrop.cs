@@ -41,7 +41,7 @@ public class CoinDrop : Savable, IDamagable
         return;
     }
 
-    public void ProcessHit(int amount)
+    public void ProcessHit(int amount, DamageType type)
     {
         if (!invinsible)
         {

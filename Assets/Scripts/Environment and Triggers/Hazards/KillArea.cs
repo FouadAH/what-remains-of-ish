@@ -40,7 +40,7 @@ public class KillArea : MonoBehaviour {
         else if (collision.gameObject.tag.Equals("Enemy"))
         {
             Entity enemy = collision.gameObject.GetComponent<Entity>();
-            enemy.ProcessHit(1000);
+            enemy.ProcessHit(1000, DamageType.Melee);
         }
     }
 

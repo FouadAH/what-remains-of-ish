@@ -14,7 +14,7 @@ public class BreakableObject : MonoBehaviour, IHittable
 
     public event System.Action OnBreak = delegate { };
 
-    void IHittable.ProcessHit(int hitAmount)
+    void IHittable.ProcessHit(int hitAmount, DamageType type)
     {
         health -= hitAmount;
 

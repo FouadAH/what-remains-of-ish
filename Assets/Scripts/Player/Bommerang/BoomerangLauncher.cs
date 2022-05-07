@@ -184,6 +184,16 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
                 {
                     targetPos = hit.point;
                     secondCrosshair.transform.position = Vector2.SmoothDamp(secondCrosshair.transform.position, targetPos, ref referencePos, 0.02f);
+                    
+                    if(IsInLayerMask( hit.collider.gameObject.layer, weakSpot))
+                    {
+                        secondCrosshair.color = Color.red;
+                    }
+                    else
+                    {
+                        secondCrosshair.color = Color.white;
+                    }
+                
                 }
                 else
                 {

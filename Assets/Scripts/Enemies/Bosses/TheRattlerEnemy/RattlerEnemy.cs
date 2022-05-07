@@ -110,9 +110,9 @@ public class RattlerEnemy : Entity
         }
     }
 
-    public override void ProcessHit(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
-        base.ProcessHit(amount);
+        base.ProcessHit(amount, DamageType.Melee);
 
         if (isDead && stateMachine.currentState != deadState)
         {

@@ -104,7 +104,7 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
         return Time.time >= nextFireTime;
     }
 
-    public void ProcessHit(int amount)
+    public void ProcessHit(int amount, DamageType type)
     {
         if (!isDamagable)
             return;

@@ -27,7 +27,7 @@ public class Lever : Savable, IHittable
         animator = GetComponent<Animator>();
     }
 
-    public void ProcessHit(int amount)
+    public void ProcessHit(int amount, DamageType type)
     {
         if (leverData.isOpen && !toggleable)
             return;

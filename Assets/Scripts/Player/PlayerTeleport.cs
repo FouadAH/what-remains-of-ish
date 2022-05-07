@@ -108,7 +108,7 @@ public class PlayerTeleport : MonoBehaviour
             IDamagable damagable = hit.collider.GetComponent<IDamagable>();
             if (damagable != null)
             {
-                damagable.ProcessHit((int)teleportDamage);
+                damagable.ProcessHit((int)teleportDamage, DamageType.Melee);
             }
             else if (hit.collider.GetComponent<TeleportRefill>())
             {

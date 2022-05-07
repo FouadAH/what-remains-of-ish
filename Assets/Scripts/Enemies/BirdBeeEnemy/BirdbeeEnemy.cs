@@ -51,6 +51,15 @@ public class BirdbeeEnemy : Entity
     public override void LateUpdate()
     {
         base.LateUpdate();
+        if (!isKnockback)
+        {
+            return;
+        }
+
+        if (CheckGround())
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     public override void FixedUpdate()
@@ -75,13 +84,15 @@ public class BirdbeeEnemy : Entity
     }
 
     int frames;
-    
 
+    bool isKnockback = false;
     IEnumerator KnockbackTimer(Vector3 knockbackForce)
     {
         frames = 0;
         aIPath.canMove = false;
         aIPath.canSearch = false;
+        isKnockback = true;
+
         yield return new WaitForEndOfFrame();
 
         rb.velocity = knockbackForce;
@@ -104,6 +115,7 @@ public class BirdbeeEnemy : Entity
             aIPath.canMove = true;
             aIPath.canSearch = true;
         }
+        isKnockback = false;
     }
 
     [Header("Aggro Settings")]
@@ -115,9 +127,9 @@ public class BirdbeeEnemy : Entity
     }
 
 
-    public override void ProcessHit(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
-        base.ProcessHit(amount);
+        base.ProcessHit(amount, type);
         IsAggro = true;
         if (isDead && stateMachine.currentState != deadState)
         {

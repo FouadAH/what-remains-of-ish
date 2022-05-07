@@ -37,7 +37,7 @@ public class BreakableWall : MonoBehaviour, IHittable
         endValueX = transform.position.x - moveDistanceX;
     }
 
-    public void ProcessHit(int amount)
+    public void ProcessHit(int amount, DamageType type)
     {
         Health--;
         wallHitParticles.Play();

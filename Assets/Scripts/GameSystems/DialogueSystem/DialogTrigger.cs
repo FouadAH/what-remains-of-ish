@@ -50,7 +50,7 @@ public class DialogTrigger : Savable
     {
         promptCanvas.GetComponentInChildren<TMPro.TMP_Text>().text = "Talk";
 
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.GetComponent<Player>())
         {
             DisplayPrompt();
         }
@@ -75,7 +75,7 @@ public class DialogTrigger : Savable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.GetComponent<Player>())
         {
             RemovePrompt();
         }

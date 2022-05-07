@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
     public Cinemachine.CinemachineVirtualCamera virtualCamera;
     public Cinemachine.CinemachineConfiner confiner;
 
+    public Camera RenderCamera;
+
     //script on camera
     public void ResetPosition()
     {
@@ -25,5 +27,10 @@ public class CameraController : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         cinemachineBrain.enabled = true;
         virtualCamera.enabled = true;
+    }
+
+    public void ChangeBackgroundColor(Color color)
+    {
+        RenderCamera.backgroundColor = color;
     }
 }

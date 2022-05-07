@@ -100,9 +100,9 @@ public class FlyingShootingEnemy : Entity, FiringAI
         return Time.time >= nextFireTime;
     }
 
-    public override void ProcessHit(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
-        base.ProcessHit(amount);
+        base.ProcessHit(amount, DamageType.Melee);
         IsAggro = true;
         if (isDead && stateMachine.currentState != deadState)
         {

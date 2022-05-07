@@ -119,7 +119,7 @@ public class Lamp : MonoBehaviour, IDamagable
         rgb2D.AddForce(new Vector2(knockbackForce * dirX, 0), ForceMode2D.Impulse);
     }
 
-    void IHittable.ProcessHit(int hitAmount)
+    void IHittable.ProcessHit(int hitAmount, DamageType type)
     {
         health -= hitAmount;
         breakEffect.Play();

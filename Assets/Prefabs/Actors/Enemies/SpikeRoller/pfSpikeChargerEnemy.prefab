@@ -10619,6 +10619,7 @@ Transform:
   - {fileID: 1641556264046921269}
   - {fileID: 480116220}
   - {fileID: 6068688082051220917}
+  - {fileID: 2789034262441662320}
   m_Father: {fileID: 5696843882739678234}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10863,14 +10864,17 @@ MonoBehaviour:
   BloodEffect: {fileID: 6262277054434752251}
   HitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
+  NearDeathEffect: {fileID: 2789034262441662334}
+  FlaskRefillParticles: {fileID: 8289013060883284021, guid: 3fb3817618427d4418ec164689201edb,
+    type: 3}
   minAggroRange: 5
   maxAggroRange: 8
   isAffectedByGravity: 1
   gravity: -18
   accelerationTimeGrounded: 0.2
-  shouldSaveState: 1
   knockbackTime: 0.3
   smoothTime: 0.3
+  shouldSaveState: 1
   meleeDamage: 1
   hitKnockbackAmount: 15
   idleStateData: {fileID: 11400000, guid: 66861ed30095f0c46a29965d1b97778d, type: 2}
@@ -15988,3 +15992,84 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1001 &729482310084646680
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2777346297302308515}
+    m_Modifications:
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.105
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.235
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218674784166232171, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+        type: 3}
+      propertyPath: m_Name
+      value: NearDeathEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8c901925b4f3ba54eaa95ee8bd194eb4, type: 3}
+--- !u!4 &2789034262441662320 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3218674784166232168, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+    type: 3}
+  m_PrefabInstance: {fileID: 729482310084646680}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2789034262441662334 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3218674784166232166, guid: 8c901925b4f3ba54eaa95ee8bd194eb4,
+    type: 3}
+  m_PrefabInstance: {fileID: 729482310084646680}
+  m_PrefabAsset: {fileID: 0}

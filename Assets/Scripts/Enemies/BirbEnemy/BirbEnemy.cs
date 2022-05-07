@@ -46,6 +46,15 @@ public class BirbEnemy : Entity
     public override void LateUpdate()
     {
         base.LateUpdate();
+        if (!isKnockback)
+        {
+            return;
+        }
+
+        if (CheckGround())
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     public override void FixedUpdate()
@@ -60,9 +69,10 @@ public class BirbEnemy : Entity
         rb.AddForce(knockbackForce, ForceMode2D.Impulse);
     }
 
+    bool isKnockback = false;
     IEnumerator KnockbackTimer(Vector3 knockbackForce)
     {
-       
+        isKnockback = true;
         aIPath.canMove = false;
         aIPath.canSearch = false;
         yield return new WaitForFixedUpdate();
@@ -85,11 +95,12 @@ public class BirbEnemy : Entity
         TargetPoint.transform.position = transform.position;
         aIPath.canMove = true;
         aIPath.canSearch = true;
+        isKnockback = false;
     }
 
-    public override void ProcessHit(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
-        base.ProcessHit(amount);
+        base.ProcessHit(amount, type);
         if (isDead && stateMachine.currentState != deadState)
         {
             GetComponent<EnemyAudio>().StopPlayingEvent();

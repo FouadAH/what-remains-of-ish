@@ -97,7 +97,7 @@ public class ShieldEnemy : Entity, IAttacker
         base.DamageHop(velocity);
     }
 
-    public override void ProcessHit(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
         Hit();
         IsAggro = true;
@@ -105,7 +105,7 @@ public class ShieldEnemy : Entity, IAttacker
         if (isProtected)
             return;
 
-        base.ProcessHit(amount);
+        base.ProcessHit(amount, DamageType.Melee);
 
         if (isDead && stateMachine.currentState != deadState)
         {

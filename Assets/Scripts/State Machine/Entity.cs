@@ -44,10 +44,12 @@ public class Entity : Savable, IDamagable
     [Header("Debug")]
     public TMP_Text stateDebugText;
 
-    [Header("Hit Effects")]
+    [Header("Entity Particle Effects")]
     [SerializeField] private GameObject damageNumberPrefab;
     public ParticleSystem BloodEffect;
     public ParticleSystem HitEffect;
+    public ParticleSystem NearDeathEffect;
+    public ParticleSystem FlaskRefillParticles;
 
     public event Action<float, float> OnHitEnemy = delegate { };
     public event Action OnDeath = delegate { };
@@ -294,7 +296,7 @@ public class Entity : Savable, IDamagable
             isStunned = true;
     }
 
-    public virtual void ProcessHit(int amount)
+    public virtual void ProcessHit(int amount, DamageType type)
     {
         if (!isHittable)
             return;
@@ -322,11 +324,29 @@ public class Entity : Savable, IDamagable
         if (colouredFlash != null)
             colouredFlash.Flash(Color.white);
 
+        if (Health <= 10 && !NearDeathEffect.isPlaying)
+        {
+            NearDeathEffect.Play();
+        }
+
         if (Health <= 0 && !isDead)
         {
             isDead = true;
             OnDeath();
-            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
+
+            if (type == DamageType.Melee)
+            {
+                UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
+
+                if (FlaskRefillParticles != null)
+                {
+                    ParticleSystem refillParticlesInstance = GameObject.Instantiate(FlaskRefillParticles,
+                        transform.position, Quaternion.identity);
+
+                    refillParticlesInstance.emission.SetBurst(0, new ParticleSystem.Burst(0f, entityData.flaskReffilAmount / 2));
+                    refillParticlesInstance.Play();
+                }
+            }
         }
     }
 

@@ -15,7 +15,7 @@ public class SwitchLever : MonoBehaviour, IHittable
         animator = GetComponent<Animator>();
     }
 
-    public void ProcessHit(int amount)
+    public void ProcessHit(int amount, DamageType type)
     {
         SetActive(true);
         OnTriggerLever();
@@ -33,7 +33,7 @@ public class SwitchLever : MonoBehaviour, IHittable
     {
         if (collision.gameObject.GetComponent<Boomerang>() != null)
         {
-            ProcessHit(0);
+            ProcessHit(0, DamageType.Melee);
         }
     }
 }

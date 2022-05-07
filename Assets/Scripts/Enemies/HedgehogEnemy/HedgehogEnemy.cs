@@ -28,6 +28,7 @@ public class HedgehogEnemy : Entity
         stateMachine.Initialize(moveState);
     }
 
+
     public bool isProtected = false;
 
     public override void DamageHop(float velocity)
@@ -38,12 +39,13 @@ public class HedgehogEnemy : Entity
         base.DamageHop(velocity);
     }
 
-    public override void ProcessHit(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
         if (isProtected)
             return;
 
-        base.ProcessHit(amount);
+        base.ProcessHit(amount, type);
+
         if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);

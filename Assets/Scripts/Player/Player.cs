@@ -368,7 +368,8 @@ public class Player : MonoBehaviour, IAttacker{
     /// Method reponsible for damaging the player
     /// </summary>
     /// <param name="amount"></param>
-    public void ProcessHit(int amount)
+    /// <param name="type"></param>
+    public void ProcessHit(int amount, DamageType type)
     {
         if (!invinsible && playerData.playerHealth.Value > 0 && !gm.isRespawning)
         {
