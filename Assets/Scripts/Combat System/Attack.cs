@@ -9,6 +9,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
     PlayerMovement player;
 
     public LayerMask obstacleLayer;
+    public LayerMask spikeLayer;
     public LayerMask breakableLayer;
 
     public float knockbackBasicAttack = 10f;
@@ -21,6 +22,12 @@ public class Attack : MonoBehaviour, IHitboxResponder
     public float changeTime = 0.05f;
     public float restoreSpeed = 10f;
     public float delay = 0.1f;
+
+    [Header("SFX")]
+    [FMODUnity.EventRef] public string obstacleHitSFX;
+    [FMODUnity.EventRef] public string spikeHitSFX;
+    [FMODUnity.EventRef] public string enemyHitSFX;
+
 
     private AttackProcessor attackProcessor;
     protected Cinemachine.CinemachineImpulseSource impulseListener;
@@ -106,10 +113,21 @@ public class Attack : MonoBehaviour, IHitboxResponder
             {
                 hurtbox.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (-dir.y));
             }
+
+            if (enemyHitSFX != null)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(enemyHitSFX);
+            }
         }
-        else if(IsInLayerMask(collider.gameObject.layer, obstacleLayer))
+        else if(IsInLayerMask(collider.gameObject.layer, spikeLayer))
         {
             attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), (dir.x), 0);
+
+            if (obstacleHitSFX != null)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(obstacleHitSFX);
+            }
+
             //impulseListener.GenerateImpulse();
 
             //if (HitEffect != null && !hasHitWall )
@@ -121,6 +139,16 @@ public class Attack : MonoBehaviour, IHitboxResponder
             //    //hitEffectInstance.Play();
             //}
         }
+        else if (IsInLayerMask(collider.gameObject.layer, obstacleLayer))
+        {
+            attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), dir.x, dir.y * 1.5f);
+
+            if(spikeHitSFX != null)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(spikeHitSFX);
+            }
+        }
+
     }
 
     public static bool IsInLayerMask(int layer, LayerMask layermask)

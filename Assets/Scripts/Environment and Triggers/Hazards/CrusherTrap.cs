@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Cinemachine;
 
 public class CrusherTrap : MonoBehaviour
 {
@@ -17,14 +18,31 @@ public class CrusherTrap : MonoBehaviour
     public float moveDistanceY = 5;
     public float moveDistanceX = 5;
 
+    CinemachineImpulseSource impulseListener;
+    [FMODUnity.EventRef] public string crusherImpactSFX;
+
+    public ParticleSystem impactHitEffect;
+    public ParticleSystem impactDustEffect;
+
     float endValueY;
     float startValueY;
 
     float endValueX;
     float startValueX;
 
+    Sequence mySequence;
+    int sequenceID;
+    
+    public Lever controlLever;
+
     private void Start()
     {
+        impulseListener = GetComponent<CinemachineImpulseSource>();
+        if(controlLever != null)
+        {
+            controlLever.OnToggle += ControlLever_OnToggle;
+        }
+
         startValueY = transform.position.y;
         endValueY = transform.position.y - moveDistanceY;
 
@@ -45,16 +63,24 @@ public class CrusherTrap : MonoBehaviour
         }
     }
 
+    private void ControlLever_OnToggle(bool obj)
+    {
+        StopCrusher();
+    }
+
     void CrushY()
     {
         if (transform != null)
         {
-            Sequence mySequence = DOTween.Sequence();
+            mySequence = DOTween.Sequence();
             mySequence.AppendInterval(pauseTimeBegin);
             mySequence.Append(transform.DOMoveY(endValueY, startDuration));
+            mySequence.AppendCallback(ImpactEffects);
             mySequence.AppendInterval(pauseTimeEnd);
             mySequence.Append(transform.DOMoveY(startValueY, endDuration));
             mySequence.SetLoops(-1, LoopType.Restart);
+
+            sequenceID = mySequence.intId;
         }
         //mySequence.PrependInterval(initialPause);
     }
@@ -63,14 +89,29 @@ public class CrusherTrap : MonoBehaviour
     {
         if (transform != null)
         {
-            Sequence mySequence = DOTween.Sequence();
+            mySequence = DOTween.Sequence();
             mySequence.AppendInterval(pauseTimeBegin);
-            mySequence.Append(transform.DOMoveX(endValueX, startDuration));
+            mySequence.Append(transform.DOMoveX(endValueX, startDuration)).onComplete += ImpactEffects;
             mySequence.AppendInterval(pauseTimeEnd);
             mySequence.Append(transform.DOMoveX(startValueX, endDuration));
             mySequence.SetLoops(-1, LoopType.Restart);
         }
         //mySequence.PrependInterval(initialPause);
+    }
+
+    public void StopCrusher()
+    {
+        mySequence.Append(transform.DOMoveY(startValueY, endDuration));
+        mySequence.Kill();
+    }
+
+    void ImpactEffects()
+    {
+        impactDustEffect.Play();
+        impactHitEffect.Play();
+        impulseListener.GenerateImpulse();
+
+        //FMODUnity.RuntimeManager.PlayOneShotAttached(crusherImpactSFX, gameObject);
     }
 
     IEnumerator CrushSequence()
