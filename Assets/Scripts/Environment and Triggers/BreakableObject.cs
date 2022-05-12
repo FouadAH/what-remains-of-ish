@@ -38,5 +38,5 @@ public class BreakableObject : MonoBehaviour, IHittable
             gameObject.SetActive(false);
         }
     }
-
+    [FMODUnity.EventRef] public string sfxName;
 }

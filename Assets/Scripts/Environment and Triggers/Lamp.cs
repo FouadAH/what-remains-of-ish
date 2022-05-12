@@ -63,7 +63,7 @@ public class Lamp : MonoBehaviour, IDamagable
         {
             int directionX = (collision.transform.position.x > transform.position.x) ? -1 : 1;
             rgb2D.AddForce(new Vector2(collitionForce * directionX, 0), ForceMode2D.Impulse);
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Lamp Hit", GetComponent<Transform>().position);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lamp Hit", GetComponent<Transform>().position);
         }
 
         if (isFalling) 
@@ -86,7 +86,7 @@ public class Lamp : MonoBehaviour, IDamagable
 
                 breakEffect.Play();
                 Destroy(gameObject);
-                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lamp Break", GetComponent<Transform>().position);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lamp Fall", GetComponent<Transform>().position);
             }
             else if(IsInLayerMask(collision.gameObject.layer, damagables))
             {
@@ -123,7 +123,7 @@ public class Lamp : MonoBehaviour, IDamagable
     {
         health -= hitAmount;
         breakEffect.Play();
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Lamp Hit", GetComponent<Transform>().position);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lamp Hit", GetComponent<Transform>().position);
 
         Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
         Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
@@ -147,6 +147,7 @@ public class Lamp : MonoBehaviour, IDamagable
     private void OnDisable()
     {
         //breakEffect.Play();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lamp Break", GetComponent<Transform>().position);
     }
 
     public void ProcessStunDamage(int amount, float stunDamageMod = 1)
