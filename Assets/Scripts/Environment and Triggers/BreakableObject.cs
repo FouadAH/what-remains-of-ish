@@ -13,6 +13,7 @@ public class BreakableObject : MonoBehaviour, IHittable
     public ParticleSystem breakEffect;
 
     public event System.Action OnBreak = delegate { };
+    [FMODUnity.EventRef] public string sfxName;
 
     void IHittable.ProcessHit(int hitAmount, DamageType type)
     {
@@ -35,8 +36,9 @@ public class BreakableObject : MonoBehaviour, IHittable
         if (health <= 0)
         {
             OnBreak();
+            FMODUnity.RuntimeManager.PlayOneShot(sfxName);
             gameObject.SetActive(false);
         }
     }
-    [FMODUnity.EventRef] public string sfxName;
+   
 }
