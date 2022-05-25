@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2224463348749849850}
   - component: {fileID: 2224463348749849853}
-  - component: {fileID: 2224463348749849848}
   - component: {fileID: 2224463348749849851}
   - component: {fileID: 2224463348749849849}
+  - component: {fileID: 3261204868044240958}
   m_Layer: 23
   m_Name: pfCR_Vase_03
   m_TagString: Untagged
@@ -87,25 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2224463348749849848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2224463348749849852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae3cb28544cb69a44bac4e55881dfdba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1
-  knockbackForce: 0
-  spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
-    type: 3}
-  breakEffect: {fileID: 962961980079634889, guid: 16620f875c9b5ea458aa6966e2e2ce00,
-    type: 3}
-  sfxName: event:/SFX/Interactive Objects/Vase Break
 --- !u!61 &2224463348749849851
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,3 +131,26 @@ MonoBehaviour:
   ColorStunned: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   ignoreHitstop: 1
   hurtboxType: 0
+--- !u!114 &3261204868044240958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2224463348749849852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9321c7873056f04484d5ca1bc682a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  knockbackForce: 0
+  spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
+    type: 3}
+  breakEffect: {fileID: 962961980079634889, guid: 16620f875c9b5ea458aa6966e2e2ce00,
+    type: 3}
+  sfxName: event:/SFX/Interactive Objects/Vase Break
+  coinDropChance: 20
+  coinDropAmount: 5
+  coinPrefab: {fileID: 5208554419654711270, guid: 8182013d07cba2c4db2670074e3bdbe2,
+    type: 3}

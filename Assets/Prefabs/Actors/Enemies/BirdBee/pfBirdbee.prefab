@@ -5042,12 +5042,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.2817805, y: 0.10809639}
+    - - {x: 0.23766734, y: 0.07133543}
       - {x: 0.03882447, y: 0.39822045}
       - {x: -0.30074668, y: 0.28960475}
       - {x: -0.2577771, y: -0.061645806}
-      - {x: 0.17042226, y: -0.15870684}
-      - {x: 1.3004768, y: -0.7877744}
+      - {x: 0.2218876, y: -0.07783527}
+      - {x: 0.81840086, y: -0.45327377}
 --- !u!1 &585774543653562325
 GameObject:
   m_ObjectHideFlags: 0
@@ -6470,7 +6470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  radius: 0.75
+  radius: 1.16
   height: 2
   repathRate: 0.33
   canSearch: 1
@@ -6492,7 +6492,7 @@ MonoBehaviour:
   alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
-  constrainInsideGraph: 0
+  constrainInsideGraph: 1
 --- !u!114 &6176318676986118259
 MonoBehaviour:
   m_ObjectHideFlags: 0

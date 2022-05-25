@@ -266,12 +266,11 @@ public class Player : MonoBehaviour, IAttacker{
     {
         playerMovement.isDead = true;
         UI_HUD.instance.enabled = false;
-        playerInput.enabled = false;
+        playerInput.DisablePlayerInput();
         
-        anim.SetLayerWeight(0, 0f);
         anim.SetLayerWeight(1, 0f);
         anim.SetLayerWeight(2, 0f);
-        anim.SetLayerWeight(3, 1f);
+        anim.SetLayerWeight(3, 0f);
         anim.SetBool("isDead", true);
 
         AudioManager.instance.StopAreaThemeWithFade();
@@ -295,16 +294,15 @@ public class Player : MonoBehaviour, IAttacker{
         GameManager.instance.Respawn();
 
         anim.SetBool("isDead", false);
-        anim.SetLayerWeight(0, 1f);
         anim.SetLayerWeight(1, 1f);
         anim.SetLayerWeight(2, 1f);
-        anim.SetLayerWeight(3, 0f);
+        anim.SetLayerWeight(3, 1f);
 
         playerData.playerHealth.Value = playerData.playerMaxHealth.Value;
         UI_HUD.instance.enabled = true;
         UI_HUD.instance.RefrechHealth();
 
-        playerInput.enabled = true;
+        playerInput.EnablePlayerInput();
         playerMovement.isDead = false;
     }
     

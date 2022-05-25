@@ -324,6 +324,20 @@ public class Entity : Savable, IDamagable
         if (colouredFlash != null)
             colouredFlash.Flash(Color.white);
 
+        if (type == DamageType.Melee)
+        {
+            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount/2);
+
+            if (FlaskRefillParticles != null)
+            {
+                ParticleSystem refillParticlesInstance = GameObject.Instantiate(FlaskRefillParticles,
+                    transform.position, Quaternion.identity);
+
+                refillParticlesInstance.emission.SetBurst(0, new ParticleSystem.Burst(0f, entityData.flaskReffilAmount / 4));
+                refillParticlesInstance.Play();
+            }
+        }
+
         if (Health <= 10 && !NearDeathEffect.isPlaying)
         {
             NearDeathEffect.Play();

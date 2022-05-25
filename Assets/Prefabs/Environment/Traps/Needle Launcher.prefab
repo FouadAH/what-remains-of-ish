@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1133742025}
   - component: {fileID: 1133742026}
-  m_Layer: 20
+  - component: {fileID: 3568039325256703040}
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +85,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3568039325256703040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133742024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6783d53e8163b3240bd9b164e7be6be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 5d9948e810d6e044fa37d66ba28ab6b5, type: 2}
+  duration: 0.1
 --- !u!1 &6865929946676658929
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,8 +112,7 @@ GameObject:
   - component: {fileID: 2503763177542027666}
   - component: {fileID: 6028930523136478469}
   - component: {fileID: 2228686784722019389}
-  - component: {fileID: 7383406289239110004}
-  m_Layer: 20
+  m_Layer: 10
   m_Name: Needle Launcher
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -135,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targeting: 0
-  isDamagable: 0
+  isDamagable: 1
   isStatic: 1
   rotateSpeed: 0
   target: {fileID: 0}
@@ -230,20 +244,6 @@ MonoBehaviour:
   ColorStunned: {r: 0, g: 0, b: 0, a: 0}
   ignoreHitstop: 0
   hurtboxType: 0
---- !u!114 &7383406289239110004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6865929946676658929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6783d53e8163b3240bd9b164e7be6be0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: 5d9948e810d6e044fa37d66ba28ab6b5, type: 2}
-  duration: 0.1
 --- !u!1001 &4569713377467421086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -294,7 +294,7 @@ PrefabInstance:
     - target: {fileID: 6927183780741002940, guid: ec472a5d35990b449b9baa1c4ff1f43f,
         type: 3}
       propertyPath: m_Layer
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6927183780741002941, guid: ec472a5d35990b449b9baa1c4ff1f43f,
         type: 3}

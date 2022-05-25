@@ -40,7 +40,7 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
     void Start()
     {
         target = GameManager.instance.player.transform;
-        colouredFlash = GetComponent<ColouredFlash>();
+        colouredFlash = GetComponentInChildren<ColouredFlash>();
         MaxHealth = maxHealth;
         Health = MaxHealth;
     }

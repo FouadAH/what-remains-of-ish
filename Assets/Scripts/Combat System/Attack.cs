@@ -121,31 +121,31 @@ public class Attack : MonoBehaviour, IHitboxResponder
         }
         else if(IsInLayerMask(collider.gameObject.layer, spikeLayer))
         {
-            attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), (dir.x), 0);
+            attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), dir.x, dir.y * 1.3f);
 
-            if (obstacleHitSFX != null)
+            if (spikeHitSFX != null)
             {
-                FMODUnity.RuntimeManager.PlayOneShot(obstacleHitSFX);
+                FMODUnity.RuntimeManager.PlayOneShot(spikeHitSFX);
             }
 
             //impulseListener.GenerateImpulse();
 
-            //if (HitEffect != null && !hasHitWall )
-            //{
-            //    hasHitWall = true;
-            //    Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
-            //    Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
-            //    //ParticleSystem hitEffectInstance = Instantiate(HitEffect, hitbox.transform.position, randomQuaternionRotation);
-            //    //hitEffectInstance.Play();
-            //}
+            if (HitEffect != null && !hasHitWall)
+            {
+                hasHitWall = true;
+                Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
+                Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
+                //ParticleSystem hitEffectInstance = Instantiate(HitEffect, hitbox.transform.position, randomQuaternionRotation);
+                //hitEffectInstance.Play();
+            }
         }
         else if (IsInLayerMask(collider.gameObject.layer, obstacleLayer))
         {
-            attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), dir.x, dir.y * 1.5f);
+            attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), dir.x, 0);
 
-            if(spikeHitSFX != null)
+            if (obstacleHitSFX != null)
             {
-                FMODUnity.RuntimeManager.PlayOneShot(spikeHitSFX);
+                FMODUnity.RuntimeManager.PlayOneShot(obstacleHitSFX);
             }
         }
 

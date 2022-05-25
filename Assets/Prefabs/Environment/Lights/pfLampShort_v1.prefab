@@ -4901,7 +4901,7 @@ Transform:
   m_GameObject: {fileID: 38973189107846617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 5.772, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4125, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1417448372236518793}
@@ -5018,7 +5018,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.41, y: 0.43}
+  m_Size: {x: 0.38, y: 0.7}
   m_Direction: 0
 --- !u!114 &6497915268286210689
 MonoBehaviour:
@@ -5056,6 +5056,7 @@ MonoBehaviour:
     type: 3}
   breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
     type: 3}
+  sfxName: 
 --- !u!1 &1499311996756626817
 GameObject:
   m_ObjectHideFlags: 0
@@ -5087,7 +5088,7 @@ Transform:
   m_GameObject: {fileID: 1499311996756626817}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 4.021, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4125, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1417448372236518793}
@@ -5204,7 +5205,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.07338029}
-  m_Size: {x: 0.41, y: 0.69676054}
+  m_Size: {x: 0.38, y: 0.69676054}
   m_Direction: 0
 --- !u!114 &7536349430331519795
 MonoBehaviour:
@@ -5242,6 +5243,7 @@ MonoBehaviour:
     type: 3}
   breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
     type: 3}
+  sfxName: 
 --- !u!1 &3459553576294069804
 GameObject:
   m_ObjectHideFlags: 0
@@ -5274,7 +5276,7 @@ Transform:
   m_GameObject: {fileID: 3459553576294069804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 6.211, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4125, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1417448372236518793}
@@ -5391,7 +5393,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.41, y: 0.43}
+  m_Size: {x: 0.38, y: 0.7}
   m_Direction: 0
 --- !u!233 &3459553576294069803
 HingeJoint2D:
@@ -5453,6 +5455,7 @@ MonoBehaviour:
     type: 3}
   breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
     type: 3}
+  sfxName: 
 --- !u!1 &5107141643182576568
 GameObject:
   m_ObjectHideFlags: 0
@@ -5906,6 +5909,7 @@ MonoBehaviour:
   spearHitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
   breakEffect: {fileID: 1430902891}
+  sfxName: 
 --- !u!114 &6906615959609257954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6202,7 +6206,7 @@ Transform:
   m_GameObject: {fileID: 5436176869136191254}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 5.336, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4125, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1417448372236518793}
@@ -6319,7 +6323,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.41, y: 0.43}
+  m_Size: {x: 0.38, y: 0.7}
   m_Direction: 0
 --- !u!114 &1281082397938994989
 MonoBehaviour:
@@ -6357,6 +6361,7 @@ MonoBehaviour:
     type: 3}
   breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
     type: 3}
+  sfxName: 
 --- !u!1 &6120052552840118611
 GameObject:
   m_ObjectHideFlags: 0
@@ -6425,7 +6430,7 @@ Transform:
   m_GameObject: {fileID: 6386389652104161399}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 4.46, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4125, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1417448372236518793}
@@ -6542,7 +6547,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.41, y: 0.43}
+  m_Size: {x: 0.38, y: 0.7}
   m_Direction: 0
 --- !u!114 &5909307203137827593
 MonoBehaviour:
@@ -6580,6 +6585,7 @@ MonoBehaviour:
     type: 3}
   breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
     type: 3}
+  sfxName: 
 --- !u!1 &7437417282990124067
 GameObject:
   m_ObjectHideFlags: 0
@@ -6611,7 +6617,7 @@ Transform:
   m_GameObject: {fileID: 7437417282990124067}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 4.897, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4125, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1417448372236518793}
@@ -6728,7 +6734,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.41, y: 0.43}
+  m_Size: {x: 0.38, y: 0.7}
   m_Direction: 0
 --- !u!114 &8939050844693430008
 MonoBehaviour:
@@ -6766,6 +6772,7 @@ MonoBehaviour:
     type: 3}
   breakEffect: {fileID: 5434646306755374659, guid: 3be43a6b687179a41807afa8ccf33567,
     type: 3}
+  sfxName: 
 --- !u!1 &8476355610093859055
 GameObject:
   m_ObjectHideFlags: 0

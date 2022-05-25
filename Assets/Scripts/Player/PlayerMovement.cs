@@ -138,7 +138,9 @@ public class PlayerMovement : MonoBehaviour
         SpriteUpdate();
         controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, -1));
         HandleMaxSlope();
+
         playerAnimations.Animate();
+
         if (UI_HUD.instance.debugMode)
         {
             velocityXDebug.SetText("Velocity X: " + Mathf.Round(velocity.x));

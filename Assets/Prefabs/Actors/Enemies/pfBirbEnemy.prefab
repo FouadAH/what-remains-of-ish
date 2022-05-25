@@ -6184,10 +6184,10 @@ MonoBehaviour:
   canSearch: 1
   canMove: 1
   maxSpeed: 8
-  gravity: {x: 0, y: 0, z: 0}
+  gravity: {x: 0, y: -3, z: 0}
   groundMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 512
   centerOffsetCompatibility: NaN
   orientation: 1
   enableRotation: 0
@@ -6199,8 +6199,8 @@ MonoBehaviour:
   endReachedDistance: 1.76
   alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
-  constrainInsideGraph: 0
+  whenCloseToDestination: 1
+  constrainInsideGraph: 1
 --- !u!114 &7886006968081655689
 MonoBehaviour:
   m_ObjectHideFlags: 0
