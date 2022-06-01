@@ -18,6 +18,9 @@ public class SavePoint: MonoBehaviour {
     public Transform playerTargetRight;
     public Transform playerTargetLeft;
 
+    public GameObject unlitVFXParent;
+    public GameObject litVFXParent;
+
     bool playerIsInTrigger;
     public GameEvent OnRestEvent;
     GameObject playerObj;
@@ -80,6 +83,16 @@ public class SavePoint: MonoBehaviour {
             pointLight.enabled = true;
             spriteRenderer.sprite = litSprite;
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Save Point", GetComponent<Transform>().position);
+
+            foreach (ParticleSystem particleSystem in unlitVFXParent.GetComponentsInChildren<ParticleSystem>())
+            {
+                particleSystem.Play();
+            }
+
+            foreach (ParticleSystem particleSystem in litVFXParent.GetComponentsInChildren<ParticleSystem>())
+            {
+                particleSystem.Play();
+            }
         }
 
         PlayerDataSO playerData = player.playerData;

@@ -656,7 +656,7 @@ public class SaveManager : MonoBehaviour
 
         playerData.currentScene = initialPlayerData.initialLevelIndex;
 
-        playerData.hasBoomerangAbility = true;
+        playerData.hasBoomerangAbility = false;
         playerData.hasDoubleJumpAbility = false;
         playerData.hasDashAbility = true;
         playerData.hasTeleportAbility = false;

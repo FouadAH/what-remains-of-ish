@@ -3224,7 +3224,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -78148,7 +78148,7 @@ PrefabInstance:
     - target: {fileID: 789027120631317267, guid: 1b42810c3dc20534eba1a75c094ea6be,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1943722120198437976, guid: 1b42810c3dc20534eba1a75c094ea6be,
         type: 3}
@@ -78355,10 +78355,15 @@ PrefabInstance:
       propertyPath: SizeBySpeedModule.curve.maxCurve.m_Curve.Array.data[1].outWeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8543061364092697743, guid: 1b42810c3dc20534eba1a75c094ea6be,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8959273508019036246, guid: 1b42810c3dc20534eba1a75c094ea6be,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b42810c3dc20534eba1a75c094ea6be, type: 3}
