@@ -97,7 +97,7 @@ public class BirbEnemy : Entity
         aIPath.canSearch = true;
         isKnockback = false;
     }
-
+    
     public override void ProcessHit(int amount, DamageType type)
     {
         base.ProcessHit(amount, type);
@@ -105,6 +105,10 @@ public class BirbEnemy : Entity
         {
             GetComponent<EnemyAudio>().StopPlayingEvent();
             stateMachine.ChangeState(deadState);
+        }
+        else
+        {
+            stateMachine.ChangeState(playerDetectedState);
         }
     }
 
