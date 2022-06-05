@@ -10,13 +10,32 @@ public class FPS : MonoBehaviour
 
 	private float _timer;
 
-	private void Update()
+	//private void Update()
+	//{
+	//	if (Time.unscaledTime > _timer)
+	//	{
+	//		int fps = (int)(1f / Time.unscaledDeltaTime);
+	//		FPSText.text = fps.ToString();
+	//		_timer = Time.unscaledTime + _hudRefreshRate;
+	//	}
+	//}
+
+	IEnumerator Start()
 	{
-		if (Time.unscaledTime > _timer)
+		GUI.depth = 2;
+		while (true)
 		{
-			int fps = (int)(1f / Time.unscaledDeltaTime);
-			FPSText.text = fps.ToString();
-			_timer = Time.unscaledTime + _hudRefreshRate;
+			if (Time.timeScale == 1)
+			{
+				yield return new WaitForSeconds(0.1f);
+				_timer = (1 / Time.deltaTime);
+				FPSText.text = "FPS :" + (Mathf.Round(_timer));
+			}
+			else
+			{
+				FPSText.text = "Pause";
+			}
+			yield return new WaitForSeconds(0.5f);
 		}
 	}
 }
