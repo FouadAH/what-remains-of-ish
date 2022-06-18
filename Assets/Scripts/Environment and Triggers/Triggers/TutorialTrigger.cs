@@ -34,6 +34,7 @@ public class TutorialTrigger : MonoBehaviour
                 prompt.ResetTrigger("PopIn");
                 prompt.SetTrigger("PopOut");
                 tutorialManager.DisplayTutorial(tutorialType);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Tips", GetComponent<Transform>().position);
             }
         }
     }

@@ -16,6 +16,7 @@ public class HintTrigger : MonoBehaviour
         {
             hasBeenActivated = true;
             UI_HUD.instance.SetTipsText(hintText);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Hints", GetComponent<Transform>().position);
         }
     }
 
