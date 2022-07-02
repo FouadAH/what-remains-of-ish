@@ -136,18 +136,12 @@ public class Lamp : MonoBehaviour, IDamagable
             breakEffectInstance.Play();
 
             gameObject.SetActive(false);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lamp Break", GetComponent<Transform>().position);
         }
     }
     public static bool IsInLayerMask(int layer, LayerMask layermask)
     {
         return layermask == (layermask | (1 << layer));
-    }
-
-
-    private void OnDisable()
-    {
-        //breakEffect.Play();
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Lamp Break", GetComponent<Transform>().position);
     }
 
     public void ProcessStunDamage(int amount, float stunDamageMod = 1)

@@ -9,9 +9,14 @@ public class Vase : BreakableObject
 
     public GameObject coinPrefab;
 
-    private void OnDisable()
+    private void Start()
     {
-        float random = Random.value*100;
+        OnBreak += Vase_OnBreak;
+    }
+
+    private void Vase_OnBreak()
+    {
+        float random = Random.value * 100;
         if (random <= coinDropChance)
         {
             DestroyedCoinSpawner();
