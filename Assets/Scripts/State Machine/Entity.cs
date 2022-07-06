@@ -338,9 +338,12 @@ public class Entity : Savable, IDamagable
             }
         }
 
-        if (Health <= 10 && !NearDeathEffect.isPlaying)
+        if (NearDeathEffect != null)
         {
-            NearDeathEffect.Play();
+            if (Health <= 10 && !NearDeathEffect.isPlaying)
+            {
+                NearDeathEffect.Play();
+            }
         }
 
         if (Health <= 0 && !isDead)
