@@ -12,7 +12,7 @@ public class ColouredFlash : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Material originalMaterial;
-    private Color originalColor;
+    private Color originalColor = Color.white;
 
     private Coroutine flashRoutine;
 

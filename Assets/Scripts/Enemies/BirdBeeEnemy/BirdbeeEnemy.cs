@@ -141,6 +141,12 @@ public class BirdbeeEnemy : Entity
     public override void LoadDefaultData()
     {
         base.LoadDefaultData();
+
+        flyState = new BirdbeeEnemy_FlyState(this, stateMachine, "move", flyStateData, this);
+        playerDetectedState = new BirdbeeEnemy_PlayerDetectedState(this, stateMachine, "detected", playerDetectedData, this);
+        attackState = new BirdbeeEnemy_AttackState(this, stateMachine, "attack", attackDetectionPosition.transform, attackStateData, this);
+        deadState = new BirdbeeEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
+
         stateMachine.Initialize(flyState);
     }
 

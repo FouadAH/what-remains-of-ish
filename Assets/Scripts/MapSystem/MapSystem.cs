@@ -9,6 +9,7 @@ public class MapSystem : MonoBehaviour
     public RectTransform playerIcon;
     public PlayerConfig initialPlayerData;
     public RectTransform mapContent;
+    public ScrollRect scrollRect;
 
     GameObject WorldObject;
     Vector3 initialPos;
@@ -49,8 +50,18 @@ public class MapSystem : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    public void OpenMap()
     {
-        mapContent.anchoredPosition = playerIcon.anchoredPosition;
+        Debug.Log("Opened Map");
+        SnapTo(playerIcon);
+    }
+
+    public void SnapTo(RectTransform target)
+    {
+        Canvas.ForceUpdateCanvases();
+
+        mapContent.anchoredPosition =
+                (Vector2)scrollRect.transform.InverseTransformPoint(mapContent.position)
+                - (Vector2)scrollRect.transform.InverseTransformPoint(target.position);
     }
 }

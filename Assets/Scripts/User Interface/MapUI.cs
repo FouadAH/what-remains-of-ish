@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class MapUI : MonoBehaviour
 {
     public GameObject mapUI;
+    public MapSystem mapSystem;
 
     PlayerInputMaster inputActions;
 
@@ -33,6 +34,7 @@ public class MapUI : MonoBehaviour
     public void OpenMap()
     {
         mapUI.SetActive(true);
+        mapSystem.OpenMap();
     }
 
     public void CloseMap()

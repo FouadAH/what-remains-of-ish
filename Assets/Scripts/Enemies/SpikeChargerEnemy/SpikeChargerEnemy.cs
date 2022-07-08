@@ -84,6 +84,15 @@ public class SpikeChargerEnemy : Entity, IAttacker
     public override void LoadDefaultData()
     {
         base.LoadDefaultData();
+
+        MoveState = new SpikeCharger_MoveState(this, stateMachine, "move", moveStateData, this);
+        IdleState = new SpikeCharger_IdleState(this, stateMachine, "idle", idleStateData, this);
+        ChargeState = new SpikeCharger_ChargeState(this, stateMachine, "charge", chargeStateData, this);
+        StunState = new SpikeCharger_StunState(this, stateMachine, "stun", stunStateData, this);
+        DeadState = new SpikeCharger_DeadState(this, stateMachine, "idle", deadStateData, this);
+        PlayerDetectedState = new SpikeCharger_PlayerDetectedState(this, stateMachine, "playerDetected", transform, this);
+
+        stateMachine.Initialize(MoveState);
     }
 
     public void KnockbackOnHit(int amount, float dirX, float dirY)
