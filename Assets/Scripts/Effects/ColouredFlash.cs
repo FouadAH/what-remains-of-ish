@@ -34,6 +34,26 @@ public class ColouredFlash : MonoBehaviour
         flashRoutine = StartCoroutine(FlashRoutine(color));
     }
 
+    public void ResetMaterial()
+    {
+        if(spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        if (originalMaterial != null)
+        {
+            spriteRenderer.material = originalMaterial;
+        }
+
+        if (originalColor != null)
+        {
+            spriteRenderer.color = originalColor;
+        }
+
+        flashRoutine = null;
+    }
+
     private IEnumerator FlashRoutine(Color color)
     {
         spriteRenderer.material = flashMaterial;

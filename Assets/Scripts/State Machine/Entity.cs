@@ -36,6 +36,8 @@ public class Entity : Savable, IDamagable
     private float currentStunResistance;
     private float lastDamageTime;
 
+    protected Vector2 spawnPoint;
+
     private Vector2 velocityWorkspace;
 
     protected bool isStunned;
@@ -80,6 +82,8 @@ public class Entity : Savable, IDamagable
 
     public override void Awake()
     {
+        spawnPoint = transform.position;
+
         if (shouldSaveState)
             base.Awake();
     }
@@ -439,12 +443,13 @@ public class Entity : Savable, IDamagable
 
     public override void LoadDefaultData()
     {
+        Debug.Log("loading default entity state");
         entitySavedData.isDead = false;
         isDead = false;
         isStunned = false;
-
-        gameObject.SetActive(true);
-        damageBox.gameObject.SetActive(true);
+        isHittable = true;
+        canMove = true;
+        
 
         //facingDirection = 1;
         MaxHealth = (int)entityData.maxHealth;
@@ -460,8 +465,26 @@ public class Entity : Savable, IDamagable
         colouredFlash = GetComponent<ColouredFlash>();
         impulseListener = GetComponent<CinemachineImpulseSource>();
 
+        ResetAnimatorParamaters();
+        colouredFlash.ResetMaterial();
+
         if (stateMachine == null)
+        {
             stateMachine = new FiniteStateMachine();
+        }
+
+        damageBox.gameObject.SetActive(true);
+        velocityWorkspace = Vector2.zero;
+        transform.position = spawnPoint;
+        gameObject.SetActive(true);
+    }
+
+    void ResetAnimatorParamaters()
+    {
+        foreach (AnimatorControllerParameter param in anim.parameters)
+        {
+            anim.SetBool(param.name, false);
+        }
     }
 
     public override void LoadData(string data, string version)
@@ -473,7 +496,10 @@ public class Entity : Savable, IDamagable
         if (entitySavedData.isDead)
         {
             if (gameObject != null)
+            {
                 gameObject.SetActive(false);
+                colouredFlash.ResetMaterial();
+            }
         }
         else
         {

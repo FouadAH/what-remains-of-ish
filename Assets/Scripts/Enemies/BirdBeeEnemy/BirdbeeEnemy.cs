@@ -141,6 +141,7 @@ public class BirdbeeEnemy : Entity
     public override void LoadDefaultData()
     {
         base.LoadDefaultData();
+        stateMachine.Initialize(flyState);
     }
 
     public override void OnDrawGizmos()

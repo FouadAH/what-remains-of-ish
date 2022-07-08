@@ -50,5 +50,6 @@ public class BasicMeleeEnemy_StunState : StunState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        entity.SetVelocity(0);
     }
 }

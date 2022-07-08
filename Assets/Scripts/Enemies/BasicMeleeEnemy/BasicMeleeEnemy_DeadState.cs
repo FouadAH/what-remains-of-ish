@@ -34,6 +34,7 @@ public class BasicMeleeEnemy_DeadState : DeadState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        Debug.Log("Dead state PU");
         entity.SetVelocity(0);
     }
 }

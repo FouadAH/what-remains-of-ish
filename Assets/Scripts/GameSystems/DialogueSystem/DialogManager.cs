@@ -162,7 +162,6 @@ public class DialogManager : MonoBehaviour
         typeSentenceRoutine = StartCoroutine(TypeSentence(currentSentence));
     }
 
-
     IEnumerator TypeSentence(string sentence)
     {
         isTyping = true;

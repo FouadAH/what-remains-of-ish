@@ -9,6 +9,7 @@ public class DialogTrigger : Savable
     protected Canvas promptCanvas;
 
     int interactTime = 0;
+    public string promptText = "Talk";
     public List<DialogueNodeSO> dialogs;
     public DialogueData dialogueData;
     public struct DialogueData
@@ -27,6 +28,7 @@ public class DialogTrigger : Savable
     public void TriggerDialogue()
     {
         dialogueManager.StartDialogue(dialogs[interactTime].dialog, GetType());
+
 
         if (interactTime < dialogs.Count - 1)
         {
@@ -48,7 +50,7 @@ public class DialogTrigger : Savable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        promptCanvas.GetComponentInChildren<TMPro.TMP_Text>().text = "Talk";
+        promptCanvas.GetComponentInChildren<TMPro.TMP_Text>().text = promptText;
 
         if (collision.GetComponent<Player>())
         {

@@ -102,8 +102,10 @@ public class TimelinePlayer : Savable
             else
                 player_Input = GameManager.instance.player.GetComponent<Player_Input>();
 
+#if !UNITY_EDITOR
             if (playOnStart && !timelineData.hasPlayed)
                 StartTimeline();
+#endif
         }
         else
         {

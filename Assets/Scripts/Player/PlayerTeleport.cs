@@ -175,8 +175,8 @@ public class PlayerTeleport : MonoBehaviour
             float boomerangDistanceToWallDown = Mathf.Abs(boomerangPos.y - hitDown.point.y);
             if (boomerangDistanceToWallDown < playerColliderSizeY)
             {
-                teleportPosition.y += Mathf.Abs(playerColliderSizeY - boomerangDistanceToWallDown);
-                //Debug.Log("Distance To Wall Down: " + boomerangDistanceToWallDown + " Offset by: " + Mathf.Abs(playerColliderSizeY - boomerangDistanceToWallDown));
+                teleportPosition.y += Mathf.Abs(playerColliderSizeY - boomerangDistanceToWallDown) + 1;
+                Debug.Log("Distance To Wall Down: " + boomerangDistanceToWallDown + " Offset by: " + Mathf.Abs(playerColliderSizeY - boomerangDistanceToWallDown));
             }
         }
 
