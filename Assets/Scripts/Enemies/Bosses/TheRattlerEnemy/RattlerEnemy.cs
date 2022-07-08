@@ -112,7 +112,7 @@ public class RattlerEnemy : Entity
 
     public override void ProcessHit(int amount, DamageType type)
     {
-        base.ProcessHit(amount, DamageType.Melee);
+        base.ProcessHit(amount, type);
 
         if (isDead && stateMachine.currentState != deadState)
         {
@@ -132,6 +132,16 @@ public class RattlerEnemy : Entity
     public void SpitAttack2()
     {
         projectileAttack_2.RaiseOnFireEvent();
+    }
+
+    public void SetIsKinematic()
+    {
+        rb.isKinematic = true;
+    }
+
+    public void SetIsDynamic()
+    {
+        rb.isKinematic = false;
     }
 
     public override void OnDestroy()

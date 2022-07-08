@@ -60,18 +60,21 @@ public class DialogTrigger : Savable
 
     public virtual void OnTriggerStay2D(Collider2D collision)
     {
-        if (Input.GetButtonDown("Interact"))
+        if (collision.GetComponent<Player>())
         {
-            Interact();
-        }
+            if (Input.GetButtonDown("Interact"))
+            {
+                Interact();
+            }
 
-        if (!dialogueManager.dialogueIsActive)
-        {
-            DisplayPrompt();
-        }
-        else
-        {
-            RemovePrompt();
+            if (!dialogueManager.dialogueIsActive)
+            {
+                DisplayPrompt();
+            }
+            else
+            {
+                RemovePrompt();
+            }
         }
     }
 

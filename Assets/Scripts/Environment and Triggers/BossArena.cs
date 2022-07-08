@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class BossArena : MonoBehaviour, ISaveable
 {
@@ -12,7 +13,7 @@ public class BossArena : MonoBehaviour, ISaveable
     public Canvas bossHealthCanvas;
     bool hasBeenActivated;  
     public BossArenaData arenaData;
-
+    public PlayableDirector playableDirector;
     //[FMODUnity.EventRef] public string bossThemeMusic;
 
     public struct BossArenaData
@@ -56,7 +57,8 @@ public class BossArena : MonoBehaviour, ISaveable
             door.SetState(false);
         }
 
-        bossEntity.gameObject.SetActive(true);
+        //bossEntity.gameObject.SetActive(true);
+        playableDirector.Play();
         bossAreaCamera.gameObject.SetActive(true);
         bossAreaCamera.Follow = GameManager.instance.player.transform;
         bossAreaCamera.LookAt = GameManager.instance.player.transform;
