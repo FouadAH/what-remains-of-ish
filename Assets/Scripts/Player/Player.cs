@@ -414,7 +414,7 @@ public class Player : MonoBehaviour, IAttacker{
 
     void Look()
     {
-        if(Mathf.Abs(playerMovement.Velocity.x) > lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) > lookVelocityTreshhold.y)
+        if((Mathf.Abs(playerMovement.Velocity.x) > lookVelocityTreshhold.x && Mathf.Abs(playerMovement.Velocity.y) > lookVelocityTreshhold.y))
         {
             cameraOffsetTarget = 0f;
         }
@@ -432,6 +432,7 @@ public class Player : MonoBehaviour, IAttacker{
             {
                 cameraOffsetTarget = 0;
             }
+            
         }
 
         cameraOffset.m_Offset.y = Mathf.Lerp(cameraOffset.m_Offset.y, cameraOffsetTarget, 0.1f);

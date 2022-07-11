@@ -10,6 +10,8 @@ public class Player_Input : MonoBehaviour
     public Vector2 directionalInput;
     public Vector2 rightStickInput;
     public Vector2 leftStickInputRaw;
+    public Vector2 rightStickInputRaw;
+
 
     public bool jumping { get; set; }
     public bool attacking { get; set; }
@@ -142,13 +144,13 @@ public class Player_Input : MonoBehaviour
 
     private void PauseMenu_OnPauseEnd()
     {
-        if(!DialogManager.instance.dialogueIsActive)
+        if(!DialogManager.instance.dialogueIsActive && !CutsceneManager.instance.isCutscenePlaying)
             inputActions.Player.Enable();
     }
 
     private void PauseMenu_OnPauseStart()
     {
-        if (!DialogManager.instance.dialogueIsActive)
+        if (!DialogManager.instance.dialogueIsActive && !CutsceneManager.instance.isCutscenePlaying)
             inputActions.Player.Disable();
     }
 
@@ -226,7 +228,7 @@ public class Player_Input : MonoBehaviour
             {
                 if (directionalInput == Vector2.zero)
                 {
-                    freeAimMode = true;
+                    //freeAimMode = true;
                 }
             }
             //else if (!aiming)
@@ -272,6 +274,7 @@ public class Player_Input : MonoBehaviour
         }
 
         leftStickInputRaw = inputActions.Player.Move.ReadValue<Vector2>();
+        rightStickInputRaw = inputActions.Player.Look.ReadValue<Vector2>();
 
         if (!freeAimMode)
         {
@@ -288,7 +291,7 @@ public class Player_Input : MonoBehaviour
             directionalInput = new Vector2(Mathf.Round(leftStickInput.x), Mathf.Round(leftStickInput.y));
         }
 
-        rightStickInput = inputActions.Player.Look.ReadValue<Vector2>();
+        rightStickInput = inputActions.Player.CameraLook.ReadValue<Vector2>();
 
         if (rightStickInput.magnitude < inputDeadZone)
         {

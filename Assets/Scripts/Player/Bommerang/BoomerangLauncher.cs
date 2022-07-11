@@ -211,21 +211,38 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         }
     }
 
+    void CalculateAngle(Vector2 analoguStickInput)
+    {
+        analoguStickInput = analoguStickInput.normalized * ((analoguStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
+        float analogAngle = Mathf.Atan2(analoguStickInput.x * -1, analoguStickInput.y) * Mathf.Rad2Deg;
+        digitalAngle = Mathf.SmoothDampAngle(digitalAngle, analogAngle, ref currentAngleVelocity, aimSnapTime);
+        transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
+    }
+
     void AimingLogic()
     {
         if (playerInput.controllerConnected)
         {
             Vector2 leftStickInput = playerInput.leftStickInputRaw;
-            if (leftStickInput.magnitude < inputDeadZone)
+            Vector2 rightStickInput = playerInput.rightStickInputRaw;
+
+            if (rightStickInput.magnitude < inputDeadZone)
             {
-                leftStickInput = Vector2.zero;
+                rightStickInput = Vector2.zero;
+
+                //if (leftStickInput.magnitude < inputDeadZone)
+                //{
+                //    leftStickInput = Vector2.zero;
+                //}
+                //else
+                //{
+                //    CalculateAngle(leftStickInput);
+                //}
+
             }
             else
             {
-                leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
-                float analogAngle = Mathf.Atan2(leftStickInput.x * -1, leftStickInput.y) * Mathf.Rad2Deg;
-                digitalAngle = Mathf.SmoothDampAngle(digitalAngle, analogAngle, ref currentAngleVelocity, aimSnapTime);
-                transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
+                CalculateAngle(rightStickInput);
             }
         }
         else

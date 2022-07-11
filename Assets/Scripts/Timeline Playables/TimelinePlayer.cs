@@ -55,11 +55,13 @@ public class TimelinePlayer : Savable
 
     private void PlayableDirector_stopped(PlayableDirector obj)
     {
+        CutsceneManager.instance.isCutscenePlaying = false;
         player_Input.EnablePlayerInput();
     }
 
     private void PlayableDirector_played(PlayableDirector obj)
     {
+        CutsceneManager.instance.isCutscenePlaying = true;
         player_Input.DisablePlayerInput();
     }
 
