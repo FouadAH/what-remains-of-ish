@@ -108,11 +108,13 @@ public class PauseMenu : MonoBehaviour
             GameManager.instance.playerData.hasSprintAbility = true;
             GameManager.instance.playerData.hasWallJumpAbility = true;
             GameManager.instance.playerData.hasDoubleJumpAbility = true;
+            GameManager.instance.playerData.hasBoomerangAbility = true;
+            GameManager.instance.playerData.hasAirDashAbility = true;
 
         }
         else
         {
-            GameManager.instance.playerData.hasDashAbility = false;
+            GameManager.instance.playerData.hasAirDashAbility = false;
             GameManager.instance.playerData.hasTeleportAbility = false;
             GameManager.instance.playerData.hasSprintAbility = false;
             GameManager.instance.playerData.hasWallJumpAbility = false;
@@ -175,7 +177,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         controlsMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
+        eventSystem.SetSelectedGameObject(controlsMenu.GetComponentInChildren<Button>().gameObject);
     }
     public void ControlsMenuBack()
     {
@@ -200,7 +202,7 @@ public class PauseMenu : MonoBehaviour
     {
         gameOptions.SetActive(true);
         optionMenu.SetActive(false);
-        eventSystem.SetSelectedGameObject(videoOptions.GetComponentInChildren<Button>().gameObject);
+        eventSystem.SetSelectedGameObject(gameOptions.GetComponentInChildren<Toggle>().gameObject);
     }
     public void GameMenuBack()
     {

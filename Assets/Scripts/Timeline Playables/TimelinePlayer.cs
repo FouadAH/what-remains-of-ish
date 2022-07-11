@@ -29,23 +29,28 @@ public class TimelinePlayer : Savable
     {
         base.Start();
 
-//#if UNITY_EDITOR
+        if (GameManager.instance.player == null)
+            player_Input = FindObjectOfType<Player_Input>();
+        else
+            player_Input = GameManager.instance.player.GetComponent<Player_Input>();
 
-//        if (!timelineData.hasPlayed)
-//        {
-//            if (GameManager.instance.player == null)
-//                player_Input = FindObjectOfType<Player_Input>();
-//            else
-//                player_Input = GameManager.instance.player.GetComponent<Player_Input>();
+        //#if UNITY_EDITOR
 
-//            if (playOnStart && !timelineData.hasPlayed)
-//                StartTimeline();
-//        }
-//        else
-//        {
-//            cutsceneCAM.enabled = false;
-//        }
-//#endif
+        //        if (!timelineData.hasPlayed)
+        //        {
+        //            if (GameManager.instance.player == null)
+        //                player_Input = FindObjectOfType<Player_Input>();
+        //            else
+        //                player_Input = GameManager.instance.player.GetComponent<Player_Input>();
+
+        //            if (playOnStart && !timelineData.hasPlayed)
+        //                StartTimeline();
+        //        }
+        //        else
+        //        {
+        //            cutsceneCAM.enabled = false;
+        //        }
+        //#endif
     }
 
     private void PlayableDirector_stopped(PlayableDirector obj)

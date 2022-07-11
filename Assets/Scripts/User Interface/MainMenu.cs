@@ -130,7 +130,7 @@ public class MainMenu : MonoBehaviour
     {
         gameOptions.SetActive(true);
         optionMenu.SetActive(false);
-        eventSystem.SetSelectedGameObject(videoOptions.GetComponentInChildren<Button>().gameObject);
+        eventSystem.SetSelectedGameObject(gameOptions.GetComponentInChildren<Toggle>().gameObject);
     }
     public void GameMenuBack()
     {
@@ -143,7 +143,7 @@ public class MainMenu : MonoBehaviour
     {
         videoOptions.SetActive(true);
         optionMenu.SetActive(false);
-        eventSystem.SetSelectedGameObject(videoOptions.GetComponentInChildren<Button>().gameObject);
+        eventSystem.SetSelectedGameObject(videoOptions.GetComponentInChildren<Toggle>().gameObject);
     }
     public void VideoMenuBack()
     {
@@ -155,7 +155,7 @@ public class MainMenu : MonoBehaviour
     {
         audioOptions.SetActive(true);
         optionMenu.SetActive(false);
-        eventSystem.SetSelectedGameObject(audioOptions.GetComponentInChildren<Button>().gameObject);
+        eventSystem.SetSelectedGameObject(audioOptions.GetComponentInChildren<Slider>().gameObject);
     }
     public void AudioMenuBack()
     {

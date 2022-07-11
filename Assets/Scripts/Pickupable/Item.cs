@@ -18,7 +18,15 @@ public class Item : MonoBehaviour
 
     public virtual void Interact()
     {
-        itemSO.ReceiveItem();
+        if (itemSO != null)
+        {
+            itemSO.ReceiveItem();
+        }
+        else
+        {
+            Debug.LogWarning("Empty Item. Please assign an item in the inspector.");
+        }
+
         pickUpPaticles.Play();
 
         itemCanvas.SetActive(false);

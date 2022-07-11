@@ -40,6 +40,8 @@ public class Player_Input : MonoBehaviour
 
     public event Action OnDialogueNext = delegate { };
 
+    public event Action OnInputDeviceChanged = delegate { };
+
     public bool controllerConnected = false;
 
     float inputDeadZone = 0.19f;
@@ -187,6 +189,17 @@ public class Player_Input : MonoBehaviour
                 Debug.Log($"Device {device} was removed");
                 break;
         }
+
+        if (Gamepad.all.Count > 0)
+        {
+            controllerConnected = true;
+        }
+        else
+        {
+            controllerConnected = false;
+        }
+
+        OnInputDeviceChanged();
     }
 
     private void Teleport_performed(InputAction.CallbackContext obj)

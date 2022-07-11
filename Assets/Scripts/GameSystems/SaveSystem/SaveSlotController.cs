@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class SaveSlotController : MonoBehaviour
 {
@@ -61,6 +62,8 @@ public class SaveSlotController : MonoBehaviour
 
     public void DeletePrompt(SaveSlot saveSlot, SaveFileSO saveFile)
     {
+        EventSystem.current.SetSelectedGameObject(deletePrompt.GetComponentInChildren<Button>().gameObject);
+
         currentSaveSlot = saveSlot;
         currentSaveFile = saveFile;
         deletePrompt.enabled = true;
@@ -73,11 +76,16 @@ public class SaveSlotController : MonoBehaviour
 
         SaveManager.instance.DeleteSaveFile(currentSaveSlot, currentSaveFile);
         deletePrompt.enabled = false;
+
+        EventSystem.current.SetSelectedGameObject(GetComponentInChildren<Button>().gameObject);
+
     }
 
     public void OnClickNo()
     {
         deletePrompt.enabled = false;
+
+        EventSystem.current.SetSelectedGameObject(GetComponentInChildren<Button>().gameObject);
     }
 
 }

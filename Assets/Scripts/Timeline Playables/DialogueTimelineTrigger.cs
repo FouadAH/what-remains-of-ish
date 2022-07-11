@@ -7,7 +7,7 @@ public class DialogueTimelineTrigger : Savable
 {
     PlayableDirector playableDirector;
     Player_Input player_Input;
-
+    bool playOnStart;
     protected Animator promptAnimator;
     protected DialogManager dialogueManager;
     protected Canvas promptCanvas;
