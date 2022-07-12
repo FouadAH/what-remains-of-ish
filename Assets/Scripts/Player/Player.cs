@@ -86,6 +86,9 @@ public class Player : MonoBehaviour, IAttacker{
     public float lowHealthIntensity;
     float initalIntensity;
 
+    [Header("Player Game Events")]
+    public GameEvent playerRespawn;
+
     [Header("Debug Settings")]
     public bool playerDebugMode;
     public TrailRenderer playerPath;
@@ -292,6 +295,7 @@ public class Player : MonoBehaviour, IAttacker{
 
         AudioManager.instance.PlayAreaTheme();
         GameManager.instance.Respawn();
+        playerRespawn.Raise();
 
         anim.SetBool("isDead", false);
         anim.SetLayerWeight(1, 1f);

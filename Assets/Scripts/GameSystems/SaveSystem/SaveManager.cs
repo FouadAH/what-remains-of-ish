@@ -84,6 +84,7 @@ public class SaveManager : MonoBehaviour
             saveFileSO.path = filePath;
             saveFileSO.creationTime = Directory.GetCreationTime(savePath).ToShortDateString();
             saveFileSO.gameData = gameData;
+            saveFileSO.slotIndex = int.Parse(Path.GetFileName(filePath).Split(".")[0].Split("_")[1]);
 
             saveFiles.Add(saveFileSO);
         }
@@ -229,7 +230,7 @@ public class SaveManager : MonoBehaviour
 
         string data = JsonConvert.SerializeObject(currentSaveFile.gameData);
         Debug.Log("Data: " + data);
-        string path = currentSaveFile.path;
+        string path = currentSaveFile.path + "_" + currentSaveFile.slotIndex;
         if (!File.Exists(path))
         {
             StreamWriter sw = File.CreateText(path);

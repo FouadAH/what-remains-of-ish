@@ -6,36 +6,40 @@ using TMPro;
 public class FPS : MonoBehaviour
 {
 	public TMPro.TMP_Text FPSText;
-	[SerializeField] private float _hudRefreshRate = 1f;
 
-	private float _timer;
+	[SerializeField, Range(0.1f, 2f)]
+	float sampleDuration = 1f;
 
-	//private void Update()
-	//{
-	//	if (Time.unscaledTime > _timer)
-	//	{
-	//		int fps = (int)(1f / Time.unscaledDeltaTime);
-	//		FPSText.text = fps.ToString();
-	//		_timer = Time.unscaledTime + _hudRefreshRate;
-	//	}
-	//}
+	int frames;
+	float duration, bestDuration = float.MaxValue, worstDuration;
 
-	IEnumerator Start()
+	void Update()
 	{
-		GUI.depth = 2;
-		while (true)
+		float frameDuration = Time.unscaledDeltaTime;
+		frames += 1;
+		duration += frameDuration;
+
+		if (frameDuration < bestDuration)
 		{
-			if (Time.timeScale == 1)
-			{
-				yield return new WaitForSeconds(0.1f);
-				_timer = (1 / Time.deltaTime);
-				FPSText.text = "FPS :" + (Mathf.Round(_timer));
-			}
-			else
-			{
-				FPSText.text = "Pause";
-			}
-			yield return new WaitForSeconds(0.5f);
+			bestDuration = frameDuration;
+		}
+		if (frameDuration > worstDuration)
+		{
+			worstDuration = frameDuration;
+		}
+
+		if (duration >= sampleDuration)
+		{
+			FPSText.SetText(
+				"FPS\n{0:0}\n{1:0}\n{2:0}",
+				1f / bestDuration,
+				frames / duration,
+				1f / worstDuration
+			);
+			frames = 0;
+			duration = 0f;
+			bestDuration = float.MaxValue;
+			worstDuration = 0f;
 		}
 	}
 }

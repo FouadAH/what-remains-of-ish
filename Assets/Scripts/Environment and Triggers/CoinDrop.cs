@@ -47,7 +47,6 @@ public class CoinDrop : Savable, IDamagable
         {
             iFrames = iFrameTime;
             invinsible = true;
-            Debug.Log("process hit");
             Health--;
             if (Health == 0)
             {

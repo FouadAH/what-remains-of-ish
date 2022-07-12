@@ -194,7 +194,7 @@ public class DialogManager : MonoBehaviour
         animator.SetBool("isOpen", false);
     }
 
-    void EndDialogue()
+    public void EndDialogue()
     {
         inputLock = true;
         dialogueIsActive = false;

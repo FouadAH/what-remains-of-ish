@@ -110,7 +110,6 @@ public class PauseMenu : MonoBehaviour
             GameManager.instance.playerData.hasDoubleJumpAbility = true;
             GameManager.instance.playerData.hasBoomerangAbility = true;
             GameManager.instance.playerData.hasAirDashAbility = true;
-
         }
         else
         {
@@ -235,6 +234,12 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         GameManager.instance.isPaused = false;
+
+        if (DialogManager.instance.dialogueIsActive)
+        {
+            DialogManager.instance.EndDialogue();
+        }
+
         StartCoroutine(GameManager.instance.LoadMainMenu());
     }
 

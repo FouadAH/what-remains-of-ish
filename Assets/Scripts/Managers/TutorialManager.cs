@@ -53,7 +53,6 @@ public class TutorialManager : MonoBehaviour
         inputLock = true;
         yield return new WaitForSeconds(0.05f);
         inputLock = false;
-        Debug.Log(inputLock);
     }
 
     public void DisplayTutorial(TutorialType tutorialType)

@@ -107,7 +107,7 @@ public class UI_HUD : MonoBehaviour
             if (flask.fillAmount < 100)
             {
                 refillMod = (GameManager.instance.equippedBrooch_03) ? refillModExtra : refillModNormal;
-                Debug.Log("Reffiling flask: " + amount * refillMod);
+                //Debug.Log("Reffiling flask: " + amount * refillMod);
                 flask.Refill(amount * refillMod);
                 break;
             }

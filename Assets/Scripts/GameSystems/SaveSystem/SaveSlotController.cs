@@ -26,6 +26,7 @@ public class SaveSlotController : MonoBehaviour
         for (int i = 0; i < saveFiles.Count; i++)
         {
             saveSlots[saveFiles[i].slotIndex].saveFile = saveFiles[i];
+            Debug.Log("Save file assigned to Slot with ID: " + saveFiles[i].slotIndex);
         }
 
         //Enabling the save slot displays

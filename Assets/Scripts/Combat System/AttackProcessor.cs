@@ -83,7 +83,7 @@ public class AttackProcessor
     /// <param name="amount">Damage amount</param>
     private void ProcessAttack(IHittable target, int amount, DamageType type)
     {
-        Debug.Log(type.ToString());
+        //Debug.Log(type.ToString());
 
         target.ProcessHit(amount, type);
     }

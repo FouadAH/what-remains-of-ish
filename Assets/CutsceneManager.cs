@@ -5,7 +5,7 @@ using UnityEngine;
 public class CutsceneManager : MonoBehaviour
 {
     public static CutsceneManager instance;
-    public bool isCutscenePlaying = false;
+    [HideInInspector] public bool isCutscenePlaying = false;
 
     void Awake()
     {
