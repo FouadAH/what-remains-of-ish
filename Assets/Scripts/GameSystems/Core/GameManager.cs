@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
     Vector3 newPlayerPos;
 
     [Header("Game Events")]
+    public GameEvent playerRespawn;
     public GameEvent loadNewLevelEvent;
     public GameEvent loadDataEvent;
     public GameEvent saveDataEvent;
@@ -200,6 +201,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1f);
 
+        playerRespawn.Raise();
         playerCamera.transform.position = player.transform.position;
         player.transform.position = new Vector2( playerData.lastCheckpointPos.X, playerData.lastCheckpointPos.Y );
 

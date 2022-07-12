@@ -26,7 +26,7 @@ public class BreakableWall : MonoBehaviour, IHittable
 
     private void Start()
     {
-        Health = 3;
+        Health = 1;
 
         shadowAnimator = GetComponentInChildren<Animator>();
 

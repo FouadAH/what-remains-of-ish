@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IAttacker{
     Animator anim;
     GameManager gm;
     [SerializeField] private PlayerMovementSettings playerSettings;
+    public PlayerDataSO playerData;
 
     public PlayerMovement playerMovement { get; private set; }
     Player_Input playerInput;
@@ -60,8 +61,6 @@ public class Player : MonoBehaviour, IAttacker{
     float cameraOffsetTarget = 0f;
     Vector2 lookVelocityTreshhold = new Vector2(0.2f, 0.2f);
 
-    public PlayerDataSO playerData;
-
     [Header("Effects")]
     public ParticleSystem dustParticles;
     public ParticleSystem damageParticle;
@@ -85,9 +84,6 @@ public class Player : MonoBehaviour, IAttacker{
     private Vignette vignette;
     public float lowHealthIntensity;
     float initalIntensity;
-
-    [Header("Player Game Events")]
-    public GameEvent playerRespawn;
 
     [Header("Debug Settings")]
     public bool playerDebugMode;
@@ -295,7 +291,6 @@ public class Player : MonoBehaviour, IAttacker{
 
         AudioManager.instance.PlayAreaTheme();
         GameManager.instance.Respawn();
-        playerRespawn.Raise();
 
         anim.SetBool("isDead", false);
         anim.SetLayerWeight(1, 1f);
