@@ -27,7 +27,7 @@ public class HedgehogCorrutedEnemy_IdleState : IdleState
 
         if (entity.CheckPlayerInMaxAgroRange() || entity.CheckPlayerInMinAgroRange())
         {
-            stateMachine.ChangeState(enemy.playerDetectedState);
+            stateMachine.ChangeState(enemy.shootState);
         }
         else if (isIdleTimeOver)
         {

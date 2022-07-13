@@ -51,7 +51,7 @@ public class HedgehogCorruptedEnemy_MoveState : MoveState
 
         if (entity.CheckPlayerInMaxAgroRange() || entity.CheckPlayerInMinAgroRange())
         {
-            stateMachine.ChangeState(enemy.playerDetectedState);
+            stateMachine.ChangeState(enemy.shootState);
         }
 
         if (enemy.isVertical)
