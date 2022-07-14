@@ -116,7 +116,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
 
             if (enemyHitSFX != null)
             {
-                FMODUnity.RuntimeManager.PlayOneShot(enemyHitSFX);
+                FMODUnity.RuntimeManager.PlayOneShotAttached(enemyHitSFX, gameObject);
             }
         }
         else if(IsInLayerMask(collider.gameObject.layer, spikeLayer))
@@ -125,7 +125,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
 
             if (spikeHitSFX != null)
             {
-                FMODUnity.RuntimeManager.PlayOneShot(spikeHitSFX);
+                FMODUnity.RuntimeManager.PlayOneShotAttached(spikeHitSFX, gameObject);
             }
 
             //impulseListener.GenerateImpulse();
@@ -145,7 +145,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
 
             if (obstacleHitSFX != null)
             {
-                FMODUnity.RuntimeManager.PlayOneShot(obstacleHitSFX);
+                FMODUnity.RuntimeManager.PlayOneShotAttached(obstacleHitSFX, gameObject);
             }
         }
 
