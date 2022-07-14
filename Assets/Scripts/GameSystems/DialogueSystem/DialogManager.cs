@@ -11,8 +11,12 @@ public class DialogManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI speakerText;
 
+    [Header("Typing Settings")]
     public float typingSpeed;
     public float typingSpeedSkip;
+
+    [Header("SFX")]
+    [FMODUnity.EventRef] public string writingSFX;
 
     float currentTypingSpeed;
 
@@ -171,6 +175,7 @@ public class DialogManager : MonoBehaviour
         {
             sb.Append(letter);
             dialogueText.text = sb.ToString();
+            FMODUnity.RuntimeManager.PlayOneShot(writingSFX);
             yield return new WaitForSeconds(currentTypingSpeed);
         }
         isTyping = false;

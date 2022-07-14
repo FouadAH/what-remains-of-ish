@@ -16,7 +16,7 @@ MonoBehaviour:
   wallLeap: {x: 25, y: 35}
   wallSlideSpeedMax: 13
   wallStickTime: 0.2
-  timeToWallUnstick: 0.2
+  timeToWallUnstick: 0.08000003
   accelerationTimeAirborne: 0.2
   accelerationTimeGrounded: 0.15
   accelerationTimeSwing: 0
@@ -29,6 +29,7 @@ MonoBehaviour:
   maxFallSpeed: -40
   moveSpeed: 17
   dashFactor: 2.5
+  airDashFactor: 3
   iFrameTime: 0.5
   aggroRange: 0
   dashCooldown: 0.45

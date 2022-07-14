@@ -55,7 +55,7 @@ public class PlayerDash : MonoBehaviour
             StartCoroutine(DashEffect(effectTime));
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Dash", GetComponent<Transform>().position);
 
-            float dashSpeedMod = (playerMovement.isAirborne) ? 3 : playerSettings.DashSpeedModifier;
+            float dashSpeedMod = (playerMovement.isAirborne) ? playerSettings.AirDashSpeedModifier : playerSettings.DashSpeedModifier;
             if (playerInput.directionalInput.x == 0)
             {
                 velocity.x = transform.localScale.x * playerSettings.MoveSpeed * dashSpeedMod;
