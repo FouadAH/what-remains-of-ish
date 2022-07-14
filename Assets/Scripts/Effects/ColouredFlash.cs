@@ -19,6 +19,11 @@ public class ColouredFlash : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
         originalMaterial = spriteRenderer.material;
         originalColor = spriteRenderer.color;
         flashMaterial = new Material(flashMaterial);
@@ -39,6 +44,10 @@ public class ColouredFlash : MonoBehaviour
         if(spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer == null)
+            {
+                spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            }
         }
 
         if (originalMaterial != null)

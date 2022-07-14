@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Needle : MonoBehaviour
 {
-    public LayerMask hittable;
+    public LayerMask playerLayer;
     public LayerMask obstacles;
 
     public GameObject bulletEffect;
@@ -17,16 +17,15 @@ public class Needle : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(IsInLayerMask(collision.gameObject.layer, hittable))
+        if(IsInLayerMask(collision.gameObject.layer, playerLayer))
         {
-            if (canDamage)
+            if (canDamage && !collision.GetComponent<Player>().invinsible)
             {
                 Vector2 hitPos = transform.position;
                 OnRangedHit.Invoke(collision, hitPos);
+                Instantiate(bulletEffect, transform.position, Quaternion.identity);
+                Destroy(gameObject);
             }
-
-            Instantiate(bulletEffect, transform.position, Quaternion.identity);
-            Destroy(gameObject);
         }
         else if(IsInLayerMask(collision.gameObject.layer, obstacles))
         {
