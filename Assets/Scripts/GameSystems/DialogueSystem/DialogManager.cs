@@ -98,6 +98,7 @@ public class DialogManager : MonoBehaviour
                 else
                 {
                     DisplayNextSentence();
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Text Skip", GetComponent<Transform>().position);
                 }
             }
         }
@@ -219,4 +220,5 @@ public class DialogManager : MonoBehaviour
         dialogueIsActive = false;
         player_Input.EnablePlayerInput();
     }
+
 }
