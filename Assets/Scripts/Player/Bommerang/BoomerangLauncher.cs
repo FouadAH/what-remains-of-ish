@@ -91,7 +91,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public UnityEvent OnBoomerangLaunched;
     public UnityEvent OnBoomerangHit;
 
-
     private void Awake()
     {
         attackProcessor = new AttackProcessor();

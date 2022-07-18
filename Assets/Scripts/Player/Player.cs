@@ -144,7 +144,8 @@ public class Player : MonoBehaviour, IAttacker{
         volume.profile.TryGet(out vignette);
         initalIntensity = vignette.intensity.value;
         Debug.Log(initalIntensity);
-        if (playerDebugMode)
+
+        if (GameManager.instance.isInDebugMode)
         {
             playerPath.emitting = true;
         }
@@ -170,6 +171,15 @@ public class Player : MonoBehaviour, IAttacker{
             return;
 
         Look();
+
+        if (GameManager.instance.isInDebugMode)
+        {
+            if (Input.GetKey(KeyCode.X))
+            {
+                Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                transform.position = targetPos;
+            }
+        }
     }
 
     public void EmitRunParticle()

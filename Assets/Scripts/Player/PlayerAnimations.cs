@@ -39,7 +39,15 @@ public class PlayerAnimations
                 }
                 else
                 {
-                    animator.SetTrigger("Attack");
+                    //animator.SetTrigger("Attack");
+                    if (animator.GetCurrentAnimatorStateInfo(3).IsName("Attack_1"))
+                    {
+                        animator.SetBool("Attack_2", true);
+                    }
+                    else
+                    {
+                        animator.SetBool("Attack_1", true);
+                    }
                 }
             }
             else

@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
     [Header("Other")]
     public bool isFirstTimeResting = true;
     public bool hasOpenedMap = false;
+    public bool isInDebugMode = false;
 
     Vector3 newPlayerPos;
 

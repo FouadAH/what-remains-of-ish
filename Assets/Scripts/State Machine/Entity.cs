@@ -498,7 +498,11 @@ public class Entity : Savable, IDamagable
             if (gameObject != null)
             {
                 gameObject.SetActive(false);
-                colouredFlash.ResetMaterial();
+
+                if (colouredFlash != null)
+                {
+                    colouredFlash.ResetMaterial();
+                }
             }
         }
         else

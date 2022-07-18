@@ -259,6 +259,7 @@ public class Player_Input : MonoBehaviour
             nextAttackTime = Time.time + tempAttackRate;
             OnAttack();
         }
+        //OnAttack();
     }
 
 

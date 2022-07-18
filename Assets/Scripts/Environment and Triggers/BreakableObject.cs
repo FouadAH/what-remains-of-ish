@@ -36,7 +36,12 @@ public class BreakableObject : MonoBehaviour, IHittable
         if (health <= 0)
         {
             OnBreak();
-            FMODUnity.RuntimeManager.PlayOneShot(sfxName);
+
+            if (sfxName != null)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(sfxName);
+            }
+
             gameObject.SetActive(false);
         }
     }
