@@ -6,7 +6,7 @@ using UnityEngine;
 public class BreakableWall : MonoBehaviour, IHittable
 {
     public float Health { get; set; }
-
+    public float wallHitAmount = 1;
     public GameObject wall;
     public GameObject shadow;
 
@@ -26,7 +26,7 @@ public class BreakableWall : MonoBehaviour, IHittable
 
     private void Start()
     {
-        Health = 1;
+        Health = wallHitAmount;
 
         shadowAnimator = GetComponentInChildren<Animator>();
 
@@ -43,7 +43,7 @@ public class BreakableWall : MonoBehaviour, IHittable
         wallHitParticles.Play();
         WallHitSequence();
 
-        if (Health == 0)
+        if (Health <= 0)
         {
             GetComponent<Collider2D>().enabled = false;
             shadowAnimator.Play("SecretRoomReveal");
