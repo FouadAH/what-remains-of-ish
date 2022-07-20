@@ -24,6 +24,8 @@ public class CrusherTrap : MonoBehaviour
     public ParticleSystem impactHitEffect;
     public ParticleSystem impactDustEffect;
 
+    SpriteRenderer spriteRenderer;
+
     float endValueY;
     float startValueY;
 
@@ -34,9 +36,11 @@ public class CrusherTrap : MonoBehaviour
     int sequenceID;
     
     public Lever controlLever;
+    bool isVisible = false;
 
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         impulseListener = GetComponent<CinemachineImpulseSource>();
         if(controlLever != null)
         {
@@ -111,7 +115,10 @@ public class CrusherTrap : MonoBehaviour
         impactHitEffect.Play();
         impulseListener.GenerateImpulse();
 
-        //FMODUnity.RuntimeManager.PlayOneShotAttached(crusherImpactSFX, gameObject);
+        if (spriteRenderer.isVisible)
+        {
+            FMODUnity.RuntimeManager.PlayOneShotAttached(crusherImpactSFX, gameObject);
+        }
     }
 
     IEnumerator CrushSequence()
@@ -126,6 +133,15 @@ public class CrusherTrap : MonoBehaviour
         CrushX();
     }
 
+    private void OnBecameVisible()
+    {
+        isVisible = true;
+    }
+
+    private void OnBecameInvisible()
+    {
+        isVisible = false;
+    }
 
 }
 

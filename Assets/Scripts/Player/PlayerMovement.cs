@@ -133,7 +133,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (GameManager.instance.isLoading)
+        {
+            SpriteUpdate();
+            controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, -1));
+            playerAnimations.Animate();
             return;
+        }
 
         SpriteUpdate();
         controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, -1));

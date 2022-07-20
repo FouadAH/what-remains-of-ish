@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Game State")]
     public bool isLoading = false;
+    public bool canMovePlayerWhileLoading = false;
+
     public bool isRespawning = false;
     public bool isPaused = false;
 
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
     public bool isInDebugMode = false;
 
     Vector3 newPlayerPos;
+    Vector2 newPlayerVelocity;
 
     [Header("Game Events")]
     public GameEvent playerRespawn;
@@ -239,9 +242,10 @@ public class GameManager : MonoBehaviour
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath, Vector3 playerPos)
     {
         isLoading = true;
+        canMovePlayerWhileLoading = true;
         currentScenePath = levelToLoadPath;
 
-        player.GetComponent<Player>().enabled = false;
+        player.GetComponent<Player_Input>().DisablePlayerInput();
         newPlayerPos = playerPos;
 
         this.levelToLoadPath = levelToLoadPath;
@@ -268,7 +272,9 @@ public class GameManager : MonoBehaviour
         SaveManager.instance.SaveSceneData();
 
         anim.Play("Fade_Out");
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSeconds(1f);
+        canMovePlayerWhileLoading = false;
+
         if (astarPath != null)
         {
             astarPath.gameObject.SetActive(false);
@@ -301,13 +307,9 @@ public class GameManager : MonoBehaviour
                 player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
             }
 
-
-            isLoading = false;
             isRespawning = false;
 
             StartCoroutine(FadeIn());
-
-            player.GetComponent<Player>().enabled = true;
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
             playerData.currentSceneBuildIndex.Value = SceneManager.GetActiveScene().buildIndex;
@@ -347,8 +349,18 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
-        yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSeconds(0.2f);
         anim.Play("Fade_in");
+
+        yield return new WaitForSeconds(0.2f);
+
+        canMovePlayerWhileLoading = true;
+    }
+
+    public void OnFadeInDone()
+    {
+        isLoading = false;
+        player.GetComponent<Player_Input>().EnablePlayerInput();
     }
 
     private void OnDrawGizmos()

@@ -8,6 +8,33 @@ public class LoadTrigger : MonoBehaviour
     public GameObject playerPos;
     public Level level;
 
+    float loadDelay = 0.5f;
+    public bool isOnCeiling = false;
+    public float exitVelocityY = 30f;
+    public float exitVelocityX = 15f;
+
+    public AnimationCurve exitVelocityXCurve;
+
+    Collider2D loadCollider;
+    Vector2 playerVelocity;
+
+    private void Start()
+    {
+        loadCollider = GetComponent<Collider2D>();
+        StartCoroutine(LoadDelay());
+    }
+
+    IEnumerator LoadDelay()
+    {
+        loadCollider.enabled = false;
+        while(GameManager.instance.isLoading == true)
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(loadDelay);
+        loadCollider.enabled = true;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals("Player"))
@@ -18,7 +45,28 @@ public class LoadTrigger : MonoBehaviour
                 GameManager.instance.currentLevel = level;
             }
 
+            playerVelocity = collision.GetComponent<PlayerMovement>().Velocity;
+            float directionalInputX = collision.GetComponent<Player_Input>().directionalInput.x;
+
+            if (isOnCeiling)
+            {
+                playerVelocity.y = exitVelocityY;
+                if(directionalInputX < 0)
+                {
+                    playerVelocity.x = -exitVelocityX;
+                }
+                else
+                {
+                    playerVelocity.x = exitVelocityX;
+                }
+            }
+            else
+            {
+                //playerVelocity.y = 0;
+            }
+
             GameManager.instance.LoadScenePath(SceneManager.GetActiveScene().path, level.scenePath, playerPos.transform.position);
+            collision.GetComponent<PlayerMovement>().Velocity = playerVelocity;
         }
     }
 
