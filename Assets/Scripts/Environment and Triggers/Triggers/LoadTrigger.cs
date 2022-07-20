@@ -10,6 +10,10 @@ public class LoadTrigger : MonoBehaviour
 
     float loadDelay = 0.5f;
     public bool isOnCeiling = false;
+    public bool hasDefaultDirection = false;
+    public bool defaultDirectionRight = false;
+    public bool defaultDirectionLeft = false;
+
     public float exitVelocityY = 30f;
     public float exitVelocityX = 15f;
 
@@ -51,13 +55,24 @@ public class LoadTrigger : MonoBehaviour
             if (isOnCeiling)
             {
                 playerVelocity.y = exitVelocityY;
-                if(directionalInputX < 0)
-                {
-                    playerVelocity.x = -exitVelocityX;
+
+                if (!hasDefaultDirection) {
+                    if (directionalInputX < 0)
+                    {
+                        playerVelocity.x = -exitVelocityX;
+                    }
+                    else
+                    {
+                        playerVelocity.x = exitVelocityX;
+                    }
                 }
-                else
+                else if (defaultDirectionRight)
                 {
                     playerVelocity.x = exitVelocityX;
+                }
+                else if (defaultDirectionLeft)
+                {
+                    playerVelocity.x = -exitVelocityX;
                 }
             }
             else
