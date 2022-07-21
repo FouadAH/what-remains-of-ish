@@ -38,14 +38,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Animator anim;
     AstarPath astarPath;
 
-    //[Header("Player Abilities")]
-    //public bool hasBoomerang = false;
-    //public bool hasDashAbility = true;
-    //public bool hasWallJump = false;
-    //public bool hasTeleportAbility = false;
-    //public bool hasSprintAbility = false;
-    //public bool hasDoubleJump = false;x
-
     [Header("Brooches")]
 
     [Header("Brooche 01")]
@@ -242,7 +234,6 @@ public class GameManager : MonoBehaviour
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath, Vector3 playerPos)
     {
         isLoading = true;
-        canMovePlayerWhileLoading = true;
         currentScenePath = levelToLoadPath;
 
         player.GetComponent<Player_Input>().DisablePlayerInput();
@@ -273,7 +264,6 @@ public class GameManager : MonoBehaviour
 
         anim.Play("Fade_Out");
         yield return new WaitForSeconds(1f);
-        canMovePlayerWhileLoading = false;
 
         if (astarPath != null)
         {
@@ -307,6 +297,7 @@ public class GameManager : MonoBehaviour
                 player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
             }
 
+            player.GetComponent<PlayerMovement>().movePlayerLoadingState = true;
             isRespawning = false;
 
             StartCoroutine(FadeIn());
@@ -353,14 +344,12 @@ public class GameManager : MonoBehaviour
         anim.Play("Fade_in");
 
         yield return new WaitForSeconds(0.2f);
-
-        canMovePlayerWhileLoading = true;
     }
 
     public void OnFadeInDone()
     {
         isLoading = false;
-        player.GetComponent<Player_Input>().EnablePlayerInput();
+        //player.GetComponent<Player_Input>().EnablePlayerInput();
     }
 
     private void OnDrawGizmos()

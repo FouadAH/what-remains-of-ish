@@ -97,6 +97,16 @@ public class PlayerMovement : MonoBehaviour
     public bool isDead;
     public bool isPaused = false;
 
+    [Header("Scene Loading Settings")]
+    public AnimationCurve exitVelocityXCurve;
+    public AnimationCurve exitVelocityYCurve;
+
+    [HideInInspector] public float exitVelocityX;
+    [HideInInspector] public float exitVelocityY;
+
+    [HideInInspector] public bool isLoadingVertical;
+    [HideInInspector] public bool isLoadingHorizontal;
+
     private void Start()
     {
         transformToMove = transform;
@@ -130,13 +140,55 @@ public class PlayerMovement : MonoBehaviour
     }
     bool wasThouchingGround = false;
 
+    public bool movePlayerLoadingState;
+    float elapsedTime = 0f;
+    float totalTime = 0.35f;
+
     private void FixedUpdate()
     {
+        if (movePlayerLoadingState == true)
+        {
+            if (elapsedTime < totalTime)
+            {
+                Debug.Log("Scene Load Movement State. Time: " + elapsedTime);
+                elapsedTime += Time.deltaTime;
+
+                if (isLoadingHorizontal)
+                {
+                    float targetVelocityX = 15 * Mathf.Sign(exitVelocityX);
+                    float smoothTime = (controller.collitions.below ? playerSettings.AccelerationTimeGrounded : playerSettings.AccelerationTimeAirborne);
+
+                    velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
+                    velocity.y += gravity * Time.deltaTime;
+
+                    HandleMaxSlope();
+                }
+                else if (isLoadingVertical)
+                {
+                    velocity.y += gravity * exitVelocityYCurve.Evaluate(elapsedTime / totalTime) * Time.deltaTime;
+                    velocity.x = exitVelocityX * exitVelocityXCurve.Evaluate(elapsedTime / totalTime);
+                }
+
+                SpriteUpdate();
+                controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, -1));
+                playerAnimations.Animate();
+                SetPlayerOrientation(new Vector2(Mathf.Sign(velocity.x), 0));
+                return;
+            }
+            else
+            {
+                elapsedTime = 0f;
+                movePlayerLoadingState = false;
+                GetComponent<Player_Input>().EnablePlayerInput();
+            }
+        }
+
         if (GameManager.instance.isLoading)
         {
             SpriteUpdate();
             controller.Move(velocity * Time.smoothDeltaTime, new Vector2(-1, -1));
             playerAnimations.Animate();
+            SetPlayerOrientation(new Vector2(Mathf.Sign(velocity.x), 0));
             return;
         }
 

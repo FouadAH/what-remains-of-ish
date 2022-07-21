@@ -8,29 +8,43 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/Stats", fileName ="PlayerStats")]
 public class PlayerMovementSettings : ScriptableObject
 {
+    [Header("Wall Climb Settings")]
+
     [SerializeField] private Vector2 wallJumpclimb;
     [SerializeField] private Vector2 wallLeap;
+
+    [Header("Wall Slide Settings")]
 
     [SerializeField] private float wallSlideSpeedMax = 3;
     [SerializeField] private float wallStickTime = 1f;
     [SerializeField] private float timeToWallUnstick;
 
+    [Header("Acceleration Settings")]
+
     [SerializeField] private float accelerationTimeAirborne = .2f;
     [SerializeField] private float accelerationTimeGrounded = .1f;
     [SerializeField] private float accelerationTimeSwing = .1f;
+
+    [Header("Jump Settings")]
 
     [SerializeField] private float maxJumpHeight = 5f;
     [SerializeField] private float minJumpHeight = .5f;
     [SerializeField] private float timeToJumpApex = .4f;
     [SerializeField] private float jumpForceX = 25f;
 
+    [Header("Jump Assist Settings")]
 
     [SerializeField] private float maxJumpAssistanceTime = .1f;
     [SerializeField] private int maxJumpBufferFrames = 10;
 
     [SerializeField] private float maxFallSpeed = -30f;
 
+    [Header("Move Settings")]
+
     [SerializeField] private float moveSpeed = 6;
+
+    [Header("Dash Settings")]
+
     [SerializeField] private float dashFactor = 10;
     [SerializeField] private float airDashFactor = 10;
 

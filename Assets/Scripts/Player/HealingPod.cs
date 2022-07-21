@@ -21,6 +21,7 @@ public class HealingPod : MonoBehaviour
     public void Refill(float amount)
     {
         fillAmount += amount;
+        fillAmount = Mathf.Max(fillAmount, 100);
         UpdateHealingPodFillAmount();
         StartCoroutine(LerpColor());
     }
@@ -29,6 +30,7 @@ public class HealingPod : MonoBehaviour
     {
         float ElapsedTime = 0.0f;
         float TotalTime = 0.35f;
+
         while (ElapsedTime < TotalTime)
         {
             ElapsedTime += Time.deltaTime;
@@ -46,6 +48,10 @@ public class HealingPod : MonoBehaviour
                 image.color = Color.Lerp(image.color, startColor, (ElapsedTime / TotalTime));
                 yield return null;
             }
+        }
+        else if(fillAmount == 100)
+        {
+            image.color = fullColor;
         }
     }
 

@@ -75,6 +75,7 @@ public class BirbEnemy : Entity
         isKnockback = true;
         aIPath.canMove = false;
         aIPath.canSearch = false;
+
         yield return new WaitForFixedUpdate();
 
         rb.velocity = knockbackForce;

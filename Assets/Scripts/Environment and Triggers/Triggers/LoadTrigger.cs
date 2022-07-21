@@ -17,8 +17,6 @@ public class LoadTrigger : MonoBehaviour
     public float exitVelocityY = 30f;
     public float exitVelocityX = 15f;
 
-    public AnimationCurve exitVelocityXCurve;
-
     Collider2D loadCollider;
     Vector2 playerVelocity;
 
@@ -48,40 +46,57 @@ public class LoadTrigger : MonoBehaviour
                 level.isRevealed = true;
                 GameManager.instance.currentLevel = level;
             }
+            PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();
 
-            playerVelocity = collision.GetComponent<PlayerMovement>().Velocity;
+            playerVelocity = playerMovement.Velocity;
             float directionalInputX = collision.GetComponent<Player_Input>().directionalInput.x;
 
             if (isOnCeiling)
             {
+                playerMovement.isLoadingVertical = true;
+                playerMovement.isLoadingHorizontal = false;
+
                 playerVelocity.y = exitVelocityY;
+                playerMovement.exitVelocityY = exitVelocityY;
 
                 if (!hasDefaultDirection) {
                     if (directionalInputX < 0)
                     {
-                        playerVelocity.x = -exitVelocityX;
+                        playerMovement.exitVelocityX = -exitVelocityX;
                     }
                     else
                     {
-                        playerVelocity.x = exitVelocityX;
+                        playerMovement.exitVelocityX = exitVelocityX;
                     }
                 }
                 else if (defaultDirectionRight)
                 {
-                    playerVelocity.x = exitVelocityX;
+                    playerMovement.exitVelocityX = exitVelocityX;
                 }
                 else if (defaultDirectionLeft)
                 {
-                    playerVelocity.x = -exitVelocityX;
+                    playerMovement.exitVelocityX = -exitVelocityX;
                 }
             }
             else
             {
-                //playerVelocity.y = 0;
+                playerMovement.isLoadingHorizontal = true;
+                playerMovement.isLoadingVertical = false;
+
+                if (Mathf.Sign(playerVelocity.x) < 0)
+                {
+                    playerMovement.exitVelocityX = -exitVelocityX;
+                    playerVelocity.x = -exitVelocityX;
+                }
+                else if (Mathf.Sign(playerVelocity.x) > 0)
+                {
+                    playerMovement.exitVelocityX = exitVelocityX;
+                    playerVelocity.x = exitVelocityX;
+                }
             }
 
             GameManager.instance.LoadScenePath(SceneManager.GetActiveScene().path, level.scenePath, playerPos.transform.position);
-            collision.GetComponent<PlayerMovement>().Velocity = playerVelocity;
+            playerMovement.Velocity = playerVelocity;
         }
     }
 

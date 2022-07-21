@@ -12,7 +12,6 @@ public class Player_Input : MonoBehaviour
     public Vector2 leftStickInputRaw;
     public Vector2 rightStickInputRaw;
 
-
     public bool jumping { get; set; }
     public bool attacking { get; set; }
     public bool aiming { get; set; }

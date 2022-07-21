@@ -78,6 +78,8 @@ public class Attack : MonoBehaviour, IHitboxResponder
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         if (hurtbox != null)
         {
+            Debug.Log("Hit Enemy");
+
             if (dir.y == 1)
             {
                 hurtbox.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (dir.y));
@@ -121,6 +123,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
         }
         else if(IsInLayerMask(collider.gameObject.layer, spikeLayer))
         {
+            Debug.Log("Hit spikes");
             attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), dir.x, dir.y * 1.3f);
 
             if (spikeHitSFX != null)
@@ -141,7 +144,12 @@ public class Attack : MonoBehaviour, IHitboxResponder
         }
         else if (IsInLayerMask(collider.gameObject.layer, obstacleLayer))
         {
-            attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), dir.x, 0);
+            Debug.Log("Hit obstacle");
+
+            if (dir.y == 0)
+            {
+                attackProcessor.ProcessKnockbackOnHit(gameObject.GetComponent<IAttacker>(), dir.x, 0);
+            }
 
             if (obstacleHitSFX != null)
             {

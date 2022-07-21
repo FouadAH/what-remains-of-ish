@@ -14,6 +14,8 @@ public class PlayerTeleport : MonoBehaviour
     public bool teleportLock;
     private bool canTeleport;
 
+    [Header("Teleport Settings")]
+
     public float teleportDamage = 10f;
     public float teleportCooldownTimer = 0.6f;
     public float teleportBoostTimer = 0.2f;
@@ -21,9 +23,17 @@ public class PlayerTeleport : MonoBehaviour
     public float teleportDelay = 0.08f;
     public float teleporEffectDuration = 0.8f;
 
+    [Header("VFX Settings")]
+
     public ParticleSystem teleportRechargeEffect;
     public ParticleSystem teleportOutEffect;
     public ParticleSystem teleportInEffect;
+
+    [Header("SFX Settings")]
+
+    [FMODUnity.EventRef] public string teleportSFX;
+
+    [Header("Trail Settings")]
 
     public TrailRenderer teleportTrail;
     public GameObject teleportTrailParent;
@@ -79,7 +89,7 @@ public class PlayerTeleport : MonoBehaviour
         boostDir = (boomerangPos - (Vector2)boomerangLauncher.transform.position).normalized;
 
         StartCoroutine(TeleportEffect(teleporEffectDuration));
-        StartCoroutine(Teleport(transformToMove, teleportDelay));
+        StartCoroutine(DamageEnemies(transformToMove, teleportDelay));
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Teleport", GetComponent<Transform>().position);
     }
 
@@ -94,11 +104,11 @@ public class PlayerTeleport : MonoBehaviour
         boostDir = (targetPosition - (Vector2)boomerangLauncher.transform.position).normalized;
 
         StartCoroutine(TeleportEffect(teleporEffectDuration));
-        StartCoroutine(Teleport(transformToMove, teleportDelay));
+        StartCoroutine(DamageEnemies(transformToMove, teleportDelay));
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Teleport", GetComponent<Transform>().position);
     }
 
-    public IEnumerator Teleport(Transform transformToMove, float timer)
+    IEnumerator DamageEnemies(Transform transformToMove, float timer)
     {
         yield return new WaitForSeconds(timer);
 

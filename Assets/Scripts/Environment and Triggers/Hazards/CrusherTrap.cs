@@ -114,11 +114,12 @@ public class CrusherTrap : MonoBehaviour
         impactDustEffect.Play();
         impactHitEffect.Play();
         impulseListener.GenerateImpulse();
+        FMODUnity.RuntimeManager.PlayOneShot(crusherImpactSFX, gameObject.transform.position);
 
-        if (spriteRenderer.isVisible)
-        {
-            FMODUnity.RuntimeManager.PlayOneShotAttached(crusherImpactSFX, gameObject);
-        }
+        //if (spriteRenderer.isVisible)
+        //{
+        //    FMODUnity.RuntimeManager.PlayOneShotAttached(crusherImpactSFX, gameObject);
+        //}
     }
 
     IEnumerator CrushSequence()
@@ -141,6 +142,17 @@ public class CrusherTrap : MonoBehaviour
     private void OnBecameInvisible()
     {
         isVisible = false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Collider2D collider2D = GetComponentInChildren<BoxCollider2D>();
+        Gizmos.color = Color.blue;
+
+        Vector3 from = new (transform.position.x, transform.position.y - collider2D.bounds.extents.y, transform.position.z);
+        Vector3 to = new (transform.position.x, transform.position.y - collider2D.bounds.extents.y - moveDistanceY, transform.position.z);
+
+        Gizmos.DrawLine(from, to);
     }
 
 }
