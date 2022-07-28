@@ -26,7 +26,7 @@ public class EnemyUI : MonoBehaviour
     {
         if (canvas.enabled == false) canvas.enabled = true;
         Health = health;
-        MaxHealth= maxHealth;
+        MaxHealth = maxHealth;
     }
 
     void Update()
@@ -40,6 +40,5 @@ public class EnemyUI : MonoBehaviour
     {
         return Health / MaxHealth;
     }
-
 
 }

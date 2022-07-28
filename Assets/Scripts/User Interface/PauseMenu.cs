@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
+    [Header("Menus")]
     public GameObject pauseMenu;
     public GameObject optionMenu;
     public GameObject controlsMenu;
@@ -17,17 +18,27 @@ public class PauseMenu : MonoBehaviour
     public GameObject audioOptions;
     public GameObject gameOptions;
 
+    [Header("Game Options")]
+
     public Toggle abilityToggle;
     public Toggle directionalAttackToggle;
 
+    [Header("Audio Options")]
+
     EventSystem eventSystem;
     FMOD.Studio.EventInstance SFXVolumeTestEvent;
+
+    float masterVolume = 1;
+    float musicVolume = 1;
+    float sfxVolume = 1;
 
     [FMODUnity.EventRef]
     public string SFXTestEvent;
     FMOD.Studio.VCA masterBus;
     FMOD.Studio.VCA musicBus;
     FMOD.Studio.VCA sfxBus;
+
+    [Header("Video Options")]
 
     public TMPro.TMP_Dropdown resolutionDropdown;
 
@@ -51,6 +62,7 @@ public class PauseMenu : MonoBehaviour
         masterBus = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
         musicBus = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
         sfxBus = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
+
         SFXVolumeTestEvent = FMODUnity.RuntimeManager.CreateInstance(SFXTestEvent);
         resolutions = Screen.resolutions;
 
@@ -216,6 +228,7 @@ public class PauseMenu : MonoBehaviour
         optionMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(audioOptions.GetComponentInChildren<Button>().gameObject);
     }
+
     public void AudioMenuBack()
     {
         audioOptions.SetActive(false);
@@ -272,10 +285,6 @@ public class PauseMenu : MonoBehaviour
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
         }
     }
-
-    float masterVolume = 1;
-    float musicVolume = 1;
-    float sfxVolume = 1;
 
     public void SetMasterVolume(float volume)
     {

@@ -22,18 +22,13 @@ public class DeadState : State
     {
         base.Enter();
         entity.damageBox.gameObject.SetActive(false);
+
         if (stateData.deathBloodParticle != null)
         {
             GameObject.Instantiate(stateData.deathBloodParticle, entity.aliveGO.transform.position, 
                 stateData.deathBloodParticle.transform.rotation);
         }
-        //if (stateData.refillParticles != null)
-        //{
-        //    ParticleSystem refillParticlesInstance = GameObject.Instantiate(stateData.refillParticles, 
-        //        entity.transform.position, Quaternion.identity);
 
-        //    refillParticlesInstance.Play();
-        //}
         entity.StartCoroutine(Die());
     }
 
@@ -44,15 +39,6 @@ public class DeadState : State
         entity.anim.SetLayerWeight(1, 0f);
         entity.anim.SetLayerWeight(2, 1f);
         entity.anim.SetBool("dead", true);
-
-        //if (stateData.refillParticles != null)
-        //{
-        //    ParticleSystem refillParticlesInstance = GameObject.Instantiate(stateData.refillParticles, 
-        //        entity.transform.position, Quaternion.identity);
-
-        //    refillParticlesInstance.emission.SetBurst(0, new ParticleSystem.Burst(0f, stateData.flaskRefillAmount/2));
-        //    refillParticlesInstance.Play();
-        //}
 
         CoinSpawner();
         entity.damageBox.enabled = false;

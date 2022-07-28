@@ -36,15 +36,15 @@ public class Explosion : MonoBehaviour
                     dir.x = 1;
 
                 dir.y = direction.y;
-            }
 
-            if (hurtbox.gameObject.tag == "Player")
-            {
-                hurtbox?.collisionDamage(playerDamageAmount, dir.x, -dir.y);
-            }
-            else
-            {
-                hurtbox?.collisionDamage(damageAmount, dir.x, -dir.y);
+                if (hurtbox.gameObject.tag == "Player")
+                {
+                    hurtbox?.collisionDamage(playerDamageAmount, dir.x, -dir.y);
+                }
+                else
+                {
+                    hurtbox?.collisionDamage(damageAmount, dir.x, -dir.y);
+                }
             }
         }
     }

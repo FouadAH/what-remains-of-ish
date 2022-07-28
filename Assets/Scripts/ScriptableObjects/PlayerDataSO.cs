@@ -46,5 +46,4 @@ public class PlayerDataSO : ScriptableObject
     public bool hasDoubleJumpAbility;
     public bool hasBoomerangExplosion;
     public bool hasBoomerangFreeze;
-
 }

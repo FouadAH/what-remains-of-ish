@@ -82,15 +82,17 @@ public class Boomerang : MonoBehaviour
 
         BounceOffWall();
 
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    InitiateExplosion();
-        //}
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if(GameManager.instance.playerData.hasBoomerangExplosion)
+                InitiateExplosion();
+        }
 
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    BoomerangFreeze();
-        //}
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (GameManager.instance.playerData.hasBoomerangFreeze)
+                BoomerangFreeze();
+        }
 
         while (!back)
         {

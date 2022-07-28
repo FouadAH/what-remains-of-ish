@@ -8,6 +8,8 @@ using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("Menus")]
+
     public static bool gameIsPaused = false;
     public GameObject mainMenu;
     public GameObject loadView;
@@ -17,12 +19,15 @@ public class MainMenu : MonoBehaviour
     public GameObject audioOptions;
     public GameObject gameOptions;
 
+    [Header("Game Options")]
+
     public Toggle abilityToggle;
     public Toggle directionalAttackToggle;
 
     public EventSystem eventSystem;
-    public AudioMixer audioMixer;
     public Transform lookat;
+
+    [Header("Video Options")]
 
     public TMPro.TMP_Dropdown resolutionDropdown;
 
@@ -30,6 +35,16 @@ public class MainMenu : MonoBehaviour
     public AudioSource titleScreenTheme;
     public GameEvent loadInitialScene;
     CameraController cameraController;
+
+    [Header("Audio Options")]
+
+    [FMODUnity.EventRef]
+    FMOD.Studio.EventInstance SFXVolumeTestEvent;
+    public string SFXTestEvent;
+    FMOD.Studio.VCA masterBus;
+    FMOD.Studio.VCA musicBus;
+    FMOD.Studio.VCA sfxBus;
+
     public void Start()
     {
         lookat.GetComponent<Animator>().Play("camera");
@@ -59,6 +74,10 @@ public class MainMenu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
+        SFXVolumeTestEvent = FMODUnity.RuntimeManager.CreateInstance(SFXTestEvent);
+        masterBus = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
+        musicBus = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
+        sfxBus = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
 
         abilityToggle.onValueChanged.AddListener(delegate {
             ToggleAbilities(abilityToggle);
@@ -67,6 +86,13 @@ public class MainMenu : MonoBehaviour
         directionalAttackToggle.onValueChanged.AddListener(delegate {
             ToggleDirectionalAttack(directionalAttackToggle);
         });
+    }
+
+    private void Update()
+    {
+        masterBus.setVolume(masterVolume);
+        musicBus.setVolume(musicVolume);
+        sfxBus.setVolume(sfxVolume);
     }
 
     public void StartGame()
@@ -164,11 +190,6 @@ public class MainMenu : MonoBehaviour
         eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
     }
 
-    public void SetMasterVolume(float volume)
-    {
-        audioMixer.SetFloat("volume", volume);
-    }
-
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
@@ -182,6 +203,35 @@ public class MainMenu : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    float masterVolume = 1;
+    float musicVolume = 1;
+    float sfxVolume = 1;
+
+    public void SetMasterVolume(float volume)
+    {
+        volume = Mathf.Pow(10.0f, volume / 20f);
+        masterVolume = volume;
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        volume = Mathf.Pow(10.0f, volume / 20f);
+        musicVolume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        volume = Mathf.Pow(10.0f, volume / 20f);
+        sfxVolume = volume;
+
+        FMOD.Studio.PLAYBACK_STATE PbState;
+        SFXVolumeTestEvent.getPlaybackState(out PbState);
+        if (PbState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        {
+            SFXVolumeTestEvent.start();
+        }
     }
 
     public void ToggleAbilities(Toggle abilityToggle)

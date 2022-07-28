@@ -331,7 +331,6 @@ public class Entity : Savable, IDamagable
         if (type == DamageType.Melee)
         {
             UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount/2);
-
             if (FlaskRefillParticles != null)
             {
                 ParticleSystem refillParticlesInstance = GameObject.Instantiate(FlaskRefillParticles,

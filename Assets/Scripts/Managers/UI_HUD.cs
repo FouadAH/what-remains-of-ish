@@ -6,6 +6,8 @@ using TMPro;
 public class UI_HUD : MonoBehaviour
 {
     public TMPro.TMP_Text currencyText;
+    //public TMPro.TMP_Text currencyAddedText;
+
     public static UI_HUD instance;
     [SerializeField] private Animator anim;
 
@@ -93,8 +95,22 @@ public class UI_HUD : MonoBehaviour
 
     void Update()
     {
+        //currentCurrency = playerData.playerCurrency.Value;
+
         currencyText.SetText(playerData.playerCurrency.Value.ToString());
+        //currencyAddedText.SetText(addedCurrency.ToString());
     }
+
+    //float addedCurrency = 0;
+    //float previousCurrency;
+    //float currentCurrency;
+
+    //IEnumerator AddCurrency()
+    //{
+    //    previousCurrency = currentCurrency;
+    //    addedCurrency = currentCurrency - previousCurrency;
+    //    yield return null;
+    //}
 
     float refillMod;
     float refillModNormal = 1f;
@@ -107,7 +123,6 @@ public class UI_HUD : MonoBehaviour
             if (flask.fillAmount < 100)
             {
                 refillMod = (GameManager.instance.equippedBrooch_03) ? refillModExtra : refillModNormal;
-                //Debug.Log("Reffiling flask: " + amount * refillMod);
                 flask.Refill(amount * refillMod);
                 break;
             }

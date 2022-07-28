@@ -78,8 +78,6 @@ public class Attack : MonoBehaviour, IHitboxResponder
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         if (hurtbox != null)
         {
-            Debug.Log("Hit Enemy");
-
             if (dir.y == 1)
             {
                 hurtbox.getHitBy(gameObject.GetComponent<IAttacker>(), (dir.x), (dir.y));

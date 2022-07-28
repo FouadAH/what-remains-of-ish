@@ -21,7 +21,7 @@ public class HealingPod : MonoBehaviour
     public void Refill(float amount)
     {
         fillAmount += amount;
-        fillAmount = Mathf.Max(fillAmount, 100);
+        fillAmount = Mathf.Clamp(fillAmount, 0, 100);
         UpdateHealingPodFillAmount();
         StartCoroutine(LerpColor());
     }
