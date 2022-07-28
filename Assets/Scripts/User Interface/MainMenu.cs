@@ -32,7 +32,6 @@ public class MainMenu : MonoBehaviour
     public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
-    public AudioSource titleScreenTheme;
     public GameEvent loadInitialScene;
     CameraController cameraController;
 
@@ -40,7 +39,7 @@ public class MainMenu : MonoBehaviour
 
     [FMODUnity.EventRef]
     FMOD.Studio.EventInstance SFXVolumeTestEvent;
-    public string SFXTestEvent;
+    [FMODUnity.EventRef] public string SFXTestEvent;
     FMOD.Studio.VCA masterBus;
     FMOD.Studio.VCA musicBus;
     FMOD.Studio.VCA sfxBus;
@@ -98,7 +97,6 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         GameManager.instance.GetComponent<Animator>().Play("Fade_Out");
-        titleScreenTheme.mute = true;
         StartCoroutine(NewGame());
     }
 
