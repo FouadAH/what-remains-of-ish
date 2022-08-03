@@ -7,13 +7,33 @@ public class EnemyAudio : MonoBehaviour
     FMOD.Studio.EventInstance Event;
     FMOD.Studio.EventInstance attackEvent;
 
-    void PlayEvent(string path)
+    public void PlayEvent(string path)
     {
+        if (path.Equals(""))
+        {
+            return;
+        }
+
         FMODUnity.RuntimeManager.PlayOneShotAttached(path, gameObject);
+    }
+
+    public void PlayOneShot(string path)
+    {
+        if (path.Equals(""))
+        {
+            return;
+        }
+
+        FMODUnity.RuntimeManager.PlayOneShot(path, transform.position);
     }
 
     public void PlayEventOnce(string path)
     {
+        if(path.Equals(""))
+        {
+            return;
+        }
+
         if (!IsPlaying(Event))
         {
             Event = FMODUnity.RuntimeManager.CreateInstance(path);

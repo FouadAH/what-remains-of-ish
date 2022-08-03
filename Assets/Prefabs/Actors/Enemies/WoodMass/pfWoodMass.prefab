@@ -181,6 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 732945987077275940}
+  - component: {fileID: 5276214779439884315}
   m_Layer: 10
   m_Name: pfWoodMass
   m_TagString: Enemy
@@ -204,6 +205,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5276214779439884315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732945987077275951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aeebcd145fcf124483aed9a8ee9a44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &913712115479435032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1055,7 @@ MonoBehaviour:
   groundCheck: {fileID: 2660568966740976452}
   damageBox: {fileID: 9158792744446058296}
   isDead: 0
+  debug: 0
   stateDebugText: {fileID: 6878423589756060221}
   damageNumberPrefab: {fileID: 7102332077760321428, guid: e2ebcb2c9f1e539409b790d70e544d90,
     type: 3}

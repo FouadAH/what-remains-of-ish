@@ -104,7 +104,7 @@ public class Boomerang : MonoBehaviour
             return;
         }
 
-        Callback();
+        Callback(); 
 
         if (Input.GetKeyDown(KeyCode.R))
         {

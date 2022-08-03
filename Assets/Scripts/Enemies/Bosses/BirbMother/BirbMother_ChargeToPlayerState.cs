@@ -147,6 +147,7 @@ public class BirbMother_ChargeToPlayerState : ChargeState
                 entity.SetVelocityY(0);
 
                 bounceTimes++;
+                enemy.enemyAudio.PlayEvent(enemy.wallImpactSFX);
                 enemy.ShakeScreen();
                 GameObject.Instantiate(enemy.impactVFX, wallHit.point, Quaternion.Euler(0, 0, 90));
 

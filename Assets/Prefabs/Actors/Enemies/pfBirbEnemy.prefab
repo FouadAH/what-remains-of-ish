@@ -5767,6 +5767,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5142173732384941679}
+  - component: {fileID: 4765040999957282581}
   m_Layer: 10
   m_Name: pfBirbEnemy
   m_TagString: Enemy
@@ -5791,6 +5792,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4765040999957282581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5142173732384941668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aeebcd145fcf124483aed9a8ee9a44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6283906727477383766
 GameObject:
   m_ObjectHideFlags: 0
@@ -6113,6 +6126,7 @@ MonoBehaviour:
   groundCheck: {fileID: 7609786904454235151}
   damageBox: {fileID: 3633781234658572403}
   isDead: 0
+  debug: 0
   stateDebugText: {fileID: 1297679295782577526}
   damageNumberPrefab: {fileID: 0}
   BloodEffect: {fileID: 2895359358710418480}

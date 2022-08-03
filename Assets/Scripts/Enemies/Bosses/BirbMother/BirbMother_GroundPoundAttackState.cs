@@ -73,6 +73,9 @@ public class BirbMother_GroundPoundAttackState : ChargeState
             if (!isHittingGround)
             {
                 bounceTimes++;
+
+                enemy.enemyAudio.PlayEvent(enemy.wallImpactSFX);
+
                 enemy.ShakeScreen();
                 GameObject.Instantiate(enemy.impactVFX, wallHit.point, Quaternion.identity);
             }

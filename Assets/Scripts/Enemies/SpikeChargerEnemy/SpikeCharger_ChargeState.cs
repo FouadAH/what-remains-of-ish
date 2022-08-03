@@ -47,7 +47,6 @@ public class SpikeCharger_ChargeState : ChargeState
         
         if (entity.CheckWallFront())
         {
-            Debug.Log("WALLLLL");
             enemy.SetVelocityX(0);
             stateMachine.ChangeState(enemy.IdleState);
         }
@@ -61,13 +60,13 @@ public class SpikeCharger_ChargeState : ChargeState
             return;
         }
 
-        Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
-        int directionX = (entity.transform.position.x < playerPos.x) ? 1 : -1;
+        //Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+        //int directionX = (entity.transform.position.x < playerPos.x) ? 1 : -1;
 
-        if(directionX != entity.facingDirection)
-        {
-            entity.Flip();
-        }
+        //if(directionX != entity.facingDirection)
+        //{
+        //    entity.Flip();
+        //}
 
         entity.SetVelocity(stateData.chargeSpeed);
 

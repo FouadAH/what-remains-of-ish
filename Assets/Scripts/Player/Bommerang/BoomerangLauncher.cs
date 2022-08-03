@@ -48,6 +48,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
     [Header("Aim assist values")]
     public float aimSnapTime = 0.02f;
+    [Range(0,6)] public float aimAssistAmount = 3f;
 
     [Header("Damage values")]
     [SerializeField] private int minDamage = 1;
@@ -88,6 +89,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     float secondaryCrosshairDistance = 16f;
 
     [Header("Events")]
+    [FMODUnity.EventRef] public string boomerangSpinSFX;
     public UnityEvent OnBoomerangLaunched;
     public UnityEvent OnBoomerangHit;
 
@@ -218,28 +220,53 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
     }
 
+    public Transform lookForEnemyWithThickRaycast(Vector2 startWorldPos, Vector2 direction, float visibilityThickness)
+    {
+        if (visibilityThickness == 0) return null; //aim assist disabled
+
+        int[] castOrder = { 2, 1, 3, 0, 4 };
+        int numberOfRays = castOrder.Length;
+        const float minDistanceAway = 2.5f; //don't find results closer than this
+        const float castDistance = 30f;
+        const float flareOutAngle = 2f;
+
+        Transform target = null;
+        foreach (int i in castOrder)
+        {
+            Vector2 perpDirection = Vector2.Perpendicular(direction);
+            float perpDistance = -visibilityThickness * 0.5f + i * visibilityThickness / (numberOfRays - 1);
+            Vector2 startPos = perpDirection * perpDistance + startWorldPos;
+
+            float angleOffset = -flareOutAngle * 0.5f + i * flareOutAngle / (numberOfRays - 1);
+            Vector2 flaredDirection = direction.Rotate(angleOffset);
+
+            RaycastHit2D hit = Physics2D.Raycast(startPos, flaredDirection, castDistance, LayerMask.GetMask("Enemy"));
+            Debug.DrawRay(startPos, flaredDirection * castDistance, Color.yellow, Time.deltaTime);
+
+            if (hit)
+            {
+                //make sure it's in range
+                float distanceAwaySqr = ((Vector2)hit.transform.position - startWorldPos).sqrMagnitude;
+                Debug.DrawRay(startPos, direction * castDistance, Color.red, Time.deltaTime);
+                if (distanceAwaySqr > minDistanceAway * minDistanceAway)
+                {
+                    Debug.DrawRay(startPos, direction * castDistance, Color.red, Time.deltaTime);
+                    target = hit.transform;
+                    return target;
+                }
+            }
+        }
+
+        return target;
+    }
+
     void AimingLogic()
     {
         if (playerInput.controllerConnected)
         {
-            Vector2 leftStickInput = playerInput.leftStickInputRaw;
             Vector2 rightStickInput = playerInput.rightStickInputRaw;
 
-            if (rightStickInput.magnitude < inputDeadZone)
-            {
-                rightStickInput = Vector2.zero;
-
-                //if (leftStickInput.magnitude < inputDeadZone)
-                //{
-                //    leftStickInput = Vector2.zero;
-                //}
-                //else
-                //{
-                //    CalculateAngle(leftStickInput);
-                //}
-
-            }
-            else
+            if (rightStickInput.magnitude >= inputDeadZone)
             {
                 CalculateAngle(rightStickInput);
             }
@@ -251,6 +278,8 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         }
+
+        //lookForEnemyWithThickRaycast(firingPoint.transform.position, (crosshair.transform.position - firingPoint.transform.position).normalized, aimAssistAmount);
     }
     void BoomerangAimingEffects()
     {
@@ -321,9 +350,9 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             boomerangReference = Boomerang.GetComponent<Boomerang>();
             boomerangReference.OnRangedHit += RangedHit;
             boomerangReference.Launch();
-            OnBoomerangLaunched.Invoke();
+            //OnBoomerangLaunched.Invoke();
 
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Attack", GetComponent<Transform>().position);
+            FMODUnity.RuntimeManager.PlayOneShot(boomerangSpinSFX, transform.position);
         }
     }
 

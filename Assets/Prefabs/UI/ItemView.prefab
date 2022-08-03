@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -31.2, y: 0}
-  m_SizeDelta: {x: 167.7978, y: 45.0498}
+  m_AnchoredPosition: {x: 284.834, y: 0}
+  m_SizeDelta: {x: 70.8659, y: 45.0498}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3571610262139411721
 CanvasRenderer:
@@ -171,7 +171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -151.5, y: 0.0000026226}
+  m_AnchoredPosition: {x: 213, y: 0.0000026226}
   m_SizeDelta: {x: 59.9516, y: 59.952}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3571610262338747655
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6254560ab9363204e8ba72f0e62d73bf, type: 3}
+  m_Sprite: {fileID: -226831018, guid: a568b95084b1e914a82f447e5d53ad09, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 3571610262778159494}
   - component: {fileID: 420399649102572187}
   - component: {fileID: 1231826354680337233}
+  - component: {fileID: 3543587632381132630}
   m_Layer: 5
   m_Name: ItemView
   m_TagString: Untagged
@@ -253,7 +254,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 671.7047, y: 130.2108}
+  m_SizeDelta: {x: 671.7047, y: 164.2798}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3571610262778159495
 CanvasRenderer:
@@ -276,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -305,11 +306,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c53cdc7e0a2dc24abe049791650b2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: {fileID: 0}
   itemCost: {fileID: 3571610262139411720}
   itemSprite: {fileID: 3571610262847701654}
   selectButton: {fileID: 1231826354680337233}
-  purchaseButton: {fileID: 0}
 --- !u!114 &1231826354680337233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +353,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3543587632381132630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3571610262778159496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
+  m_EffectDistance: {x: -5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &3571610262847701656
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,6 +379,7 @@ GameObject:
   - component: {fileID: 3571610262847701657}
   - component: {fileID: 3571610262847701655}
   - component: {fileID: 3571610262847701654}
+  - component: {fileID: 5795329745597568622}
   m_Layer: 5
   m_Name: ItemSprite
   m_TagString: Untagged
@@ -389,8 +404,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -252.00012, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -247.2, y: 0}
+  m_SizeDelta: {x: 136.2218, y: 136.218}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3571610262847701655
 CanvasRenderer:
@@ -430,3 +445,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5795329745597568622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3571610262847701656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
+  m_EffectDistance: {x: 3, y: -3}
+  m_UseGraphicAlpha: 1

@@ -36,17 +36,28 @@ public class BirbMother : Entity
     float spriteScaleXSmoothing;
     float spriteScaleYSmoothing;
 
+    [Header("SFX")]
+    [FMODUnity.EventRef] public string wallImpactSFX;
+    [FMODUnity.EventRef] public string wingFlapSFX;
+    [FMODUnity.EventRef] public string spawnSFX;
+    [FMODUnity.EventRef] public string deathSFX;
+
     [Header("Impact VFXs")]
     public ParticleSystem impactVFX;
     public GameObject deathEffectsParent;
     public Cinemachine.CinemachineImpulseSource impactInpulseSource;
+
+    [HideInInspector] public EnemyAudio enemyAudio;
 
     public override void Start()
     {
         base.Start();
 
         spriteObj = GetComponentInChildren<SpriteRenderer>().transform;
-        
+        enemyAudio = GetComponent<EnemyAudio>();
+        enemyAudio.PlayEventOnce(wingFlapSFX);
+        enemyAudio.PlayOneShot(spawnSFX);
+
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameManager.instance.player.GetComponent<Collider2D>());
 
         //roarAttackState = new BirbMother_RoarState(this, stateMachine, "spit", null, roarAttackStateData, projectileAttack, this);

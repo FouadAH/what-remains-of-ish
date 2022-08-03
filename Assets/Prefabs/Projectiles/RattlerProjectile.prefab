@@ -47,11 +47,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec89c8be87492f45ab72db8cd964e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hittable:
+  playerLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
+  obstacles:
+    serializedVersion: 2
+    m_Bits: 512
   bulletEffect: {fileID: 1796932110368875113, guid: c55aafaf9194ed544923980009f70595,
     type: 3}
+  rb2D: {fileID: 8746905664234952311}
+  fadeDuration: 0.5
 --- !u!50 &8746905664234952311
 Rigidbody2D:
   serializedVersion: 4

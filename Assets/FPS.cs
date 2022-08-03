@@ -30,12 +30,7 @@ public class FPS : MonoBehaviour
 
 		if (duration >= sampleDuration)
 		{
-			FPSText.SetText(
-				"FPS\n{0:0}\n{1:0}\n{2:0}",
-				1f / bestDuration,
-				frames / duration,
-				1f / worstDuration
-			);
+			FPSText.SetText( "FPS\n{0:0}\n{1:0}\n{2:0}", (int)(1f / bestDuration), (int)(frames / duration), (int)(1f / worstDuration));
 			frames = 0;
 			duration = 0f;
 			bestDuration = float.MaxValue;

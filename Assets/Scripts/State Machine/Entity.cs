@@ -11,7 +11,6 @@ public class Entity : Savable, IDamagable
     public AnimationToStatemachine atsm;
 
     public D_Entity entityData;
-
     public int facingDirection { get; private set; }
     public Rigidbody2D rb { get; private set; }
     public Animator anim { get; private set; }
@@ -44,6 +43,7 @@ public class Entity : Savable, IDamagable
     public bool isDead;
 
     [Header("Debug")]
+    public bool debug;
     public TMP_Text stateDebugText;
 
     [Header("Entity Particle Effects")]
@@ -113,8 +113,11 @@ public class Entity : Savable, IDamagable
 
     public virtual void Update()
     {
-        string state = stateMachine.currentState.ToString().Split('_')[1];
-        stateDebugText.SetText(state);
+        if (debug)
+        {
+            string state = stateMachine.currentState.ToString().Split('_')[1];
+            stateDebugText.SetText(state);
+        }
 
         stateMachine.currentState.LogicUpdate();
 
@@ -509,5 +512,16 @@ public class Entity : Savable, IDamagable
             gameObject.SetActive(true);
             Health = MaxHealth;
         }
+    }
+
+    public bool isVisible { get; private set; }
+    private void OnBecameVisible()
+    {
+        isVisible = true;
+    }
+
+    private void OnBecameInvisible()
+    {
+        isVisible = false;
     }
 }

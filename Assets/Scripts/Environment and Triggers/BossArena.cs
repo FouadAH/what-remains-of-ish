@@ -13,12 +13,22 @@ public class BossArena : MonoBehaviour, ISaveable
     public Canvas bossHealthCanvas;
     bool hasBeenActivated;  
     public BossArenaData arenaData;
-    public PlayableDirector playableDirector;
-    //[FMODUnity.EventRef] public string bossThemeMusic;
+    public PlayableDirector bossIntroCutscene;
+    [FMODUnity.EventRef] public string bossThemeMusic;
+    string levelTheme;
+
 
     public struct BossArenaData
     {
         public bool isFinished;
+    }
+
+    private void Start()
+    {
+        foreach (Door door in arenaDoors)
+        {
+            door.SetStateInitial(true);
+        }
     }
 
     private void Update()
@@ -45,8 +55,12 @@ public class BossArena : MonoBehaviour, ISaveable
 
     public void StartBossFight()
     {
-        //if(bossThemeMusic != "")
-        //    AudioManager.instance.PlayAreaTheme(bossThemeMusic);
+        if (bossThemeMusic.Equals("") == false)
+        {
+            levelTheme = AudioManager.instance.currentTheme;
+            AudioManager.instance.SwitchLevelMusicEvent(bossThemeMusic);
+        }
+        
         AudioManager.instance.StopAreaAmbianceWithFade();
         AudioManager.instance.SetIntensity(50);
 
@@ -57,8 +71,15 @@ public class BossArena : MonoBehaviour, ISaveable
             door.SetState(false);
         }
 
-        //bossEntity.gameObject.SetActive(true);
-        playableDirector.Play();
+        if (bossIntroCutscene != null)
+        {
+            bossIntroCutscene.Play();
+        }
+        else
+        {
+            bossEntity.gameObject.SetActive(true);
+        }
+
         bossAreaCamera.gameObject.SetActive(true);
         bossAreaCamera.Follow = GameManager.instance.player.transform;
         bossAreaCamera.LookAt = GameManager.instance.player.transform;
@@ -72,8 +93,10 @@ public class BossArena : MonoBehaviour, ISaveable
 
     public void OnBossDead()
     {
-        //if (bossThemeMusic != "")
-        //    AudioManager.instance.StopAreaThemeWithFade();
+        if (bossThemeMusic.Equals("") == false)
+        {
+            AudioManager.instance.SwitchLevelMusicEvent(levelTheme);
+        }
 
         AudioManager.instance.StopSFXWithFade();
         AudioManager.instance.SetIntensity(0);
@@ -88,7 +111,6 @@ public class BossArena : MonoBehaviour, ISaveable
 
         bossAreaCamera.enabled = false;
         bossHealthCanvas.enabled = false;
-
     }
 
     public string SaveData()

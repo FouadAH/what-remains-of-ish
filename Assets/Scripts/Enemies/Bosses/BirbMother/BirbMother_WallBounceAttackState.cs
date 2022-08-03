@@ -90,6 +90,8 @@ public class BirbMother_WallBounceAttackState : ChargeState
 
                 bounceTimes++;
                 GameObject.Instantiate(enemy.impactVFX, wallHit.point, Quaternion.identity);
+
+                enemy.enemyAudio.PlayEvent(enemy.wallImpactSFX);
                 enemy.ShakeScreen();
             }
 

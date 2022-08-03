@@ -100,6 +100,7 @@ public class ShopManager : MonoBehaviour
         ShopItemView shopItemView =  Instantiate(itemViewPrefab, shopContent).GetComponent<ShopItemView>();
         shopItemView.itemCost.text = shopItem.itemCost.ToString();
         shopItemView.itemSprite.sprite = shopItem.itemIcon;
+        shopItemView.itemSprite.preserveAspect = true;
         shopItemView.selectButton.onClick.AddListener(() => OnSelectItem(shopItem));
     }
 
