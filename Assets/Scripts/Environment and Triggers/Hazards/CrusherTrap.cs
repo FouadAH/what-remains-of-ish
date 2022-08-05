@@ -40,7 +40,7 @@ public class CrusherTrap : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         impulseListener = GetComponent<CinemachineImpulseSource>();
         if(controlLever != null)
         {
@@ -114,12 +114,12 @@ public class CrusherTrap : MonoBehaviour
         impactDustEffect.Play();
         impactHitEffect.Play();
         impulseListener.GenerateImpulse();
-        FMODUnity.RuntimeManager.PlayOneShot(crusherImpactSFX, gameObject.transform.position);
+        //FMODUnity.RuntimeManager.PlayOneShot(crusherImpactSFX, gameObject.transform.position);
 
-        //if (spriteRenderer.isVisible)
-        //{
-        //    FMODUnity.RuntimeManager.PlayOneShotAttached(crusherImpactSFX, gameObject);
-        //}
+        if (spriteRenderer.isVisible)
+        {
+            FMODUnity.RuntimeManager.PlayOneShotAttached(crusherImpactSFX, gameObject);
+        }
     }
 
     IEnumerator CrushSequence()
