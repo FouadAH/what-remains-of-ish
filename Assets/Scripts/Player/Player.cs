@@ -143,7 +143,6 @@ public class Player : MonoBehaviour, IAttacker{
         Debug.Log(volume.name);
         volume.profile.TryGet(out vignette);
         initalIntensity = vignette.intensity.value;
-        Debug.Log(initalIntensity);
 
         if (GameManager.instance.isInDebugMode)
         {
@@ -410,7 +409,6 @@ public class Player : MonoBehaviour, IAttacker{
         CheckDeath();
         StartCoroutine(DamageIFrames());
        
-
         if (flashRoutine != null)
         {
             StopCoroutine(flashRoutine);

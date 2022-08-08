@@ -32,13 +32,14 @@ public class Attack : MonoBehaviour, IHitboxResponder
     private AttackProcessor attackProcessor;
     protected Cinemachine.CinemachineImpulseSource impulseListener;
     public ParticleSystem HitEffect;
-
+    Rumbler rumbler;
     void Start()
     {
         player = GetComponent<PlayerMovement>();
         timeStop = GetComponent<TimeStop>();
         attackProcessor = new AttackProcessor();
         impulseListener = GetComponent<Cinemachine.CinemachineImpulseSource>();
+        rumbler = GetComponent<Rumbler>();
     }
 
     public void AttackDefault()
@@ -118,6 +119,8 @@ public class Attack : MonoBehaviour, IHitboxResponder
             {
                 FMODUnity.RuntimeManager.PlayOneShotAttached(enemyHitSFX, gameObject);
             }
+
+            rumbler.RumblePulse(1, 2, 0.5f, 0.5f);
         }
         else if(IsInLayerMask(collider.gameObject.layer, spikeLayer))
         {
@@ -143,6 +146,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
         else if (IsInLayerMask(collider.gameObject.layer, obstacleLayer))
         {
             Debug.Log("Hit obstacle");
+            rumbler.RumblePulse(1, 2, 0.5f, 0.5f);
 
             if (dir.y == 0)
             {

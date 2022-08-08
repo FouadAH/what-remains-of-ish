@@ -1,0 +1,753 @@
+fileFormatVersion: 2
+guid: 5afda87c95706d84c85be57b7bea5d31
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMasterTextureLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 80
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: DaoudTent_0-Ground
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3735
+      y: 1612
+      width: 3682
+      height: 603
+    spriteID: 27b1f72934ed3354ab4ca75c70102553
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 3602, y: 1612}
+  - name: DaoudTent_1-Top
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 3723
+      height: 2068
+    spriteID: 25d3a8c7cdcaa5f498a6d68f9cb8ac9a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -76, y: -574}
+  - name: DaoudTent_1.1-Light
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7997
+      y: 863
+      width: 147
+      height: 646
+    spriteID: 9f72ebaa04c8f54469e14253193ca74f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 6129, y: -543}
+  - name: DaoudTent_2-InnerTop
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2080
+      width: 3553
+      height: 2138
+    spriteID: 6da6af6e76508694fb2184f5a98228fa
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -169, y: 1672}
+  - name: DaoudTent_2.1-Light
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7191
+      y: 810
+      width: 78
+      height: 735
+    spriteID: 7a7fb024bde001b4398556174982dd19
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 5345, y: -389}
+  - name: DaoudTent_2.2-Light
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7487
+      y: 810
+      width: 89
+      height: 419
+    spriteID: 10e9a457356785b4c80528956d6929f8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 5716, y: -641}
+  - name: DaoudTent_2.3-Light
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7081
+      y: 810
+      width: 102
+      height: 691
+    spriteID: 2bfe3df21bc4a70439e856bc2ce211cb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4716, y: -379}
+  - name: DaoudTent_2.4-Light
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7277
+      y: 810
+      width: 82
+      height: 665
+    spriteID: ee6df2454466e954781c857de65cbf3a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 5855, y: -445}
+  - name: DaoudTent_2.5-DAOUD
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7081
+      y: 4
+      width: 908
+      height: 798
+    spriteID: 82ffb51f65aa63849b0aaeb5e00893e7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 6266, y: -344}
+  - name: DaoudTent_3-Clutter
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 6069
+      width: 3513
+      height: 1554
+    spriteID: 386640479b341364c88cf0ff9a241aca
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -220, y: 5524}
+  - name: DaoudTent_3.1-Hanging
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 8024
+      y: 1612
+      width: 140
+      height: 599
+    spriteID: 7ca8475d9aafafa47b9b7be2e2ec9179
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 7068, y: 428}
+  - name: DaoudTent_3.2-Hanging
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7425
+      y: 1612
+      width: 591
+      height: 462
+    spriteID: 5d6d852ba2c4c484da935962bc5a856d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 6413, y: 180}
+  - name: DaoudTent_3.3-Hanging
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3735
+      y: 2223
+      width: 1919
+      height: 783
+    spriteID: 503911f53c53e93478521d91a7f112f8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 2684, y: 944}
+  - name: DaoudTent_3.4-Hanging
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7652
+      y: 810
+      width: 60
+      height: 490
+    spriteID: 66c4c71b54b9f02478c1b999a95db8f7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 5607, y: -582}
+  - name: DaoudTent_3.5-Hanging
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7584
+      y: 810
+      width: 60
+      height: 548
+    spriteID: 6f9c506e7dc2bb84aa75e0282b5651ba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 5940, y: -849}
+  - name: DaoudTent_3.6-Hanging
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7997
+      y: 4
+      width: 124
+      height: 851
+    spriteID: ccbf9f5aaa34eb24fa4d6886ffb29ebd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 5807, y: -1146}
+  - name: DaoudTent_3.7-Hanging
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 7367
+      y: 810
+      width: 112
+      height: 419
+    spriteID: a2a03c268a526c646930fa32be523074
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 6196, y: -496}
+  - name: DaoudTent_4-Curtains
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4226
+      width: 3408
+      height: 1835
+    spriteID: 91c93597984fae34ba3d7bdf35dee29c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -127, y: 3643}
+  - name: DaoudTent_5-Back
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3735
+      y: 4
+      width: 3338
+      height: 1600
+    spriteID: 2e43ee4d538de9d49bd5de7c979c493b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 3392, y: -573}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    boneReadOnly: 0
+  sharedRigSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    boneReadOnly: 0
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 1
+  skeletonAssetReferenceID: 
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: DaoudTent_0-Ground
+    spriteName: DaoudTent_0-Ground
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 27b1f72934ed3354ab4ca75c70102553
+    layerID: 0
+    mosaicPosition: {x: 3735, y: 1612}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_1-Top
+    spriteName: DaoudTent_1-Top
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 25d3a8c7cdcaa5f498a6d68f9cb8ac9a
+    layerID: 1908391452
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_1.1-Light
+    spriteName: DaoudTent_1.1-Light
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 9f72ebaa04c8f54469e14253193ca74f
+    layerID: -546804206
+    mosaicPosition: {x: 7997, y: 863}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_2-InnerTop
+    spriteName: DaoudTent_2-InnerTop
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 6da6af6e76508694fb2184f5a98228fa
+    layerID: 1035053569
+    mosaicPosition: {x: 4, y: 2080}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_2.1-Light
+    spriteName: DaoudTent_2.1-Light
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7a7fb024bde001b4398556174982dd19
+    layerID: -545899115
+    mosaicPosition: {x: 7191, y: 810}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_2.2-Light
+    spriteName: DaoudTent_2.2-Light
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 10e9a457356785b4c80528956d6929f8
+    layerID: -545795662
+    mosaicPosition: {x: 7487, y: 810}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_2.3-Light
+    spriteName: DaoudTent_2.3-Light
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 2bfe3df21bc4a70439e856bc2ce211cb
+    layerID: -545688109
+    mosaicPosition: {x: 7081, y: 810}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_2.4-Light
+    spriteName: DaoudTent_2.4-Light
+    isGroup: 0
+    parentIndex: -1
+    spriteID: ee6df2454466e954781c857de65cbf3a
+    layerID: -545592848
+    mosaicPosition: {x: 7277, y: 810}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_2.5-DAOUD
+    spriteName: DaoudTent_2.5-DAOUD
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 82ffb51f65aa63849b0aaeb5e00893e7
+    layerID: -677373886
+    mosaicPosition: {x: 7081, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_3-Clutter
+    spriteName: DaoudTent_3-Clutter
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 386640479b341364c88cf0ff9a241aca
+    layerID: 22597868
+    mosaicPosition: {x: 4, y: 6069}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_3.1-Hanging
+    spriteName: DaoudTent_3.1-Hanging
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7ca8475d9aafafa47b9b7be2e2ec9179
+    layerID: 1212465164
+    mosaicPosition: {x: 8024, y: 1612}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_3.2-Hanging
+    spriteName: DaoudTent_3.2-Hanging
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 5d6d852ba2c4c484da935962bc5a856d
+    layerID: 1208909581
+    mosaicPosition: {x: 7425, y: 1612}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_3.3-Hanging
+    spriteName: DaoudTent_3.3-Hanging
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 503911f53c53e93478521d91a7f112f8
+    layerID: 1210236942
+    mosaicPosition: {x: 3735, y: 2223}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_3.4-Hanging
+    spriteName: DaoudTent_3.4-Hanging
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 66c4c71b54b9f02478c1b999a95db8f7
+    layerID: 1215872783
+    mosaicPosition: {x: 7652, y: 810}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_3.5-Hanging
+    spriteName: DaoudTent_3.5-Hanging
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 6f9c506e7dc2bb84aa75e0282b5651ba
+    layerID: 1217200144
+    mosaicPosition: {x: 7584, y: 810}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_3.6-Hanging
+    spriteName: DaoudTent_3.6-Hanging
+    isGroup: 0
+    parentIndex: -1
+    spriteID: ccbf9f5aaa34eb24fa4d6886ffb29ebd
+    layerID: 1213644561
+    mosaicPosition: {x: 7997, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_3.7-Hanging
+    spriteName: DaoudTent_3.7-Hanging
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a2a03c268a526c646930fa32be523074
+    layerID: 1214971922
+    mosaicPosition: {x: 7367, y: 810}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_4-Curtains
+    spriteName: DaoudTent_4-Curtains
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 91c93597984fae34ba3d7bdf35dee29c
+    layerID: 1920617883
+    mosaicPosition: {x: 4, y: 4226}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: DaoudTent_5-Back
+    spriteName: DaoudTent_5-Back
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 2e43ee4d538de9d49bd5de7c979c493b
+    layerID: 1221273326
+    mosaicPosition: {x: 3735, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  sharedRigPSDLayers: []
+  pSDLayerImportSetting: []
+  generateGOHierarchy: 0
+  textureAssetName: 
+  prefabAssetName: 
+  spriteLibAssetName: 
+  skeletonAssetName: 
+  secondarySpriteTextures: []

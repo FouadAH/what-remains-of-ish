@@ -12,7 +12,7 @@ public class InventoryItemSO : ShopItemSO
     public int width;
     public int height;
     public bool canInteract = true;
-    bool isEquipped;
+    public bool isEquipped;
 
     public void CreateVisualGrid(Transform visualParentTransform, InventoryItemSO itemTetrisSO, float cellSize)
     {

@@ -45,8 +45,9 @@ public class PlayerMovementSettings : ScriptableObject
 
     [Header("Dash Settings")]
 
-    [SerializeField] private float dashFactor = 10;
-    [SerializeField] private float airDashFactor = 10;
+    [SerializeField] private float groundDashSpeed = 10;
+    [SerializeField] private float airDashSpeed = 10;
+    [SerializeField] private float dashSpeedTime = 0.1f;
 
 
     [SerializeField] private float iFrameTime = 1f;
@@ -69,8 +70,9 @@ public class PlayerMovementSettings : ScriptableObject
     public float TimeToWallUnstick { get => timeToWallUnstick; set => timeToWallUnstick = value; }
     public Vector2 WallJumpclimb { get => wallJumpclimb; }
     public Vector2 WallLeap { get => wallLeap; }
-    public float DashSpeedModifier { get => dashFactor; }
-    public float AirDashSpeedModifier { get => airDashFactor; }
+    public float DashSpeed { get => groundDashSpeed; }
+    public float AirDashSpeed { get => airDashSpeed; }
+    public float DashSpeedTime { get => dashSpeedTime; }
     public float DashCooldown { get => dashCooldown; }
     public float SwingForce { get => swingForce; }
     public float AccelerationTimeSwing { get => accelerationTimeSwing; }

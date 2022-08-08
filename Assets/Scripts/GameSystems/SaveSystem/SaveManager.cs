@@ -189,19 +189,6 @@ public class SaveManager : MonoBehaviour
                     saveablePair.Value.LoadDefaultData();
                 }
             }
-            else if (saveablePair.Value is LevelManager)
-            {
-                Debug.Log("LevelManager");
-                if (sceneDataCache.data_entries.ContainsKey(saveablePair.Key))
-                {
-                    saveablePair.Value.LoadData(sceneDataCache.data_entries[saveablePair.Key], "0");
-                }
-                else
-                {
-                    Debug.Log("SaveManager : Data from key " + saveablePair.Key.ToString() + " not found. Setting default values.");
-                    saveablePair.Value.LoadDefaultData();
-                }
-            }
             else
             {
                 if (sceneDataCache.data_entries.ContainsKey(saveablePair.Key))
@@ -230,7 +217,7 @@ public class SaveManager : MonoBehaviour
 
         string data = JsonConvert.SerializeObject(currentSaveFile.gameData);
         Debug.Log("Data: " + data);
-        string path = currentSaveFile.path + "_" + currentSaveFile.slotIndex;
+        string path = currentSaveFile.path;
         if (!File.Exists(path))
         {
             StreamWriter sw = File.CreateText(path);

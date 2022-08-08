@@ -292,10 +292,12 @@ MonoBehaviour:
   equippedBrooch_03: 0
   useDirectionalMouseAttack: 0
   isLoading: 0
+  canMovePlayerWhileLoading: 0
   isRespawning: 0
   isPaused: 0
   isFirstTimeResting: 1
   hasOpenedMap: 0
+  isInDebugMode: 0
   playerRespawn: {fileID: 11400000, guid: cfae13b17e895b64891b84d7431aafed, type: 2}
   loadNewLevelEvent: {fileID: 11400000, guid: 049faeadb6e5f7f4cb44c2f5c6249cc5, type: 2}
   loadDataEvent: {fileID: 11400000, guid: f1d8bfa69a32d1c40854f7e2c0e1f845, type: 2}
@@ -505,6 +507,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1286673410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1286673412}
+  - component: {fileID: 1286673411}
+  m_Layer: 0
+  m_Name: BroocheManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1286673411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286673410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a946c25ae9d90c4abe6f3a7f3553330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopItems:
+  - {fileID: 11400000, guid: 323cd93471596f842b1b9738ab8ca982, type: 2}
+--- !u!4 &1286673412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286673410}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 224.10156, y: 5.5618787, z: -0.010399167}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1301860026
 GameObject:

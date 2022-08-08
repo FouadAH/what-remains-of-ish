@@ -9,7 +9,9 @@ public class PlayerDash : MonoBehaviour
     public bool isDashing;
     public bool isDashingAnimation;
 
-    public float floatTime = 0.1f;
+    public float groundDashTime = 0.1f;
+    public float airDashTime = 0.1f;
+
     public float effectTime = 0.2f;
     public float dashIFrames = 0.1f;
 
@@ -49,21 +51,23 @@ public class PlayerDash : MonoBehaviour
                 velocity.y = 0;
             }
 
-            StartCoroutine(DashIFrames(dashIFrames));
-            StartCoroutine(FloatTime(floatTime));
-            StartCoroutine(DashLogic(playerSettings.DashCooldown));
-            StartCoroutine(DashEffect(effectTime));
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Dash", GetComponent<Transform>().position);
+            float dashTime = (playerMovement.isAirborne) ? airDashTime : groundDashTime;
+            float dashSpeedMod = (playerMovement.isAirborne) ? playerSettings.AirDashSpeed : playerSettings.DashSpeed;
 
-            float dashSpeedMod = (playerMovement.isAirborne) ? playerSettings.AirDashSpeedModifier : playerSettings.DashSpeedModifier;
             if (playerInput.directionalInput.x == 0)
             {
-                velocity.x = transform.localScale.x * playerSettings.MoveSpeed * dashSpeedMod;
+                playerMovement.dashSpeed = transform.localScale.x * dashSpeedMod;
             }
             else
             {
-                velocity.x = ((Mathf.Sign(playerInput.directionalInput.x) == -1) ? -1 : 1) * playerSettings.MoveSpeed * dashSpeedMod;
+                playerMovement.dashSpeed = ((Mathf.Sign(playerInput.directionalInput.x) == -1) ? -1 : 1) * dashSpeedMod;
             }
+
+            StartCoroutine(DashIFrames(dashIFrames));
+            StartCoroutine(FloatTime(dashTime));
+            StartCoroutine(DashLogic(playerSettings.DashCooldown));
+            StartCoroutine(DashEffect(effectTime));
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Dash", GetComponent<Transform>().position);
         }
         canDash = false;
 
@@ -73,6 +77,12 @@ public class PlayerDash : MonoBehaviour
     public void ResetDash()
     {
         dashLock = false;
+    }
+
+    public void StopDash()
+    {
+        isDashing = false;
+        isDashingAnimation = false;
     }
 
     public IEnumerator DashLogic(float dashCooldown)
@@ -97,7 +107,6 @@ public class PlayerDash : MonoBehaviour
         yield return new WaitForSeconds(floatTime);
         player.invinsible = false;
     }
-
 
     public IEnumerator DashEffect(float effectTime)
     {

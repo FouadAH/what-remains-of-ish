@@ -267,6 +267,16 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if (playerDash.isDashing)
+        {
+            SetPlayerOrientation(playerInput.directionalInput);
+            CalculateVelocity();
+
+            HandleDash();
+            HandleWallSliding();
+            return;
+        }
+
         SetPlayerOrientation(playerInput.directionalInput);
         CalculateVelocity();
 
@@ -333,6 +343,11 @@ public class PlayerMovement : MonoBehaviour
                 playerDash.DashController(ref velocity, playerInput, playerSettings);
             }
         }
+
+        if(playerDash.isDashing && IsAttacking)
+        {
+            playerDash.StopDash();
+        }
     }
 
     void OnBoomerangDashInput()
@@ -359,9 +374,8 @@ public class PlayerMovement : MonoBehaviour
         currentJumpHeight = transform.position.y - initialHeight;
         float mult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? jumpApexGravityModifier : 1f;
         mult = (playerTeleport.doBoost) ? boostGravityMultiplier : mult;
-
-        //Debug.Log("Velocity X: " + velocity.x);
-
+        
+        //Calculating X velocity
         if (controller.collitions.below)
         {
             if (isSprinting && Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x * -1)
@@ -384,7 +398,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (playerDash.isDashing)
         {
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, 0.2f);
+            targetVelocityX = dashSpeed;
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, playerSettings.DashSpeedTime);
         }
         else
         {
@@ -402,6 +417,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        //Calculating Y velocity
         if (playerDash.isDashing)
         {
             velocity.y = 0;
@@ -503,6 +519,11 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleJumpInput()
     {
+        if (playerDash.isDashing)
+        {
+            return;
+        }
+
         if(velocity.y <= 0)
         {
             foreach (TrailRenderer jumpTrail in jumpTrailParent.GetComponentsInChildren<TrailRenderer>())

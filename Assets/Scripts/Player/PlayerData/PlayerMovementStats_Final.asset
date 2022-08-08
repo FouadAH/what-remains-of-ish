@@ -26,10 +26,11 @@ MonoBehaviour:
   jumpForceX: 18
   maxJumpAssistanceTime: 0.15
   maxJumpBufferFrames: 4
-  maxFallSpeed: -48
+  maxFallSpeed: -40
   moveSpeed: 17
-  dashFactor: 2.5
-  airDashFactor: 3
+  groundDashSpeed: 25
+  airDashSpeed: 30
+  dashSpeedTime: 0
   iFrameTime: 0.5
   aggroRange: 0
   dashCooldown: 0.45
