@@ -49,6 +49,8 @@ public class BirbMother : Entity
 
     [HideInInspector] public EnemyAudio enemyAudio;
 
+    public bool bossFightHasStarted = false;
+
     public override void Start()
     {
         base.Start();
@@ -69,6 +71,16 @@ public class BirbMother : Entity
         deadState = new BirbMother_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(idleState);
+    }
+
+    public void OnBossFightStart()
+    {
+        bossFightHasStarted = true;
+    }
+
+    public void OnBossFightEnd()
+    {
+        bossFightHasStarted = false;
     }
 
     public bool hasEnteredPhase2 = false;

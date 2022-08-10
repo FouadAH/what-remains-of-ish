@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    public List<ShopItemSO> shopItems = new List<ShopItemSO>();
+    //public List<ShopItemSOdddddddddddddd> shopItems = new List<ShopItemSO>();
 
     // Start is called before the first frame update
     void Start()

@@ -8,6 +8,8 @@ public class BossArena : MonoBehaviour, ISaveable
 {
     public List<Door> arenaDoors;
     public Entity bossEntity;
+    public GameEvent bossFightStartEvent;
+    public GameEvent bossFightEndedEvent;
 
     public CinemachineVirtualCamera bossAreaCamera;
     public Canvas bossHealthCanvas;
@@ -55,6 +57,8 @@ public class BossArena : MonoBehaviour, ISaveable
 
     public void StartBossFight()
     {
+        bossFightStartEvent.Raise();
+
         if (bossThemeMusic.Equals("") == false)
         {
             levelTheme = AudioManager.instance.currentTheme;
@@ -93,6 +97,8 @@ public class BossArena : MonoBehaviour, ISaveable
 
     public void OnBossDead()
     {
+        bossFightEndedEvent.Raise();
+
         if (bossThemeMusic.Equals("") == false)
         {
             AudioManager.instance.SwitchLevelMusicEvent(levelTheme);

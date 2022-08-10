@@ -37,6 +37,12 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
     ColouredFlash colouredFlash;
     public float flaskRefillAmount = 5f;
 
+    private float currentStunResistance;
+    private float lastDamageTime;
+    public float stunResistance = 20f;
+    public float stunRecoveryTime = 1f;
+    protected bool isStunned;
+
     void Start()
     {
         target = GameManager.instance.player.transform;
@@ -56,6 +62,12 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
                 RaiseOnFireEvent();
             }
             return;
+        }
+
+
+        if (Time.time >= lastDamageTime + stunRecoveryTime)
+        {
+            ResetStunResistance();
         }
 
         if (targeting)
@@ -96,11 +108,17 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
 
     public bool CanFire()
     {
+        if (isStunned)
+        {
+            return false;
+        }
+
         if (firstTake)
         {
             nextFireTime = Time.time + delay;
             firstTake = false;
         }
+
         return Time.time >= nextFireTime;
     }
 
@@ -109,7 +127,9 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
         if (!isDamagable)
             return;
 
-        Health -= amount;
+        lastDamageTime = Time.time;
+
+        //Health -= amount;
         RaiseOnHitEnemyEvent(Health, MaxHealth);
 
         if (colouredFlash != null)
@@ -117,11 +137,14 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
             colouredFlash.Flash(Color.white);
         }
 
-        if (Health <= 0)
+        if (type == DamageType.Melee)
         {
             UI_HUD.instance.RefillFlask(flaskRefillAmount);
-            Destroy(gameObject);
+        }
 
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -145,8 +168,14 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
         return;
     }
 
+    public virtual void ResetStunResistance()
+    {
+        isStunned = false;
+        currentStunResistance = stunResistance;
+    }
+
     public void ProcessStunDamage(int amount, float stunDamageMod = 1)
     {
-        return;
+        isStunned = true;
     }
 }

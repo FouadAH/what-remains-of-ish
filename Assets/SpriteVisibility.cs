@@ -6,11 +6,11 @@ public class SpriteVisibility : MonoBehaviour
 {
     private void OnBecameInvisible()
     {
-        GetComponent<SpriteRenderer>().enabled = false;
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void OnBecameVisible()
     {
-        GetComponent<SpriteRenderer>().enabled = true;
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 }

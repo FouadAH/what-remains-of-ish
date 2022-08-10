@@ -15,7 +15,7 @@ public class BreakableWall : MonoBehaviour, IHittable
     Animator shadowAnimator;
 
     public ParticleSystem wallHitParticles;
-
+    public bool autoDestroy;
     [Header("Wall Hit Animation Values")]
     public float startDuration = 1f;
     public float endDuration = 1f;
@@ -40,15 +40,16 @@ public class BreakableWall : MonoBehaviour, IHittable
     public void ProcessHit(int amount, DamageType type)
     {
         Health--;
-        wallHitParticles.Play();
         WallHitSequence();
 
         if (Health <= 0)
         {
+            wallHitParticles.Play();
             GetComponent<Collider2D>().enabled = false;
             shadowAnimator.Play("SecretRoomReveal");
             wallCollider.enabled = false;
             wallSprite.enabled = false;
+            StopAllCoroutines();
         }
     }
 
@@ -62,5 +63,32 @@ public class BreakableWall : MonoBehaviour, IHittable
         }
     }
 
+    IEnumerator SelfDestruct()
+    {
+        if (autoDestroy)
+        {
+            while (Health > 0)
+            {
+                ProcessHit(1, DamageType.Melee);
+                yield return new WaitForFixedUpdate();
+            }
+        }
+
+        yield return null;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!autoDestroy)
+        {
+            return;
+        }
+        if (collision.CompareTag("Player"))
+        {
+            Debug.Log("Player");
+
+            StartCoroutine(SelfDestruct());
+        }
+    }
 
 }

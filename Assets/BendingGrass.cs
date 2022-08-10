@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class BendingGrass : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class BendingGrass : MonoBehaviour
     bool isBending;
     bool isRebounding;
 
+    SpriteSkin skin;
     SpriteRenderer spriteRenderer;
     Sprite sprite;
     BoxCollider2D boxCollider;
@@ -22,17 +24,18 @@ public class BendingGrass : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         sprite = spriteRenderer.sprite;
         boxCollider = GetComponent<BoxCollider2D>();
+        skin = GetComponent<SpriteSkin>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isBending)
-        {
-            bendForce = Vector2.SmoothDamp(bendForce, Vector2.zero, ref bendForceVelocity, 0.5f);
-        }
+        //if (!isBending)
+        //{
+        //    bendForce = Vector2.SmoothDamp(bendForce, Vector2.zero, ref bendForceVelocity, 0.5f);
+        //}
 
-        baseRigidbody.AddForce(bendForce);
+        //baseRigidbody.AddForce(bendForce);
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -41,6 +44,7 @@ public class BendingGrass : MonoBehaviour
         {
             float enterOffset = col.transform.position.x - transform.position.x;
             bendForce = new Vector3(bendFactor * -Mathf.Sign(enterOffset), 0, 0);
+            baseRigidbody.AddForce(bendForce, ForceMode2D.Impulse);
             isBending = true;
         }
     }
@@ -51,6 +55,7 @@ public class BendingGrass : MonoBehaviour
         {
             float exitOffset = col.transform.position.x - transform.position.x;
             bendForce = new Vector3(bendFactor * -Mathf.Sign(exitOffset), 0, 0);
+            baseRigidbody.AddForce(bendForce, ForceMode2D.Impulse);
             isBending = false;
         }
     }
@@ -90,4 +95,18 @@ public class BendingGrass : MonoBehaviour
 
         sprite.OverrideGeometry(verts, sprite.triangles);
     }
+
+    private void OnBecameInvisible()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        skin.enabled = false;
+    }
+
+    private void OnBecameVisible()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        skin.enabled = true;
+    }
+
+
 }

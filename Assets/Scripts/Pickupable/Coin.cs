@@ -11,10 +11,12 @@ public class Coin : MonoBehaviour
     [SerializeField] private float sideForce = 3f;
     [SerializeField] private int value = 1;
 
-    bool hasHitGround = false;
+    bool canPickUp = false;
     public Collider2D coinCollider;
-
+    public ParticleSystem coinCollecterEffect;
     public IntegerReference playerCurrency;
+
+    float waitTime = 0.2f;
     /// <summary>
     /// Called when a coin is intantiated.
     /// </summary>
@@ -24,6 +26,7 @@ public class Coin : MonoBehaviour
         float yForce = Random.Range(upForce/2f, upForce);
         GetComponent<Rigidbody2D>().velocity = new Vector2(xForce, yForce);
         coinCollider.enabled = false;
+        StartCoroutine(Timer());
     }
 
     /// <summary>
@@ -32,18 +35,27 @@ public class Coin : MonoBehaviour
     /// <param name="collider">Player game object</param>
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (hasHitGround && IsInLayerMask(collider.gameObject.layer, LayerMask.GetMask("PlayerTrigger")))
+        if (canPickUp && IsInLayerMask(collider.gameObject.layer, LayerMask.GetMask("PlayerTrigger")))
         {
             playerCurrency.Value += value;
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Scraps", GetComponent<Transform>().position);
+            Instantiate(coinCollecterEffect, transform.position, Quaternion.identity).Play();
+            StopAllCoroutines();
             Destroy(gameObject);
         }
 
         if ( IsInLayerMask(collider.gameObject.layer, LayerMask.GetMask("Obstacles")) )
         {
-            hasHitGround = true;
+            canPickUp = true;
             coinCollider.enabled = true;
         }
+    }
+
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(waitTime);
+        canPickUp = true;
+        coinCollider.enabled = true;
     }
     public static bool IsInLayerMask(int layer, LayerMask layermask)
     {

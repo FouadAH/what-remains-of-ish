@@ -31,6 +31,7 @@ public class BirbMother_IdleState : IdleState
     bool playerInCloseDistance;
     float playerCloseDistance = 8f;
 
+
     public BirbMother_IdleState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData, BirbMother enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
@@ -76,6 +77,12 @@ public class BirbMother_IdleState : IdleState
         if (entity.facingDirection != directionX)
         {
             entity.Flip();
+        }
+
+        if (!enemy.bossFightHasStarted)
+        {
+            startTime = Time.time;
+            return;
         }
 
         if (isIdleTimeOver)

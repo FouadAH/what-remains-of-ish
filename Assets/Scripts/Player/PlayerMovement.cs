@@ -334,13 +334,16 @@ public class PlayerMovement : MonoBehaviour
 
         if ((!controller.collitions.left || !controller.collitions.right)){
 
-            if (isAirborne && GameManager.instance.playerData.hasAirDashAbility)
+            if (!IsAttacking)
             {
-                playerDash.DashController(ref velocity, playerInput, playerSettings);
-            }
-            else if(!isAirborne)
-            {
-                playerDash.DashController(ref velocity, playerInput, playerSettings);
+                if (isAirborne && GameManager.instance.playerData.hasAirDashAbility)
+                {
+                    playerDash.DashController(ref velocity, playerInput, playerSettings);
+                }
+                else if (!isAirborne)
+                {
+                    playerDash.DashController(ref velocity, playerInput, playerSettings);
+                }
             }
         }
 
@@ -378,7 +381,11 @@ public class PlayerMovement : MonoBehaviour
         //Calculating X velocity
         if (controller.collitions.below)
         {
-            if (isSprinting && Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x * -1)
+            if (IsAttacking)
+            {
+                velocity.x = Mathf.SmoothDamp(velocity.x, 2 * transform.localScale.x, ref velocityXSmoothing, 0);
+            }
+            else if (isSprinting && Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x * -1)
             {
                 velocity.x = Mathf.SmoothDamp(velocity.x, 0, ref velocityXSmoothing, stopFrictionSprinting);
             }
