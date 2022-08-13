@@ -6,7 +6,7 @@ public class LevelManager : Savable
 {
     public static LevelManager instance { get; private set; }
     public List<Area> areas;
-    public AreaData areaData;
+    AreaData areaData;
 
     [System.Serializable]
     public struct AreaData

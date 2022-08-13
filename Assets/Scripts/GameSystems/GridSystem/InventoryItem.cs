@@ -42,7 +42,7 @@ public class InventoryItem : MonoBehaviour
 
     public override string ToString()
     {
-        return inventoryItemSO.itemName;
+        return inventoryItemSO.GetName();
     }
 
     public InventoryItemSO GetPlacedObjectTypeSO()

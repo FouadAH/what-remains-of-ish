@@ -29,7 +29,7 @@ public class SaveManager : MonoBehaviour
     private Dictionary<string, ISaveable> m_RegisteredSaveables = null;
 
     public PlayerDataSO playerDataSO;
-    
+
     SceneData sceneDataCache;
     EnemyData enemyDataCache;
     
@@ -292,6 +292,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame()
     {
+        saveDataEvent.Raise();
         PlayerData playerData = GetPlayerData();
         SavablesToCache();
         currentSaveFile.gameData.player_data = playerData;
@@ -690,6 +691,7 @@ public class GameData
     public PlayerData player_data;
     public SceneData scene_data;
     public EnemyData enemy_data;
+    public ItemData item_data;
 
     public void OnWrite()
     {
@@ -720,6 +722,12 @@ public class SceneData
 
 [System.Serializable]
 public class EnemyData
+{
+    public Dictionary<string, string> data_entries;
+}
+
+[System.Serializable]
+public class ItemData
 {
     public Dictionary<string, string> data_entries;
 }

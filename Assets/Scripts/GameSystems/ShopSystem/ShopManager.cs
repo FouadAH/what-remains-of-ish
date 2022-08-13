@@ -79,6 +79,8 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < shopItems.Count; i++)
         {
+            ItemManager.Instance.AddItemToDictionary(shopItems[i]);
+
             if (!shopItems[i].hasBeenSold)
                 InitItem(shopItems[i]);
         }
@@ -98,25 +100,25 @@ public class ShopManager : MonoBehaviour
         }
 
         ShopItemView shopItemView =  Instantiate(itemViewPrefab, shopContent).GetComponent<ShopItemView>();
-        shopItemView.itemCost.text = shopItem.itemCost.ToString();
-        shopItemView.itemSprite.sprite = shopItem.itemIcon;
+        shopItemView.itemCost.text = shopItem.GetCost().ToString();
+        shopItemView.itemSprite.sprite = shopItem.GetIcon();
         shopItemView.itemSprite.preserveAspect = true;
         shopItemView.selectButton.onClick.AddListener(() => OnSelectItem(shopItem));
     }
 
     public void OnSelectItem(ShopItemSO shopItem)
     {
-        itemName.text = shopItem.itemName;
-        itemDescription.text = shopItem.itemDescription;
+        itemName.text = shopItem.GetName();
+        itemDescription.text = shopItem.GetDescription();
         currentSelectedItem = shopItem;
-        buyButton.interactable = (playerCurrency.Value >= shopItem.itemCost);
+        buyButton.interactable = (playerCurrency.Value >= shopItem.GetCost());
     }
 
     public void OnBuyItem(ShopItemSO shopItem)
     {
-        if (playerCurrency.Value >= shopItem.itemCost && !shopItem.hasBeenSold)
+        if (playerCurrency.Value >= shopItem.GetCost() && !shopItem.hasBeenSold)
         {
-            playerCurrency.Value -= (int)shopItem.itemCost;
+            playerCurrency.Value -= (int)shopItem.GetCost();
             shopItem.OnBuyItem();
             shopItem.hasBeenSold = true;
 
@@ -136,9 +138,9 @@ public class ShopManager : MonoBehaviour
 
     public void OnClickYes()
     {
-        if (playerCurrency.Value >= currentSelectedItem.itemCost && !currentSelectedItem.hasBeenSold)
+        if (playerCurrency.Value >= currentSelectedItem.GetCost() && !currentSelectedItem.hasBeenSold)
         {
-            playerCurrency.Value -= (int)currentSelectedItem.itemCost;
+            playerCurrency.Value -= (int)currentSelectedItem.GetCost();
             currentSelectedItem.OnBuyItem();
             currentSelectedItem.hasBeenSold = true;
 

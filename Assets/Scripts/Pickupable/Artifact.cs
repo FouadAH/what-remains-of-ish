@@ -7,7 +7,6 @@ public class Artifact : ItemSO
 {
     public override void ReceiveItem()
     {
-        base.ReceiveItem();
         UI_HUD.instance.SetDebugText("Picked up an artifact!");
     }
 }

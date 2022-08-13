@@ -7,7 +7,7 @@ public class MapArea : MonoBehaviour
 {
     public Area area;
     public List<MapLevel> mapLevels;
-
+        
     public void AddLevelsToAreaList()
     {
         mapLevels.Clear();

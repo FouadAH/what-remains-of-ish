@@ -7,6 +7,7 @@ public class HealingFlaskShardSO : ShopItemSO
 {
     public override void ReceiveItem()
     {
+        base.ReceiveItem();
         int remainder = GameManager.instance.AddHealingFlaskShard();
 
         if (remainder == 0)

@@ -8,15 +8,21 @@ public class Boomerang : MonoBehaviour
     public Transform boomerangSprite;
     public event Action<Collider2D, Vector2> OnRangedHit = delegate { };
 
+    [Header("Wall Detection Settings")]
+
     public Transform wallDetectionObjects;
 
     public float wallDetectionDistance = 1.4f;
+
+    [Header("Bounce Settings")]
 
     public float collitionAirTimeBonus = 0.2f;
     public float bounceAirTimeBonus = 0.8f;
 
     public float collitionSpeedBonus = 5f;
     public float bounceSpeedBonus = 10f;
+
+    [Header("Speed Settings")]
 
     public float maxSpeedBonus = 20f;
     public float maxAirTime = 2.5f;
@@ -31,7 +37,6 @@ public class Boomerang : MonoBehaviour
     Rigidbody2D rgd2D;
     Collider2D col2D;
 
-    [HideInInspector] 
     bool isReflecting = false;
     bool back;
     bool instantCallback;
@@ -43,8 +48,16 @@ public class Boomerang : MonoBehaviour
 
     public AnimationCurve boomerangSpeed;
 
+    [Header("VFX")]
+
     public ParticleSystem freezeBurst;
     public GameObject explosionPrefab;
+
+    [Header("SFX")]
+
+    [FMODUnity.EventRef] public string wallHitSFX;
+    [FMODUnity.EventRef] public string enemyHitSFX;
+    [FMODUnity.EventRef] public string criticalHitSFX;
 
     Rumbler rumbler;
 
@@ -278,6 +291,8 @@ public class Boomerang : MonoBehaviour
                     if (enemiesDamaged < 2)
                     {
                         Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+                        FMODUnity.RuntimeManager.PlayOneShotAttached(enemyHitSFX, gameObject);
+
                         enemiesDamaged++;
                         Vector2 hitPos = transform.position;
                         OnRangedHit.Invoke(hit.collider, hitPos);
@@ -294,8 +309,9 @@ public class Boomerang : MonoBehaviour
 
                 rgd2D.velocity = Vector2.zero;
                 Instantiate(boomerangLauncher.hitEffect, hit.point, Quaternion.identity);
-                
-                if(hit.collider.gameObject.tag.ToString().Equals("Bounce"))
+                FMODUnity.RuntimeManager.PlayOneShotAttached(wallHitSFX, gameObject);
+
+                if (hit.collider.gameObject.tag.ToString().Equals("Bounce"))
                 {
                     speedBonus = Mathf.Min(speedBonus + bounceSpeedBonus, maxSpeedBonus);
                     boomerangDuration = Mathf.Min(boomerangDuration + bounceAirTimeBonus, maxAirTime);
@@ -325,6 +341,8 @@ public class Boomerang : MonoBehaviour
         if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.interactable))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+            FMODUnity.RuntimeManager.PlayOneShotAttached(wallHitSFX, gameObject);
+
             instantCallback = true;
             back = true;
         }
@@ -332,6 +350,8 @@ public class Boomerang : MonoBehaviour
         if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.damagable))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
+            FMODUnity.RuntimeManager.PlayOneShotAttached(enemyHitSFX, gameObject);
+
             enemiesDamaged++;
             Vector2 hitPos = transform.position;
             OnRangedHit.Invoke(collider, hitPos);

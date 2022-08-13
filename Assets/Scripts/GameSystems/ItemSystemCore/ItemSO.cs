@@ -1,7 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ItemSO : ScriptableObject
+public class ItemSO : BaseScriptableObject
 {
-    public virtual void ReceiveItem(){}
+    public bool isOwnedByPlayer;
+
+    public virtual void ReceiveItem()
+    {
+        isOwnedByPlayer = true;
+    }
 }

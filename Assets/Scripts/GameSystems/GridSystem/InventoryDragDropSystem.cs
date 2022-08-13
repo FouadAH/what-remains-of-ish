@@ -156,8 +156,8 @@ public class InventoryDragDropSystem : MonoBehaviour
         }
 
         currentInventoryItem = inventoryItem;
-        itemName.text = inventoryItem.GetPlacedObjectTypeSO().itemName;
-        itemDescription.text = inventoryItem.GetPlacedObjectTypeSO().itemDescription;
+        itemName.text = inventoryItem.GetPlacedObjectTypeSO().GetName();
+        itemDescription.text = inventoryItem.GetPlacedObjectTypeSO().GetDescription();
     }
 
 }

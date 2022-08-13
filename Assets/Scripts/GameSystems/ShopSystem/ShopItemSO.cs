@@ -2,25 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 [CreateAssetMenu(fileName = "newShopItem", menuName = "Items/New Shop Item", order = 1)]
 public class ShopItemSO : ItemSO
 {
-    public string itemName;
-    [TextArea(4,10)] public string itemDescription;
-    public float itemCost;
-    public Sprite itemIcon;
+    [SerializeField] 
+    protected string itemName { get; }
+
+    [SerializeField]
+    [TextArea(1, 10)]
+    protected string itemDescription;
+
+    [SerializeField] 
+    protected float itemCost { get; }
+
+    [SerializeField] 
+    protected Sprite itemIcon { get; }
 
     public bool hasBeenSold;
-    public bool canBuy;
 
     public override void ReceiveItem()
     {
-        UI_HUD.instance.SetDebugText("Picked up an item!");
+        base.ReceiveItem();
     }
 
     public virtual void OnBuyItem()
     {
-        Debug.Log("Buy Item");
+        UI_HUD.instance.SetDebugText("Bought an item:" + itemName);
+        isOwnedByPlayer = true;
+    }
+
+    public string GetDescription()
+    {
+        return itemDescription;
+    }
+    public string GetName()
+    {
+        return itemName;
+    }
+
+    public float GetCost()
+    {
+        return itemCost;
+    }
+
+    public Sprite GetIcon()
+    {
+        return itemIcon;
     }
 }

@@ -7,6 +7,7 @@ public class HealthShardSO : ShopItemSO
 {
     public override void ReceiveItem()
     {
+        base.ReceiveItem();
         int remainder = GameManager.instance.AddHealthShard();
 
         if (remainder == 0)

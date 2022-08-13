@@ -55,6 +55,7 @@ public class InventoryItemSO : ShopItemSO
 
     public override void ReceiveItem()
     {
+        base.ReceiveItem();
         UI_HUD.instance.SetDebugText("Picked up a brooche!");
         UI_HUD.instance.broochInventoryGrid.TryAutoPlaceObject(this);
     }
@@ -83,7 +84,6 @@ public class InventoryItemSO : ShopItemSO
             isEquipped = false;
             Debug.Log("Unequipped brooch: " + itemName);
             GameManager.instance.GetBool("equippedBrooch_" + broochID) = false;
-
         }
     }
 
