@@ -1,10 +1,11 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class BossArena : MonoBehaviour, ISaveable
+public class BossArena : Savable
 {
     public List<Door> arenaDoors;
     public Entity bossEntity;
@@ -19,14 +20,15 @@ public class BossArena : MonoBehaviour, ISaveable
     [FMODUnity.EventRef] public string bossThemeMusic;
     string levelTheme;
 
-
+    [Serializable]
     public struct BossArenaData
     {
         public bool isFinished;
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         foreach (Door door in arenaDoors)
         {
             door.SetStateInitial(true);
@@ -35,24 +37,26 @@ public class BossArena : MonoBehaviour, ISaveable
 
     private void Update()
     {
-        if (!hasBeenActivated || arenaData.isFinished)
+        if (arenaData.isFinished)
+            return;
+
+        if (!hasBeenActivated)
             return;
 
         if (bossEntity.isDead)
-        {
             OnBossDead();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (hasBeenActivated || arenaData.isFinished)
+        if (arenaData.isFinished)
+            return;
+
+        if (hasBeenActivated)
             return;
 
         if (collision.GetComponent<Player>())
-        {
             StartBossFight();
-        }
     }
 
     public void StartBossFight()
@@ -119,17 +123,17 @@ public class BossArena : MonoBehaviour, ISaveable
         bossHealthCanvas.enabled = false;
     }
 
-    public string SaveData()
+    public override string SaveData()
     {
         return JsonUtility.ToJson(arenaData);
     }
 
-    public void LoadDefaultData()
+    public override void LoadDefaultData()
     {
         arenaData.isFinished = false;
     }
 
-    public void LoadData(string data, string version)
+    public override void LoadData(string data, string version)
     {
         arenaData = JsonUtility.FromJson<BossArenaData>(data);
         Debug.Log("loading boss arena data: " + data);

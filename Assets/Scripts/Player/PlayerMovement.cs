@@ -29,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
     public bool WallSliding { get; private set; }
     public Vector2 Velocity { get => velocity; set => velocity = value; }
     public bool IsAttacking { get; set; }
+    public bool attackStop = true; 
+
+    public float AttackSpeed = 2f;
+    public Vector2 attackDir;
 
     [Header("Knockback settings")]
     public Vector3 dirKnockback;
@@ -381,9 +385,12 @@ public class PlayerMovement : MonoBehaviour
         //Calculating X velocity
         if (controller.collitions.below)
         {
-            if (IsAttacking)
+            if (IsAttacking && attackStop)
             {
-                velocity.x = Mathf.SmoothDamp(velocity.x, 2 * transform.localScale.x, ref velocityXSmoothing, 0);
+                if (attackDir.y >= 0)
+                {
+                    velocity.x = Mathf.SmoothDamp(velocity.x, AttackSpeed * transform.localScale.x, ref velocityXSmoothing, 0);
+                }
             }
             else if (isSprinting && Mathf.Abs(velocity.x) > speedThreshold && Mathf.Sign(velocity.x) == playerInput.directionalInput.x * -1)
             {

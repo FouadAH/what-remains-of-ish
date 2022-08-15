@@ -45,6 +45,8 @@ public class Attack : MonoBehaviour, IHitboxResponder
     public void AttackDefault()
     {
         dir = new Vector3(-transform.localScale.x, 0);
+        player.attackDir = dir;
+
         player.knockbackDistance = knockbackBasicAttack;
         CheckHitboxes();
     }
@@ -52,12 +54,16 @@ public class Attack : MonoBehaviour, IHitboxResponder
     public void AttackUp()
     {
         dir = new Vector3(0, -1);
+        player.attackDir = dir;
+
         player.knockbackDistance = knockbackUpAttack;
         CheckHitboxes();
     }
     public void AttackDown()
     {
         dir = new Vector3(0, 1);
+        player.attackDir = dir;
+
         player.knockbackDistance = knockbackDownAttack;
         CheckHitboxes();
     }
