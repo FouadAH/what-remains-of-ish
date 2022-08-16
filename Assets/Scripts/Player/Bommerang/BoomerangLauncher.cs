@@ -47,6 +47,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public float stopForceImpulseSpeed;
 
     [Header("Aim assist values")]
+    public bool aimAssistOn = true;
     public float aimSnapTime = 0.02f;
     [Range(0,6)] public float aimAssistAmount = 3f;
 
@@ -217,10 +218,9 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         analoguStickInput = analoguStickInput.normalized * ((analoguStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
         float analogAngle = Mathf.Atan2(analoguStickInput.x * -1, analoguStickInput.y) * Mathf.Rad2Deg;
         digitalAngle = Mathf.SmoothDampAngle(digitalAngle, analogAngle, ref currentAngleVelocity, aimSnapTime);
-        transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
     }
 
-    public Transform lookForEnemyWithThickRaycast(Vector2 startWorldPos, Vector2 direction, float visibilityThickness)
+    public Transform LookForEnemyWithThickRaycast(Vector2 startWorldPos, Vector2 direction, float visibilityThickness)
     {
         if (visibilityThickness == 0) return null; //aim assist disabled
 
@@ -240,9 +240,10 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             float angleOffset = -flareOutAngle * 0.5f + i * flareOutAngle / (numberOfRays - 1);
             Vector2 flaredDirection = direction.Rotate(angleOffset);
 
-            RaycastHit2D hit = Physics2D.Raycast(startPos, flaredDirection, castDistance, LayerMask.GetMask("Enemy"));
-            Debug.DrawRay(startPos, flaredDirection * castDistance, Color.yellow, Time.deltaTime);
+            RaycastHit2D hit = Physics2D.Raycast(startPos, flaredDirection, castDistance, damagable);
 
+            Debug.DrawRay(startPos, flaredDirection * castDistance, Color.yellow, Time.deltaTime);
+            
             if (hit)
             {
                 //make sure it's in range
@@ -266,10 +267,26 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         {
             Vector2 rightStickInput = playerInput.rightStickInputRaw;
 
-            if (rightStickInput.magnitude >= inputDeadZone)
+            if (aimAssistOn)
+            {
+                Transform target = LookForEnemyWithThickRaycast(firingPoint.transform.position, rightStickInput, aimAssistAmount);
+
+                if (target != null)
+                {
+                    Vector2 dirToTarget = target.position - firingPoint.position;
+                    CalculateAngle(dirToTarget);
+                }
+                else if (rightStickInput.magnitude >= inputDeadZone)
+                {
+                    CalculateAngle(rightStickInput);
+                }
+            }
+            else if (rightStickInput.magnitude >= inputDeadZone)
             {
                 CalculateAngle(rightStickInput);
             }
+
+            transform.rotation = Quaternion.Euler(0, 0, digitalAngle);
         }
         else
         {
@@ -278,8 +295,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         }
-
-        //lookForEnemyWithThickRaycast(firingPoint.transform.position, (crosshair.transform.position - firingPoint.transform.position).normalized, aimAssistAmount);
     }
     void BoomerangAimingEffects()
     {

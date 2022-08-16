@@ -134,6 +134,18 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void ToggleAimAssist(Toggle aimAssistToggle)
+    {
+        if (aimAssistToggle.isOn)
+        {
+            GameManager.instance.player.GetComponent<Player>().boomerangLauncher.aimAssistOn = true;
+        }
+        else
+        {
+            GameManager.instance.player.GetComponent<Player>().boomerangLauncher.aimAssistOn = false;
+        }
+    }
+
     public void ToggleDirectionalAttack(Toggle directionalAttackToggle)
     {
         if (directionalAttackToggle.isOn)
@@ -310,7 +322,6 @@ public class PauseMenu : MonoBehaviour
             SFXVolumeTestEvent.start();
         }
     }
-
 
     public void SetQuality(int qualityIndex)
     {

@@ -25,8 +25,7 @@ public class DeadState : State
 
         if (stateData.deathBloodParticle != null)
         {
-            GameObject.Instantiate(stateData.deathBloodParticle, entity.aliveGO.transform.position, 
-                stateData.deathBloodParticle.transform.rotation);
+            GameObject.Instantiate(stateData.deathBloodParticle, entity.transform.parent).transform.position = entity.transform.position;
         }
 
         entity.StartCoroutine(Die());

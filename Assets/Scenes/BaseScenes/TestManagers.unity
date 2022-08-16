@@ -224,7 +224,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147130625}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
   m_Name: 
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveFiles: []
   loadSaveFileEvent: {fileID: 11400000, guid: c5b07e18b28b16f40a96b8f9d4036790, type: 2}
-  saveDataEvent: {fileID: 11400000, guid: ba37e1345cfc485448bfc1ddaf380036, type: 2}
+  onSavedData: {fileID: 11400000, guid: a35685129a501054b9475e7c10bae377, type: 2}
   newGameEvent: {fileID: 11400000, guid: e19c2b2c7c5c40542964118003b0ddb6, type: 2}
   testSaveFile: {fileID: 11400000, guid: 5da0ddb0a8aa6db48bba185c108eb16e, type: 2}
   currentSaveFile: {fileID: 0}
@@ -587,7 +587,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023344683}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
   m_Name: 

@@ -126,7 +126,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
                 FMODUnity.RuntimeManager.PlayOneShotAttached(enemyHitSFX, gameObject);
             }
 
-            rumbler.RumblePulse(1, 2, 0.5f, 0.5f);
+            rumbler.RumblePulse(0.5f, 0.6f, 0.5f, 0.3f);
         }
         else if(IsInLayerMask(collider.gameObject.layer, spikeLayer))
         {
@@ -152,7 +152,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
         else if (IsInLayerMask(collider.gameObject.layer, obstacleLayer))
         {
             Debug.Log("Hit obstacle");
-            rumbler.RumblePulse(1, 2, 0.5f, 0.5f);
+            rumbler.RumblePulse(0.5f, 0.6f, 0.5f, 0.3f);
 
             if (dir.y == 0)
             {

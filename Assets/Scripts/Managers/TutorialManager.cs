@@ -88,6 +88,11 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    public void BoomerangTutorial()
+    {
+        DisplayTutorial(TutorialType.Boomerang);
+    }
+
     void Display(GameObject tutorial)
     {
         inputLock = true;

@@ -14,7 +14,7 @@ public class SaveManager : MonoBehaviour
     public List<SaveFileSO> saveFiles;
 
     public GameEvent loadSaveFileEvent;
-    public GameEvent saveDataEvent;
+    public GameEvent onSavedData;
     public GameEvent newGameEvent;
 
 #if UNITY_EDITOR
@@ -292,7 +292,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame()
     {
-        saveDataEvent.Raise();
+        onSavedData.Raise();
         PlayerData playerData = GetPlayerData();
         SavablesToCache();
         currentSaveFile.gameData.player_data = playerData;
@@ -484,12 +484,19 @@ public class SaveManager : MonoBehaviour
             data_entries = new Dictionary<string, string>(),
         };
 
+        ItemData itemData = new ItemData
+        {
+            data_entries = new Dictionary<string, string>(),
+        };
+
         GameData gameData = new GameData
         {
             player_data = playerData,
             scene_data = sceneData,
-            enemy_data = enemyCache
+            enemy_data = enemyCache,
+            item_data = itemData
         };
+
         return gameData;
     }
 

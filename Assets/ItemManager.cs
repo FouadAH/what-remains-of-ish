@@ -32,10 +32,8 @@ public class ItemManager : MonoBehaviour
         {
             itemDictionary.Add(item.Id, item);
 
-
-            if (itemDictionary[item.Id] is ShopItemSO)
+            if (itemDictionary[item.Id] is ShopItemSO si)
             {
-                ShopItemSO si = (ShopItemSO)itemDictionary[item.Id];
                 si.hasBeenSold = false;
             }
         }

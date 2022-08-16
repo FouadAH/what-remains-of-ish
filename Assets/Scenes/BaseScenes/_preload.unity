@@ -487,7 +487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveFiles: []
   loadSaveFileEvent: {fileID: 11400000, guid: c5b07e18b28b16f40a96b8f9d4036790, type: 2}
-  saveDataEvent: {fileID: 11400000, guid: ba37e1345cfc485448bfc1ddaf380036, type: 2}
+  onSavedData: {fileID: 11400000, guid: a35685129a501054b9475e7c10bae377, type: 2}
   newGameEvent: {fileID: 11400000, guid: e19c2b2c7c5c40542964118003b0ddb6, type: 2}
   testSaveFile: {fileID: 11400000, guid: 5da0ddb0a8aa6db48bba185c108eb16e, type: 2}
   currentSaveFile: {fileID: 0}
@@ -644,6 +644,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81136b308b3990b4a831d79d24bdba90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1648440427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1648440431}
+  - component: {fileID: 1648440430}
+  - component: {fileID: 1648440429}
+  - component: {fileID: 1648440428}
+  m_Layer: 0
+  m_Name: ItemManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1648440428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648440427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: ba37e1345cfc485448bfc1ddaf380036, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1648440430}
+        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
+        m_MethodName: SaveData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1648440429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648440427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: c5b07e18b28b16f40a96b8f9d4036790, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1648440430}
+        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
+        m_MethodName: LoadData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1648440430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648440427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a946c25ae9d90c4abe6f3a7f3553330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopItems: []
+--- !u!4 &1648440431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648440427}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1898292096
 GameObject:
   m_ObjectHideFlags: 0
