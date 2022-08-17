@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public bool WallSliding { get; private set; }
     public Vector2 Velocity { get => velocity; set => velocity = value; }
     public bool IsAttacking { get; set; }
+    public bool IsInAttackAnimation { get; set; }
     public bool attackStop = true; 
 
     public float AttackSpeed = 2f;
@@ -644,6 +645,16 @@ public class PlayerMovement : MonoBehaviour
         IsAttacking = false;
     }
 
+    public void OnAttackAnimationStart()
+    {
+        IsInAttackAnimation = true;
+    }
+
+    public void OnAttackAnimationEnd()
+    {
+        IsInAttackAnimation = false;
+    }
+
     int facingDirection;
     /// <summary>
     /// Method for setting the players' orientation based on input
@@ -651,7 +662,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="input">Player input</param>
     public void SetPlayerOrientation(Vector2 input)
     {
-        if (!playerDash.isDashing && !WallSliding && !IsAttacking)
+        if (!playerDash.isDashing && !WallSliding && !IsInAttackAnimation)
         {
             if (input.x < 0)
             {

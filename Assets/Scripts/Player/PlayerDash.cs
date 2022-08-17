@@ -63,7 +63,19 @@ public class PlayerDash : MonoBehaviour
                 playerMovement.dashSpeed = ((Mathf.Sign(playerInput.directionalInput.x) == -1) ? -1 : 1) * dashSpeedMod;
             }
 
-            StartCoroutine(DashIFrames(dashIFrames));
+            if (player.iFrameRoutine != null)
+            {
+                if (player.iFrames < dashIFrames)
+                {
+                    StopCoroutine(player.iFrameRoutine);
+                    StartCoroutine(player.DamageIFrames(dashIFrames));
+                }
+            }
+            else
+            {
+                StartCoroutine(player.DamageIFrames(dashIFrames));
+            }
+
             StartCoroutine(FloatTime(dashTime));
             StartCoroutine(DashLogic(playerSettings.DashCooldown));
             StartCoroutine(DashEffect(effectTime));

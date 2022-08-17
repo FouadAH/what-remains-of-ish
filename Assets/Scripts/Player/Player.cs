@@ -10,13 +10,14 @@ using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Controller_2D))]
 
-public class Player : MonoBehaviour, IAttacker{
+public class Player : MonoBehaviour, IAttacker {
 
     [HideInInspector] public Vector3 velocity;
     public LayerMask enemyMask;
 
-    float iFrames = 0f;
-    public float iFrameTime = 1f;
+    [HideInInspector] public float iFrames { get; private set; }
+
+    public float damageIFrameTime = 1f;
     public bool invinsible = false;
     
     Animator anim;
@@ -186,27 +187,10 @@ public class Player : MonoBehaviour, IAttacker{
         dustParticles.Play();
     }
 
-    /// <summary>
-    /// Method that handles iframe logic when the player takes damage
-    /// </summary>
-    public void OnDamage()
+    public Coroutine iFrameRoutine;
+    public IEnumerator DamageIFrames(float iFrameTime)
     {
-        if (invinsible)
-        {
-            if (iFrames > 0)
-            {
-                iFrames -= Time.deltaTime;
-
-            }
-            else
-            {
-                invinsible = false;
-            }
-        }
-    }
-
-    public IEnumerator DamageIFrames()
-    {
+        invinsible = true;
         iFrames = iFrameTime;
         while (iFrames > 0)
         {
@@ -214,6 +198,7 @@ public class Player : MonoBehaviour, IAttacker{
             yield return null;
         }
         invinsible = false;
+        iFrameRoutine = null;
     }
 
 
@@ -407,14 +392,16 @@ public class Player : MonoBehaviour, IAttacker{
         }
 
         CheckDeath();
-        StartCoroutine(DamageIFrames());
-       
+
         if (flashRoutine != null)
         {
             StopCoroutine(flashRoutine);
         }
 
-        flashRoutine = StartCoroutine(flashEffect.FlashMultiple(Color.white, iFrameTime));
+        flashRoutine = StartCoroutine(flashEffect.FlashMultiple(Color.white, damageIFrameTime));
+
+        iFrameRoutine = StartCoroutine(DamageIFrames(damageIFrameTime));
+
         invinsible = true;
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player Damage", GetComponent<Transform>().position);
     }
