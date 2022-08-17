@@ -67,7 +67,7 @@ public class SpikeChargerEnemy : Entity, IAttacker
 
     public override void ProcessHit(int amount, DamageType type)
     {
-        base.ProcessHit(amount, DamageType.Melee);
+        base.ProcessHit(amount, type);
 
         IsAggro = true;
 

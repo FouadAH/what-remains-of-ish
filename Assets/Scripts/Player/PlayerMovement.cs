@@ -534,9 +534,21 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleJumpInput()
     {
+        if (!controller.collitions.below || playerDash.isDashing)
+        {
+            cayoteTimer += Time.deltaTime;
+        }
+        else
+        {
+            canDoubleJump = GameManager.instance.playerData.hasDoubleJumpAbility;
+            cayoteTimer = 0;
+        }
+        canJump = cayoteTimer < MAX_JUMP_ASSIST_TIME;
+
         if (playerDash.isDashing)
         {
-            return;
+            cayoteTimer = 100;
+            canJump = false;
         }
 
         if(velocity.y <= 0)
@@ -553,17 +565,6 @@ public class PlayerMovement : MonoBehaviour
                 jumpTrail.emitting = true;
             }
         }
-
-        if (!controller.collitions.below)
-        {
-            cayoteTimer += Time.deltaTime;
-        }
-        else
-        {
-            canDoubleJump = GameManager.instance.playerData.hasDoubleJumpAbility;
-            cayoteTimer = 0;
-        }
-        canJump = cayoteTimer < MAX_JUMP_ASSIST_TIME;
 
         if (jumpBufferCounter < MAX_JUMP_BUFFER_TIME)
         {

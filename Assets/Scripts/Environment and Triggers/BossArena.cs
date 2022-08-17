@@ -13,7 +13,9 @@ public class BossArena : Savable
     public GameEvent bossFightEndedEvent;
 
     public CinemachineVirtualCamera bossAreaCamera;
-    public Canvas bossHealthCanvas;
+    public Canvas bossCanvas;
+    Animator bossCanvasAnimator;
+
     bool hasBeenActivated;  
     public BossArenaData arenaData;
     public PlayableDirector bossIntroCutscene;
@@ -33,6 +35,8 @@ public class BossArena : Savable
         {
             door.SetStateInitial(true);
         }
+
+        bossCanvasAnimator = bossCanvas.GetComponent<Animator>();
     }
 
     private void Update()
@@ -91,7 +95,8 @@ public class BossArena : Savable
         bossAreaCamera.gameObject.SetActive(true);
         bossAreaCamera.Follow = GameManager.instance.player.transform;
         bossAreaCamera.LookAt = GameManager.instance.player.transform;
-        //bossHealthCanvas.enabled = true;
+
+        bossCanvasAnimator.SetTrigger("FightStart");
     }
 
     public void OnEnterPhase2()
@@ -120,7 +125,7 @@ public class BossArena : Savable
         }
 
         bossAreaCamera.enabled = false;
-        bossHealthCanvas.enabled = false;
+        bossCanvas.enabled = false;
     }
 
     public override string SaveData()
