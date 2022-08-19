@@ -16250,6 +16250,37 @@ TrailRenderer:
   m_MinVertexDistance: 0.8
   m_Autodestruct: 0
   m_Emitting: 0
+--- !u!1 &1578558117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1578558118}
+  m_Layer: 8
+  m_Name: LedgeCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1578558118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578558117}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.988, y: -1.823, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3302963428054370896}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1582844022
 GameObject:
   m_ObjectHideFlags: 0
@@ -21278,6 +21309,64 @@ TrailRenderer:
   m_MinVertexDistance: 0.8
   m_Autodestruct: 0
   m_Emitting: 0
+--- !u!1 &1713560224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1713560225}
+  - component: {fileID: 1713560226}
+  m_Layer: 26
+  m_Name: PlayerTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1713560225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713560224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3302963428054370896}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1713560226
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713560224}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.12476164}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.48462623, y: 0.44269738}
+    oldSize: {x: 8.125, y: 8.125}
+    newSize: {x: 8.125, y: 8.125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2109203, y: 3.7504768}
+  m_EdgeRadius: 0
 --- !u!1 &1782319159
 GameObject:
   m_ObjectHideFlags: 0
@@ -36536,6 +36625,8 @@ Transform:
   - {fileID: 1790727334725182052}
   - {fileID: 2103771842}
   - {fileID: 3365987603282856527}
+  - {fileID: 1713560225}
+  - {fileID: 1578558118}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -36643,26 +36734,26 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 1024
-  iFrameTime: 1.3
+  damageIFrameTime: 1
   invinsible: 0
   playerSettings: {fileID: 11400000, guid: 028478538f570224cb1726db5096af56, type: 2}
+  playerData: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f, type: 2}
   minMeleeDamage: 10
   maxMeleeDamage: 10
   meleeAttackMod: 1
-  hitKnockbackAmount: 10
-  damageKnockbackAmount: 20
+  hitKnockbackAmount: 8
+  damageKnockbackAmount: 15
   knockbackOnDamageTimer: 0.1
   knockbackOnHitTimer: 0.07
   boomerangLauncher: {fileID: 3298665632121598025}
   cameraLookOffsetValue: 9
-  playerData: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f, type: 2}
   dustParticles: {fileID: 3298665632637929213}
   damageParticle: {fileID: 3298665632216599323}
   healingParticles: {fileID: 1944778851}
   changeTime: 0.05
   restoreSpeed: 50
   delay: 0.1
-  damageThreshold: 2
+  damageThreshold: 1
   playerBreathingSFX: event:/SFX/Player/Breathing
   lowHealthIntensity: 0.5
   playerDebugMode: 0
@@ -36680,14 +36771,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSettings: {fileID: 11400000, guid: 028478538f570224cb1726db5096af56, type: 2}
+  attackStop: 1
+  AttackSpeed: 2
+  attackDir: {x: 0, y: 0}
   dirKnockback: {x: 0, y: 0, z: 0}
-  isKnockedback: 0
+  isKnockedback_Damage: 0
+  isKnockedback_Hit: 0
   knockbackDistance: 0
   boostForceX: 20
   boostForceY: 25
   boostGravityMultiplier: 0.2
   jumpForceX: 13
-  jumpApexGravityModifier: 0.8
+  jumpApexGravityModifier: 0.95
   canJump: 0
   canDoubleJump: 0
   walkSpeed: 14
@@ -36703,6 +36798,8 @@ MonoBehaviour:
   speedThreshold: 8
   halfGravThreshold: 10
   maxSpeed: 30
+  ledgeDetectionOrigin: {fileID: 1578558118}
+  ledgeDetectionDistance: 0.5
   dustParticles: {fileID: 3298665632637929213}
   jumpLandParticles: {fileID: 1133886847}
   jumpDustTrail: {fileID: 1234424139}
@@ -36711,6 +36808,77 @@ MonoBehaviour:
   isAirborne: 0
   isDead: 0
   isPaused: 0
+  exitVelocityXCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0019187927
+      value: 0
+      inSlope: 0.4809255
+      outSlope: 0.4809255
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.47890902
+    - serializedVersion: 3
+      time: 0.110598736
+      value: 0.70331097
+      inSlope: 2.46663
+      outSlope: 2.46663
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.39680868
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  exitVelocityYCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.84429795
+      value: 0.34367245
+      inSlope: 1.4976096
+      outSlope: 1.4976096
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  exitVelocityX: 0
+  exitVelocityY: 0
+  isLoadingVertical: 0
+  isLoadingHorizontal: 0
+  movePlayerLoadingState: 0
   jumpTrailTime: 0.1
 --- !u!114 &3193167803448388554
 MonoBehaviour:
@@ -36728,10 +36896,13 @@ MonoBehaviour:
   rightStickInput: {x: 0, y: 0}
   leftStickInputRaw: {x: 0, y: 0}
   rightStickInputRaw: {x: 0, y: 0}
+  mapRightStickInput: {x: 0, y: 0}
   freeAimMode: 0
-  attackRate: 0.3
-  attackRateFast: 0.2
+  attackRate: 0.1
+  attackRateFast: 0.15
   controllerConnected: 0
+  pauseClicked: {fileID: 11400000, guid: cb7d9bc141fd041479f9e5a9009bc974, type: 2}
+  submitClicked: {fileID: 11400000, guid: 1570b19a8b44cfc48b351e532d4d8ab6, type: 2}
 --- !u!114 &400118101072383402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36746,9 +36917,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDashing: 0
   isDashingAnimation: 0
-  floatTime: 0.2
-  effectTime: 0.15
-  dashIFrames: 0.18
+  groundDashTime: 0.25
+  airDashTime: 0.3
+  effectTime: 0.2
+  dashIFrames: 0.25
   dashMaterial: {fileID: 2100000, guid: e08792f121515a845a3ac389c66bcb2f, type: 2}
   afterImage: {fileID: 846298767930259606}
   dashTrailParent: {fileID: 1955183624}
@@ -36784,6 +36956,7 @@ MonoBehaviour:
     type: 3}
   teleportInEffect: {fileID: 7976329623163055896, guid: eb909962299317345b0acb1093a6b6a0,
     type: 3}
+  teleportSFX: event:/SFX/Player/Boomerang Teleport
   teleportTrail: {fileID: 2124518714}
   teleportTrailParent: {fileID: 3110584256286895824}
   maxJumpBufferFrame: 1
@@ -36819,9 +36992,9 @@ MonoBehaviour:
   changeTime: 0.05
   restoreSpeed: 80
   delay: 0.025
-  obstacleHitSFX: 
-  spikeHitSFX: 
-  enemyHitSFX: 
+  obstacleHitSFX: event:/SFX/Player/Melee Obstacle
+  spikeHitSFX: event:/SFX/Interactive Objects/Spikes
+  enemyHitSFX: event:/SFX/Enemies/Damage/WoodMass_Damage
   HitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
 --- !u!114 &3298665631606906201
@@ -41985,7 +42158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3298665632121598039}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42034,7 +42207,7 @@ MonoBehaviour:
   rotateSpeed: 1750
   MoveSpeed: 50
   returnMoveSpeed: 60
-  throwForce: 125
+  throwForce: 150
   bounceForce: 80
   falloutStrenght: 0.5
   boomerangHoverTime: 0.8
@@ -42044,16 +42217,19 @@ MonoBehaviour:
   angularDrag: 5
   linearDrag: 5
   stopForceImpulseSpeed: 55
+  aimAssistOn: 1
   aimSnapTime: 0.02
+  aimAssistAmount: 2
   minDamage: 6
   maxDamage: 6
   damageMod: 1
   hitKnockbackAmount: 20
   hitEffect: {fileID: 1796932110368875113, guid: 37b6aaa5d1c97984894f153216f31d0e,
     type: 3}
-  slowDownTime: 0.6
-  cameraZoom: 25
+  slowDownTime: 0.7
+  cameraZoom: 40
   boomerangReference: {fileID: 0}
+  boomerangSpinSFX: event:/SFX/Player/Boomerang Attack
   OnBoomerangLaunched:
     m_PersistentCalls:
       m_Calls:
