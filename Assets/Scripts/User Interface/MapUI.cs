@@ -9,10 +9,12 @@ public class MapUI : MonoBehaviour
     public MapSystem mapSystem;
 
     PlayerInputMaster inputActions;
+    Player_Input playerInput;
 
     private void Start()
     {
-        inputActions = FindObjectOfType<Player_Input>().inputActions;
+        playerInput = FindObjectOfType<Player_Input>();
+        inputActions = playerInput.inputActions;
         inputActions.Player.Enable();
         inputActions.UI.Enable();
 
@@ -23,11 +25,13 @@ public class MapUI : MonoBehaviour
     private void Map_canceled(InputAction.CallbackContext obj)
     {
         CloseMap();
+        playerInput.EnablePlayerInput();
     }
 
     private void Map_started(InputAction.CallbackContext obj)
     {
         OpenMap();
+        playerInput.DisablePlayerInput();
     }
 
 

@@ -43,6 +43,8 @@ public class RattlerEnemy_SpitState : ShootState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        entity.SetVelocity(0f);
+
     }
 
     public override void FinishAttack()

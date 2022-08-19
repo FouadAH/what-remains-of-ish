@@ -432,10 +432,14 @@ public class Player : MonoBehaviour, IAttacker {
         cameraOffset.m_Offset.y = Mathf.Lerp(cameraOffset.m_Offset.y, cameraOffsetTarget, 0.1f);
     }
 
+    bool knockBackOnHit = false;
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
-        playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
-        playerMovement.Knockback(playerMovement.dirKnockback, playerMovement.knockbackDistance);
+        playerMovement.dirKnockback = new Vector3(dirX, dirY, 0);
+        //playerMovement.Knockback(playerMovement.dirKnockback, playerMovement.knockbackDistance);
+
+        StopCoroutine(KnockbackOnHitRoutine());
+        StartCoroutine(KnockbackOnHitRoutine());
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
@@ -451,9 +455,16 @@ public class Player : MonoBehaviour, IAttacker {
 
     IEnumerator KnockbackOnDamageRoutine()
     {
-        playerMovement.isKnockedback = true;
+        playerMovement.isKnockedback_Damage = true;
         yield return new WaitForSeconds(knockbackOnDamageTimer);
-        playerMovement.isKnockedback = false;
+        playerMovement.isKnockedback_Damage = false;
+    }
+
+    IEnumerator KnockbackOnHitRoutine()
+    {
+        playerMovement.isKnockedback_Hit = true;
+        yield return new WaitForSeconds(knockbackOnHitTimer);
+        playerMovement.isKnockedback_Hit = false;
     }
 
     private void OnParticleCollision(GameObject other)

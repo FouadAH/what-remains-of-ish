@@ -592,7 +592,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -794,6 +794,15 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MapMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""22c4f938-ddeb-43ce-9ac5-970123c7789f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -1357,6 +1366,72 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""GameMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45bd1ec0-f0cd-47b5-be5f-8d60d9821e92"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""MapMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Arrows"",
+                    ""id"": ""48e4a4b7-61e4-49ea-8e1c-ee72cb6720e0"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MapMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""ea6d019b-cca3-4935-876c-f6dc65ed4b68"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MapMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""b8a532fe-2143-4a2a-a1ed-7faa81d76a30"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MapMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""8855e1b5-e209-435e-b5a9-f4335b906dda"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MapMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9dc358f5-ccd3-457b-9972-1efab92c1cc3"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MapMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -1455,6 +1530,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         m_UI_Map = m_UI.FindAction("Map", throwIfNotFound: true);
         m_UI_GameMenu = m_UI.FindAction("GameMenu", throwIfNotFound: true);
         m_UI_DialogueNext = m_UI.FindAction("DialogueNext", throwIfNotFound: true);
+        m_UI_MapMovement = m_UI.FindAction("MapMovement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1657,6 +1733,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Map;
     private readonly InputAction m_UI_GameMenu;
     private readonly InputAction m_UI_DialogueNext;
+    private readonly InputAction m_UI_MapMovement;
     public struct UIActions
     {
         private @PlayerInputMaster m_Wrapper;
@@ -1675,6 +1752,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         public InputAction @Map => m_Wrapper.m_UI_Map;
         public InputAction @GameMenu => m_Wrapper.m_UI_GameMenu;
         public InputAction @DialogueNext => m_Wrapper.m_UI_DialogueNext;
+        public InputAction @MapMovement => m_Wrapper.m_UI_MapMovement;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1726,6 +1804,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @DialogueNext.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDialogueNext;
                 @DialogueNext.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDialogueNext;
                 @DialogueNext.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDialogueNext;
+                @MapMovement.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMapMovement;
+                @MapMovement.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMapMovement;
+                @MapMovement.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMapMovement;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1772,6 +1853,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @DialogueNext.started += instance.OnDialogueNext;
                 @DialogueNext.performed += instance.OnDialogueNext;
                 @DialogueNext.canceled += instance.OnDialogueNext;
+                @MapMovement.started += instance.OnMapMovement;
+                @MapMovement.performed += instance.OnMapMovement;
+                @MapMovement.canceled += instance.OnMapMovement;
             }
         }
     }
@@ -1853,5 +1937,6 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         void OnMap(InputAction.CallbackContext context);
         void OnGameMenu(InputAction.CallbackContext context);
         void OnDialogueNext(InputAction.CallbackContext context);
+        void OnMapMovement(InputAction.CallbackContext context);
     }
 }

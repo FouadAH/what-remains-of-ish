@@ -10,18 +10,34 @@ public class ShopTrigger : MonoBehaviour
     public List<ShopItemSO> shopItems;
 
     bool isInteracting = false;
+    bool isInTrigger = false;
+
+    private void Update()
+    {
+        if (!isInTrigger)
+        {
+            return;
+        }
+
+        if (Input.GetButtonDown("Interact"))
+        {
+            Interact();
+        }
+    }
 
     public void Interact()
     {
         isInteracting = true;
         OpenShopWindow();
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         promptCanvas.GetComponentInChildren<TMPro.TMP_Text>().text = "Shop";
 
         if (collision.gameObject.tag.Equals("Player"))
         {
+            isInTrigger = true;
             DisplayPrompt();
         }
     }
@@ -30,15 +46,8 @@ public class ShopTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
+            isInTrigger = false;
             RemovePrompt();
-        }
-    }
-
-    public void OnTriggerStay2D(Collider2D collision)
-    {
-        if (Input.GetButtonDown("Interact"))
-        {
-            Interact();
         }
     }
 

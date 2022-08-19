@@ -7,19 +7,12 @@ using System;
 [CreateAssetMenu(fileName = "newShopItem", menuName = "Items/New Shop Item", order = 1)]
 public class ShopItemSO : ItemSO
 {
-    [SerializeField] 
-    protected string itemName { get; }
+    public string itemName;
 
-    [SerializeField]
     [TextArea(1, 10)]
-    protected string itemDescription;
-
-    [SerializeField] 
-    protected float itemCost { get; }
-
-    [SerializeField] 
-    protected Sprite itemIcon { get; }
-
+    public string itemDescription;
+    public float itemCost;
+    public Sprite itemIcon;
     public bool hasBeenSold;
 
     public override void ReceiveItem()

@@ -11,6 +11,8 @@ public class Player_Input : MonoBehaviour
     public Vector2 rightStickInput;
     public Vector2 leftStickInputRaw;
     public Vector2 rightStickInputRaw;
+    public Vector2 mapRightStickInput;
+
 
     public bool jumping { get; set; }
     public bool attacking { get; set; }
@@ -51,6 +53,10 @@ public class Player_Input : MonoBehaviour
     PauseMenu pauseMenu;
     DialogManager dialogManager;
 
+    public GameEvent pauseClicked;
+    public GameEvent submitClicked;
+
+
     private void Awake()
     {
         inputActions = new PlayerInputMaster();
@@ -63,6 +69,7 @@ public class Player_Input : MonoBehaviour
         inputActions.UI.Enable();
 
         dialogManager = DialogManager.instance;
+        
 
         inputActions.Player.Interact.started += Interact_started;
         inputActions.Player.Attack.performed += Attack_performed;
@@ -74,6 +81,7 @@ public class Player_Input : MonoBehaviour
 
         inputActions.UI.Pause.started += Pause_started;
         inputActions.UI.DialogueNext.started += DialogueNext_started;
+        inputActions.UI.Submit.started += Submit_started;
         //inputActions.UI.Map.performed += Map_performed;
         //inputActions.UI.Map.canceled += Map_canceled;
 
@@ -87,6 +95,11 @@ public class Player_Input : MonoBehaviour
         pauseMenu.OnPauseStart += PauseMenu_OnPauseStart;
         pauseMenu.OnPauseEnd += PauseMenu_OnPauseEnd;
         
+    }
+
+    private void Submit_started(InputAction.CallbackContext obj)
+    {
+        submitClicked.Raise();
     }
 
     private void Interact_started(InputAction.CallbackContext obj)
@@ -156,6 +169,7 @@ public class Player_Input : MonoBehaviour
     private void Pause_started(InputAction.CallbackContext obj)
     {
         pauseMenu.TogglePause();
+        pauseClicked.Raise();
     }
 
     private void Jump_canceled(InputAction.CallbackContext obj)
@@ -273,6 +287,7 @@ public class Player_Input : MonoBehaviour
             controllerConnected = false;
         }
 
+        mapRightStickInput = inputActions.UI.MapMovement.ReadValue<Vector2>();
         leftStickInputRaw = inputActions.Player.Move.ReadValue<Vector2>();
         rightStickInputRaw = inputActions.Player.Look.ReadValue<Vector2>();
 

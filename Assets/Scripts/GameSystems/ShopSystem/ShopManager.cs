@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
@@ -9,11 +10,11 @@ public class ShopManager : MonoBehaviour
 
     public Canvas shopCanvas;
     public RectTransform shopContent;
+    public GameObject shopView;
     public GameObject confirmPanel;
     public GameObject itemViewPrefab;
     public TMPro.TMP_Text itemName;
     public TMPro.TMP_Text itemDescription;
-    public Button buyButton;
 
     public bool shopIsActive;
 
@@ -22,7 +23,7 @@ public class ShopManager : MonoBehaviour
 
     public IntegerReference playerCurrency;
 
-    ShopItemSO currentSelectedItem;
+    public ShopItemSO currentSelectedItem;
     List<ShopItemSO> currentShopItems = new List<ShopItemSO>();
 
     void Awake()
@@ -37,16 +38,26 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void OnPauseClicked()
     {
         if (shopIsActive)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                DisableShopUI();
-            }
+            DisableShopUI();
         }
     }
+
+    //public void OnSubmitClicked()
+    //{
+    //    if (shopIsActive)
+    //    {
+    //        if (currentSelectedItem != null)
+    //        {
+    //            confirmPanel.SetActive(true);
+    //            shopView.SetActive(false);
+    //            EventSystem.current.SetSelectedGameObject(confirmPanel.GetComponentInChildren<Button>().gameObject);
+    //        }
+    //    }
+    //}
 
     public void EnableShopUI()
     {
@@ -54,6 +65,7 @@ public class ShopManager : MonoBehaviour
         OnInteractStartEvent.Raise();
 
         shopCanvas.enabled = true;
+        ClearItems();
     }
 
     public void DisableShopUI()
@@ -82,13 +94,17 @@ public class ShopManager : MonoBehaviour
             ItemManager.Instance.AddItemToDictionary(shopItems[i]);
 
             if (!shopItems[i].hasBeenSold)
+            {
                 InitItem(shopItems[i]);
+            }
+
         }
 
         //Select first item
         if (currentShopItems.Count > 0)
         {
-            OnSelectItem(currentShopItems[0]);
+            EventSystem.current.SetSelectedGameObject(shopContent.GetChild(0).gameObject);
+            Debug.Log(EventSystem.current.currentSelectedGameObject);
         }
     }
 
@@ -100,18 +116,18 @@ public class ShopManager : MonoBehaviour
         }
 
         ShopItemView shopItemView =  Instantiate(itemViewPrefab, shopContent).GetComponent<ShopItemView>();
+        shopItemView.itemSO = shopItem;
         shopItemView.itemCost.text = shopItem.GetCost().ToString();
         shopItemView.itemSprite.sprite = shopItem.GetIcon();
         shopItemView.itemSprite.preserveAspect = true;
-        shopItemView.selectButton.onClick.AddListener(() => OnSelectItem(shopItem));
+        shopItemView.selectButton.onClick.AddListener(() => OnSelectItem());
     }
 
-    public void OnSelectItem(ShopItemSO shopItem)
+    public void OnSelectItem()
     {
-        itemName.text = shopItem.GetName();
-        itemDescription.text = shopItem.GetDescription();
-        currentSelectedItem = shopItem;
-        buyButton.interactable = (playerCurrency.Value >= shopItem.GetCost());
+        confirmPanel.SetActive(true);
+        shopView.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(confirmPanel.GetComponentInChildren<Button>().gameObject);
     }
 
     public void OnBuyItem(ShopItemSO shopItem)
@@ -134,6 +150,9 @@ public class ShopManager : MonoBehaviour
     public void OnClickBuy()
     {
         confirmPanel.SetActive(true);
+        shopView.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(confirmPanel.GetComponentInChildren<Button>().gameObject);
+
     }
 
     public void OnClickYes()
@@ -153,10 +172,12 @@ public class ShopManager : MonoBehaviour
         }
 
         confirmPanel.SetActive(false);
+        shopView.SetActive(true);
     }
 
     public void OnClickNo()
     {
+        shopView.SetActive(true);
         confirmPanel.SetActive(false);
     }
 }

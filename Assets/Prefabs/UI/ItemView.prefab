@@ -33,11 +33,11 @@ RectTransform:
   m_Father: {fileID: 3571610262778159497}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 284.834, y: 0}
-  m_SizeDelta: {x: 70.8659, y: 45.0498}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -18.708862, y: 0}
+  m_SizeDelta: {x: 70.865906, y: 45.0498}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3571610262139411721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -169,11 +169,11 @@ RectTransform:
   m_Father: {fileID: 3571610262778159497}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 213, y: 0.0000026226}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -96, y: 0}
   m_SizeDelta: {x: 59.9516, y: 59.952}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3571610262338747655
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -251,11 +251,11 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 671.7047, y: 164.2798}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 476.7285, y: 116.5941}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3571610262778159495
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -309,6 +309,7 @@ MonoBehaviour:
   itemCost: {fileID: 3571610262139411720}
   itemSprite: {fileID: 3571610262847701654}
   selectButton: {fileID: 1231826354680337233}
+  itemSO: {fileID: 0}
 --- !u!114 &1231826354680337233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -330,7 +331,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -404,8 +405,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -247.2, y: 0}
-  m_SizeDelta: {x: 136.2218, y: 136.218}
+  m_AnchoredPosition: {x: -181, y: 0}
+  m_SizeDelta: {x: 94.5155, y: 94.5129}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3571610262847701655
 CanvasRenderer:

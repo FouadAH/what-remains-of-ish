@@ -52,6 +52,7 @@ public class Controller_2D : RayCast_Controller
         {
             collitions.faceDirection = (int)Mathf.Sign(moveAmount.x);
         }
+
         HorizontalCollitions(ref moveAmount);
 
         if (moveAmount.y != 0)
@@ -62,6 +63,7 @@ public class Controller_2D : RayCast_Controller
         {
             collitions.below = true;
         }
+
         transform.Translate(moveAmount);
     }
 

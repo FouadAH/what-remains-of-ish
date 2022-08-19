@@ -12,6 +12,8 @@ public class DialogTrigger : Savable
     public string promptText = "Talk";
     public List<DialogueNodeSO> dialogs;
     public DialogueData dialogueData;
+
+    bool isInTrigger = false;
     public struct DialogueData
     {
         public int interactTimes;
@@ -24,7 +26,29 @@ public class DialogTrigger : Savable
         promptAnimator = promptCanvas.GetComponent<Animator>();
         dialogueManager = DialogManager.instance;
     }
-    
+
+    private void Update()
+    {
+        if (!isInTrigger)
+        {
+            return;
+        }
+
+        if (Input.GetButtonDown("Interact"))
+        {
+            Interact();
+        }
+
+        if (!dialogueManager.dialogueIsActive)
+        {
+            DisplayPrompt();
+        }
+        else
+        {
+            RemovePrompt();
+        }
+    }
+
     public void TriggerDialogue()
     {
         dialogueManager.StartDialogue(dialogs[interactTime].dialog, GetType());
@@ -54,34 +78,17 @@ public class DialogTrigger : Savable
 
         if (collision.GetComponent<Player>())
         {
+            isInTrigger = true;
             DisplayPrompt();
         }
     }
 
-    public virtual void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.GetComponent<Player>())
-        {
-            if (Input.GetButtonDown("Interact"))
-            {
-                Interact();
-            }
-
-            if (!dialogueManager.dialogueIsActive)
-            {
-                DisplayPrompt();
-            }
-            else
-            {
-                RemovePrompt();
-            }
-        }
-    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<Player>())
         {
+            isInTrigger = false;
             RemovePrompt();
         }
     }

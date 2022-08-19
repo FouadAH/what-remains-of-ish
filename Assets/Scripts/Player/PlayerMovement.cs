@@ -37,7 +37,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Knockback settings")]
     public Vector3 dirKnockback;
-    public bool isKnockedback;
+    public bool isKnockedback_Damage;
+    public bool isKnockedback_Hit;
+
     [HideInInspector] public float knockbackDistance;
 
 
@@ -76,6 +78,11 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxSpeed = 30f;
     float maxFallSpeed = -30;
+
+    [Header("LedgeDetection")]
+    public Transform ledgeDetectionOrigin;
+    public float ledgeDetectionDistance;
+
 
     [Header("Effects")]
     public ParticleSystem dustParticles;
@@ -248,7 +255,14 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void Movement()
     {
-        if (isKnockedback)
+        if (isKnockedback_Damage)
+        {
+            Knockback(dirKnockback, knockbackDistance);
+            HandleWallSliding();
+            return;
+        }
+
+        if (isKnockedback_Hit)
         {
             Knockback(dirKnockback, knockbackDistance);
             HandleWallSliding();
@@ -288,6 +302,18 @@ public class PlayerMovement : MonoBehaviour
         HandleDash();
         HandleJumpInput();
         HandleWallSliding();
+    }
+
+    bool hasDetectedLedge = false;
+
+    public void DetectLedges()
+    {
+        if (controller.collitions.below)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(ledgeDetectionOrigin.position, Vector2.down, ledgeDetectionDistance, controller.collitionMask);
+            Debug.DrawRay(ledgeDetectionOrigin.position, Vector2.down * ledgeDetectionDistance, Color.red);
+            hasDetectedLedge = !hit;
+        }
     }
 
     /// <summary>
@@ -382,14 +408,17 @@ public class PlayerMovement : MonoBehaviour
         currentJumpHeight = transform.position.y - initialHeight;
         float mult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? jumpApexGravityModifier : 1f;
         mult = (playerTeleport.doBoost) ? boostGravityMultiplier : mult;
-        
+
+        DetectLedges();
+
         //Calculating X velocity
         if (controller.collitions.below)
         {
-            if (IsAttacking && attackStop)
+            if (IsAttacking && attackStop && !isKnockedback_Damage && !isKnockedback_Hit && !hasDetectedLedge)
             {
                 if (attackDir.y >= 0)
                 {
+                    Debug.Log("Attack push");
                     velocity.x = Mathf.SmoothDamp(velocity.x, AttackSpeed * transform.localScale.x, ref velocityXSmoothing, 0);
                 }
             }

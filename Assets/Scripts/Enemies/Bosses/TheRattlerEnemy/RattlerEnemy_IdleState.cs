@@ -50,73 +50,81 @@ public class RattlerEnemy_IdleState : IdleState
 
         if (isIdleTimeOver)
         {
-            if (stateMachine.previousState == enemy.spitStateAttack_1)
+            if (enemy.CheckPlayerInMinAggroRadius())
             {
-                if(random <= 10)
-                {
-                    stateMachine.ChangeState(enemy.spitStateAttack_1);
-                }
-                if (random > 10 && random <= 60)
-                {
-                    stateMachine.ChangeState(enemy.spinStartState);
-                }
-                else if (random > 60)
-                {
-                    stateMachine.ChangeState(enemy.jumpTowardseStartState);
-                }
-            }
-            else if (stateMachine.previousState == enemy.jumpTowardsState || stateMachine.previousState == enemy.jumpInPlaceState )
-            {
-                if (enemy.hasEnteredPhase2 && stateMachine.previousState != enemy.jumpInPlaceState)
-                {
-                    stateMachine.ChangeState(enemy.jumpInPlaceStartState);
-                }
-                else
+                if (stateMachine.previousState == enemy.spitStateAttack_1)
                 {
                     if (random <= 10)
                     {
-                        stateMachine.ChangeState(enemy.jumpTowardseStartState);
+                        stateMachine.ChangeState(enemy.spitStateAttack_1);
                     }
                     if (random > 10 && random <= 60)
                     {
-                        stateMachine.ChangeState(enemy.spitStateAttack_1);
+                        stateMachine.ChangeState(enemy.spinStartState);
                     }
                     else if (random > 60)
                     {
-                        stateMachine.ChangeState(enemy.spinStartState);
+                        stateMachine.ChangeState(enemy.jumpTowardseStartState);
                     }
                 }
-            }
-            else if (stateMachine.previousState == enemy.spinAttackState)
-            {
-                if (random <= 10)
+                else if (stateMachine.previousState == enemy.jumpTowardsState || stateMachine.previousState == enemy.jumpInPlaceState)
                 {
-                    stateMachine.ChangeState(enemy.spinStartState);
+                    if (enemy.hasEnteredPhase2 && stateMachine.previousState != enemy.jumpInPlaceState)
+                    {
+                        stateMachine.ChangeState(enemy.jumpInPlaceStartState);
+                    }
+                    else
+                    {
+                        if (random <= 10)
+                        {
+                            stateMachine.ChangeState(enemy.jumpTowardseStartState);
+                        }
+                        if (random > 10 && random <= 60)
+                        {
+                            stateMachine.ChangeState(enemy.spitStateAttack_1);
+                        }
+                        else if (random > 60)
+                        {
+                            stateMachine.ChangeState(enemy.spinStartState);
+                        }
+                    }
                 }
-                if (random > 10 && random <= 60)
+                else if (stateMachine.previousState == enemy.spinAttackState)
                 {
-                    stateMachine.ChangeState(enemy.jumpTowardseStartState);
+                    if (random <= 10)
+                    {
+                        stateMachine.ChangeState(enemy.spinStartState);
+                    }
+                    if (random > 10 && random <= 60)
+                    {
+                        stateMachine.ChangeState(enemy.jumpTowardseStartState);
+                    }
+                    else if (random > 60)
+                    {
+                        stateMachine.ChangeState(enemy.spitStateAttack_1);
+                    }
                 }
-                else if (random > 60)
+                else
                 {
-                    stateMachine.ChangeState(enemy.spitStateAttack_1);
+                    if (random <= 33)
+                    {
+                        stateMachine.ChangeState(enemy.jumpTowardseStartState);
+                    }
+                    else if (random > 33 && random <= 66)
+                    {
+                        stateMachine.ChangeState(enemy.spinStartState);
+                    }
+                    else if (random >= 100)
+                    {
+                        stateMachine.ChangeState(enemy.spitStateAttack_1);
+                    }
                 }
             }
             else
             {
-                if (random <= 33)
-                {
-                    stateMachine.ChangeState(enemy.jumpTowardseStartState);
-                }
-                else if (random > 33 && random <= 66)
-                {
-                    stateMachine.ChangeState(enemy.spinStartState);
-                }
-                else if (random >= 100)
-                {
-                    stateMachine.ChangeState(enemy.spitStateAttack_1);
-                }
+                stateMachine.ChangeState(enemy.spinStartState);
             }
+            
             
         }
     }

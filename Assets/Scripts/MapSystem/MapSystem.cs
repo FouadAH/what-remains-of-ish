@@ -10,20 +10,24 @@ public class MapSystem : MonoBehaviour
     public PlayerConfig initialPlayerData;
     public RectTransform mapContent;
     public ScrollRect scrollRect;
+    public float scrollSpeed = 2f;
 
     GameObject WorldObject;
     Vector3 initialPos;
+    Player_Input playerInput;
 
     private void Start()
     {
         WorldObject = GameManager.instance.player;
         initialPos = GameManager.instance.initalPlayerData.initialPlayerPosition;
+        playerInput  = GameManager.instance.player.GetComponent<Player_Input>();
         RevealRooms();
     }
 
     private void Update()
     {
         playerIcon.anchoredPosition = WorldObject.transform.position - initialPos;
+        mapContent.anchoredPosition += playerInput.mapRightStickInput * scrollSpeed;
     }
 
     public void OnNewLevelLoad()
