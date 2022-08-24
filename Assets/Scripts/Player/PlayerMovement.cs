@@ -298,7 +298,6 @@ public class PlayerMovement : MonoBehaviour
 
         SetPlayerOrientation(playerInput.directionalInput);
         CalculateVelocity();
-
         HandleDash();
         HandleJumpInput();
         HandleWallSliding();

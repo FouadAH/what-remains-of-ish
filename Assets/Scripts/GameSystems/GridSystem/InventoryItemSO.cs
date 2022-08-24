@@ -32,11 +32,8 @@ public class InventoryItemSO : ShopItemSO
         //}
 
         visualTransform.GetComponent<GridLayoutGroup>().cellSize = Vector2.one * cellSize;
-
         visualTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(itemTetrisSO.width, itemTetrisSO.height) * cellSize;
-
         visualTransform.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-
         visualTransform.SetAsFirstSibling();
     }
 

@@ -16,6 +16,22 @@ public class Item : MonoBehaviour
         promptAnimator = GetComponentInChildren<Animator>();
     }
 
+    bool isInteracting = false;
+    bool isInTrigger = false;
+
+    private void Update()
+    {
+        if (!isInTrigger)
+        {
+            return;
+        }
+
+        if (Input.GetButtonDown("Interact"))
+        {
+            Interact();
+        }
+    }
+
     public virtual void Interact()
     {
         if (itemSO != null)
@@ -36,24 +52,18 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
+            isInTrigger = true;
             DisplayPrompt();
-        }
-    }
-
-    public virtual void OnTriggerStay2D(Collider2D collision)
-    {
-        if (Input.GetButtonDown("Interact"))
-        {
-            Interact();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
+            isInTrigger = false;
             RemovePrompt();
         }
     }

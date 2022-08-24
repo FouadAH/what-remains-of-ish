@@ -414,6 +414,8 @@ MonoBehaviour:
   damagables:
     serializedVersion: 2
     m_Bits: 1280
+  damageAmountPlayer: 1
+  damageAmountEnemies: 10
 --- !u!58 &3534187605829754474
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1978,7 +1980,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -2035,7 +2037,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: -10
       maxCurve:
         serializedVersion: 2
@@ -2733,7 +2735,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 45
+      scalar: 100
       minScalar: 25
       maxCurve:
         serializedVersion: 2

@@ -41,11 +41,14 @@ public class PlayerDash : MonoBehaviour
             canDash = true;
         }
     }
+    bool wasAirborne = false;
 
     public bool DashController(ref Vector2 velocity, Player_Input playerInput, PlayerMovementSettings playerSettings)
     {
         if (canDash)
         {
+            wasAirborne = playerMovement.isAirborne;
+
             if (velocity.y != 0)
             {
                 velocity.y = 0;
@@ -102,7 +105,7 @@ public class PlayerDash : MonoBehaviour
         dashLock = true;
         yield return new WaitForSeconds(dashCooldown);
         dashRechargeEffect.Play();
-        yield return new WaitWhile(() => playerMovement.isAirborne);
+        yield return new WaitWhile(() => wasAirborne && playerMovement.isAirborne);
         dashLock = false;
     }
 

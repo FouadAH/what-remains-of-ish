@@ -34,7 +34,7 @@ public class GameMenu : MonoBehaviour
             gameMenu.enabled = false;
             DialogManager.instance.dialogueIsActive = false;
             DialogManager.instance.OnInteractEnd();
-            OnClickInventory();
+            OnClickBrooches();
         }
         else
         {

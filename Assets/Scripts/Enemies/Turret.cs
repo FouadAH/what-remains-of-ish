@@ -78,10 +78,16 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
         {
             RotationNoTarget();
         }
+
         if (CanFire())
         {
             nextFireTime = Time.time + fireRate;
             RaiseOnFireEvent();
+        }
+
+        if (isStunned)
+        {
+
         }
 
     }
