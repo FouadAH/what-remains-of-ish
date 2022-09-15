@@ -9,10 +9,22 @@ public class TimeStop : MonoBehaviour
     public bool timeStopIsActive = false;
     Player_Input player_Input;
 
+    public static TimeStop instance;
+
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+    }
+
     private void Start()
     {
-        player_Input = GetComponent<Player_Input>();
+        player_Input = FindObjectOfType<Player_Input>();
     }
+
     void Update()
     {
         if (restoreTime)
@@ -30,6 +42,16 @@ public class TimeStop : MonoBehaviour
                 restoreTime = false;
             }
         }
+    }
+
+    public void StopTime()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumeTime()
+    {
+        Time.timeScale = 1;
     }
 
     public void StopTime(float changeTime, float restoreSpeed, float delay)

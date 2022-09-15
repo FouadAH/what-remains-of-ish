@@ -36,7 +36,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
     void Start()
     {
         player = GetComponent<PlayerMovement>();
-        timeStop = GetComponent<TimeStop>();
+        timeStop = TimeStop.instance;
         attackProcessor = new AttackProcessor();
         impulseListener = GetComponent<Cinemachine.CinemachineImpulseSource>();
         rumbler = GetComponent<Rumbler>();

@@ -417,7 +417,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (attackDir.y >= 0)
                 {
-                    Debug.Log("Attack push");
                     velocity.x = Mathf.SmoothDamp(velocity.x, AttackSpeed * transform.localScale.x, ref velocityXSmoothing, 0);
                 }
             }

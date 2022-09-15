@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Brooch_03
   m_EditorClassIdentifier: 
   Id: 5ad2a8e6-b577-43cb-8ba9-6e4e0fc13e8a
-  isOwnedByPlayer: 0
+  isOwnedByPlayer: 1
   itemName: Sapper's coin
   itemDescription: Equip to increase flask refill from enemies.
   itemCost: 150
@@ -24,4 +24,5 @@ MonoBehaviour:
   width: 1
   height: 1
   canInteract: 1
-  isEquipped: 0
+  isEquipped: 1
+  hasBeenPlacedOnGrid: 1

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
 {
@@ -12,69 +14,245 @@ public class GameMenu : MonoBehaviour
     public GameObject broochesScreen;
     public GameObject inventoryScreen;
     public GameObject journalScreen;
+    public GameObject settingsScreen;
 
-    public GameObject mapButton;
-    public GameObject broochesButton;
-    public GameObject inventoryButton;
-    public GameObject journalButton;
+    public Color activeColor = Color.white;
+    public Color inactiveColor = Color.black;
+
+    public Image mapButton;
+    public Image broochesButton;
+    public Image inventoryButton;
+    public Image journalButton;
+    public Image settingsButton;
+
+    public GameEvent pauseClicked;
 
     EventSystem eventSystem;
+
+    int menuIndex = -1;
+    int totalMenuNumber = 4;
+
+    int menuNavigationDirection;
 
     private void Start()
     {
         eventSystem = EventSystem.current;
         inputActions = FindObjectOfType<Player_Input>().inputActions;
-        inputActions.UI.GameMenu.started += GameMenu_started;
+        inputActions.UI.GameMenu_Navigate.started += GameMenu_Navigate_started;
+        inputActions.UI.Pause.started += Pause_started;
     }
 
-    private void GameMenu_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void Pause_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (gameMenu.enabled)
+        TogglePause();
+        pauseClicked.Raise();
+    }
+
+    private void GameMenu_Navigate_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (!gameMenu.enabled)
         {
-            gameMenu.enabled = false;
-            DialogManager.instance.dialogueIsActive = false;
-            DialogManager.instance.OnInteractEnd();
-            OnClickBrooches();
+            return;
+        }
+
+        menuNavigationDirection = (int)inputActions.UI.GameMenu_Navigate.ReadValue<float>();
+
+        if (menuNavigationDirection > 0)
+        {
+            RightArrow();
+        }
+        else if (menuNavigationDirection < 0)
+        {
+            LeftArrow();
+        }
+    }
+
+    public void TogglePause()
+    {
+        if (ShopManager.instance.shopIsActive)
+            return;
+
+        if (GameManager.instance.isPaused)
+            Resume();
+        else
+            Pause();
+
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/Pause Menu/Pause Button", GetComponent<Transform>().position);
+    }
+
+    GameObject currentMenu;
+    void Pause()
+    {
+        if(currentMenu == null)
+        {
+            currentMenu = mapScreen;
+            menuIndex = 0;
+            mapScreen.SetActive(true);
+            //eventSystem.firstSelectedGameObject = broochesScreen.GetComponent<InventoryDragDropSystem>().GetFirstItem();
+            //eventSystem.SetSelectedGameObject(broochesScreen.GetComponent<InventoryDragDropSystem>().GetFirstItem());
         }
         else
         {
-            eventSystem.firstSelectedGameObject = inventoryButton;
-            eventSystem.SetSelectedGameObject(inventoryButton);
-            gameMenu.enabled = true;
-            DialogManager.instance.dialogueIsActive = true;
-            DialogManager.instance.OnInteractStart();
+            SwitchMenu();
         }
+
+        gameMenu.enabled = true;
+
+        GameManager.instance.isPaused = true;
+        Time.timeScale = 0;
+
+        if (!DialogManager.instance.dialogueIsActive && !CutsceneManager.instance.isCutscenePlaying)
+            inputActions.Player.Disable();
+    }
+
+    public void Resume()
+    {
+        gameMenu.enabled = false;
+        DisableAllMenus();
+
+        GameManager.instance.isPaused = false;
+        Time.timeScale = 1;
+
+        if (!DialogManager.instance.dialogueIsActive && !CutsceneManager.instance.isCutscenePlaying)
+            inputActions.Player.Enable();
+    }
+
+    public void LeftArrow()
+    {
+        menuIndex--;
+
+        if(menuIndex < 0)
+        {
+            menuIndex = totalMenuNumber - 1;
+        }
+        
+        SwitchMenu();
+    }
+
+    public void RightArrow()
+    {
+        menuIndex++;
+        SwitchMenu();
+    }
+
+    public void SwitchMenu()
+    {
+        menuIndex %= totalMenuNumber;
+
+        switch (menuIndex)
+        {
+            case 0:
+                OnClickMap();
+                break;
+            case 1:
+                OnClickBrooches();
+                break;
+            case 2:
+                OnClickJournal();
+                break;
+            case 3:
+                OnClickSettings();
+                break;
+            default:
+                break;
+        }
+    }
+
+    void DeselectButtons()
+    {
+        settingsButton.color = inactiveColor;
+        broochesButton.color = inactiveColor;
+        journalButton.color = inactiveColor;
+        inventoryButton.color = inactiveColor;
+        mapButton.color = inactiveColor;
+    }
+
+    void DisableAllMenus()
+    {
+        settingsScreen.SetActive(false);
+        broochesScreen.SetActive(false);
+        inventoryScreen.SetActive(false);
+        journalScreen.SetActive(false);
+        mapScreen.SetActive(false);
+    }
+
+    public void OnClickSettings()
+    {
+        currentMenu = settingsScreen;
+
+        DeselectButtons();
+
+        settingsButton.color = activeColor;
+
+        settingsScreen.SetActive(true);
+        broochesScreen.SetActive(false);
+        inventoryScreen.SetActive(false);
+        journalScreen.SetActive(false);
+        mapScreen.SetActive(false);
+
+        eventSystem.SetSelectedGameObject(settingsScreen.GetComponentInChildren<Button>().gameObject);
+
     }
 
     public void OnClickMap()
     {
+        currentMenu = mapScreen;
+
+        DeselectButtons();
+        mapButton.color = activeColor;
+
         mapScreen.SetActive(true);
         broochesScreen.SetActive(false);
         inventoryScreen.SetActive(false);
         journalScreen.SetActive(false);
+        settingsScreen.SetActive(false);
     }
 
     public void OnClickInventory()
     {
+        currentMenu = inventoryScreen;
+
+        DeselectButtons();
+        inventoryButton.color = activeColor;
+
         mapScreen.SetActive(false);
         broochesScreen.SetActive(false);
         inventoryScreen.SetActive(true);
         journalScreen.SetActive(false);
+        settingsScreen.SetActive(false);
     }
 
     public void OnClickBrooches()
     {
+        currentMenu = broochesScreen;
+
+        DeselectButtons();
+        broochesButton.color = activeColor;
+
         mapScreen.SetActive(false);
         broochesScreen.SetActive(true);
         inventoryScreen.SetActive(false);
         journalScreen.SetActive(false);
+        settingsScreen.SetActive(false);
+
+        //broochesScreen.GetComponent<InventoryDragDropSystem>().Setup();
+        GameObject broocheGO = broochesScreen.GetComponent<InventoryDragDropSystem>().GetFirstItem();
+        eventSystem.firstSelectedGameObject = broocheGO;
+        eventSystem.SetSelectedGameObject(broocheGO);
     }
 
     public void OnClickJournal()
     {
+        currentMenu = journalScreen;
+
+        DeselectButtons();
+        journalButton.color = activeColor;
+
         mapScreen.SetActive(false);
         broochesScreen.SetActive(false);
         inventoryScreen.SetActive(false);
+        settingsScreen.SetActive(false);
+
         journalScreen.SetActive(true);
     }
 }

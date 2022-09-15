@@ -108,13 +108,14 @@ public class SaveManager : MonoBehaviour
         testSaveFile.path = path;
         testSaveFile.creationTime = Directory.GetCreationTime(path).ToShortDateString();
 
-        GameData gameDataTest = DefaultGameData();
+        GameData gameDataTest = LoadDataFromFile(path);
 
         testSaveFile.gameData = gameDataTest;
 
         currentSaveFile = testSaveFile;
         sceneDataCache = currentSaveFile.gameData.scene_data;
         enemyDataCache = currentSaveFile.gameData.enemy_data;
+
     }
 #endif
 

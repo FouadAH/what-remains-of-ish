@@ -13,7 +13,6 @@ public class Player_Input : MonoBehaviour
     public Vector2 rightStickInputRaw;
     public Vector2 mapRightStickInput;
 
-
     public bool jumping { get; set; }
     public bool attacking { get; set; }
     public bool aiming { get; set; }
@@ -50,12 +49,8 @@ public class Player_Input : MonoBehaviour
     float inputDeadZone = 0.19f;
 
     [HideInInspector] public PlayerInputMaster inputActions;
-    PauseMenu pauseMenu;
-    DialogManager dialogManager;
 
-    public GameEvent pauseClicked;
     public GameEvent submitClicked;
-
 
     private void Awake()
     {
@@ -67,8 +62,6 @@ public class Player_Input : MonoBehaviour
             inputActions.Player.Enable();
 
         inputActions.UI.Enable();
-
-        dialogManager = DialogManager.instance;
         
 
         inputActions.Player.Interact.started += Interact_started;
@@ -79,21 +72,14 @@ public class Player_Input : MonoBehaviour
         inputActions.Player.Heal.performed += Heal_performed;
         inputActions.Player.Teleport.performed += Teleport_performed;
 
-        inputActions.UI.Pause.started += Pause_started;
         inputActions.UI.DialogueNext.started += DialogueNext_started;
         inputActions.UI.Submit.started += Submit_started;
-        //inputActions.UI.Map.performed += Map_performed;
-        //inputActions.UI.Map.canceled += Map_canceled;
 
         inputActions.Player.Dash.canceled += Dash_canceled; 
         inputActions.Player.Aim.canceled += Aim_canceled; 
         inputActions.Player.Jump.canceled += Jump_canceled; 
 
         InputSystem.onDeviceChange += InputSystem_onDeviceChange;
-
-        pauseMenu = FindObjectOfType<PauseMenu>();
-        pauseMenu.OnPauseStart += PauseMenu_OnPauseStart;
-        pauseMenu.OnPauseEnd += PauseMenu_OnPauseEnd;
         
     }
 
@@ -117,15 +103,6 @@ public class Player_Input : MonoBehaviour
         OnQuickThrow();
     }
 
-    //private void Map_canceled(InputAction.CallbackContext obj)
-    //{
-    //    MapClose();
-    //}
-
-    //private void Map_performed(InputAction.CallbackContext obj)
-    //{
-    //    MapOpen();
-    //}
     bool startDisabled;
 
     public void DisablePlayerInput()
@@ -154,23 +131,6 @@ public class Player_Input : MonoBehaviour
         inputActions.Player.Enable();
     }
 
-    private void PauseMenu_OnPauseEnd()
-    {
-        if(!DialogManager.instance.dialogueIsActive && !CutsceneManager.instance.isCutscenePlaying)
-            inputActions.Player.Enable();
-    }
-
-    private void PauseMenu_OnPauseStart()
-    {
-        if (!DialogManager.instance.dialogueIsActive && !CutsceneManager.instance.isCutscenePlaying)
-            inputActions.Player.Disable();
-    }
-
-    private void Pause_started(InputAction.CallbackContext obj)
-    {
-        pauseMenu.TogglePause();
-        pauseClicked.Raise();
-    }
 
     private void Jump_canceled(InputAction.CallbackContext obj)
     {
@@ -324,12 +284,5 @@ public class Player_Input : MonoBehaviour
     private bool CanAttack()
     {
         return Time.time >= nextAttackTime;
-    }
-
-    private void OnDestroy()
-    {
-        inputActions.UI.Pause.started -= Pause_started;
-        pauseMenu.OnPauseStart -= PauseMenu_OnPauseStart;
-        pauseMenu.OnPauseEnd -= PauseMenu_OnPauseEnd;
     }
 }

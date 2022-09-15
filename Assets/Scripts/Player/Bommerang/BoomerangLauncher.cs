@@ -104,7 +104,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     {
         gm = GameManager.instance;
         playerInput = GetComponentInParent<Player_Input>();
-        timeStop = GetComponentInParent<TimeStop>();
+        timeStop = TimeStop.instance;
         cameraController = Camera.main.GetComponent<CameraController>();
         cameraOffset = cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
 

@@ -132,7 +132,7 @@ public class Player : MonoBehaviour, IAttacker {
 
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
         anim = GetComponent<Animator>();
-        timeStop = GetComponent<TimeStop>();
+        timeStop = TimeStop.instance;
         playerMovement =  GetComponent<PlayerMovement>();
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
@@ -141,8 +141,8 @@ public class Player : MonoBehaviour, IAttacker {
         cameraOffset = cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
 
         volume = FindObjectOfType<Volume>();
-        Debug.Log(volume.name);
         volume.profile.TryGet(out vignette);
+
         initalIntensity = vignette.intensity.value;
 
         if (GameManager.instance.isInDebugMode)

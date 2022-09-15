@@ -47,6 +47,9 @@ public class PauseMenu : MonoBehaviour
 
     public event Action OnPauseStart = delegate { };
     public event Action OnPauseEnd = delegate { };
+
+    GameObject currentActiveMenu;
+
     void Start()
     {
         eventSystem = EventSystem.current;
@@ -183,70 +186,55 @@ public class PauseMenu : MonoBehaviour
 
         Time.timeScale = 1f;
     }
-    public void Options()
-    {
-        pauseMenu.SetActive(false);
-        optionMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
-    }
-    public void OptionsBack()
-    {
-        pauseMenu.SetActive(true);
-        optionMenu.SetActive(false);
-        eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
-    }
-
     public void ControlsMenu()
     {
-        pauseMenu.SetActive(false);
+        if(currentActiveMenu != null)
+        {
+            currentActiveMenu.SetActive(false);
+        }
+
+        currentActiveMenu = controlsMenu;
+
         controlsMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(controlsMenu.GetComponentInChildren<Button>().gameObject);
-    }
-    public void ControlsMenuBack()
-    {
-        pauseMenu.SetActive(true);
-        controlsMenu.SetActive(false);
-        eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
     }
     public void VideoMenu()
     {
+        if (currentActiveMenu != null)
+        {
+            currentActiveMenu.SetActive(false);
+        }
+
+        currentActiveMenu = videoOptions;
+
         videoOptions.SetActive(true);
-        optionMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(videoOptions.GetComponentInChildren<Button>().gameObject);
     }
-    public void VideoMenuBack()
-    {
-        videoOptions.SetActive(false);
-        optionMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
-    }
-
     public void GameMenu()
     {
+        if (currentActiveMenu != null)
+        {
+            currentActiveMenu.SetActive(false);
+        }
+
+        currentActiveMenu = gameOptions;
+
         gameOptions.SetActive(true);
-        optionMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(gameOptions.GetComponentInChildren<Toggle>().gameObject);
-    }
-    public void GameMenuBack()
-    {
-        gameOptions.SetActive(false);
-        optionMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
     }
 
     public void AudioMenu()
     {
+        if (currentActiveMenu != null)
+        {
+            currentActiveMenu.SetActive(false);
+        }
+
+        currentActiveMenu = audioOptions;
+
         audioOptions.SetActive(true);
-        optionMenu.SetActive(false);
         eventSystem.SetSelectedGameObject(audioOptions.GetComponentInChildren<Button>().gameObject);
     }
 
-    public void AudioMenuBack()
-    {
-        audioOptions.SetActive(false);
-        optionMenu.SetActive(true);
-        eventSystem.SetSelectedGameObject(optionMenu.GetComponentInChildren<Button>().gameObject);
-    }
     public void QuitGame()
     {
         //Time.timeScale = 1f;

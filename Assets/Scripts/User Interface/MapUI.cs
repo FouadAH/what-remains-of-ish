@@ -25,13 +25,20 @@ public class MapUI : MonoBehaviour
     private void Map_canceled(InputAction.CallbackContext obj)
     {
         CloseMap();
-        playerInput.EnablePlayerInput();
+
+        if (!GameManager.instance.isPaused)
+        {
+            playerInput.EnablePlayerInput();
+        }
     }
 
     private void Map_started(InputAction.CallbackContext obj)
     {
-        OpenMap();
-        playerInput.DisablePlayerInput();
+        if (!GameManager.instance.isPaused)
+        {
+            OpenMap();
+            playerInput.DisablePlayerInput();
+        }
     }
 
 

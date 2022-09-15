@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Brooch_01
   m_EditorClassIdentifier: 
   Id: 3040ecd1-8d2b-43da-b1b0-0b360228ab9a
-  isOwnedByPlayer: 0
+  isOwnedByPlayer: 1
   itemName: '"Fahed" - Warriors pendant'
   itemDescription: A pendant belonging to an unknown nomadic warrior. Said to enhance
     the wearer's reflexes.  Equip to increase attack rate.
@@ -25,4 +25,5 @@ MonoBehaviour:
   width: 1
   height: 2
   canInteract: 1
-  isEquipped: 0
+  isEquipped: 1
+  hasBeenPlacedOnGrid: 1

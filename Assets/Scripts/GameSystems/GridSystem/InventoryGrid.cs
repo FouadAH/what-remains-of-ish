@@ -14,7 +14,6 @@ public class InventoryGrid : MonoBehaviour
     public bool isEquipScreen;
     public InventoryItemSO blockedTileSO;
 
-
     private void Awake()
     {
         Instance = this;
@@ -31,11 +30,52 @@ public class InventoryGrid : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        Setup();
+    }
+
     void BlockTile(int x, int y)
     {
         grid.GetGridObject(x, y).isBlocked = true;
         InventoryItem inventoryItem = InventoryItem.CreateCanvas(itemContainer, grid.GetWorldPosition(x, y), new Vector2Int(x, y), blockedTileSO);
         grid.GetGridObject(x, y).inventoryItem = inventoryItem;
+    }
+
+    public void Setup()
+    {
+        foreach (InventoryItemSO broocheItem in ItemManager.Instance.broochItems)
+        {
+            if (broocheItem.isOwnedByPlayer)
+            {
+                if (!broocheItem.hasBeenPlacedOnGrid)
+                {
+                    if (broocheItem.isEquipped && isEquipScreen)
+                    {
+                        TryAutoPlaceObject(broocheItem);
+                        broocheItem.hasBeenPlacedOnGrid = true;
+                    }
+                    else if (!broocheItem.isEquipped && !isEquipScreen)
+                    {
+                        TryAutoPlaceObject(broocheItem);
+                        broocheItem.hasBeenPlacedOnGrid = true;
+                    }
+                }
+                else
+                {
+                    if (broocheItem.isEquipped && isEquipScreen)
+                    {
+                        TryPlace(broocheItem, broocheItem.gridCoordinates);
+                        broocheItem.hasBeenPlacedOnGrid = true;
+                    }
+                    else if (!broocheItem.isEquipped && !isEquipScreen)
+                    {
+                        TryPlace(broocheItem, broocheItem.gridCoordinates);
+                        broocheItem.hasBeenPlacedOnGrid = true;
+                    }
+                }
+            }
+        }
     }
 
     public class GridObject
@@ -160,6 +200,9 @@ public class InventoryGrid : MonoBehaviour
                 grid.GetGridObject(gridPos.x, gridPos.y).SetPlacedObject(inventoryItem);
             }
 
+            inventoryItemSO.gridCoordinates = placedObjectOrigin;
+            inventoryItemSO.broocheData.gridCoordinates = placedObjectOrigin;
+
             Debug.Log("Placing item");
             return true;
 
@@ -167,7 +210,7 @@ public class InventoryGrid : MonoBehaviour
         else
         {
             // Object CANNOT be placed!
-            Debug.Log("Cannot place item");
+            //Debug.Log("Cannot place item");
             return false;
         }
     }

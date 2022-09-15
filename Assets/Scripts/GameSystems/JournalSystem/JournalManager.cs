@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class JournalManager : MonoBehaviour
 {
@@ -21,6 +23,8 @@ public class JournalManager : MonoBehaviour
                 JournalEntry journalEntry = Instantiate(entryViewPrefab, journalEntriesContent.transform).GetComponent<JournalEntry>();
                 journalEntry.journalTitle.text = entry.journalTitle;
                 journalEntry.button.onClick.AddListener(() => OnClickJournalEntry(entry));
+                journalEntry.button.Select();
+                OnClickJournalEntry(entry);
             }
         }
     }

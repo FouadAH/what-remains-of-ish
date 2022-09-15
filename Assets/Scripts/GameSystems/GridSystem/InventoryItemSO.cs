@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,10 @@ public class InventoryItemSO : ShopItemSO
     public int broochID;
     public int width;
     public int height;
-    public bool canInteract = true;
     public bool isEquipped;
+    public bool hasBeenPlacedOnGrid;
+    public Vector2Int gridCoordinates;
+    public BroocheData broocheData;
 
     public void CreateVisualGrid(Transform visualParentTransform, InventoryItemSO itemTetrisSO, float cellSize)
     {
@@ -54,14 +57,14 @@ public class InventoryItemSO : ShopItemSO
     {
         base.ReceiveItem();
         UI_HUD.instance.SetDebugText("Picked up a brooche!");
-        UI_HUD.instance.broochInventoryGrid.TryAutoPlaceObject(this);
+        isOwnedByPlayer = true;
     }
 
     public override void OnBuyItem()
     {
         base.OnBuyItem();
         UI_HUD.instance.SetDebugText("Purchased a brooche!");
-        UI_HUD.instance.broochInventoryGrid.TryAutoPlaceObject(this);
+        isOwnedByPlayer = true;
     }
 
     public void Equip()
@@ -84,4 +87,12 @@ public class InventoryItemSO : ShopItemSO
         }
     }
 
+}
+
+[Serializable]
+public class BroocheData
+{
+    public bool isEquipped;
+    public bool hasBeenPlacedOnGrid;
+    public Vector2Int gridCoordinates;
 }

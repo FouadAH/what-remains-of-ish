@@ -8,6 +8,7 @@ public class ItemManager : MonoBehaviour
     Dictionary<string, string> itemDataDictionary = new();
 
     public ItemSO[] shopItems;
+    public InventoryItemSO[] broochItems;
     public static ItemManager Instance;
 
     public void Awake()
@@ -27,14 +28,31 @@ public class ItemManager : MonoBehaviour
     private void Start()
     {
         shopItems = Resources.LoadAll<ItemSO>("Items");
+        broochItems = Resources.LoadAll<InventoryItemSO>("Items");
+        LoadDefault();
+    }
 
-        foreach(ItemSO item in shopItems)
+    void LoadDefault()
+    {
+        Debug.Log("Load Default Item Data");
+
+        foreach (ItemSO item in shopItems)
         {
-            itemDictionary.Add(item.Id, item);
-
-            if (itemDictionary[item.Id] is ShopItemSO si)
+            if (itemDictionary.ContainsKey(item.Id) == false)
             {
-                si.hasBeenSold = false;
+                itemDictionary.Add(item.Id, item);
+
+                if (itemDictionary[item.Id] is ShopItemSO si)
+                {
+                    si.hasBeenSold = false;
+                }
+
+                if (itemDictionary[item.Id] is InventoryItemSO bi)
+                {
+                    bi.isOwnedByPlayer = false;
+                    bi.isEquipped = false;
+                    bi.hasBeenPlacedOnGrid = false;
+                }
             }
         }
     }
@@ -73,7 +91,7 @@ public class ItemManager : MonoBehaviour
             if (itemDataDictionary.ContainsKey(shopItem.Id) == false)
             {
                 itemDataDictionary.Add(shopItem.Id, JsonUtility.ToJson(shopItem));
-                Debug.Log(JsonUtility.ToJson(shopItem));
+                //Debug.Log(JsonUtility.ToJson(shopItem));
             }
         }
 
@@ -86,9 +104,10 @@ public class ItemManager : MonoBehaviour
 
         itemDataDictionary = SaveManager.instance.currentSaveFile.gameData.item_data.data_entries;
 
-        if(itemDataDictionary == null)
+        if(itemDataDictionary == null || itemDataDictionary.Count == 0)
         {
             Debug.Log("Item data dictionary empty");
+            LoadDefault();
             return;
         }
 

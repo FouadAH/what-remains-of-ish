@@ -27,7 +27,7 @@ public class MapSystem : MonoBehaviour
     private void Update()
     {
         playerIcon.anchoredPosition = WorldObject.transform.position - initialPos;
-        mapContent.anchoredPosition += playerInput.mapRightStickInput * scrollSpeed;
+        mapContent.anchoredPosition -= playerInput.mapRightStickInput * scrollSpeed;
     }
 
     public void OnNewLevelLoad()
@@ -43,7 +43,7 @@ public class MapSystem : MonoBehaviour
             {
                 if (mapLevel.level.isRevealed)
                 {
-                    Debug.Log("Revealing Room: " + mapLevel.level.name);
+                    //Debug.Log("Revealing Room: " + mapLevel.level.name);
 
                     if (mapLevel.levelImage == null)
                         mapLevel.levelImage = mapLevel.GetComponent<Image>();
@@ -56,7 +56,6 @@ public class MapSystem : MonoBehaviour
 
     public void OpenMap()
     {
-        Debug.Log("Opened Map");
         SnapTo(playerIcon);
     }
 
@@ -67,5 +66,10 @@ public class MapSystem : MonoBehaviour
         mapContent.anchoredPosition =
                 (Vector2)scrollRect.transform.InverseTransformPoint(mapContent.position)
                 - (Vector2)scrollRect.transform.InverseTransformPoint(target.position);
+    }
+
+    private void OnEnable()
+    {
+        OpenMap();
     }
 }
