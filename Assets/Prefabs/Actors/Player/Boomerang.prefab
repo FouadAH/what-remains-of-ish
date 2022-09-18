@@ -5135,9 +5135,13 @@ MonoBehaviour:
   freezeBurst: {fileID: 1173588368880399243}
   explosionPrefab: {fileID: 4450728317717581539, guid: 8fd0f0e05ab05a74db316387175e4c17,
     type: 3}
+  freezePrefab: {fileID: 4450728317717581539, guid: ad1dd7a7d4d531343b6862d3d9d08c3c,
+    type: 3}
   wallHitSFX: event:/SFX/Player/Melee Obstacle
   enemyHitSFX: event:/SFX/Player/Melee Obstacle
   criticalHitSFX: event:/SFX/Player/Melee Obstacle
+  freezeSFX: 
+  explosionSFX: 
   wallCheckersDistance: 4
 --- !u!58 &8817289101165079723
 CircleCollider2D:

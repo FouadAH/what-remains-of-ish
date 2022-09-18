@@ -16044,12 +16044,12 @@ PrefabInstance:
     - target: {fileID: 1580175236390049138, guid: 62f16c30091552e4fa1b75ad34ed84e9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 112.8
+      value: -69.3
       objectReference: {fileID: 0}
     - target: {fileID: 1580175236390049138, guid: 62f16c30091552e4fa1b75ad34ed84e9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.4
+      value: 96.4
       objectReference: {fileID: 0}
     - target: {fileID: 1580175236390049138, guid: 62f16c30091552e4fa1b75ad34ed84e9,
         type: 3}
@@ -16274,12 +16274,12 @@ PrefabInstance:
     - target: {fileID: 2235271394185185041, guid: 469a166d94d5ccd49869eac4e8db1a02,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 112.8
+      value: -69.3
       objectReference: {fileID: 0}
     - target: {fileID: 2235271394185185041, guid: 469a166d94d5ccd49869eac4e8db1a02,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.4
+      value: 96.4
       objectReference: {fileID: 0}
     - target: {fileID: 2235271394185185041, guid: 469a166d94d5ccd49869eac4e8db1a02,
         type: 3}
@@ -16533,12 +16533,12 @@ PrefabInstance:
     - target: {fileID: 3302963428054370896, guid: 4d1345c3556595f4d89a987bc72a9652,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 112.8
+      value: -69.3
       objectReference: {fileID: 0}
     - target: {fileID: 3302963428054370896, guid: 4d1345c3556595f4d89a987bc72a9652,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.4
+      value: 95.4
       objectReference: {fileID: 0}
     - target: {fileID: 3302963428054370896, guid: 4d1345c3556595f4d89a987bc72a9652,
         type: 3}
@@ -16598,6 +16598,52 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3298665632104676903, guid: 4d1345c3556595f4d89a987bc72a9652, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4d1345c3556595f4d89a987bc72a9652, type: 3}
+--- !u!1 &3298665632538162654 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 257799686, guid: 4d1345c3556595f4d89a987bc72a9652,
+    type: 3}
+  m_PrefabInstance: {fileID: 3298665632538162653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3298665632538162655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1440472807, guid: 4d1345c3556595f4d89a987bc72a9652,
+    type: 3}
+  m_PrefabInstance: {fileID: 3298665632538162653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3298665632538162654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb4906a1dc519544b26fec789e7ec0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3298665632538162656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3298665632538162654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 74a85f9079df3f24e9ff04609a4be44e, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3298665632538162655}
+        m_TargetAssemblyTypeName: LightController, Assembly-CSharp
+        m_MethodName: SetLightIntensity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3867191198552588487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19267,6 +19313,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1101081815, guid: 6b07de83273b86643953abf1e5096920, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1105565039, guid: 6b07de83273b86643953abf1e5096920, type: 3}
       propertyPath: serializedGuid.Array.size
       value: 16
@@ -21693,7 +21743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1942765227, guid: 6b07de83273b86643953abf1e5096920, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1352361.6
+      value: 3022008.5
       objectReference: {fileID: 0}
     - target: {fileID: 1975767593, guid: 6b07de83273b86643953abf1e5096920, type: 3}
       propertyPath: serializedGuid.Array.size
@@ -24398,6 +24448,26 @@ PrefabInstance:
     - target: {fileID: 7330798498746642587, guid: 6b07de83273b86643953abf1e5096920,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330798498849202293, guid: 6b07de83273b86643953abf1e5096920,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330798498849202293, guid: 6b07de83273b86643953abf1e5096920,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330798498849202293, guid: 6b07de83273b86643953abf1e5096920,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330798498849202293, guid: 6b07de83273b86643953abf1e5096920,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7791296898664197374, guid: 6b07de83273b86643953abf1e5096920,

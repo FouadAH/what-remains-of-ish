@@ -52,12 +52,16 @@ public class Boomerang : MonoBehaviour
 
     public ParticleSystem freezeBurst;
     public GameObject explosionPrefab;
+    public GameObject freezePrefab;
 
     [Header("SFX")]
 
     [FMODUnity.EventRef] public string wallHitSFX;
     [FMODUnity.EventRef] public string enemyHitSFX;
     [FMODUnity.EventRef] public string criticalHitSFX;
+    [FMODUnity.EventRef] public string freezeSFX;
+    [FMODUnity.EventRef] public string explosionSFX;
+
 
     Rumbler rumbler;
 
@@ -83,21 +87,13 @@ public class Boomerang : MonoBehaviour
     {
         //spriteRenderer.color = IsAccesable() ? Color.white : Color.red;
         boomerangSprite.transform.Rotate(Vector3.forward * (boomerangLauncher.rotateSpeed * Time.deltaTime));
-    }
-
-    float startTime;
-    bool isComingBack = false;
-    private void FixedUpdate()
-    {
 
         if (isComingBack)
             return;
 
-        BounceOffWall();
-
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if(GameManager.instance.playerData.hasBoomerangExplosion)
+            if (GameManager.instance.playerData.hasBoomerangExplosion)
                 InitiateExplosion();
         }
 
@@ -106,42 +102,57 @@ public class Boomerang : MonoBehaviour
             if (GameManager.instance.playerData.hasBoomerangFreeze)
                 BoomerangFreeze();
         }
+    }
+
+    float startTime;
+    bool isComingBack = false;
+    private void FixedUpdate()
+    {
+        if (isComingBack)
+            return;
+
+        BounceOffWall();
 
         while (!back)
         {
-            //SetVelocity();
-            //SetVelocityCurve(startTime);
             if (timer == null)
+            {
                 timer = StartCoroutine(BoomerangCountdown());
-
+            }
             return;
         }
 
         Callback(); 
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            isComingBack = true;
-            CallbackImediate();
-        }
-
-
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    isComingBack = true;
+        //    CallbackImediate();
+        //}
     }
+
+    bool hasExploded = false;
+    bool hasFrozen = false;
+
     void InitiateExplosion()
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        HaltBoomerang();
+        if (!hasExploded)
+        {
+            hasExploded = true;
+            FMODUnity.RuntimeManager.PlayOneShotAttached(explosionSFX, gameObject);
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            HaltBoomerang();
+        }
     }
 
     public void BoomerangFreeze()
     {
-        if (!isStopped)
+        if (!hasFrozen)
         {
-            isStopped = true;
-            StopAllCoroutines();
-            rgd2D.isKinematic = true;
-            rgd2D.velocity = Vector2.zero;
-            freezeBurst.Play();
+            hasFrozen = true;
+            FMODUnity.RuntimeManager.PlayOneShotAttached(freezeSFX, gameObject);
+            Instantiate(freezePrefab, transform.position, Quaternion.identity);
+            HaltBoomerang();
         }
     }
 
@@ -150,33 +161,6 @@ public class Boomerang : MonoBehaviour
     public void Launch()
     {
         rgd2D.AddForce(transform.up * boomerangLauncher.throwForce, ForceMode2D.Impulse);
-    }
-
-    void SetVelocityCurve(float time)
-    {
-        Debug.Log(Time.time - time);
-        if (!isReflecting)
-        {
-            float targetSpeedX = boomerangSpeed.Evaluate(Time.time -time) + speedBonus + Mathf.Abs(playerMovement.Velocity.x * 0.5f);
-            float targetSpeedY = boomerangSpeed.Evaluate(Time.time -time);
-
-            targetVelocity = transform.up * new Vector2(targetSpeedX, targetSpeedY);
-        }
-
-        rgd2D.velocity = targetVelocity;
-    }
-    void SetVelocity()
-    {
-        if (!isReflecting)
-        {
-            float speed = (isComingBack) ? boomerangLauncher.returnMoveSpeed : boomerangLauncher.MoveSpeed;
-            float targetSpeedX = speed + speedBonus + Mathf.Abs(playerMovement.Velocity.x*0.5f);
-            float targetSpeedY = speed;
-
-            targetVelocity = transform.up * new Vector2(targetSpeedX, targetSpeedY);
-        }
-
-        rgd2D.velocity = Vector2.SmoothDamp(rgd2D.velocity, targetVelocity , ref velocityXSmoothing, boomerangLauncher.accelerationTime);
     }
 
     float boomerangDuration;

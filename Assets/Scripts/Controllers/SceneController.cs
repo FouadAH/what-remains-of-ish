@@ -9,12 +9,21 @@ public class SceneController : MonoBehaviour
 {
     public PolygonCollider2D colCameraBounds;
     CameraController cameraController;
+    public Level level;
+    public GameEvent sceneLoad;
+
     void Start()
     {
         cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.virtualCamera.PreviousStateIsValid = false;
         cameraController.confiner.m_BoundingShape2D = colCameraBounds;
         cameraController.confiner.InvalidatePathCache();
+
+        if(level != null)
+        {
+            GameManager.instance.currentLevel = level;
+            sceneLoad.Raise();
+        }
 
 #if UNITY_EDITOR
         if(SceneManager.GetActiveScene().buildIndex != gameObject.scene.buildIndex)

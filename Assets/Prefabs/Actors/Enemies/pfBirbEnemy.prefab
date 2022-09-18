@@ -5223,6 +5223,8 @@ MonoBehaviour:
   damagables:
     serializedVersion: 2
     m_Bits: 256
+  damageAmountPlayer: 1
+  damageAmountEnemies: 10
 --- !u!58 &6666061634660519276
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6187,7 +6189,7 @@ MonoBehaviour:
   canSearch: 1
   canMove: 1
   maxSpeed: 8
-  gravity: {x: 0, y: -3, z: 0}
+  gravity: {x: 0, y: -1.5, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 512

@@ -9,6 +9,7 @@ public class Explosion : MonoBehaviour
     public LayerMask damagables;
     public int damageAmount = 1;
     public int playerDamageAmount = 1;
+    public int stunDamageMod = 1;
 
 
     private void Start()
@@ -37,13 +38,13 @@ public class Explosion : MonoBehaviour
 
                 dir.y = direction.y;
 
-                if (hurtbox.gameObject.tag == "Player")
+                if (hurtbox.gameObject.CompareTag("Player"))
                 {
-                    hurtbox?.collisionDamage(playerDamageAmount, dir.x, -dir.y);
+                    hurtbox.collisionDamage(playerDamageAmount, dir.x, -dir.y);
                 }
                 else
                 {
-                    hurtbox?.collisionDamage(damageAmount, dir.x, -dir.y);
+                    hurtbox.collisionDamage(damageAmount, dir.x, -dir.y, stunDamageMod);
                 }
             }
         }
