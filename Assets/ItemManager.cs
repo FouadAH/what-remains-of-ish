@@ -88,6 +88,11 @@ public class ItemManager : MonoBehaviour
 
         foreach (ItemSO shopItem in itemDictionary.Values)
         {
+            if(itemDataDictionary == null)
+            {
+                itemDataDictionary = new Dictionary<string, string>();
+            }
+
             if (itemDataDictionary.ContainsKey(shopItem.Id) == false)
             {
                 itemDataDictionary.Add(shopItem.Id, JsonUtility.ToJson(shopItem));

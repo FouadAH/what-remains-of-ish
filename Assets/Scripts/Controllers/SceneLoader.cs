@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader instance;
+    public bool loadDemo = false;
 
     /// <summary>
     /// Singelton, makes sure only one instance of this object exsists
@@ -23,7 +24,11 @@ public class SceneLoader : MonoBehaviour
         else
         {
             instance = this;
-            SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+
+            if(loadDemo)
+                SceneManager.LoadSceneAsync("DemoMainMenu", LoadSceneMode.Additive);
+            else
+                SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
         }
     }
 }

@@ -142,6 +142,24 @@ public class BirbMother : Entity
     public override void LoadDefaultData()
     {
         base.LoadDefaultData();
+
+        spriteObj = GetComponentInChildren<SpriteRenderer>().transform;
+        enemyAudio = GetComponent<EnemyAudio>();
+        enemyAudio.PlayEventOnce(wingFlapSFX);
+        enemyAudio.PlayOneShot(spawnSFX);
+
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameManager.instance.player.GetComponent<Collider2D>());
+
+        idleState = new BirbMother_IdleState(this, stateMachine, "idle", idleStateData, this);
+        groundPoundAttackState = new BirbMother_GroundPoundAttackState(this, stateMachine, "spin_loop", downSpinAttackStateData, this);
+        chargeToPlayerState = new BirbMother_ChargeToPlayerState(this, stateMachine, "charge", chargeToPlayerStateData, this);
+        wallBounceAttackState = new BirbMother_WallBounceAttackState(this, stateMachine, "charge", wallBounceAttackStateData, this);
+        flyState = new BirbMother_FlyToTarget(this, stateMachine, "fly", flyStateData, this);
+        deadState = new BirbMother_DeadState(this, stateMachine, "dead", deadStateData, this);
+
+        if (stateMachine == null)
+            stateMachine = new FiniteStateMachine();
+
         stateMachine.Initialize(idleState);
     }
 

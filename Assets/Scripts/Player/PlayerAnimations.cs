@@ -18,6 +18,7 @@ public class PlayerAnimations
         playerMovement = player.GetComponent<PlayerMovement>();
         playerDash = player.GetComponent<PlayerDash>();
         this.animator = animator;
+
         playerInput.OnJumpUp += OnJumpInputUp;
         playerInput.OnJumpDown += OnJumpInputDown;
         playerInput.OnAttack += OnAttack;
@@ -137,5 +138,12 @@ public class PlayerAnimations
     {
         animator.SetBool("isJumping", false);
         jumping = false;
+    }
+
+    public void UnsubscribeAnimationsFromInput()
+    {
+        playerInput.OnJumpUp -= OnJumpInputUp;
+        playerInput.OnJumpDown -= OnJumpInputDown;
+        playerInput.OnAttack -= OnAttack;
     }
 }

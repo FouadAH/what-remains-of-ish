@@ -83,6 +83,26 @@ public class Player_Input : MonoBehaviour
         
     }
 
+    private void OnDestroy()
+    {
+        inputActions.Player.Interact.started -= Interact_started;
+        inputActions.Player.Attack.performed -= Attack_performed;
+        inputActions.Player.Dash.performed -= Dash_started;
+        inputActions.Player.Aim.started -= Aim_started;
+        inputActions.Player.Jump.performed -= Jump_performed;
+        inputActions.Player.Heal.performed -= Heal_performed;
+        inputActions.Player.Teleport.performed -= Teleport_performed;
+
+        inputActions.UI.DialogueNext.started -= DialogueNext_started;
+        inputActions.UI.Submit.started -= Submit_started;
+
+        inputActions.Player.Dash.canceled -= Dash_canceled;
+        inputActions.Player.Aim.canceled -= Aim_canceled;
+        inputActions.Player.Jump.canceled -= Jump_canceled;
+
+        InputSystem.onDeviceChange -= InputSystem_onDeviceChange;
+    }
+
     private void Submit_started(InputAction.CallbackContext obj)
     {
         submitClicked.Raise();

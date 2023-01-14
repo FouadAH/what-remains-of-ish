@@ -19,6 +19,7 @@ public class GameMenu : MonoBehaviour
     public Color activeColor = Color.white;
     public Color inactiveColor = Color.black;
 
+    public Transform navButtonsParent;
     public Image mapButton;
     public Image broochesButton;
     public Image inventoryButton;
@@ -30,7 +31,7 @@ public class GameMenu : MonoBehaviour
     EventSystem eventSystem;
 
     int menuIndex = -1;
-    int totalMenuNumber = 4;
+    int totalMenuNumber;
 
     int menuNavigationDirection;
 
@@ -40,6 +41,14 @@ public class GameMenu : MonoBehaviour
         inputActions = FindObjectOfType<Player_Input>().inputActions;
         inputActions.UI.GameMenu_Navigate.started += GameMenu_Navigate_started;
         inputActions.UI.Pause.started += Pause_started;
+
+        for (int i = 0; i < navButtonsParent.childCount; i++)
+        {
+            if (navButtonsParent.GetChild(i).gameObject.activeSelf)
+            {
+                totalMenuNumber++;
+            }
+        }
     }
 
     private void Pause_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -85,17 +94,11 @@ public class GameMenu : MonoBehaviour
     {
         if(currentMenu == null)
         {
-            currentMenu = mapScreen;
-            menuIndex = 0;
-            mapScreen.SetActive(true);
-            //eventSystem.firstSelectedGameObject = broochesScreen.GetComponent<InventoryDragDropSystem>().GetFirstItem();
-            //eventSystem.SetSelectedGameObject(broochesScreen.GetComponent<InventoryDragDropSystem>().GetFirstItem());
-        }
-        else
-        {
-            SwitchMenu();
+            OnClickSettings();
+            menuIndex = 3;
         }
 
+        SwitchMenu();
         gameMenu.enabled = true;
 
         GameManager.instance.isPaused = true;
@@ -119,25 +122,34 @@ public class GameMenu : MonoBehaviour
 
     public void LeftArrow()
     {
-        menuIndex--;
-
-        if(menuIndex < 0)
+        if (totalMenuNumber > 1)
         {
-            menuIndex = totalMenuNumber - 1;
+            menuIndex--;
+
+            if (menuIndex < 0)
+            {
+                menuIndex = totalMenuNumber - 1;
+            }
+
+            SwitchMenu();
         }
-        
-        SwitchMenu();
     }
 
     public void RightArrow()
     {
-        menuIndex++;
-        SwitchMenu();
+        if (totalMenuNumber > 1)
+        {
+            menuIndex++;
+            SwitchMenu();
+        }
     }
 
     public void SwitchMenu()
     {
-        menuIndex %= totalMenuNumber;
+        if (totalMenuNumber > 1)
+        {
+            menuIndex %= totalMenuNumber;
+        }
 
         switch (menuIndex)
         {
@@ -254,5 +266,11 @@ public class GameMenu : MonoBehaviour
         settingsScreen.SetActive(false);
 
         journalScreen.SetActive(true);
+    }
+
+    private void OnDestroy()
+    {
+        inputActions.UI.GameMenu_Navigate.started -= GameMenu_Navigate_started;
+        inputActions.UI.Pause.started -= Pause_started;
     }
 }

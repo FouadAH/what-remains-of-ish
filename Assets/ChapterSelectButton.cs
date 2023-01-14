@@ -11,4 +11,9 @@ public class ChapterSelectButton : MonoBehaviour
     {
         GetComponent<Button>().onClick.AddListener(() => SaveManager.instance.LoadSavedGameFromSO(saveFile));
     }
+
+    public void LoadSaveFile()
+    {
+        SaveManager.instance.LoadSavedGameFromSO(saveFile);
+    }
 }

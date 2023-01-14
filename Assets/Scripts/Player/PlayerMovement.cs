@@ -718,6 +718,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        playerAnimations.UnsubscribeAnimationsFromInput();
+    }
+
     ///// <summary>
     ///// Method that pulls the player towards the hook point
     ///// </summary>

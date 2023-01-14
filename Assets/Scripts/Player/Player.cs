@@ -476,7 +476,6 @@ public class Player : MonoBehaviour, IAttacker {
     {
         playerBreathingInstance.getPlaybackState(out PLAYBACK_STATE);
 
-
         if (PLAYBACK_STATE == FMOD.Studio.PLAYBACK_STATE.PLAYING)
         {
             playerBreathingInstance.release();
@@ -511,4 +510,6 @@ public class Player : MonoBehaviour, IAttacker {
     {
         //throw new NotImplementedException();
     }
+
+    
 }
