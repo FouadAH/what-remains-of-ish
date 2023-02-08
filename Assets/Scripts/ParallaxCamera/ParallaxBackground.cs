@@ -10,7 +10,7 @@ public class ParallaxBackground : MonoBehaviour
     void Start()
     {
         if (parallaxCamera == null)
-            parallaxCamera = GameManager.instance.playerCamera.GetComponent<ParallaxCamera>();
+            parallaxCamera = Camera.main.GetComponent<ParallaxCamera>();
         if (parallaxCamera != null)
             parallaxCamera.onCameraTranslate += Move;
         SetLayers();

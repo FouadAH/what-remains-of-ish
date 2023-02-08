@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using static LevelManager;
 
 /// <summary>
 /// Class responsible for ascynchronis scene loading and unloading, as well as holding, saving and loading player data 
@@ -12,56 +13,21 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
     [HideInInspector] public GameObject player;
-    [HideInInspector] public Transform playerCurrentPosition;
 
     [Header("Scene Settings")]
     public PlayerConfig initalPlayerData;
-
     public Level currentLevel;
-    public string currentScenePath;
-
-    private string levelToUnloadPath;
-    private string levelToLoadPath;
 
     [Header("Player Values")]
-
-    int healthShardsNeeded = 3;
-    int healingFlaskShardsNeeded = 3;
-
     public PlayerDataSO playerData;
 
-    public Camera playerCamera;
-
-    [Header("Player Debug Settings")]
-    public bool hasInfiniteLives = false;
-
-    [HideInInspector] public Animator anim;
-    AstarPath astarPath;
-
     [Header("Brooches")]
-
-    [Header("Brooche 01")]
-    public bool ownsBrooch_1 = false;
-    //Increase attack rate
-    public bool equippedBrooch_01 = false;
-
-    [Header("Brooche 02")]
-    public bool ownsBrooch_2 = false;
-    //Increase flask healing
-    public bool equippedBrooch_02 = false;
-
-    [Header("Brooche 03")]
-    //Increase refill from enemies
-    public bool ownsBrooch_3 = false;
-    public bool equippedBrooch_03 = false;
-
-    [Header("Player Control Settings")]
-    public bool useDirectionalMouseAttack = false;
+    public bool equippedBrooch_01 = false; //Increase attack rate
+    public bool equippedBrooch_02 = false; //Increase flask healing
+    public bool equippedBrooch_03 = false; //Increase refill from enemies
 
     [Header("Game State")]
     public bool isLoading = false;
-    public bool canMovePlayerWhileLoading = false;
-
     public bool isRespawning = false;
     public bool isPaused = false;
 
@@ -70,24 +36,39 @@ public class GameManager : MonoBehaviour
     public bool hasOpenedMap = false;
     public bool isInDebugMode = false;
 
-    Vector3 newPlayerPos;
-    Vector2 newPlayerVelocity;
-
     [Header("Game Events")]
     public GameEvent playerRespawn;
     public GameEvent loadNewLevelEvent;
+
     public GameEvent loadDataEvent;
     public GameEvent saveDataEvent;
+
+    public GameEvent addHealingFlask;
+
     public GameEvent stopAllAudioEvent;
     public StringEvent switchMusicEvent;
     public StringEvent switchAmbianceEvent;
+
+    public StringEvent debugTextEvent;
+
+    Vector3 newPlayerPos;
+
+    private string levelToUnloadPath;
+    private string levelToLoadPath;
+
+    readonly int healthShardsNeeded = 3;
+    readonly int healingFlaskShardsNeeded = 3;
+
+    bool emptyRef;
+
+    AstarPath astarPath;
+    Animator animator;
 
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            //Application.targetFrameRate = 60;
         }
         else
         {
@@ -100,9 +81,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         astarPath = FindObjectOfType<AstarPath>();
-        anim = gameObject.GetComponent<Animator>();
-
-        PlayerPrefs.DeleteAll();
+        animator = gameObject.GetComponent<Animator>();
 
         playerData.lastSavepointLevelPath = initalPlayerData.initialLevelPath;
         playerData.lastCheckpointLevelPath = initalPlayerData.initialLevelPath;
@@ -115,36 +94,40 @@ public class GameManager : MonoBehaviour
         playerData.lastSavepointPos.Y = initalPlayerData.initialPlayerPosition.y;
     }
 
-    bool emptyRef;
-    public ref bool GetBool(string attribute)
+    public ref bool GetBool(int broochID)
     {
-        switch (attribute)
+        switch (broochID)
         {
-            case "equippedBrooch_1":
+            case 1:
                 return ref equippedBrooch_01;
-            case "equippedBrooch_2":
+            case 2:
                 return ref equippedBrooch_02;
-            case "equippedBrooch_3":
+            case 3:
                 return ref equippedBrooch_03;
-            case null:
+            default:
                 return ref emptyRef;
         }
-
-        return ref emptyRef;
     }
 
-    public int AddHealthShard()
+    public void OnReceivedHealthShard()
     {
         playerData.playerHealthShardAmount.Value++;
         int remainder = (playerData.playerHealthShardAmount.Value % healthShardsNeeded);
         if (remainder == 0)
         {
             playerData.playerMaxHealth.Value++;
+            float missingHealth = playerData.playerMaxHealth.Value - playerData.playerHealth.Value;
+            player.GetComponent<Player>().RestoreHP((int)missingHealth);
+
+            debugTextEvent.Raise("3 health shards collected. Max health increased by 1");
         }
-        return remainder;
+        else
+        {
+            debugTextEvent.Raise("Picked Up Health Shard. Pick up " + (3 - remainder) + " more to increase your health");
+        }
     }
 
-    public int AddHealingFlaskShard()
+    public void OnReceivedHealingFlaskShard()
     {
         playerData.playerHealingFlaskShards.Value++;
         int remainder = (playerData.playerHealingFlaskShards.Value % healingFlaskShardsNeeded);
@@ -152,21 +135,21 @@ public class GameManager : MonoBehaviour
         {
             playerData.playerHealingPodAmount.Value++;
             playerData.playerHealingPodFillAmounts.Add(0);
+            addHealingFlask.Raise();
         }
-        return remainder;
+        else
+        {
+            debugTextEvent.Raise("Picked Up a Healing Pod Shard. Pick up " + (3 - remainder) + " more to increase the number of healing pods");
+        }
     }
 
-    public void UpdateHealingPodFillAmount()
+    public void OnReceivedArtifact()
     {
-        for (int i = 0; i < UI_HUD.instance.healingFlasks.Count; i++)
-        {
-            playerData.playerHealingPodFillAmounts[i] = (int)UI_HUD.instance.healingFlasks[i].fillAmount;
-        }
+        debugTextEvent.Raise("Picked up an artifact!");
     }
 
     public void InitialSpawn()
     {
-        playerCamera = Camera.main;
         player.transform.position = new Vector3(playerData.playerPosition.X, playerData.playerPosition.Y, 0);
     }
 
@@ -175,7 +158,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Hard Respawn");
         if (!isRespawning)
         {
-            UI_HUD.instance.enabled = false;
             isRespawning = true;
             isLoading = true;
             player.GetComponent<Player>().enabled = false;
@@ -186,55 +168,31 @@ public class GameManager : MonoBehaviour
     public void SoftRespawn()
     {
         Debug.Log("Soft Respawn");
-        UI_HUD.instance.enabled = false;
         StartCoroutine(SoftRespawnRoutine());
     }
 
     private IEnumerator SoftRespawnRoutine()
     {
-        anim.Play("Fade_Out");
+        animator.Play("Fade_Out");
         player.GetComponent<Player>().enabled = false;
 
         yield return new WaitForSecondsRealtime(1f);
 
         playerRespawn.Raise();
-        playerCamera.transform.position = player.transform.position;
+        Camera.main.transform.position = player.transform.position;
         player.transform.position = new Vector2( playerData.lastCheckpointPos.X, playerData.lastCheckpointPos.Y );
 
         yield return new WaitForSecondsRealtime(1f);
 
-        anim.Play("Fade_in");
+        StartCoroutine(FadeIn());
 
         player.GetComponent<Player>().enabled = true;
         player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
-        UI_HUD.instance.enabled = true;
-    }
-
-    private IEnumerator HardRespawnSameLevel()
-    {
-        anim.Play("Fade_Out");
-        player.GetComponent<Player>().enabled = false;
-
-        yield return new WaitForSecondsRealtime(1f);
-
-        playerCamera.transform.position = player.transform.position;
-        player.transform.position = new Vector2(playerData.lastSavepointPos.X, playerData.lastSavepointPos.Y);
-
-        yield return new WaitForSecondsRealtime(1f);
-
-        anim.Play("Fade_in");
-
-        player.GetComponent<Player>().enabled = true;
-        player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
-        isRespawning = false;
-        isLoading = false;
-        UI_HUD.instance.enabled = true;
     }
 
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath, Vector3 playerPos)
     {
         isLoading = true;
-        currentScenePath = levelToLoadPath;
 
         player.GetComponent<Player_Input>().DisablePlayerInput();
         newPlayerPos = playerPos;
@@ -248,7 +206,6 @@ public class GameManager : MonoBehaviour
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath)
     {
         isLoading = true;
-        currentScenePath = levelToLoadPath;
 
         player.GetComponent<Player>().enabled = false;
 
@@ -262,7 +219,7 @@ public class GameManager : MonoBehaviour
     {
         SaveManager.instance.SaveSceneData();
 
-        anim.Play("Fade_Out");
+        animator.Play("Fade_Out");
         yield return new WaitForSeconds(1f);
 
         if (astarPath != null)
@@ -278,7 +235,6 @@ public class GameManager : MonoBehaviour
         if (obj.isDone)
         {
             SceneManager.LoadSceneAsync(levelToLoadPath, LoadSceneMode.Additive).completed += LoadScene_completed;
-
         }
     }
 
@@ -293,7 +249,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 player.transform.position = new Vector2(playerData.lastSavepointPos.X, playerData.lastSavepointPos.Y);
-                playerCamera.transform.position = player.transform.position;
+                Camera.main.transform.position = player.transform.position;
                 player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
             }
 
@@ -323,33 +279,38 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator LoadMainMenu()
     {
-        anim.Play("Fade_Out");
+        animator.Play("Fade_Out");
         stopAllAudioEvent.Raise();
 
         yield return new WaitForSeconds(1f);
 
         SaveManager.instance.SaveGame();
-        anim.Play("Fade_in");
-        
-        SceneManager.LoadScene(0);
-    }
+        StartCoroutine(FadeIn());
 
-    private void LoadMainMenuCompleted(AsyncOperation obj)
-    {
+        SceneManager.LoadScene(0);
     }
 
     private IEnumerator FadeIn()
     {
         yield return new WaitForSeconds(0.2f);
-        anim.Play("Fade_in");
+        animator.Play("Fade_in");
+    }
 
-        yield return new WaitForSeconds(0.2f);
+    public void PlayLoadingScreen()
+    {
+        isLoading = true;
+        animator.Play("Fade_Out");
+    }
+
+    public void StopLoadingScreen()
+    {
+        isLoading = false;
+        StartCoroutine(FadeIn());
     }
 
     public void OnFadeInDone()
     {
         isLoading = false;
-        //player.GetComponent<Player_Input>().EnablePlayerInput();
     }
 
     private void OnDrawGizmos()

@@ -37,8 +37,8 @@ public class InventoryDragDropSystem : MonoBehaviour
 
     private void Start()
     {
-        inputActions = GameManager.instance.player.GetComponent<Player_Input>().inputActions;
-        player_Input = GameManager.instance.player.GetComponent<Player_Input>();
+        player_Input = FindObjectOfType<Player_Input>();
+        inputActions = player_Input.inputActions;
         inputActions.UI.Navigate.started += Navigate_started;
     }
 

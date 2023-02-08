@@ -229,7 +229,9 @@ public class PlayerTeleport : MonoBehaviour
     public IEnumerator TeleportCooldown(float teleportCooldownTimer)
     {
         teleportLock = true;
-        UI_HUD.instance.Cooldown(PlayerAbility.BoomerangTeleport, teleportCooldownTimer);
+        
+        //UI_HUD.instance.Cooldown(PlayerAbility.BoomerangTeleport, teleportCooldownTimer);
+
         yield return new WaitForSeconds(teleportCooldownTimer);
         yield return new WaitWhile(() => playerMovement.isAirborne);
         teleportRechargeEffect.Play();

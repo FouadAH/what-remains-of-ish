@@ -34,16 +34,19 @@ public class PauseMenu : MonoBehaviour
 
     [FMODUnity.EventRef]
     public string SFXTestEvent;
+
     FMOD.Studio.VCA masterBus;
     FMOD.Studio.VCA musicBus;
     FMOD.Studio.VCA sfxBus;
 
     [Header("Video Options")]
-
     public TMPro.TMP_Dropdown resolutionDropdown;
-
     Resolution[] resolutions;
-    Player_Input player_Input;
+
+    [Header("Data")]
+
+    public PlayerDataSO playerData;
+    public GlobalConfigSO globalConfig;
 
     public event Action OnPauseStart = delegate { };
     public event Action OnPauseEnd = delegate { };
@@ -118,54 +121,38 @@ public class PauseMenu : MonoBehaviour
     {
         if (abilityToggle.isOn)
         {
-            GameManager.instance.playerData.hasDashAbility = true;
-            GameManager.instance.playerData.hasTeleportAbility = true;
-            GameManager.instance.playerData.hasSprintAbility = true;
-            GameManager.instance.playerData.hasWallJumpAbility = true;
-            GameManager.instance.playerData.hasDoubleJumpAbility = true;
-            GameManager.instance.playerData.hasBoomerangAbility = true;
-            GameManager.instance.playerData.hasAirDashAbility = true;
+            playerData.hasDashAbility = true;
+            playerData.hasTeleportAbility = true;
+            playerData.hasSprintAbility = true;
+            playerData.hasWallJumpAbility = true;
+            playerData.hasDoubleJumpAbility = true;
+            playerData.hasBoomerangAbility = true;
+            playerData.hasAirDashAbility = true;
         }
         else
         {
-            GameManager.instance.playerData.hasAirDashAbility = false;
-            GameManager.instance.playerData.hasTeleportAbility = false;
-            GameManager.instance.playerData.hasSprintAbility = false;
-            GameManager.instance.playerData.hasWallJumpAbility = false;
-            GameManager.instance.playerData.hasDoubleJumpAbility = false;
-
+            playerData.hasAirDashAbility = false;
+            playerData.hasTeleportAbility = false;
+            playerData.hasSprintAbility = false;
+            playerData.hasWallJumpAbility = false;
+            playerData.hasDoubleJumpAbility = false;
         }
     }
 
     public void ToggleAimAssist(Toggle aimAssistToggle)
     {
-        if (aimAssistToggle.isOn)
-        {
-            GameManager.instance.player.GetComponent<Player>().boomerangLauncher.aimAssistOn = true;
-        }
-        else
-        {
-            GameManager.instance.player.GetComponent<Player>().boomerangLauncher.aimAssistOn = false;
-        }
+        globalConfig.gameSettings.AimAssistOn = aimAssistToggle.isOn;
     }
 
     public void ToggleDirectionalAttack(Toggle directionalAttackToggle)
     {
-        if (directionalAttackToggle.isOn)
-        {
-            GameManager.instance.useDirectionalMouseAttack = true;
-        }
-        else
-        {
-            GameManager.instance.useDirectionalMouseAttack = false;
-        }
+        globalConfig.gameSettings.UseDirectionalMouseAttacks = directionalAttackToggle.isOn;
     }
 
     void Pause()
     {
         OnPauseStart();
         GameManager.instance.isPaused = true;
-        Debug.Log(pauseMenu);
         pauseMenu.SetActive(true);
         eventSystem.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
         Time.timeScale = 0f;
@@ -237,8 +224,6 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        //Time.timeScale = 1f;
-        //LoadMainMenu();
         SaveManager.instance.SaveGame();
         Application.Quit();
     }
@@ -272,7 +257,7 @@ public class PauseMenu : MonoBehaviour
         if (obj.isDone)
         {
             
-            SceneManager.UnloadSceneAsync(GameManager.instance.playerData.currentSceneBuildIndex.Value).completed += UnloadScene_completed;
+            SceneManager.UnloadSceneAsync(playerData.currentSceneBuildIndex.Value).completed += UnloadScene_completed;
             SceneManager.UnloadSceneAsync(1);
             SceneManager.UnloadSceneAsync("AStar");
         }

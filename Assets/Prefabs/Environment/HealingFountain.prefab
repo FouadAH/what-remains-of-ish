@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2869253857973269529}
   - component: {fileID: 2869253857973269530}
   - component: {fileID: 2869253857973269531}
+  - component: {fileID: 7825544990015716149}
   m_Layer: 0
   m_Name: HealingFountain
   m_TagString: Untagged
@@ -47,12 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9108c8da0704413418cbfb05e55ff44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: {fileID: 2869253858059250704}
-  reffilAmount: 100
   fullFountainSprite: {fileID: -7339763633245555955, guid: e35956ae8ef058d42b9b65d62aea126f,
     type: 3}
   emptyFountainSprite: {fileID: -8731354424907885534, guid: e35956ae8ef058d42b9b65d62aea126f,
     type: 3}
+  playerData: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f, type: 2}
+  reffilEvent: {fileID: 11400000, guid: 201ec829e5d8ed24f9a6c2a654133316, type: 2}
 --- !u!61 &2869253857973269531
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -79,6 +80,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10, y: 9}
   m_EdgeRadius: 0
+--- !u!114 &7825544990015716149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2869253857973269528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: c712b5f8bea1fb74eb6c07dc3151ab79, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2869253857973269530}
+        m_TargetAssemblyTypeName: HealingFountain, Assembly-CSharp
+        m_MethodName: PlayerInput_OnInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2869253858059250710
 GameObject:
   m_ObjectHideFlags: 0

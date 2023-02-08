@@ -8,6 +8,8 @@ public class ShopManager : MonoBehaviour
 {
     public static ShopManager instance { get; private set; }
 
+    [Header("UI")]
+
     public Canvas shopCanvas;
     public RectTransform shopContent;
     public GameObject shopView;
@@ -16,14 +18,20 @@ public class ShopManager : MonoBehaviour
     public TMPro.TMP_Text itemName;
     public TMPro.TMP_Text itemDescription;
 
+    [Header("State")]
     public bool shopIsActive;
 
+    [Header("Events")]
     public GameEvent OnInteractStartEvent;
     public GameEvent OnInteractEndEvent;
+    public GameEvent BuyItemEvent;
 
+    [Header("Data")]
     public IntegerReference playerCurrency;
 
+    [HideInInspector]
     public ShopItemSO currentSelectedItem;
+
     List<ShopItemSO> currentShopItems = new List<ShopItemSO>();
 
     void Awake()
@@ -144,6 +152,8 @@ public class ShopManager : MonoBehaviour
             //Refrech item list
             ClearItems();
             AddItems(currentShopItems);
+
+            BuyItemEvent.Raise();
         }
     }
 
@@ -169,6 +179,8 @@ public class ShopManager : MonoBehaviour
             //Refrech item list
             ClearItems();
             AddItems(currentShopItems);
+
+            BuyItemEvent.Raise();
         }
 
         confirmPanel.SetActive(false);

@@ -165,12 +165,12 @@ MonoBehaviour:
     FieldOfView: 10
     OrthographicSize: 16
     NearClipPlane: 0.1
-    FarClipPlane: 5000
+    FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.777972, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5040,6 +5040,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadInitialScene: {fileID: 11400000, guid: f1d8bfa69a32d1c40854f7e2c0e1f845, type: 2}
+  loadingStartEvent: {fileID: 11400000, guid: 4f2d7de1a0128264b94b0ed77dd28a09, type: 2}
+  loadingEndEvent: {fileID: 11400000, guid: a00156f283bedca45ac9149c3aeca32e, type: 2}
+  spawnPlayerEvent: {fileID: 11400000, guid: 46af2fa3e95ea524895052511d45bfac, type: 2}
+  playerData: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f, type: 2}
 --- !u!4 &59201646
 Transform:
   m_ObjectHideFlags: 0
@@ -11509,8 +11513,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 263349475}
   m_HandleRect: {fileID: 263349474}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

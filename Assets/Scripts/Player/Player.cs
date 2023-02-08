@@ -13,22 +13,14 @@ using UnityEngine.Rendering.Universal;
 public class Player : MonoBehaviour, IAttacker {
 
     [HideInInspector] public Vector3 velocity;
-    public LayerMask enemyMask;
-
     [HideInInspector] public float iFrames { get; private set; }
 
     public float damageIFrameTime = 1f;
     public bool invinsible = false;
     
-    Animator anim;
-    GameManager gm;
-    [SerializeField] private PlayerMovementSettings playerSettings;
     public PlayerDataSO playerData;
 
     public PlayerMovement playerMovement { get; private set; }
-    Player_Input playerInput;
-
-    private bool staggered;
 
     [Header("Player Values")]
 
@@ -52,9 +44,6 @@ public class Player : MonoBehaviour, IAttacker {
     public int HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
     public int knockbackGiven { get => damageKnockbackAmount; set => damageKnockbackAmount= value; }
 
-    public event Action<int> OnHit = delegate { };
-    public event Action<int> OnHeal = delegate { };
-
     public BoomerangLauncher boomerangLauncher;
 
     public float cameraLookOffsetValue = 9f;
@@ -67,8 +56,6 @@ public class Player : MonoBehaviour, IAttacker {
     public ParticleSystem damageParticle;
     public ParticleSystem healingParticles;
 
-    TimeStop timeStop;
-    ColouredFlash flashEffect;
 
     [Header("Damage Time Stop")]
     public float changeTime = 0.05f;
@@ -86,11 +73,26 @@ public class Player : MonoBehaviour, IAttacker {
     public float lowHealthIntensity;
     float initalIntensity;
 
+    [Header("Player Brooches")]
+    public InventoryItemSO healingBrooche;
+
+    [Header("Player Events")]
+    public IntegerGameEvent PlayerHitEvent;
+    public IntegerGameEvent PlayerHealEvent;
+
     [Header("Debug Settings")]
     public bool playerDebugMode;
+    public bool hasInfiniteLives;
+
     public TrailRenderer playerPath;
 
     CameraController cameraController;
+    TimeStop timeStop;
+    ColouredFlash flashEffect;
+    Animator anim;
+    GameManager gm;
+    Player_Input playerInput;
+
     void Awake()
     {
         if(GameManager.instance == null)
@@ -100,8 +102,6 @@ public class Player : MonoBehaviour, IAttacker {
         }
 
         GameManager.instance.player = gameObject;
-        GameManager.instance.playerCurrentPosition = GetComponentInChildren<SpriteRenderer>().transform;
-        GameManager.instance.playerCamera = Camera.main;
         cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.virtualCamera.Follow = transform;
         gm = GameManager.instance;
@@ -112,30 +112,14 @@ public class Player : MonoBehaviour, IAttacker {
 
     void Start()
     {
-        //if (GameManager.instance == null)
-        //{
-        //    Debug.LogWarning("GameManager not loaded.");
-        //}
-
-        //if (gm == null)
-        //{
-        //    GameManager.instance.player = gameObject;
-        //    GameManager.instance.playerCurrentPosition = GetComponentInChildren<SpriteRenderer>().transform;
-        //    GameManager.instance.playerCamera = Camera.main;
-        //    GameManager.instance.cameraController = Camera.main.GetComponent<CameraController>();
-        //    GameManager.instance.cameraController.virtualCamera.Follow = transform;
-        //    gm = GameManager.instance;
-        //    AudioManager.instance.PlayAreaTheme();
-        //}
-
-        UI_HUD.instance.enabled = true;
-
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
         anim = GetComponent<Animator>();
         timeStop = TimeStop.instance;
         playerMovement =  GetComponent<PlayerMovement>();
+
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
+
         flashEffect = GetComponentInChildren<ColouredFlash>();
         cameraController = Camera.main.GetComponent<CameraController>();
         cameraOffset = cameraController.virtualCamera.GetComponent<CinemachineCameraOffset>();
@@ -258,7 +242,6 @@ public class Player : MonoBehaviour, IAttacker {
     private IEnumerator PlayerDeath()
     {
         playerMovement.isDead = true;
-        UI_HUD.instance.enabled = false;
         playerInput.DisablePlayerInput();
         
         anim.SetLayerWeight(1, 0f);
@@ -292,8 +275,6 @@ public class Player : MonoBehaviour, IAttacker {
         anim.SetLayerWeight(3, 1f);
 
         playerData.playerHealth.Value = playerData.playerMaxHealth.Value;
-        UI_HUD.instance.enabled = true;
-        UI_HUD.instance.RefrechHealth();
 
         playerInput.EnablePlayerInput();
         playerMovement.isDead = false;
@@ -312,11 +293,9 @@ public class Player : MonoBehaviour, IAttacker {
         if (playerData.playerHealingPodAmount.Value > 0)
         {
             int healingAmount = playerData.playerHealingAmountPerPod.Value;
-            int tempHealAmount = (GameManager.instance.equippedBrooch_02) ? healingAmount + 1 : healingAmount;
+            int tempHealAmount = (healingBrooche.isEquipped) ? healingAmount + 1 : healingAmount;
 
-            HealingPod flask = UI_HUD.instance.healingFlasks[0];
-
-            if (flask.fillAmount >= 100 && playerData.playerHealth.Value < playerData.playerMaxHealth.Value)
+            if (playerData.playerHealingPodFillAmounts[0] >= 100 && playerData.playerHealth.Value < playerData.playerMaxHealth.Value)
             {
                 RestoreHP(tempHealAmount);
             }
@@ -330,7 +309,10 @@ public class Player : MonoBehaviour, IAttacker {
         playerData.playerHealth.Value = Mathf.Clamp(playerData.playerHealth.Value + amount, 0, playerData.playerMaxHealth.Value);
 
         int amountHealed = (int)(playerData.playerHealth.Value - previousHP);
-        OnHeal(amountHealed);
+
+        //OnHeal(amountHealed);
+        PlayerHealEvent.Raise(amountHealed);
+
         flashEffect.Flash(Color.white);
         healingParticles.Play();
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Healing", GetComponent<Transform>().position);
@@ -385,10 +367,11 @@ public class Player : MonoBehaviour, IAttacker {
 
         timeStop.StopTime(changeTime, restoreSpeed, delay);
         damageParticle.Play();
-        if (!GameManager.instance.hasInfiniteLives)
+
+        if (!hasInfiniteLives)
         {
             playerData.playerHealth.Value -= amount;
-            OnHit(amount);
+            PlayerHitEvent.Raise(amount);
         }
 
         CheckDeath();
@@ -481,29 +464,6 @@ public class Player : MonoBehaviour, IAttacker {
             playerBreathingInstance.release();
             playerBreathingInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Collider2D collider = GetComponent<Collider2D>();
-        Vector3 colliderCenter = collider.bounds.center;
-        Vector3 colliderExtents = collider.bounds.extents;
-
-        Vector3 startPos = new Vector3(colliderCenter.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
-        Gizmos.DrawWireSphere(startPos, playerSettings.MaxJumpHeight);
-
-        Gizmos.color = Color.red;
-        startPos = new Vector3(colliderCenter.x, colliderCenter.y + colliderExtents.y, colliderCenter.z);
-        Gizmos.DrawLine(startPos, new Vector3(startPos.x, startPos.y + playerSettings.MaxJumpHeight, startPos.z));
-
-        Gizmos.color = Color.yellow;
-
-        startPos = new Vector3(colliderCenter.x + colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
-        Gizmos.DrawLine(startPos, new Vector3(startPos.x + playerSettings.MoveSpeed, startPos.y, startPos.z));
-
-        startPos = new Vector3(colliderCenter.x - colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
-        Gizmos.DrawLine(startPos, new Vector3(startPos.x - playerSettings.MoveSpeed, startPos.y, startPos.z));
     }
 
     public void ProcessStunDamage(int amount, float stunDamageMod = 1)

@@ -6,11 +6,13 @@ using UnityEngine.Playables;
 public class TimelinePlayer : Savable
 {
     PlayableDirector playableDirector;
-    Player_Input player_Input;
     public bool playOnStart;
     public bool playOnce;
     public TimelineData timelineData;
     public Cinemachine.CinemachineVirtualCamera cutsceneCAM;
+
+    public GameEvent enablePlayerInput;
+    public GameEvent disablePlayerInput;
 
     public struct TimelineData
     {
@@ -28,11 +30,6 @@ public class TimelinePlayer : Savable
     public override void Start()
     {
         base.Start();
-
-        if (GameManager.instance.player == null)
-            player_Input = FindObjectOfType<Player_Input>();
-        else
-            player_Input = GameManager.instance.player.GetComponent<Player_Input>();
 
         //#if UNITY_EDITOR
 
@@ -56,13 +53,13 @@ public class TimelinePlayer : Savable
     private void PlayableDirector_stopped(PlayableDirector obj)
     {
         CutsceneManager.instance.isCutscenePlaying = false;
-        player_Input.EnablePlayerInput();
+        enablePlayerInput.Raise();
     }
 
     private void PlayableDirector_played(PlayableDirector obj)
     {
         CutsceneManager.instance.isCutscenePlaying = true;
-        player_Input.DisablePlayerInput();
+        disablePlayerInput.Raise();
     }
 
     public void StartTimeline()
@@ -84,11 +81,6 @@ public class TimelinePlayer : Savable
         timelineData.hasPlayed = false;
         if (!timelineData.hasPlayed)
         {
-            if (GameManager.instance.player == null)
-                player_Input = FindObjectOfType<Player_Input>();
-            else
-                player_Input = GameManager.instance.player.GetComponent<Player_Input>();
-
             if (playOnStart && !timelineData.hasPlayed)
                 StartTimeline();
         }
@@ -104,11 +96,6 @@ public class TimelinePlayer : Savable
         timelineData = JsonUtility.FromJson<TimelineData>(data);
         if (!timelineData.hasPlayed)
         {
-            if (GameManager.instance.player == null)
-                player_Input = FindObjectOfType<Player_Input>();
-            else
-                player_Input = GameManager.instance.player.GetComponent<Player_Input>();
-
 #if !UNITY_EDITOR
             if (playOnStart && !timelineData.hasPlayed)
                 StartTimeline();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class DialogManager : MonoBehaviour
 {
@@ -167,18 +168,48 @@ public class DialogManager : MonoBehaviour
         typeSentenceRoutine = StartCoroutine(TypeSentence(currentSentence));
     }
 
+    int maxCharCountInLine = 60;
     IEnumerator TypeSentence(string sentence)
     {
         isTyping = true;
         dialogueText.text = "";
         sb.Clear();
-        foreach (char letter in sentence.ToCharArray())
+
+        string[] words = sentence.Split(' ');
+        int charCounter = 0;
+        for(int i = 0; i< words.Length; i++)
         {
-            sb.Append(letter);
-            dialogueText.text = sb.ToString();
-            FMODUnity.RuntimeManager.PlayOneShot(writingSFX);
-            yield return new WaitForSeconds(currentTypingSpeed);
+            foreach (char letter in words[i].ToCharArray())
+            {
+                charCounter++;
+                sb.Append(letter);
+                dialogueText.text = sb.ToString();
+                FMODUnity.RuntimeManager.PlayOneShot(writingSFX);
+
+                yield return new WaitForSeconds(currentTypingSpeed);
+            }
+
+            if (i < words.Length - 1)
+            {
+                if (charCounter + words[i + 1].ToCharArray().Length >= maxCharCountInLine)
+                {
+                    sb.Append("\n");
+                    charCounter = 0;
+                }
+                else
+                {
+                    charCounter++;
+                    sb.Append(' ');
+                }
+            }
         }
+        //foreach (char letter in sentence.ToCharArray())
+        //{
+        //    sb.Append(letter);
+        //    dialogueText.text = sb.ToString();
+        //    FMODUnity.RuntimeManager.PlayOneShot(writingSFX);
+        //    yield return new WaitForSeconds(currentTypingSpeed);
+        //}
         isTyping = false;
     }
 

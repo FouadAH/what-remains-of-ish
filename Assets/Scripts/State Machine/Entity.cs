@@ -80,6 +80,13 @@ public class Entity : Savable, IDamagable
     [Header("Save Settings")]
     public bool shouldSaveState = true;
 
+    [Header("Player Runtime Data")]
+    public PlayerRuntimeDataSO playerRuntimeDataSO;
+
+    [Header("Events")]
+    public IntegerGameEvent reffilEvent;
+
+
     public override void Awake()
     {
         spawnPoint = transform.position;
@@ -333,7 +340,9 @@ public class Entity : Savable, IDamagable
 
         if (type == DamageType.Melee)
         {
-            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount/2);
+            //UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount/2);
+            reffilEvent.Raise((int)(entityData.flaskReffilAmount / 2));
+
             if (FlaskRefillParticles != null)
             {
                 ParticleSystem refillParticlesInstance = GameObject.Instantiate(FlaskRefillParticles,
@@ -359,7 +368,8 @@ public class Entity : Savable, IDamagable
 
             if (type == DamageType.Melee)
             {
-                UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
+                //UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
+                reffilEvent.Raise((int)entityData.flaskReffilAmount);
 
                 if (FlaskRefillParticles != null)
                 {

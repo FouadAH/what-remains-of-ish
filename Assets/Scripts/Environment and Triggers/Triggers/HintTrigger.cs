@@ -6,7 +6,12 @@ public class HintTrigger : MonoBehaviour
 {
     [TextArea(3, 10)]
     public string hintText;
+    [FMODUnity.EventRef] 
+    public string hintSFX;
+    public StringEvent hintTextEvent;
+
     bool hasBeenActivated = false;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (hasBeenActivated)
@@ -15,8 +20,8 @@ public class HintTrigger : MonoBehaviour
         if (collision.GetComponent<Player>())
         {
             hasBeenActivated = true;
-            UI_HUD.instance.SetTipsText(hintText);
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Interactive Objects/Hints", GetComponent<Transform>().position);
+            hintTextEvent.Raise(hintText);
+            FMODUnity.RuntimeManager.PlayOneShot(hintSFX, transform.position);
         }
     }
 

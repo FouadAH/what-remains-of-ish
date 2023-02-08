@@ -113,7 +113,7 @@ public class BirbMother : Entity
     {
         if (stateMachine.currentState == wallBounceAttackState)
         {
-            Vector2 directionFromPlayer = (transform.position - GameManager.instance.playerCurrentPosition.position).normalized;
+            Vector2 directionFromPlayer = ((Vector2)transform.position - playerRuntimeDataSO.playerPosition).normalized;
 
             BirbMother_WallBounceAttackState chargeAttackState = (BirbMother_WallBounceAttackState)stateMachine.currentState;
 

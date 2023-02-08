@@ -5704,6 +5704,7 @@ MonoBehaviour:
   groundCheck: {fileID: 916065937038080195}
   damageBox: {fileID: 6287070183221265599}
   isDead: 0
+  debug: 0
   stateDebugText: {fileID: 8588269600798972346}
   damageNumberPrefab: {fileID: 7102332077760321428, guid: e2ebcb2c9f1e539409b790d70e544d90,
     type: 3}
@@ -5721,6 +5722,9 @@ MonoBehaviour:
   knockbackTime: 0.5
   smoothTime: 0.1
   shouldSaveState: 1
+  playerRuntimeDataSO: {fileID: 11400000, guid: a40b93720061c8d41b440a33077d96db,
+    type: 2}
+  reffilEvent: {fileID: 11400000, guid: 201ec829e5d8ed24f9a6c2a654133316, type: 2}
   projectileController: {fileID: 6793481606475759166}
   fireRate: 3
   nextFireTime: 3
@@ -6004,6 +6008,8 @@ MonoBehaviour:
   damagables:
     serializedVersion: 2
     m_Bits: 256
+  damageAmountPlayer: 1
+  damageAmountEnemies: 10
 --- !u!58 &712184221432011158
 CircleCollider2D:
   m_ObjectHideFlags: 0

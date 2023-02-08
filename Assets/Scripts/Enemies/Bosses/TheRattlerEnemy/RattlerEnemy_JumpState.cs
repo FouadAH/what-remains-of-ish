@@ -5,9 +5,7 @@ using UnityEngine;
 public class RattlerEnemy_JumpState : JumpState
 {
     RattlerEnemy enemy;
-    Transform playerPosition;
     bool hasJumped;
-    bool isCollidingWithWall;
     bool jumpTowards;
 
     public RattlerEnemy_JumpState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_JumpState stateData, RattlerEnemy enemy, bool jumpTowards) : base(etity, stateMachine, animBoolName, stateData)
@@ -72,8 +70,7 @@ public class RattlerEnemy_JumpState : JumpState
 
     void JumpAttack()
     {
-        playerPosition = GameManager.instance.player.transform;
-        float directionToPlayer = playerPosition.position.x - enemy.transform.position.x;
+        float directionToPlayer = enemy.playerRuntimeDataSO.playerPosition.x - enemy.transform.position.x;
         enemy.rb.AddForce(new Vector2(directionToPlayer* stateData.speedModifier, stateData.jumpHeight), ForceMode2D.Impulse);
     }
 

@@ -342,8 +342,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderObj: {fileID: 688749915528874394}
   ColorOpen: {r: 0.40571535, g: 1, b: 0, a: 0.4627451}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.5019608}
-  stunTime: 0.5
+  ignoreHitstop: 0
+  hurtboxType: 0
 --- !u!114 &7143477223431527471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,16 +523,24 @@ MonoBehaviour:
   groundCheck: {fileID: 1251191225646357267}
   damageBox: {fileID: 5380591897261336431}
   isDead: 0
+  debug: 0
   stateDebugText: {fileID: 7693330571797822058}
   damageNumberPrefab: {fileID: 0}
   BloodEffect: {fileID: 0}
   HitEffect: {fileID: 0}
+  NearDeathEffect: {fileID: 0}
+  FlaskRefillParticles: {fileID: 0}
   minAggroRange: 15
   maxAggroRange: 20
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.05
+  knockbackTime: 0.5
+  smoothTime: 0.1
   shouldSaveState: 1
+  playerRuntimeDataSO: {fileID: 11400000, guid: a40b93720061c8d41b440a33077d96db,
+    type: 2}
+  reffilEvent: {fileID: 11400000, guid: 201ec829e5d8ed24f9a6c2a654133316, type: 2}
   destinationSetter: {fileID: 0}
   aIPath: {fileID: 0}
   TargetPoint: {fileID: 6014789128960180597}
@@ -700,6 +710,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2386ede2f13eb464b8cc54f51bd1c8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagables:
+    serializedVersion: 2
+    m_Bits: 0
+  damageAmountPlayer: 1
+  damageAmountEnemies: 10
 --- !u!58 &4194040157556866265
 CircleCollider2D:
   m_ObjectHideFlags: 0

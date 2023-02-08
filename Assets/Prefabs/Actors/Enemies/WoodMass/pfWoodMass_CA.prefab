@@ -1042,6 +1042,7 @@ MonoBehaviour:
   groundCheck: {fileID: 2660568966740976452}
   damageBox: {fileID: 9158792744446058296}
   isDead: 0
+  debug: 0
   stateDebugText: {fileID: 6878423589756060221}
   damageNumberPrefab: {fileID: 7102332077760321428, guid: e2ebcb2c9f1e539409b790d70e544d90,
     type: 3}
@@ -1059,6 +1060,9 @@ MonoBehaviour:
   knockbackTime: 0.3
   smoothTime: 0.1
   shouldSaveState: 0
+  playerRuntimeDataSO: {fileID: 11400000, guid: a40b93720061c8d41b440a33077d96db,
+    type: 2}
+  reffilEvent: {fileID: 11400000, guid: 201ec829e5d8ed24f9a6c2a654133316, type: 2}
   stunnedSprite: {fileID: 696465851}
   meleeDamage: 1
   hitKnockbackAmount: 25
@@ -1772,6 +1776,8 @@ MonoBehaviour:
   damagables:
     serializedVersion: 2
     m_Bits: 256
+  damageAmountPlayer: 1
+  damageAmountEnemies: 10
 --- !u!1 &6962664305101183158
 GameObject:
   m_ObjectHideFlags: 0

@@ -143,10 +143,10 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
             colouredFlash.Flash(Color.white);
         }
 
-        if (type == DamageType.Melee)
-        {
-            UI_HUD.instance.RefillFlask(flaskRefillAmount);
-        }
+        //if (type == DamageType.Melee)
+        //{
+        //    UI_HUD.instance.RefillFlask(flaskRefillAmount);
+        //}
 
         if (Health <= 0)
         {

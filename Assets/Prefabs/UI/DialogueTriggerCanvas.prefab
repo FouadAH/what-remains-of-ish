@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 4304313003822239651}
   - component: {fileID: 7504032905985179545}
   - component: {fileID: 4898282210474180941}
+  - component: {fileID: 4271561793852145041}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -196,6 +197,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pcButtonImage: {fileID: 21300000, guid: 416a23e148cfd4348867953e3d860b52, type: 3}
   gamepadButtonImage: {fileID: 21300000, guid: 64f6447789bb23e438efde9b9bb2fa89, type: 3}
+  gameSettings: {fileID: 11400000, guid: 83291da771c454641a7390f375dd40ce, type: 2}
+--- !u!114 &4271561793852145041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2412841674589211903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: c69323d18dba9924b8b3d62c8982a07a, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4673840887221707991
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +330,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 10.4, y: -7.1}
+  m_AnchoredPosition: {x: 10.400024, y: -7.0999756}
   m_SizeDelta: {x: 5.714, y: 1.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4673840887393351143

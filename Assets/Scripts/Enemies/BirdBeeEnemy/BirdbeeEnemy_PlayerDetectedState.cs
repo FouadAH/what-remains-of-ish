@@ -50,7 +50,7 @@ public class BirdbeeEnemy_PlayerDetectedState : PlayerDetectedState
     {
         base.PhysicsUpdate();
 
-        Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+        Vector2 playerPos = enemy.playerRuntimeDataSO.playerPosition;
 
         Vector2 targetPositionRight = new Vector2(playerPos.x - stateData.playerOffset.x, playerPos.y + stateData.playerOffset.y);
         Vector2 targetPositionLeft = new Vector2(playerPos.x + stateData.playerOffset.x, playerPos.y + stateData.playerOffset.y);

@@ -8,16 +8,18 @@ public class ButtonPromptController : MonoBehaviour
     // Start is called before the first frame update
     public Sprite pcButtonImage;
     public Sprite gamepadButtonImage;
+    public GameSettingsSO gameSettings;
+
     Image promptImage;
 
     void Start()
     {
         promptImage = GetComponent<Image>();
-        GameManager.instance.player.GetComponent<Player_Input>().OnInputDeviceChanged += ButtonPromptController_OnInputDeviceChanged;
+        GetComponent<GameEventListener>().Response.AddListener(() => OnInputDeviceChanged());
         SwitchPromptImage();
     }
 
-    private void ButtonPromptController_OnInputDeviceChanged()
+    public void OnInputDeviceChanged()
     {
         SwitchPromptImage();
     }
@@ -26,7 +28,7 @@ public class ButtonPromptController : MonoBehaviour
     {
         if (promptImage != null)
         {
-            if (GameManager.instance.player.GetComponent<Player_Input>().controllerConnected)
+            if (gameSettings.controllerConnected)
             {
                 promptImage.sprite = gamepadButtonImage;
             }

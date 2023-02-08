@@ -5,19 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newHealthShard", menuName = "Items/New HealthShard", order = 1)]
 public class HealthShardSO : ShopItemSO
 {
+    public GameEvent ReceivedHealthShard;
+
     public override void ReceiveItem()
     {
         base.ReceiveItem();
-        int remainder = GameManager.instance.AddHealthShard();
+        ReceivedHealthShard.Raise();
+    }
 
-        if (remainder == 0)
-        {
-            UI_HUD.instance.SetDebugText("3 health shards collected. Health increased by 1");
-        }
-        else
-        {
-            UI_HUD.instance.SetDebugText("Picked Up Health Shard. Pick up " + (3 - remainder) + " more to increase your health");
-        }
+    public void ReceiveItemTrigger()
+    {
+        ReceivedHealthShard.Raise();
     }
 
     public override void OnBuyItem()

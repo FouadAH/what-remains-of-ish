@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SwitchLeverPuzzle : Savable
@@ -17,6 +18,10 @@ public class SwitchLeverPuzzle : Savable
     public List<SwitchLever> switchLevers = new List<SwitchLever>();
     public float timeInSeconds = 30f;
     public Door door;
+
+    [Header("Timer UI")]
+    public GameObject debugTimer;
+    public TMP_Text debugTimerText;
 
     bool timerIsActive;
     bool isDone;
@@ -79,7 +84,7 @@ public class SwitchLeverPuzzle : Savable
         {
             switchLever.SetActive(false);
         }
-        UI_HUD.instance.debugTimer.SetActive(false);
+        debugTimer.SetActive(false);
         enemyAudio.StopPlayingEvent();
     }
 
@@ -90,15 +95,15 @@ public class SwitchLeverPuzzle : Savable
         door.SetState(true);
         StopAllCoroutines();
         timerIsActive = false;
-        UI_HUD.instance.debugTimer.SetActive(false);
+        debugTimer.SetActive(false);
     }
 
     IEnumerator TimerPuzzle()
     {
         timerIsActive = true;
 
-        UI_HUD.instance.debugTimer.SetActive(true);
-        UI_HUD.instance.debugTimerText.SetText(timeInSeconds.ToString());
+        debugTimer.SetActive(true);
+        debugTimerText.SetText(timeInSeconds.ToString());
 
         int elapsedSeconds = 0;
         while (elapsedSeconds < timeInSeconds)
@@ -106,7 +111,7 @@ public class SwitchLeverPuzzle : Savable
             yield return new WaitForSeconds(1);
             elapsedSeconds++;
             int elapsedTime = (int)timeInSeconds - elapsedSeconds;
-            UI_HUD.instance.debugTimerText.SetText(elapsedTime.ToString());
+            debugTimerText.SetText(elapsedTime.ToString());
         }
 
         CheckPuzzleState();

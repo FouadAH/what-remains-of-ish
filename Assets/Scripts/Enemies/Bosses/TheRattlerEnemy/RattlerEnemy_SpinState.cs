@@ -50,7 +50,7 @@ public class RattlerEnemy_SpinState : ChargeState
 
     public override void PhysicsUpdate()
     {
-        Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+        Vector2 playerPos = enemy.playerRuntimeDataSO.playerPosition;
         directionX = (entity.transform.position.x < playerPos.x) ? 1 : -1;
         entity.SetVelocity(stateData.chargeSpeed * directionX);
 

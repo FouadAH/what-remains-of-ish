@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerMovementSettings playerSettings;
+    public PlayerDataSO playerData;
+    public PlayerRuntimeDataSO playerRuntimeData;
 
     Controller_2D controller;
     Player_Input playerInput;
@@ -92,9 +94,6 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject jumpTrailParent;
 
-    TMPro.TMP_Text velocityXDebug;
-    TMPro.TMP_Text velocityYDebug;
-
     float spriteScaleXSmoothing;
     float spriteScaleYSmoothing;
     float spritePosXSmoothing;
@@ -126,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
         controller = transformToMove.GetComponent<Controller_2D>();
         playerDash = transformToMove.GetComponent<PlayerDash>();
         playerTeleport = transformToMove.GetComponent<PlayerTeleport>();
+
         spriteObj = GetComponentInChildren<SpriteRenderer>().transform;
         boomerangLauncher = GetComponentInChildren<BoomerangLauncher>();
 
@@ -146,10 +146,8 @@ public class PlayerMovement : MonoBehaviour
         maxFallSpeed = playerSettings.MaxFallSpeed;
 
         playerAnimations = new PlayerAnimations(GetComponent<Animator>(), transform);
-
-        velocityXDebug = UI_HUD.instance.velocityXDebug;
-        velocityYDebug = UI_HUD.instance.velocityYDebug;
     }
+
     bool wasThouchingGround = false;
 
     public bool movePlayerLoadingState;
@@ -158,6 +156,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        playerRuntimeData.playerPosition = transform.position;
+
         if (movePlayerLoadingState == true)
         {
             if (elapsedTime < totalTime)
@@ -210,11 +210,7 @@ public class PlayerMovement : MonoBehaviour
 
         playerAnimations.Animate();
 
-        if (UI_HUD.instance.debugMode)
-        {
-            velocityXDebug.SetText("Velocity X: " + Mathf.Round(velocity.x));
-            velocityYDebug.SetText("Velocity Y: " + Mathf.Round(velocity.y));
-        }
+        playerRuntimeData.velocity = velocity;
 
         if (controller.collitions.below && !landed)
         {
@@ -341,13 +337,13 @@ public class PlayerMovement : MonoBehaviour
     {
         isAirborne = (!controller.collitions.below && !WallSliding);
 
-        if (!isAirborne &&  GameManager.instance.playerData.hasDashAbility)
+        if (!isAirborne &&  playerData.hasDashAbility)
             playerDash.OnDashInput();
 
-        if (isAirborne && GameManager.instance.playerData.hasAirDashAbility)
+        if (isAirborne && playerData.hasAirDashAbility)
             playerDash.OnDashInput();
 
-        if (GameManager.instance.playerData.hasSprintAbility && controller.collitions.below)
+        if (playerData.hasSprintAbility && controller.collitions.below)
         {
             isSprinting = true;
         }
@@ -366,7 +362,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (!IsAttacking)
             {
-                if (isAirborne && GameManager.instance.playerData.hasAirDashAbility)
+                if (isAirborne && playerData.hasAirDashAbility)
                 {
                     playerDash.DashController(ref velocity, playerInput, playerSettings);
                 }
@@ -387,7 +383,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Boomerang boomerang = boomerangLauncher.boomerangReference;
 
-        if (GameManager.instance.playerData.hasTeleportAbility && boomerang != null)
+        if (playerData.hasTeleportAbility && boomerang != null)
             playerTeleport.OnTeleportInput(transformToMove, ref velocity, boomerang);
     }
 
@@ -496,7 +492,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="velocityXSmoothing"></param>    
     void HandleWallSliding()
     {
-        if (!GameManager.instance.playerData.hasWallJumpAbility)
+        if (!playerData.hasWallJumpAbility)
             return;
 
         wallDirX = (controller.collitions.left) ? -1 : 1;
@@ -504,7 +500,7 @@ public class PlayerMovement : MonoBehaviour
         if ((controller.collitions.left || controller.collitions.right) && !controller.collitions.below && velocity.y < 0)
         {
             WallSliding = true;
-            canDoubleJump = GameManager.instance.playerData.hasDoubleJumpAbility;
+            canDoubleJump = playerData.hasDoubleJumpAbility;
 
             if (velocity.y < playerSettings.WallSlideSpeedMax)
             {
@@ -567,7 +563,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            canDoubleJump = GameManager.instance.playerData.hasDoubleJumpAbility;
+            canDoubleJump = playerData.hasDoubleJumpAbility;
             cayoteTimer = 0;
         }
         canJump = cayoteTimer < MAX_JUMP_ASSIST_TIME;
@@ -603,7 +599,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             jumpBufferCounter += 1;
-            if (WallSliding && GameManager.instance.playerData.hasWallJumpAbility)
+            if (WallSliding && playerData.hasWallJumpAbility)
             {
                 if (wallDirX == playerInput.directionalInput.x)
                 {
@@ -723,24 +719,26 @@ public class PlayerMovement : MonoBehaviour
         playerAnimations.UnsubscribeAnimationsFromInput();
     }
 
-    ///// <summary>
-    ///// Method that pulls the player towards the hook point
-    ///// </summary>
-    //public void Swing()
-    //{
-    //    var playerToHookDirection = (RopeHook - (Vector2)transformToMove.position).normalized;
-    //    var pullforce = playerToHookDirection * playerSettings.SwingForce;
-    //    AddForce(pullforce);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Collider2D collider = GetComponent<Collider2D>();
+        Vector3 colliderCenter = collider.bounds.center;
+        Vector3 colliderExtents = collider.bounds.extents;
 
-    ///// <summary>
-    ///// Helper method for changing the players'velocity based on a force
-    ///// </summary>
-    ///// <param name="force">Force acting opon player</param>
-    //public void AddForce(Vector2 force)
-    //{
-    //    velocity.x = Mathf.SmoothDamp(velocity.x, force.x, ref velocityXSmoothing, playerSettings.AccelerationTimeSwing);
-    //    velocity.y = Mathf.SmoothDamp(velocity.y, force.y, ref velocityYSmoothing, playerSettings.AccelerationTimeSwing);
-    //}
+        Vector3 startPos = new Vector3(colliderCenter.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawWireSphere(startPos, playerSettings.MaxJumpHeight);
 
+        Gizmos.color = Color.red;
+        startPos = new Vector3(colliderCenter.x, colliderCenter.y + colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawLine(startPos, new Vector3(startPos.x, startPos.y + playerSettings.MaxJumpHeight, startPos.z));
+
+        Gizmos.color = Color.yellow;
+
+        startPos = new Vector3(colliderCenter.x + colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawLine(startPos, new Vector3(startPos.x + playerSettings.MoveSpeed, startPos.y, startPos.z));
+
+        startPos = new Vector3(colliderCenter.x - colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
+        Gizmos.DrawLine(startPos, new Vector3(startPos.x - playerSettings.MoveSpeed, startPos.y, startPos.z));
+    }
 }

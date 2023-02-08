@@ -34178,6 +34178,7 @@ GameObject:
   - component: {fileID: 2502697508959126032}
   - component: {fileID: 2502697508959126039}
   - component: {fileID: 4991024782394837976}
+  - component: {fileID: 9112236800331616535}
   m_Layer: 0
   m_Name: SavePoint
   m_TagString: Untagged
@@ -34230,6 +34231,11 @@ MonoBehaviour:
   unlitVFXParent: {fileID: 3809683333480346834}
   litVFXParent: {fileID: 6775613194111787586}
   OnRestEvent: {fileID: 11400000, guid: 33e821dcfdd5c1c44b5edaa3608b0325, type: 2}
+  EnablePlayerInputEvent: {fileID: 11400000, guid: 99a68239a4e588f49aa4068648f56aa7,
+    type: 2}
+  DisablePlayerInputEvent: {fileID: 11400000, guid: 7061798822eb312438e182ae94b541fc,
+    type: 2}
+  playerRuntimeData: {fileID: 11400000, guid: a40b93720061c8d41b440a33077d96db, type: 2}
 --- !u!61 &2502697508959126039
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34308,6 +34314,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9112236800331616535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502697508959126034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: c712b5f8bea1fb74eb6c07dc3151ab79, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2502697508959126032}
+        m_TargetAssemblyTypeName: SavePoint, Assembly-CSharp
+        m_MethodName: PlayerInput_OnInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3809683333480346834
 GameObject:
   m_ObjectHideFlags: 0
@@ -34354,6 +34388,7 @@ GameObject:
   - component: {fileID: 2844281333166135995}
   - component: {fileID: 4584649667403721100}
   - component: {fileID: 8076888530642990035}
+  - component: {fileID: 7404187125796585601}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -34433,6 +34468,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pcButtonImage: {fileID: 21300000, guid: 416a23e148cfd4348867953e3d860b52, type: 3}
   gamepadButtonImage: {fileID: 21300000, guid: 64f6447789bb23e438efde9b9bb2fa89, type: 3}
+  gameSettings: {fileID: 11400000, guid: 83291da771c454641a7390f375dd40ce, type: 2}
+--- !u!114 &7404187125796585601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5086035646738147278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: c69323d18dba9924b8b3d62c8982a07a, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5385199057674169459
 GameObject:
   m_ObjectHideFlags: 0

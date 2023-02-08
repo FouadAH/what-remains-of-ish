@@ -47,7 +47,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public float stopForceImpulseSpeed;
 
     [Header("Aim assist values")]
-    public bool aimAssistOn = true;
     public float aimSnapTime = 0.02f;
     [Range(0,6)] public float aimAssistAmount = 3f;
 
@@ -267,7 +266,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         {
             Vector2 rightStickInput = playerInput.rightStickInputRaw;
 
-            if (aimAssistOn)
+            if (playerInput.globalConfig.gameSettings)
             {
                 Transform target = LookForEnemyWithThickRaycast(firingPoint.transform.position, rightStickInput, aimAssistAmount);
 

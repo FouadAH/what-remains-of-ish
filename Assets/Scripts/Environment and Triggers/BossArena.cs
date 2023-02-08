@@ -22,6 +22,8 @@ public class BossArena : Savable
     [FMODUnity.EventRef] public string bossThemeMusic;
     string levelTheme;
 
+    Player player;
+
     [Serializable]
     public struct BossArenaData
     {
@@ -60,7 +62,10 @@ public class BossArena : Savable
             return;
 
         if (collision.GetComponent<Player>())
+        {
+            player = collision.GetComponent<Player>();
             StartBossFight();
+        }
     }
 
     public void StartBossFight()
@@ -93,8 +98,8 @@ public class BossArena : Savable
         }
 
         bossAreaCamera.gameObject.SetActive(true);
-        bossAreaCamera.Follow = GameManager.instance.player.transform;
-        bossAreaCamera.LookAt = GameManager.instance.player.transform;
+        bossAreaCamera.Follow = player.transform;
+        bossAreaCamera.LookAt = player.transform;
 
         bossCanvasAnimator.SetTrigger("FightStart");
     }

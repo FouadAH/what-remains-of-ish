@@ -182,6 +182,9 @@ MonoBehaviour:
   knockbackTime: 0.3
   smoothTime: 0.1
   shouldSaveState: 0
+  playerRuntimeDataSO: {fileID: 11400000, guid: a40b93720061c8d41b440a33077d96db,
+    type: 2}
+  reffilEvent: {fileID: 11400000, guid: 201ec829e5d8ed24f9a6c2a654133316, type: 2}
   idleStateData: {fileID: 11400000, guid: 83ba856c938cc8049bc47e34ccd7e071, type: 2}
   moveStateData: {fileID: 11400000, guid: 1af78f24e60b7b546bce3ba3eb6921f9, type: 2}
   playerDetectedData: {fileID: 11400000, guid: 4be1586635447f14394e27f8df0d8249, type: 2}
@@ -11229,6 +11232,8 @@ MonoBehaviour:
   damagables:
     serializedVersion: 2
     m_Bits: 256
+  damageAmountPlayer: 1
+  damageAmountEnemies: 10
 --- !u!58 &1375983051002740539
 CircleCollider2D:
   m_ObjectHideFlags: 0

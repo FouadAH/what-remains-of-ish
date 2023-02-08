@@ -61,7 +61,7 @@ public class SpikeChargerEnemy : Entity, IAttacker
 
     public bool CanSeePlayer()
     {
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, GameManager.instance.playerCurrentPosition.position, entityData.whatIsGround);
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, playerRuntimeDataSO.playerPosition, entityData.whatIsGround);
         return !hit;
     }
 

@@ -41,7 +41,7 @@ public class BirbMother_IdleState : IdleState
     {
         base.DoChecks();
 
-        float playerDistance = Mathf.Abs(enemy.transform.position.x - GameManager.instance.playerCurrentPosition.position.x);
+        float playerDistance = Mathf.Abs(enemy.transform.position.x - enemy.playerRuntimeDataSO.playerPosition.x);
         playerInCloseDistance = playerDistance <= playerCloseDistance;
     }
 
@@ -73,7 +73,7 @@ public class BirbMother_IdleState : IdleState
         float random = Random.Range(0, 100);
 
 
-        int directionX = (enemy.transform.position.x < GameManager.instance.playerCurrentPosition.position.x) ? 1 : -1;
+        int directionX = (enemy.transform.position.x < enemy.playerRuntimeDataSO.playerPosition.x) ? 1 : -1;
         if (entity.facingDirection != directionX)
         {
             entity.Flip();

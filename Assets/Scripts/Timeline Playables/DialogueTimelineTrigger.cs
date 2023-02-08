@@ -6,14 +6,16 @@ using UnityEngine.Playables;
 public class DialogueTimelineTrigger : Savable
 {
     PlayableDirector playableDirector;
-    Player_Input player_Input;
-    bool playOnStart;
-    protected Animator promptAnimator;
-    protected DialogManager dialogueManager;
-    protected Canvas promptCanvas;
+    Animator promptAnimator;
+    DialogManager dialogueManager;
+    Canvas promptCanvas;
+
     public DialogueNodeSO endDialogue;
 
     public string promptText = "Talk";
+
+    public GameEvent enablePlayerInput;
+    public GameEvent disablePlayerInput;
 
     public TimelineData timelineData;
     //public Cinemachine.CinemachineVirtualCamera cutsceneCAM;
@@ -34,7 +36,6 @@ public class DialogueTimelineTrigger : Savable
     public override void Start()
     {
         base.Start();
-        player_Input = GameManager.instance.player.GetComponent<Player_Input>();
         promptCanvas = GetComponentInChildren<Canvas>();
         promptAnimator = promptCanvas.GetComponent<Animator>();
         dialogueManager = DialogManager.instance;
@@ -42,12 +43,12 @@ public class DialogueTimelineTrigger : Savable
 
     private void PlayableDirector_stopped(PlayableDirector obj)
     {
-        player_Input.EnablePlayerInput();
+        enablePlayerInput.Raise();
     }
 
     private void PlayableDirector_played(PlayableDirector obj)
     {
-        player_Input.DisablePlayerInput();
+        disablePlayerInput.Raise();
     }
 
 
@@ -134,21 +135,14 @@ public class DialogueTimelineTrigger : Savable
     {
         Debug.Log("Loading timeline data");
         timelineData = JsonUtility.FromJson<TimelineData>(data);
-        if (!timelineData.hasPlayed)
-        {
-            if (GameManager.instance.player == null)
-                player_Input = FindObjectOfType<Player_Input>();
-            else
-                player_Input = GameManager.instance.player.GetComponent<Player_Input>();
 
 #if !UNITY_EDITOR
+
+        if (!timelineData.hasPlayed)
+        {
             if (playOnStart && !timelineData.hasPlayed)
                 StartTimeline();
+        }
 #endif
-        }
-        else
-        {
-            //cutsceneCAM.enabled = false;
-        }
     }
 }

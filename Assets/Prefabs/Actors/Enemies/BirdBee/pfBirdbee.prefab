@@ -5020,6 +5020,8 @@ MonoBehaviour:
   damagables:
     serializedVersion: 2
     m_Bits: 256
+  damageAmountPlayer: 1
+  damageAmountEnemies: 10
 --- !u!60 &2598777475700062733
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -6417,6 +6419,7 @@ MonoBehaviour:
   groundCheck: {fileID: 4766441258956314969}
   damageBox: {fileID: 1860937768926749989}
   isDead: 0
+  debug: 0
   stateDebugText: {fileID: 4160448357578225696}
   damageNumberPrefab: {fileID: 0}
   BloodEffect: {fileID: 256925297238659430}
@@ -6433,6 +6436,9 @@ MonoBehaviour:
   knockbackTime: 0.5
   smoothTime: 0.2
   shouldSaveState: 1
+  playerRuntimeDataSO: {fileID: 11400000, guid: a40b93720061c8d41b440a33077d96db,
+    type: 2}
+  reffilEvent: {fileID: 11400000, guid: 201ec829e5d8ed24f9a6c2a654133316, type: 2}
   destinationSetter: {fileID: 1366236473883835881}
   aIPath: {fileID: 1437208573}
   TargetPoint: {fileID: 1927955263}

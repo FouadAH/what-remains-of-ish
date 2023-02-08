@@ -16,57 +16,14 @@ public class HealingPod : MonoBehaviour
         {
             image.fillAmount = Mathf.Lerp(image.fillAmount, fillAmount / 100, 0.1f);
         }
-    }
-
-    public void Refill(float amount)
-    {
-        fillAmount += amount;
-        fillAmount = Mathf.Clamp(fillAmount, 0, 100);
-        UpdateHealingPodFillAmount();
-        StartCoroutine(LerpColor());
-    }
-
-    IEnumerator LerpColor()
-    {
-        float ElapsedTime = 0.0f;
-        float TotalTime = 0.35f;
-
-        while (ElapsedTime < TotalTime)
-        {
-            ElapsedTime += Time.deltaTime;
-            image.color = Color.Lerp(image.color, fullColor, (ElapsedTime / TotalTime)); 
-            yield return null;
-        }
 
         if (fillAmount < 100)
         {
-            ElapsedTime = 0.0f;
-            TotalTime = 0.5f;
-            while (ElapsedTime < TotalTime)
-            {
-                ElapsedTime += Time.deltaTime;
-                image.color = Color.Lerp(image.color, startColor, (ElapsedTime / TotalTime));
-                yield return null;
-            }
+            image.color = startColor;
         }
-        else if(fillAmount == 100)
+        else
         {
             image.color = fullColor;
-        }
-    }
-
-
-    public void EmptyFlask()
-    {
-        fillAmount = 0;
-        UpdateHealingPodFillAmount();
-    }
-
-    void UpdateHealingPodFillAmount()
-    {
-        for (int i = 0; i < UI_HUD.instance.healingFlasks.Count; i++)
-        {
-            UI_HUD.instance.playerData.playerHealingPodFillAmounts[i] = (int)UI_HUD.instance.healingFlasks[i].fillAmount;
         }
     }
 }

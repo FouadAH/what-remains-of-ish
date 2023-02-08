@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class HealingFountain : MonoBehaviour
 {
-    [SerializeField] private Animator prompt;
-
-    public float reffilAmount = 100;
-    SpriteRenderer spriteRenderer;
-
+    [Header("Sprites")]
     public Sprite fullFountainSprite;
     public Sprite emptyFountainSprite;
 
+    [Header("Data")]
+    public PlayerDataSO playerData;
+
+    [Header("Events")]
+    public IntegerGameEvent reffilEvent;
+
+    int reffilAmount = 100;
+    bool playerInTrigger;
+
+    SpriteRenderer spriteRenderer;
+    Animator prompt;
 
     private void Start()
     {
@@ -21,53 +28,59 @@ public class HealingFountain : MonoBehaviour
         spriteRenderer.sprite = fullFountainSprite;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void PlayerInput_OnInteract()
     {
-        if (collision.gameObject.tag.Equals("Player") && reffilAmount > 0)
+        if (playerInTrigger)
         {
-            prompt.SetBool("PopIn", true);
+            ReffilFlasksFromFountain();
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Input.GetButtonDown("Interact") && reffilAmount > 0)
+        if (collision.CompareTag("Player") && reffilAmount > 0)
         {
-            List<HealingPod> healingFlasks = UI_HUD.instance.healingFlasks;
-            float missingHealingAmount = 0;
-
-            foreach(HealingPod pod in healingFlasks)
-            {
-                if (pod.fillAmount != 100)
-                {
-                    missingHealingAmount = (100 - pod.fillAmount);
-                    if(missingHealingAmount < reffilAmount)
-                    {
-                        pod.Refill(missingHealingAmount);
-                    }
-                    else
-                    {
-                        pod.Refill(reffilAmount);
-                    }
-
-                    break;
-                }
-            }
-            reffilAmount = Mathf.Clamp(reffilAmount - missingHealingAmount, 0, 100);
-
-            if (reffilAmount == 0)
-            {
-                spriteRenderer.sprite = emptyFountainSprite;
-                prompt.gameObject.SetActive(false);
-            }
+            playerInTrigger = true;
+            prompt.SetBool("PopIn", true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Player") && reffilAmount > 0)
+        if (collision.CompareTag("Player") && reffilAmount > 0)
         {
+            playerInTrigger = false;
             prompt.SetBool("PopIn", false);
+        }
+    }
+
+    void ReffilFlasksFromFountain()
+    {
+        int missingHealingAmount = 0;
+
+        foreach (int fillAmount in playerData.playerHealingPodFillAmounts)
+        {
+            if (fillAmount != 100)
+            {
+                missingHealingAmount = (100 - fillAmount);
+                if (missingHealingAmount < reffilAmount)
+                {
+                    reffilEvent.Raise(missingHealingAmount);
+                }
+                else
+                {
+                    reffilEvent.Raise(reffilAmount);
+                }
+
+                break;
+            }
+        }
+        reffilAmount = Mathf.Clamp(reffilAmount - missingHealingAmount, 0, 100);
+
+        if (reffilAmount == 0)
+        {
+            spriteRenderer.sprite = emptyFountainSprite;
+            prompt.gameObject.SetActive(false);
         }
     }
 }

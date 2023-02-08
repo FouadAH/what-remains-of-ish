@@ -33,7 +33,7 @@ public class BirbMother_WallBounceAttackState : ChargeState
         isHittingGround = false;
         bounceTimes = 0;
 
-        playerPos = GameManager.instance.playerCurrentPosition.position;
+        playerPos = enemy.playerRuntimeDataSO.playerPosition;
         directionToPlayer =(playerPos - (Vector2)enemy.transform.position).normalized;
         movementDirection = directionToPlayer;
 

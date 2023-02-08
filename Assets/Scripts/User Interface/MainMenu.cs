@@ -32,17 +32,23 @@ public class MainMenu : MonoBehaviour
     public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
-    public GameEvent loadInitialScene;
     CameraController cameraController;
 
     [Header("Audio Options")]
 
     [FMODUnity.EventRef]
     FMOD.Studio.EventInstance SFXVolumeTestEvent;
-    [FMODUnity.EventRef] public string SFXTestEvent;
+
+    [FMODUnity.EventRef] 
+    public string SFXTestEvent;
+
     FMOD.Studio.VCA masterBus;
     FMOD.Studio.VCA musicBus;
     FMOD.Studio.VCA sfxBus;
+
+    [Header("Data")]
+    public PlayerDataSO playerData;
+    public GlobalConfigSO globalConfig;
 
     public void Start()
     {
@@ -92,17 +98,6 @@ public class MainMenu : MonoBehaviour
         masterBus.setVolume(masterVolume);
         musicBus.setVolume(musicVolume);
         sfxBus.setVolume(sfxVolume);
-    }
-
-    public void StartGame()
-    {
-        GameManager.instance.GetComponent<Animator>().Play("Fade_Out");
-        StartCoroutine(NewGame());
-    }
-
-    public void LoadEvent()
-    {
-        StartCoroutine(Loading());
     }
 
     public void QuitGame()
@@ -236,82 +231,26 @@ public class MainMenu : MonoBehaviour
     {
         if (abilityToggle.isOn)
         {
-            GameManager.instance.playerData.hasDashAbility = true;
-            GameManager.instance.playerData.hasTeleportAbility = true;
-            GameManager.instance.playerData.hasSprintAbility = true;
-            GameManager.instance.playerData.hasWallJumpAbility = true;
-            GameManager.instance.playerData.hasDoubleJumpAbility = true;
+            playerData.hasDashAbility = true;
+            playerData.hasTeleportAbility = true;
+            playerData.hasSprintAbility = true;
+            playerData.hasWallJumpAbility = true;
+            playerData.hasDoubleJumpAbility = true;
 
         }
         else
         {
-            GameManager.instance.playerData.hasDashAbility = false;
-            GameManager.instance.playerData.hasTeleportAbility = false;
-            GameManager.instance.playerData.hasSprintAbility = false;
-            GameManager.instance.playerData.hasWallJumpAbility = false;
-            GameManager.instance.playerData.hasDoubleJumpAbility = false;
+            playerData.hasDashAbility = false;
+            playerData.hasTeleportAbility = false;
+            playerData.hasSprintAbility = false;
+            playerData.hasWallJumpAbility = false;
+            playerData.hasDoubleJumpAbility = false;
 
         }
     }
 
     public void ToggleDirectionalAttack(Toggle directionalAttackToggle)
     {
-        if (directionalAttackToggle.isOn)
-        {
-            GameManager.instance.useDirectionalMouseAttack = true;
-        }
-        else
-        {
-            GameManager.instance.useDirectionalMouseAttack = false;
-        }
-    }
-
-
-    private IEnumerator NewGame()
-    {
-        GameManager.instance.isLoading = true;
-        GameManager.instance.anim.Play("Fade_Out");
-        SceneManager.UnloadSceneAsync("MainMenu").completed += MainMenuUnloadComplete;
-        yield return null;
-    }
-
-    private void LoadBaseSceneComplete(AsyncOperation obj)
-    {
-        if (obj.isDone)
-        {
-            //SceneManager.UnloadSceneAsync(1);
-            GameManager.instance.InitialSpawn();
-            SceneManager.LoadSceneAsync(GameManager.instance.playerData.lastSavepointLevelIndex.Value, LoadSceneMode.Additive).completed += LoadLevelComplete;
-        }
-    }
-
-    private void LoadLevelComplete(AsyncOperation obj)
-    {
-        if(obj.isDone)
-        {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(GameManager.instance.playerData.lastSavepointLevelIndex.Value));
-            loadInitialScene.Raise();
-            GameManager.instance.isLoading = false;
-            GameManager.instance.anim.Play("Fade_in");
-        }
-    }
-
-    private void MainMenuUnloadComplete(AsyncOperation obj)
-    {
-        if (obj.isDone)
-        {
-            SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive).completed += LoadBaseSceneComplete;
-        }
-    }
-
-
-    private IEnumerator Loading()
-    {
-        GameManager.instance.isLoading = true;
-        GameManager.instance.anim.Play("Fade_Out");
-        //SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive).completed += LoadBaseSceneComplete;
-        SceneManager.UnloadSceneAsync(1).completed += MainMenuUnloadComplete;
-
-        yield return null;
+        globalConfig.gameSettings.UseDirectionalMouseAttacks= directionalAttackToggle.isOn;
     }
 }

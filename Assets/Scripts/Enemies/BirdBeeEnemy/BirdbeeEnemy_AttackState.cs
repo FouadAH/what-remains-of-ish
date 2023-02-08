@@ -95,7 +95,7 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
 
     void DiagonalAttack()
     {
-        Vector2 direction = (enemy.transform.position - GameManager.instance.playerCurrentPosition.position).normalized;
+        Vector2 direction = ((Vector2)enemy.transform.position - enemy.playerRuntimeDataSO.playerPosition).normalized;
         enemy.rb.AddForce(direction*5f);
     }
 

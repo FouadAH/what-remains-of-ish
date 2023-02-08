@@ -34,6 +34,7 @@ public class Boomerang : MonoBehaviour
 
     BoomerangLauncher boomerangLauncher;
     GameManager gm;
+    Player player;
     Rigidbody2D rgd2D;
     Collider2D col2D;
 
@@ -67,20 +68,21 @@ public class Boomerang : MonoBehaviour
 
     private void Awake()
     {
-        gm = GameManager.instance;
+        player = FindObjectOfType<Player>();
+
         col2D = GetComponent<Collider2D>();
-        Physics2D.IgnoreCollision(col2D, gm.player.GetComponent<Collider2D>());
-        playerMovement = gm.player.GetComponent<PlayerMovement>();
-        boomerangLauncher = gm.player.GetComponent<Player>().boomerangLauncher;
         rgd2D = GetComponent<Rigidbody2D>();
-        
-        //StartCoroutine(BommerangBehaviour());
+
+        Physics2D.IgnoreCollision(col2D, player.GetComponent<Collider2D>());
+
+        playerMovement = player.GetComponent<PlayerMovement>();
+        boomerangLauncher = player.GetComponent<Player>().boomerangLauncher;
+
         wallDetectionObjs = wallDetectionObjects.GetComponentsInChildren<Transform>();
 
         speedBonus = 0;
         startTime = Time.time;
         rumbler = playerMovement.gameObject.GetComponent<Rumbler>();
-        //spriteRenderer = boomerangSprite.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -216,14 +218,14 @@ public class Boomerang : MonoBehaviour
 
         while (true)
         {
-            float AngleRad = Mathf.Atan2(gm.player.transform.position.y - transform.position.y, gm.player.transform.position.x - transform.position.x);
+            float AngleRad = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
             float AngleDeg = (180 / Mathf.PI) * AngleRad;
 
             Quaternion q = Quaternion.AngleAxis(AngleDeg - 90, Vector3.forward);
             transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * boomerangLauncher.rotateSpeed);
             rgd2D.velocity = transform.up * boomerangLauncher.returnMoveSpeed;
 
-            if (Vector2.Distance(transform.position, gm.player.transform.position) <= 0.8f)
+            if (Vector2.Distance(transform.position, player.transform.position) <= 0.8f)
             {
                 DestroyBoomerang();
             }

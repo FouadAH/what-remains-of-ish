@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemManager : MonoBehaviour
@@ -30,6 +31,28 @@ public class ItemManager : MonoBehaviour
         shopItems = Resources.LoadAll<ItemSO>("Items");
         broochItems = Resources.LoadAll<InventoryItemSO>("Items");
         LoadDefault();
+    }
+
+    private void Update()
+    {
+        //foreach (InventoryItemSO item in broochItems)
+        //{
+        //    switch (item.broochID)
+        //    {
+        //        case 0:
+        //            item.equipEffectDelegate= null;
+        //            break;
+        //        case 1:
+        //            item.equipEffectDelegate = null;
+        //            break;
+        //        case 2:
+        //            item.equipEffectDelegate = null;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    item.ApplyEffect_OnUpdate();
+        //}
     }
 
     void LoadDefault()

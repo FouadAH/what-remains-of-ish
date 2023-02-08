@@ -5,13 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 public class UI_HUD : MonoBehaviour
 {
-    public TMPro.TMP_Text currencyText;
-    //public TMPro.TMP_Text currencyAddedText;
-
-    public static UI_HUD instance;
     [SerializeField] private Animator anim;
 
     [Header("HUD UI elements")]
+    public TMP_Text currencyText;
 
     public Transform heartBar;
     public GameObject heartPrefab;
@@ -19,60 +16,29 @@ public class UI_HUD : MonoBehaviour
     public GameObject healingPodPrefab;
     public Transform healingPodsBar;
 
-    public List<HealingPod> healingFlasks = new List<HealingPod>();
-
     public Image TeleportCooldown;
     public Image ExplosionCooldown;
     public Image FreezeCooldown;
 
-    [Header("Brooch Inventory")]
-    public InventoryGrid broochInventoryGrid;
-    public InventoryGrid broochEquipGrid;
-
     [Header("Tips UI elements")]
-
     public GameObject tipsPanel;
     public TMP_Text tipsText;
 
-
     [Header("Dubug UI elements")]
-    public bool debugMode;
-    public TMP_Text velocityXDebug;
-    public TMP_Text velocityYDebug;
-
     public GameObject debugTextPanel;
-    public TMP_Text pickupDebugText;
+    public TMP_Text debugText;
 
-    public GameObject debugTimer;
-    public TMP_Text debugTimerText;
-
-    [Header("Variables")]
+    [Header("Data")]
     public PlayerDataSO playerData;
 
-    void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
+    float previousCurrency = 0;
+
+    List<HealingPod> healingFlasks = new();
 
     private void Start()
     {
-        velocityXDebug.gameObject.SetActive(debugMode);
-        velocityYDebug.gameObject.SetActive(debugMode);
-    }
-
-    private void OnEnable()
-    {
-        GameManager.instance.player.GetComponent<Player>().OnHit += OnHit;
-        GameManager.instance.player.GetComponent<Player>().OnHeal += OnHeal;
         InitHealingPods();
-        RefrechHealth();
+        RefreshHealthUI();
     }
 
     public void InitHealingPods()
@@ -81,7 +47,6 @@ public class UI_HUD : MonoBehaviour
         for (int i = 0; i < healingPodsBar.childCount; i++)
         {
             Destroy(healingPodsBar.GetChild(i).gameObject);
-            
         }
 
         foreach (int fillAmount in playerData.playerHealingPodFillAmounts)
@@ -95,41 +60,50 @@ public class UI_HUD : MonoBehaviour
 
     void Update()
     {
-        //currentCurrency = playerData.playerCurrency.Value;
-
-        currencyText.SetText(playerData.playerCurrency.Value.ToString());
-        //currencyAddedText.SetText(addedCurrency.ToString());
+        UpdateCurrencyUI();
+        UpdateFlaskUI();
+        UpdateHealthBar();
     }
 
-    //float addedCurrency = 0;
-    //float previousCurrency;
-    //float currentCurrency;
-
-    //IEnumerator AddCurrency()
-    //{
-    //    previousCurrency = currentCurrency;
-    //    addedCurrency = currentCurrency - previousCurrency;
-    //    yield return null;
-    //}
-
-    float refillMod;
-    float refillModNormal = 1f;
-    float refillModExtra = 1.5f;
-
-    public void RefillFlask(float amount)
+    void UpdateCurrencyUI()
     {
-        foreach (HealingPod flask in healingFlasks)
+        currencyText.SetText(playerData.playerCurrency.Value.ToString());
+    }
+
+    void UpdateFlaskUI()
+    {
+        for (int i = 0; i < healingFlasks.Count; i++)
         {
-            if (flask.fillAmount < 100)
-            {
-                refillMod = (GameManager.instance.equippedBrooch_03) ? refillModExtra : refillModNormal;
-                flask.Refill(amount * refillMod);
-                break;
-            }
+            healingFlasks[i].fillAmount = playerData.playerHealingPodFillAmounts[i];
         }
     }
 
-    public void RefrechHealth()
+    void UpdateHealthBar()
+    {
+        if (heartBar.childCount != playerData.playerHealth.Value)
+        {
+            RefreshHealthUI();
+        }
+    }
+
+    IEnumerator CurrencyCounter()
+    {
+        float currencyDiff = playerData.playerCurrency.Value - previousCurrency;
+
+        while (currencyDiff > 0)
+        {
+            yield return new WaitForSeconds(0.05f);
+            currencyDiff = playerData.playerCurrency.Value - previousCurrency;
+            previousCurrency++;
+        }
+
+        previousCurrency = playerData.playerCurrency.Value;
+        currencyText.SetText(playerData.playerCurrency.Value.ToString());
+
+        yield return new WaitForEndOfFrame();
+    }
+
+    void RefreshHealthUI()
     {
         for (int i = 0; i < heartBar.childCount; i++)
         {
@@ -142,70 +116,30 @@ public class UI_HUD : MonoBehaviour
         }
     }
 
-    void OnHit(int amount)
+    public void OnHit(int amount)
     {
         anim.SetTrigger("OnHit");
-        for (int i = 0; i < amount; i++)
-        {
-            if (heartBar.transform.childCount >0)
-            {
-                Transform heart = heartBar.transform.GetChild(heartBar.transform.childCount - 1);
-                Destroy(heart.gameObject);
-            }
-        }
     }
-    void OnHeal(int amount)
+
+    public void OnHeal(int amount)
     {
         anim.SetTrigger("OnHeal");
-
-        //Adding hearts to health bar 
-        RefrechHealth();
-
-        //Empty the first Flask
-        healingFlasks[0].EmptyFlask();
-
-        //Trickel down health
-        for (int i = 1; i < healingFlasks.Count; i++)
-        {
-            if(healingFlasks[i].fillAmount > 0)
-            {
-                float newFillAmount = healingFlasks[i].fillAmount;
-                healingFlasks[i-1].fillAmount = newFillAmount;
-                healingFlasks[i].fillAmount = 0;
-            }
-        }
-
-        for (int i = 0; i < healingFlasks.Count; i++)
-        {
-            playerData.playerHealingPodFillAmounts[i] = (int)healingFlasks[i].fillAmount;
-        }
     }
 
-    public void OnResetHP(float missingHealth)
+    public void OnRest()
     {
-        anim.SetTrigger("OnHeal");
-
-        //Adding hearts to health bar 
-        for (int i = 0; i < missingHealth; i++)
-        {
-            Instantiate(heartPrefab, heartBar);
-        }
-
-       //Refill healing
-        for (int i = 0; i < healingFlasks.Count; i++)
-        {
-            healingFlasks[i].fillAmount = 100;
-        }
-
+        SetDebugText("Player health and flasks restored. Checkpoint set.");
     }
 
-    public void OnResetHealingFlasks()
+    public void OnBuyItem()
     {
-        //Refill healing
-        for (int i = 0; i < healingFlasks.Count; i++)
-        {
-            healingFlasks[i].fillAmount = 100;
-        }
+        SetDebugText("Bought an item");
+    }
+
+    public void OnAddHealingFlask()
+    {
+        SetDebugText("Healing pods increased by 1");
+        InitHealingPods();
     }
 
     public void Cooldown(PlayerAbility playerAbility, float cooldownDuration)
@@ -247,15 +181,15 @@ public class UI_HUD : MonoBehaviour
     public void SetDebugTimerText(string text)
     {
         debugTextPanel.SetActive(true);
-        pickupDebugText.SetText(text);
+        debugText.SetText(text);
     }
 
     IEnumerator DebugTextRoutine(string text)
     {
         debugTextPanel.SetActive(true);
-        pickupDebugText.SetText(text);
+        debugText.SetText(text);
         yield return new WaitForSecondsRealtime(4f);
-        pickupDebugText.SetText("");
+        debugText.SetText("");
         debugTextPanel.SetActive(false);
     }
 

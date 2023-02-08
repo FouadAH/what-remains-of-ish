@@ -95,7 +95,7 @@ public class BirbMother_FlyToTarget : FlyState
     {
         base.LogicUpdate();
 
-        int directionX = (enemy.transform.position.x < GameManager.instance.playerCurrentPosition.position.x) ? 1 : -1;
+        int directionX = (enemy.transform.position.x < enemy.playerRuntimeDataSO.playerPosition.x) ? 1 : -1;
         if (entity.facingDirection != directionX)
         {
             entity.Flip();

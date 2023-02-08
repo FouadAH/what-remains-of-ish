@@ -53,7 +53,7 @@ public class BirbMother_ChargeToPlayerState : ChargeState
         isHittingGround = false;
         bounceTimes = 0;
 
-        playerPos = GameManager.instance.playerCurrentPosition.position;
+        playerPos = enemy.playerRuntimeDataSO.playerPosition;
         directionToPlayer = (playerPos - (Vector2)enemy.transform.position).normalized;
         directionToPlayer = new Vector2(directionToPlayer.x, -1).normalized;
         movementDirection = directionToPlayer;

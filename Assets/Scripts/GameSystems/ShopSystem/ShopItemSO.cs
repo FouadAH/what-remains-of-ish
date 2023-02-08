@@ -7,6 +7,7 @@ using System;
 [CreateAssetMenu(fileName = "newShopItem", menuName = "Items/New Shop Item", order = 1)]
 public class ShopItemSO : ItemSO
 {
+    [Header("Item Data")]
     public string itemName;
 
     [TextArea(1, 10)]
@@ -22,7 +23,6 @@ public class ShopItemSO : ItemSO
 
     public virtual void OnBuyItem()
     {
-        UI_HUD.instance.SetDebugText("Bought an item:" + itemName);
         isOwnedByPlayer = true;
     }
 

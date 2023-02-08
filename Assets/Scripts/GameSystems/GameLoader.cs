@@ -8,7 +8,15 @@ using UnityEngine.Audio;
 
 public class GameLoader : MonoBehaviour
 {
+    [Header("Events")]
     public GameEvent loadInitialScene;
+    public GameEvent loadingStartEvent;
+    public GameEvent loadingEndEvent;
+    public GameEvent spawnPlayerEvent;
+
+    [Header("Data")]
+    public PlayerDataSO playerData;
+
     int currentSceneIndex;
 
     private void Awake()
@@ -17,7 +25,6 @@ public class GameLoader : MonoBehaviour
     }
     public void StartGame()
     {
-        GameManager.instance.GetComponent<Animator>().Play("Fade_Out");
         StartCoroutine(NewGame());
     }
 
@@ -34,30 +41,9 @@ public class GameLoader : MonoBehaviour
 
     private IEnumerator NewGame()
     {
-        GameManager.instance.isLoading = true;
-        GameManager.instance.anim.Play("Fade_Out");
+        loadingStartEvent.Raise();
         SceneManager.UnloadSceneAsync(currentSceneIndex).completed += CurrentSceneUnload;
         yield return null;
-    }
-
-    private void LoadBaseSceneComplete(AsyncOperation obj)
-    {
-        if (obj.isDone)
-        {
-            GameManager.instance.InitialSpawn();
-            SceneManager.LoadSceneAsync(GameManager.instance.playerData.lastSavepointLevelIndex.Value, LoadSceneMode.Additive).completed += LoadLevelComplete;
-        }
-    }
-
-    private void LoadLevelComplete(AsyncOperation obj)
-    {
-        if (obj.isDone)
-        {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(GameManager.instance.playerData.lastSavepointLevelIndex.Value));
-            loadInitialScene.Raise();
-            GameManager.instance.isLoading = false;
-            GameManager.instance.anim.Play("Fade_in");
-        }
     }
 
     private void CurrentSceneUnload(AsyncOperation obj)
@@ -68,11 +54,29 @@ public class GameLoader : MonoBehaviour
         }
     }
 
+    private void LoadBaseSceneComplete(AsyncOperation obj)
+    {
+        if (obj.isDone)
+        {
+            //GameManager.instance.InitialSpawn();
+            spawnPlayerEvent.Raise();
+            SceneManager.LoadSceneAsync(playerData.lastSavepointLevelIndex.Value, LoadSceneMode.Additive).completed += LoadLevelComplete;
+        }
+    }
+
+    private void LoadLevelComplete(AsyncOperation obj)
+    {
+        if (obj.isDone)
+        {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(playerData.lastSavepointLevelIndex.Value));
+            loadInitialScene.Raise();
+            loadingEndEvent.Raise();
+        }
+    }
 
     private IEnumerator Loading()
     {
-        GameManager.instance.isLoading = true;
-        GameManager.instance.anim.Play("Fade_Out");
+        loadingStartEvent.Raise();
         SceneManager.UnloadSceneAsync(currentSceneIndex).completed += CurrentSceneUnload;
 
         yield return null;

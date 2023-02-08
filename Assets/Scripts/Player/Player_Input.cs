@@ -51,6 +51,9 @@ public class Player_Input : MonoBehaviour
     [HideInInspector] public PlayerInputMaster inputActions;
 
     public GameEvent submitClicked;
+    public GameEvent inputChangedEvent;
+    public GameEvent interactEvent;
+    public GlobalConfigSO globalConfig;
 
     private void Awake()
     {
@@ -110,7 +113,7 @@ public class Player_Input : MonoBehaviour
 
     private void Interact_started(InputAction.CallbackContext obj)
     {
-        OnInteract();
+        interactEvent.Raise();
     }
 
     private void DialogueNext_started(InputAction.CallbackContext obj)
@@ -180,21 +183,15 @@ public class Player_Input : MonoBehaviour
             case InputDeviceChange.Added:
                 Debug.Log($"Device {device} was added");
                 break;
+
             case InputDeviceChange.Removed:
                 Debug.Log($"Device {device} was removed");
                 break;
         }
 
-        if (Gamepad.all.Count > 0)
-        {
-            controllerConnected = true;
-        }
-        else
-        {
-            controllerConnected = false;
-        }
-
-        OnInputDeviceChanged();
+        controllerConnected = Gamepad.all.Count > 0;
+        globalConfig.gameSettings.controllerConnected = controllerConnected;
+        inputChangedEvent.Raise();
     }
 
     private void Teleport_performed(InputAction.CallbackContext obj)

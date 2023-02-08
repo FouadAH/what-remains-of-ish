@@ -4,7 +4,7 @@ using System.Collections;
 
 public class SavePoint: MonoBehaviour {
 
-    [SerializeField]private Animator prompt;
+    [SerializeField] private Animator prompt;
     private int levelIndex;
     private string levelPath;
 
@@ -12,32 +12,36 @@ public class SavePoint: MonoBehaviour {
     public UnityEngine.Rendering.Universal.Light2D pointLight;
     public Transform playerSpawnPoint;
 
-    bool isLit = false;
-    SpriteRenderer spriteRenderer;
-
     public Transform playerTargetRight;
     public Transform playerTargetLeft;
 
+    [Header("VFX")]
     public GameObject unlitVFXParent;
     public GameObject litVFXParent;
 
-    bool playerIsInTrigger;
+    [Header("Events")]
     public GameEvent OnRestEvent;
+    public GameEvent EnablePlayerInputEvent;
+    public GameEvent DisablePlayerInputEvent;
+
+    [Header("Data")]
+    public PlayerRuntimeDataSO playerRuntimeData;
+
+    bool isLit = false;
+    bool playerIsInTrigger;
+
+    SpriteRenderer spriteRenderer;
     GameObject playerObj;
     Player player;
-    Player_Input playerInput;
-    TutorialManager tutorialManager;
 
     private void Start()
     {
         levelIndex = gameObject.scene.buildIndex;
         levelPath = gameObject.scene.path;
-        playerInput = GameManager.instance.player.GetComponent<Player_Input>();
-        playerInput.OnInteract += PlayerInput_OnInteract;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void PlayerInput_OnInteract()
+    public void PlayerInput_OnInteract()
     {
         if (playerIsInTrigger)
         {
@@ -67,7 +71,6 @@ public class SavePoint: MonoBehaviour {
     
     private void Rest()
     {
-        OnRestEvent.Raise();
         if (GameManager.instance.isFirstTimeResting)
         {
             GameManager.instance.isFirstTimeResting = false;
@@ -121,41 +124,38 @@ public class SavePoint: MonoBehaviour {
         float missingHealth = player.playerData.playerMaxHealth.Value - player.playerData.playerHealth.Value;
         player.RestoreHP((int)missingHealth);
 
-        UI_HUD.instance.OnResetHealingFlasks();
-        UI_HUD.instance.SetDebugText("Player health and flasks restored. Checkpoint set.");
+        OnRestEvent.Raise();
 
         SaveManager.instance.RestPointSave();
     }
 
-    float marginOfError = 1f;
-    IEnumerator MovePlayerToTarget()
-    {
-        playerInput = playerObj.GetComponent<Player_Input>();
-        playerInput.OnRestStart();
+    //float marginOfError = 1f;
+    //IEnumerator MovePlayerToTarget()
+    //{
+    //    DisablePlayerInputEvent.Raise();
 
-        Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+    //    Vector2 playerPos = playerRuntimeData.playerPosition;
 
-        float desiredXPosition = (Vector2.Distance(playerPos, playerTargetRight.transform.position) > Vector2.Distance(playerPos, playerTargetLeft.transform.position))
-            ? playerTargetLeft.transform.position.x : playerTargetRight.transform.position.x;
+    //    float desiredXPosition = (Vector2.Distance(playerPos, playerTargetRight.transform.position) > Vector2.Distance(playerPos, playerTargetLeft.transform.position))
+    //        ? playerTargetLeft.transform.position.x : playerTargetRight.transform.position.x;
 
-        int directionX = (desiredXPosition > playerPos.x) ? 1 : -1;
+    //    int directionX = (desiredXPosition > playerPos.x) ? 1 : -1;
 
-        while (true)
-        {
-            playerInput.directionalInput.x = directionX;
-            playerPos = GameManager.instance.playerCurrentPosition.position;
+    //    while (true)
+    //    {
+    //        playerInput.directionalInput.x = directionX;
+    //        playerPos = playerRuntimeData.playerPosition;
 
-            if (FastApproximately(desiredXPosition, playerPos.x, marginOfError))
-            {
-                playerInput.directionalInput.x = 0;
-                break;
-            }
-            yield return null;
-        }
+    //        if (FastApproximately(desiredXPosition, playerPos.x, marginOfError))
+    //        {
+    //            playerInput.directionalInput.x = 0;
+    //            break;
+    //        }
+    //        yield return null;
+    //    }
 
-        playerInput.OnRestEnd();
-
-    }
+    //    EnablePlayerInputEvent.Raise();
+    //}
 
     public static bool FastApproximately(float a, float b, float threshold)
     {

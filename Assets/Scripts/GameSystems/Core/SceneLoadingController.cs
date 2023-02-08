@@ -88,7 +88,6 @@ namespace MisfitStudios
             Debug.Log("Hard Respawn");
             if (!isRespawning)
             {
-                UI_HUD.instance.enabled = false;
                 isRespawning = true;
                 isLoading = true;
                 player.GetComponent<Player>().enabled = false;
@@ -99,7 +98,6 @@ namespace MisfitStudios
         public void SoftRespawn()
         {
             Debug.Log("Soft Respawn");
-            UI_HUD.instance.enabled = false;
             StartCoroutine(SoftRespawnRoutine());
         }
 
@@ -119,7 +117,6 @@ namespace MisfitStudios
 
             player.GetComponent<Player>().enabled = true;
             player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
-            UI_HUD.instance.enabled = true;
         }
 
         private IEnumerator HardRespawnSameLevel()
@@ -140,7 +137,6 @@ namespace MisfitStudios
             player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
             isRespawning = false;
             isLoading = false;
-            UI_HUD.instance.enabled = true;
         }
 
 

@@ -928,9 +928,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderObj: {fileID: 7018282986316451018}
   ColorOpen: {r: 0.37647057, g: 1, b: 0, a: 0.12156863}
+  ColorOpenWeakspot: {r: 1, g: 0, b: 0, a: 1}
   ColorStunned: {r: 0.9989587, g: 1, b: 0.3820755, a: 0.12156863}
-  stunTime: 0.5
   ignoreHitstop: 0
+  hurtboxType: 0
 --- !u!114 &8995855074471620223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -951,18 +952,27 @@ MonoBehaviour:
   groundCheck: {fileID: 2660568966740976452}
   damageBox: {fileID: 9158792744446058296}
   isDead: 0
+  debug: 0
   stateDebugText: {fileID: 6878423589756060221}
   damageNumberPrefab: {fileID: 7102332077760321428, guid: e2ebcb2c9f1e539409b790d70e544d90,
     type: 3}
   BloodEffect: {fileID: 4470756260248699268}
   HitEffect: {fileID: 2105050145598309556, guid: 2347864d77c73464491613495d808cda,
     type: 3}
+  NearDeathEffect: {fileID: 0}
+  FlaskRefillParticles: {fileID: 0}
   minAggroRange: 13
   maxAggroRange: 18
   isAffectedByGravity: 1
   gravity: -18
   accelerationTimeGrounded: 0.05
+  knockbackTime: 0.5
+  smoothTime: 0.1
   shouldSaveState: 0
+  playerRuntimeDataSO: {fileID: 11400000, guid: a40b93720061c8d41b440a33077d96db,
+    type: 2}
+  reffilEvent: {fileID: 11400000, guid: 201ec829e5d8ed24f9a6c2a654133316, type: 2}
+  stunnedSprite: {fileID: 0}
   meleeDamage: 1
   hitKnockbackAmount: 25
   idleStateData: {fileID: 11400000, guid: 37c55b2cb0488634485623edb358292d, type: 2}
@@ -1672,6 +1682,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2386ede2f13eb464b8cc54f51bd1c8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagables:
+    serializedVersion: 2
+    m_Bits: 0
+  damageAmountPlayer: 1
+  damageAmountEnemies: 10
 --- !u!1 &6962664305101183158
 GameObject:
   m_ObjectHideFlags: 0

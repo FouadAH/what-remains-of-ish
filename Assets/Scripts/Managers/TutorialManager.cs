@@ -13,7 +13,12 @@ public class TutorialManager : MonoBehaviour
     public GameObject restingTutorial;
     public GameObject attackTutorial;
 
+    [Header("State")]
     public bool tutorialIsActive = false;
+
+    [Header("Game Events")]
+    public GameEvent enablePlayerInput;
+    public GameEvent disablePlayerInput;
 
     private GameObject currentActiveTutorial;
     private GameManager gm;
@@ -108,8 +113,9 @@ public class TutorialManager : MonoBehaviour
         DialogManager.instance.dialogueIsActive = true;
         tutorialIsActive = true;
 
-        gm.player.GetComponent<Player_Input>().DisablePlayerInput();
-        gm.player.GetComponent<Player>().enabled = false;
+        disablePlayerInput.Raise();
+        //gm.player.GetComponent<Player_Input>().DisablePlayerInput();
+        //gm.player.GetComponent<Player>().enabled = false;
     }
 
     void CloseTutorial()
@@ -121,9 +127,7 @@ public class TutorialManager : MonoBehaviour
         DialogManager.instance.dialogueIsActive = false;
         tutorialIsActive = false;
 
-        gm.player.GetComponent<Player_Input>().EnablePlayerInput();
-        gm.player.GetComponent<Player>().enabled = true;
-
+        enablePlayerInput.Raise();
     }
 }
 

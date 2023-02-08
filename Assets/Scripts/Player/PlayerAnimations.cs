@@ -12,6 +12,7 @@ public class PlayerAnimations
 
     PlayerMovement playerMovement;
     PlayerDash playerDash;
+
     public PlayerAnimations(Animator animator, Transform player)
     {
         playerInput = player.GetComponent<Player_Input>();
@@ -26,9 +27,9 @@ public class PlayerAnimations
 
     private void OnAttack()
     {
-        if (!playerInput.controllerConnected)
+        if (!playerInput.globalConfig.gameSettings.controllerConnected)
         {
-            if (!GameManager.instance.useDirectionalMouseAttack)
+            if (!playerInput.globalConfig.gameSettings.UseDirectionalMouseAttacks)
             {
                 if (playerInput.directionalInput.y > 0)
                 {

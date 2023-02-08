@@ -56,7 +56,7 @@ public class SpikeCharger_MoveState : MoveState
 
     private bool CheckPlayerPos()
     {
-        Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+        Vector2 playerPos = enemy.playerRuntimeDataSO.playerPosition;
         int directionX = (entity.transform.position.x < playerPos.x) ? 1 : -1;
         return (entity.facingDirection != directionX);
     }

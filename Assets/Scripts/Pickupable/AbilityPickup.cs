@@ -4,38 +4,49 @@ using UnityEngine;
 
 public class AbilityPickup : MonoBehaviour
 {
-    public bool isBoomerang = false;
-    public bool isDashPickup = false;
-    public bool isTeleportPickup = false;
-    public bool isWallJumpPickup = false;
+    public PlayerAbilities playerAbility;
+    public PlayerDataSO playerData;
+    public StringEvent debugText;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();
-        if (playerMovement != null)
+        if (collision.TryGetComponent<PlayerMovement>(out _))
         {
-            if (isDashPickup)
+            switch (playerAbility)
             {
-                GameManager.instance.playerData.hasAirDashAbility = true;
-                UI_HUD.instance.SetDebugText("Picked Up the Air Dash Ability");
-            }
-            else if (isTeleportPickup)
-            {
-                GameManager.instance.playerData.hasTeleportAbility = true;
-                UI_HUD.instance.SetDebugText("Picked Up Teleport Ability");
-            }
-            else if (isWallJumpPickup)
-            {
-                GameManager.instance.playerData.hasWallJumpAbility = true;
-                UI_HUD.instance.SetDebugText("Picked Up Wall Jump Ability");
-            }
-            else if (isBoomerang)
-            {
-                GameManager.instance.playerData.hasBoomerangAbility = true;
-                UI_HUD.instance.SetDebugText("Picked Up Boomerang Ability");
+                case PlayerAbilities.Boomerang:
+                    playerData.hasBoomerangAbility = true;
+                    debugText.Raise("Unlocked Boomerang Ability");
+                    break;
+
+                case PlayerAbilities.Dash:
+                    playerData.hasDashAbility = true;
+                    debugText.Raise("Unlocked Air Dash Ability");
+                    break;
+
+                case PlayerAbilities.WallJump:
+                    playerData.hasWallJumpAbility = true;
+                    debugText.Raise("Unlocked Wall Jump Ability");
+                    break;
+
+                case PlayerAbilities.Teleport:
+                    playerData.hasTeleportAbility = true;
+                    debugText.Raise("Unlocked Teleport Ability");
+                    break;
+
+                default:
+                    break;
             }
 
             Destroy(gameObject);
         }
     }
+}
+
+public enum PlayerAbilities
+{
+    Boomerang = 0,
+    Dash = 1,
+    WallJump = 2,
+    Teleport = 3,
 }

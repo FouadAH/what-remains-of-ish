@@ -15,14 +15,4 @@ public class PlayerHitbox : MonoBehaviour
         attackProcessor = new AttackProcessor();
         player = GetComponentInParent<Player>();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<IDamagable>() != null)
-        {
-            //attackProcessor.ProcessMelee(player, collision.GetComponent<IDamagable>());
-            //collision.GetComponent<BaseEnemy>().TakeDamage(Random.Range(player.minDamage, player.maxDamage + 1));
-            //player.Knockback(player.transform.localScale*-1, player.swordKnockback);
-        }
-    }
 }

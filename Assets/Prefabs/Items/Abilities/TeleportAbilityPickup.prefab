@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 157.35, y: 4.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3c51a1df41b3eb4f81002c5771130a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDashPickup: 0
-  isTeleportPickup: 1
-  isWallJumpPickup: 0
+  playerAbility: 3
+  playerData: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f, type: 2}
+  debugText: {fileID: 11400000, guid: 930b323e290dbd8448d3fe716383aad9, type: 2}
 --- !u!212 &6477529711939808809
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -17,6 +17,12 @@ public class InventoryItemSO : ShopItemSO
     public Vector2Int gridCoordinates;
     public BroocheData broocheData;
 
+    [Header("Events")]
+    public StringEvent debugTextEvent;
+
+    public delegate void BroochItemSOEventHandler();
+    public BroochItemSOEventHandler equipEffectDelegate;
+
     public void CreateVisualGrid(Transform visualParentTransform, InventoryItemSO itemTetrisSO, float cellSize)
     {
         Transform visualTransform = Instantiate(prefab, visualParentTransform);
@@ -56,14 +62,14 @@ public class InventoryItemSO : ShopItemSO
     public override void ReceiveItem()
     {
         base.ReceiveItem();
-        UI_HUD.instance.SetDebugText("Picked up a brooche!");
+        debugTextEvent.Raise("Picked Up A Brooche!");
         isOwnedByPlayer = true;
     }
 
     public override void OnBuyItem()
     {
         base.OnBuyItem();
-        UI_HUD.instance.SetDebugText("Purchased a brooche!");
+        debugTextEvent.Raise("Purchased a brooche!");
         isOwnedByPlayer = true;
     }
 
@@ -73,7 +79,7 @@ public class InventoryItemSO : ShopItemSO
         {
             isEquipped = true;
             Debug.Log("Equipped brooch: " + itemName);
-            GameManager.instance.GetBool("equippedBrooch_" + broochID) = true;
+            GameManager.instance.GetBool(broochID) = true;
         }
     }
 
@@ -83,8 +89,18 @@ public class InventoryItemSO : ShopItemSO
         {
             isEquipped = false;
             Debug.Log("Unequipped brooch: " + itemName);
-            GameManager.instance.GetBool("equippedBrooch_" + broochID) = false;
+            GameManager.instance.GetBool(broochID) = false;
         }
+    }
+
+    public void ApplyEffect_OnEquip()
+    {
+        equipEffectDelegate();
+    }
+
+    public void ApplyEffect_OnUpdate()
+    {
+        equipEffectDelegate();
     }
 
 }
