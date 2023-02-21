@@ -92,6 +92,11 @@ public class GameManager : MonoBehaviour
 
         playerData.lastSavepointPos.X = initalPlayerData.initialPlayerPosition.x;
         playerData.lastSavepointPos.Y = initalPlayerData.initialPlayerPosition.y;
+
+#if UNITY_EDITOR
+        playerData.playerHealth.Value = initalPlayerData.health;
+        playerData.playerMaxHealth.Value = initalPlayerData.maxHealth;
+#endif
     }
 
     public ref bool GetBool(int broochID)

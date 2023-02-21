@@ -23,83 +23,29 @@ public class PlayerAnimations
         playerInput.OnJumpUp += OnJumpInputUp;
         playerInput.OnJumpDown += OnJumpInputDown;
         playerInput.OnAttack += OnAttack;
+        playerInput.OnUpAttack += UpAttack;
+    }
+
+    public void DownAttack()
+    {
+        animator.Play("Down_Attack", 3);
+    }
+
+    public void UpAttack()
+    {
+        animator.SetTrigger("isAttackingUp");
     }
 
     private void OnAttack()
     {
-        if (!playerInput.globalConfig.gameSettings.controllerConnected)
-        {
-            if (!playerInput.globalConfig.gameSettings.UseDirectionalMouseAttacks)
-            {
-                if (playerInput.directionalInput.y > 0)
-                {
-                    animator.SetTrigger("isAttackingUp");
-                }
-                else if (playerInput.directionalInput.y < 0 && playerMovement.isAirborne)
-                {
-                    animator.SetTrigger("isAttackingDown");
-                }
-                else
-                {
-                    //animator.SetTrigger("Attack");
-                    if (animator.GetCurrentAnimatorStateInfo(3).IsName("Attack_1"))
-                    {
-                        animator.SetBool("Attack_2", true);
-                    }
-                    else
-                    {
-                        animator.SetBool("Attack_1", true);
-                    }
-                }
-            }
-            else
-            {
-                var pos = Camera.main.WorldToScreenPoint(playerInput.transform.position);
-                var dir = Input.mousePosition - pos;
-                var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-                if (angle >= 70 && angle <= 130)
-                {
-                    animator.SetTrigger("isAttackingUp");
-                }
-                else if ((angle >= -120 && angle <= -60) && playerMovement.isAirborne)
-                {
-                    animator.SetTrigger("isAttackingDown");
-                }
-                else
-                {
-                    if (animator.GetCurrentAnimatorStateInfo(3).IsName("Attack_1"))
-                    {
-                        animator.SetBool("Attack_2", true);
-                    }
-                    else
-                    {
-                        animator.SetBool("Attack_1", true);
-                    }
-                }
-            }
+        if (animator.GetCurrentAnimatorStateInfo(3).IsName("Attack_1"))
+        {
+            animator.SetBool("Attack_2", true);
         }
         else
         {
-            if (playerInput.directionalInput.y > 0)
-            {
-                animator.SetTrigger("isAttackingUp");
-            }
-            else if (playerInput.directionalInput.y < 0 && playerMovement.isAirborne)
-            {
-                animator.SetTrigger("isAttackingDown");
-            }
-            else
-            {
-                if (animator.GetCurrentAnimatorStateInfo(3).IsName("Attack_1"))
-                {
-                    animator.SetBool("Attack_2", true);
-                }
-                else
-                {
-                    animator.SetBool("Attack_1", true);
-                }
-            }
+            animator.SetBool("Attack_1", true);
         }
     }
 
@@ -139,6 +85,11 @@ public class PlayerAnimations
     {
         animator.SetBool("isJumping", false);
         jumping = false;
+    }
+
+    public void CancelDownAttack()
+    {
+        animator.SetTrigger("isAttackingDown");
     }
 
     public void UnsubscribeAnimationsFromInput()

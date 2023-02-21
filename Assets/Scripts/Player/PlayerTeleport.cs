@@ -90,7 +90,7 @@ public class PlayerTeleport : MonoBehaviour
 
         StartCoroutine(TeleportEffect(teleporEffectDuration));
         StartCoroutine(DamageEnemies(transformToMove, teleportDelay));
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Teleport", GetComponent<Transform>().position);
+        FMODUnity.RuntimeManager.PlayOneShot(teleportSFX, GetComponent<Transform>().position);
     }
 
     public void TeleportToPosition(Transform transformToMove, Vector2 targetPosition)
@@ -105,7 +105,7 @@ public class PlayerTeleport : MonoBehaviour
 
         StartCoroutine(TeleportEffect(teleporEffectDuration));
         StartCoroutine(DamageEnemies(transformToMove, teleportDelay));
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Boomerang Teleport", GetComponent<Transform>().position);
+        FMODUnity.RuntimeManager.PlayOneShot(teleportSFX, GetComponent<Transform>().position);
     }
 
     IEnumerator DamageEnemies(Transform transformToMove, float timer)

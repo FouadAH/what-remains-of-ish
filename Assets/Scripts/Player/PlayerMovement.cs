@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 Velocity { get => velocity; set => velocity = value; }
     public bool IsAttacking { get; set; }
     public bool IsInAttackAnimation { get; set; }
-    public bool attackStop = true; 
+    public bool attackStop = true;
 
     public float AttackSpeed = 2f;
     public Vector2 attackDir;
@@ -90,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem dustParticles;
     public ParticleSystem jumpLandParticles;
     public ParticleSystem jumpDustTrail;
+    public ParticleSystem[] downAttackEffects;
+
     public GameObject jumpDustPostion;
 
     public GameObject jumpTrailParent;
@@ -99,14 +102,15 @@ public class PlayerMovement : MonoBehaviour
     float spritePosXSmoothing;
     float spritePosYSmoothing;
 
-    bool landed = false;
+    bool landed;
     float currentJumpHeight;
     float initialHeight;
 
     [Header("States")]
     public bool isAirborne;
     public bool isDead;
-    public bool isPaused = false;
+    public bool isPaused;
+    public bool inDownAttack;
 
     [Header("Scene Loading Settings")]
     public AnimationCurve exitVelocityXCurve;
@@ -118,9 +122,13 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isLoadingVertical;
     [HideInInspector] public bool isLoadingHorizontal;
 
+    PlayerMovementState movementState;
+    Player player;
+
     private void Start()
     {
         transformToMove = transform;
+        player = transformToMove.GetComponent<Player>();
         playerInput = transformToMove.GetComponent<Player_Input>();
         controller = transformToMove.GetComponent<Controller_2D>();
         playerDash = transformToMove.GetComponent<PlayerDash>();
@@ -136,6 +144,8 @@ public class PlayerMovement : MonoBehaviour
 
         playerInput.OnTeleport += OnBoomerangDashInput;
 
+        playerInput.OnDownAttack += PlayerInput_OnDownAttack;
+
         gravity = -(2 * playerSettings.MaxJumpHeight) / Mathf.Pow(playerSettings.TimeToJumpApex, 2);
 
         maxJumpVelocity = Mathf.Abs(gravity) * playerSettings.TimeToJumpApex;
@@ -146,6 +156,112 @@ public class PlayerMovement : MonoBehaviour
         maxFallSpeed = playerSettings.MaxFallSpeed;
 
         playerAnimations = new PlayerAnimations(GetComponent<Animator>(), transform);
+    }
+
+    private void OnEnable()
+    {
+        IsAttacking = false;
+        isKnockedback_Damage = false;
+        isKnockedback_Hit = false;
+        isSprinting = false;
+    }
+
+    private void PlayerInput_OnDownAttack()
+    {
+        if (!canDownAttack)
+            return;
+
+        if (isAirborne && !IsAttacking)
+        {
+            if (canDownAttack)
+            {
+                StartCoroutine(DownAttackLock());
+                ExecuteDownAttack();
+                StartCoroutine(DownAttackTimer());
+            }
+        }
+    }
+
+    float downAttackCurrentTime;
+
+    public float downAttackDuration = 1f;
+
+    public float downAttackForceX = 2;
+    public float downAttackForceY = -5f;
+
+    public float downAttackSmoothingY = 0.15f;
+    public float downAttackSmoothingX = 0.15f;
+
+    bool canDownAttack = true;
+
+    void ExecuteDownAttack()
+    {
+        inDownAttack = true;
+        playerAnimations.DownAttack();
+        foreach (ParticleSystem ps in downAttackEffects)
+        {
+            ps.Play();
+        }
+    }
+
+    void CancelDownAttack()
+    {
+        Debug.Log("DOWN ATTACK CANCEL");
+
+        if (controller.collitions.below && isKnockedback_Hit)
+        {
+            isKnockedback_Hit = false;
+        }
+
+        StartCoroutine(player.DamageIFrames(0.1f));
+        playerAnimations.CancelDownAttack();
+        IsAttacking = false;
+        inDownAttack = false;
+        velocity.y = 0;
+
+        foreach (ParticleSystem ps in downAttackEffects)
+        {
+            ps.Stop();
+        }
+    }
+    IEnumerator DownAttackLock()
+    {
+        canDownAttack = false;
+        yield return new WaitWhile(() => isAirborne || IsAttacking);
+        canDownAttack = true;
+    }
+
+    IEnumerator DownAttackTimer()
+    {
+        while (downAttackCurrentTime < downAttackDuration && inDownAttack)
+        {
+            downAttackCurrentTime += Time.deltaTime;
+            yield return null;
+        }
+
+        downAttackCurrentTime = 0;
+        inDownAttack = false;
+
+        yield return null;
+    }
+
+    void HandleDownAttack()
+    {
+        float targetVelocityX;
+
+        if (playerInput.directionalInput.x != 0) 
+            targetVelocityX = downAttackForceX * MathF.Sign(playerInput.directionalInput.x);
+        else
+            targetVelocityX = downAttackForceX * transformToMove.localScale.x;
+
+        if (controller.collitions.below || isKnockedback_Hit || isKnockedback_Damage)
+        {
+            CancelDownAttack();
+            return;
+        }
+
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, downAttackSmoothingX);
+        velocity.y = Mathf.SmoothDamp(velocity.y, downAttackForceY, ref velocityYSmoothing, downAttackSmoothingY);
     }
 
     bool wasThouchingGround = false;
@@ -237,12 +353,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float spriteScaleX = Mathf.SmoothDamp(spriteObj.localScale.x, Mathf.Sign(spriteObj.localScale.x), ref spriteScaleXSmoothing, 0.2f);
         float spriteScaleY = Mathf.SmoothDamp(spriteObj.localScale.y, 1, ref spriteScaleYSmoothing, 0.2f);
-
-        //float spritePosX = Mathf.SmoothDamp(spriteObj.transform.position.x, 0, ref spritePosXSmoothing, 0.2f);
-        //float spritePosY = Mathf.SmoothDamp(spriteObj.transform.position.y, 0, ref spritePosYSmoothing, 0.2f);
-
         spriteObj.localScale = new Vector2(spriteScaleX, spriteScaleY);
-        //spriteObj.transform.position = new Vector2(spritePosX, spritePosY);
     }
 
     /// <summary>
@@ -251,10 +362,22 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void Movement()
     {
+        //Debug.Log("<color=cyan>" + movementState + "</color>");
+        if (inDownAttack)
+        {
+            HandleDownAttack();
+            HandleWallSliding();
+
+            movementState = PlayerMovementState.DownAttack;
+            return;
+        }
+
         if (isKnockedback_Damage)
         {
             Knockback(dirKnockback, knockbackDistance);
             HandleWallSliding();
+
+            movementState = PlayerMovementState.KnockbackDamage;
             return;
         }
 
@@ -262,19 +385,25 @@ public class PlayerMovement : MonoBehaviour
         {
             Knockback(dirKnockback, knockbackDistance);
             HandleWallSliding();
+
+            movementState = PlayerMovementState.KnockbackHit;
             return;
         }
 
         if (isDead || GameManager.instance.isPaused || DialogManager.instance.dialogueIsActive)
         {
+            movementState = PlayerMovementState.Dead;
+
             velocity.x = 0;
             velocity.y += gravity * Time.deltaTime;
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
             return;
         }
-
+     
         if (playerTeleport.doBoost)
         {
+            movementState = PlayerMovementState.Teleport;
+
             SetPlayerOrientation(playerInput.directionalInput);
             BoomerandBoost();
             CalculateVelocity();
@@ -284,6 +413,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerDash.isDashing)
         {
+            movementState = PlayerMovementState.Dash;
+
             SetPlayerOrientation(playerInput.directionalInput);
             CalculateVelocity();
 
@@ -291,6 +422,8 @@ public class PlayerMovement : MonoBehaviour
             HandleWallSliding();
             return;
         }
+
+        movementState = PlayerMovementState.Move;
 
         SetPlayerOrientation(playerInput.directionalInput);
         CalculateVelocity();
@@ -717,6 +850,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnDestroy()
     {
         playerAnimations.UnsubscribeAnimationsFromInput();
+
+        playerInput.OnJumpDown -= OnJumpInputDown;
+        playerInput.OnJumpUp -= OnJumpInputUp;
+        playerInput.OnDash -= OnDashInput;
+        playerInput.OnDashUp -= OnDashInputUp;
+
+        playerInput.OnTeleport -= OnBoomerangDashInput;
     }
 
     private void OnDrawGizmos()
@@ -741,4 +881,18 @@ public class PlayerMovement : MonoBehaviour
         startPos = new Vector3(colliderCenter.x - colliderExtents.x, colliderCenter.y - colliderExtents.y, colliderCenter.z);
         Gizmos.DrawLine(startPos, new Vector3(startPos.x - playerSettings.MoveSpeed, startPos.y, startPos.z));
     }
+}
+
+public enum PlayerMovementState
+{
+    Idle,
+    Move,
+    Jump,
+    Dash,
+    KnockbackDamage,
+    KnockbackHit,
+    Teleport,
+    DownAttack,
+    Dead,
+    Paused
 }

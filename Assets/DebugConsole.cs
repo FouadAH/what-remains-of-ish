@@ -16,6 +16,6 @@ public class DebugConsole : MonoBehaviour
     private void Update()
     {
         velocityXDebug.text = playerRuntimeData.velocity.x.ToString();
-        velocityXDebug.text = playerRuntimeData.velocity.y.ToString();
+        velocityYDebug.text = playerRuntimeData.velocity.y.ToString();
     }
 }

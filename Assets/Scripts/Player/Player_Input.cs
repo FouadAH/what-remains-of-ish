@@ -29,6 +29,9 @@ public class Player_Input : MonoBehaviour
 
     public event Action OnInteract = delegate { };
     public event Action OnAttack = delegate { };
+    public event Action OnDownAttack = delegate { };
+    public event Action OnUpAttack = delegate { };
+
     public event Action OnJumpUp = delegate { };
     public event Action OnJumpDown = delegate { };
     public event Action OnDash = delegate { };
@@ -247,7 +250,66 @@ public class Player_Input : MonoBehaviour
         {
             float tempAttackRate = (GameManager.instance.equippedBrooch_01) ? attackRateFast : attackRate;
             nextAttackTime = Time.time + tempAttackRate;
-            OnAttack();
+
+            //if(leftStickInputRaw.y < 0)
+            //{
+            //    OnDownAttack();
+            //}
+
+            //OnAttack();
+
+            if (!globalConfig.gameSettings.controllerConnected)
+            {
+                if (!globalConfig.gameSettings.UseDirectionalMouseAttacks)
+                {
+                    if (directionalInput.y > 0)
+                    {
+                        OnUpAttack?.Invoke();
+                    }
+                    else if (directionalInput.y < 0)
+                    {
+                        OnDownAttack?.Invoke();
+                    }
+                    else
+                    {
+                       OnAttack?.Invoke();
+                    }
+                }
+                else
+                {
+                    var pos = Camera.main.WorldToScreenPoint(transform.position);
+                    var dir = Input.mousePosition - pos;
+                    var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+                    if (angle >= 70 && angle <= 130)
+                    {
+                        OnUpAttack?.Invoke();
+                    }
+                    else if ((angle >= -120 && angle <= -60))
+                    {
+                        OnDownAttack?.Invoke();
+                    }
+                    else
+                    {
+                        OnAttack?.Invoke();
+                    }
+                }
+            }
+            else
+            {
+                if (directionalInput.y > 0)
+                {
+                    OnUpAttack?.Invoke();
+                }
+                else if (directionalInput.y < 0)
+                {
+                    OnDownAttack.Invoke();
+                }
+                else
+                {
+                    OnAttack?.Invoke();
+                }
+            }
         }
         //OnAttack();
     }
