@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class State
+public class State : BaseState
 {
-    public float startTime { get; protected set; }
-    protected FiniteStateMachine stateMachine;
     protected Entity entity;
-    protected string animBoolName;
 
     public State(Entity etity, FiniteStateMachine stateMachine, string animBoolName)
     {
@@ -16,35 +13,9 @@ public class State
         this.animBoolName = animBoolName;
     }
 
-    public virtual void Enter()
+    public override void Enter()
     {
-        startTime = Time.time;
+        base.Enter();
         entity.anim.SetBool(animBoolName, true);
-        DoChecks();
-    }
-
-    public virtual void Exit()
-    {
-        entity.anim.SetBool(animBoolName, false);
-    }
-
-    public virtual void LogicUpdate()
-    {
-
-    }
-
-    public virtual void PhysicsUpdate()
-    {
-        DoChecks();
-    }
-
-    public virtual void LatePhysicsUpdate()
-    {
-
-    }
-
-    public virtual void DoChecks()
-    {
-
     }
 }

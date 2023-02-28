@@ -38,31 +38,6 @@ MonoBehaviour:
   gain:
     m_OverrideState: 1
     m_Value: {x: 1, y: 1, z: 1, w: 0.17720966}
---- !u!114 &-285566167062266542
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29fa0085f50d5e54f8144f766051a691, type: 3}
-  m_Name: FilmGrain
-  m_EditorClassIdentifier: 
-  active: 0
-  type:
-    m_OverrideState: 1
-    m_Value: 0
-  intensity:
-    m_OverrideState: 1
-    m_Value: 0.6
-  response:
-    m_OverrideState: 0
-    m_Value: 1
-  texture:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
 --- !u!114 &-182370167846376631
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -110,7 +85,6 @@ MonoBehaviour:
   - {fileID: -182370167846376631}
   - {fileID: -2470131283502562109}
   - {fileID: -4758578240326687408}
-  - {fileID: -285566167062266542}
 --- !u!114 &3908040986500476115
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -123,10 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
 --- !u!114 &8744395228541219203
 MonoBehaviour:
   m_ObjectHideFlags: 3

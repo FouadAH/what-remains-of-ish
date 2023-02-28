@@ -5,7 +5,7 @@ using UnityEngine;
 using TMPro;
 using Cinemachine;
 
-public class Entity : Savable, IDamagable
+public class Entity : Savable, IDamagable, EntityBase
 {
     public FiniteStateMachine stateMachine;
     public AnimationToStatemachine atsm;
@@ -13,7 +13,7 @@ public class Entity : Savable, IDamagable
     public D_Entity entityData;
     public int facingDirection { get; private set; }
     public Rigidbody2D rb { get; private set; }
-    public Animator anim { get; private set; }
+    public Animator anim { get; set; }
     public GameObject aliveGO { get; private set; }
     public int lastDamageDirection { get; private set; }
     public int MaxHealth { get; set; }

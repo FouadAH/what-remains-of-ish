@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
 /// Scriptable object that holds all the players' movement values (movement speed, jump height, dash settings, health ...) 
 /// </summary>
-[CreateAssetMenu(menuName = "Player/Stats", fileName ="PlayerStats")]
+[CreateAssetMenu(menuName = "Player/Stats", fileName = "PlayerStats")]
 public class PlayerMovementSettings : ScriptableObject
 {
     [Header("Wall Climb Settings")]
@@ -58,25 +59,40 @@ public class PlayerMovementSettings : ScriptableObject
 
     [SerializeField] private float swingForce = 10f;
 
-    public float TimeToJumpApex { get => timeToJumpApex; }
-    public float MinJumpHeight { get => minJumpHeight; }
-    public float MaxJumpHeight { get => maxJumpHeight; }
-    public float JumpBoostX { get => jumpForceX; }
+    //===========MOVE SETTINGS===========
     public float MoveSpeed { get => moveSpeed; }
     public float AccelerationTimeAirborne { get => accelerationTimeAirborne; }
     public float AccelerationTimeGrounded { get => accelerationTimeGrounded; }
+
+    //==========WALL SLIDE SETTINGS=======
     public float WallSlideSpeedMax { get => wallSlideSpeedMax; }
     public float WallStickTime { get => wallStickTime; }
     public float TimeToWallUnstick { get => timeToWallUnstick; set => timeToWallUnstick = value; }
+
+    //==========WALL JUMP SETTINGS=======
     public Vector2 WallJumpclimb { get => wallJumpclimb; }
     public Vector2 WallLeap { get => wallLeap; }
+
+    //=========DASH SETTINGS=========
     public float DashSpeed { get => groundDashSpeed; }
     public float AirDashSpeed { get => airDashSpeed; }
     public float DashSpeedTime { get => dashSpeedTime; }
     public float DashCooldown { get => dashCooldown; }
     public float SwingForce { get => swingForce; }
     public float AccelerationTimeSwing { get => accelerationTimeSwing; }
+
+    //=========JUMP SETTINGS==========
+    public float TimeToJumpApex { get => timeToJumpApex; }
+    public float MinJumpHeight { get => minJumpHeight; }
+    public float MaxJumpHeight { get => maxJumpHeight; }
+    public float JumpBoostX { get => jumpForceX; }
     public float MaxJumpAssistanceTime { get => maxJumpAssistanceTime; set => maxJumpAssistanceTime = value; }
     public int MaxJumpBufferFrames { get => maxJumpBufferFrames; set => maxJumpBufferFrames = value; }
+    public float MaxJumpVelocity { get => Mathf.Abs(Gravity) * TimeToJumpApex; }
+    public float MinJumpVelocity { get => Mathf.Sqrt(2 * Mathf.Abs(Gravity) * MinJumpHeight); }
     public float MaxFallSpeed { get => maxFallSpeed; set => maxFallSpeed = value; }
+
+    //=========GRAVITY SETTINGS=========
+
+    public float Gravity { get => -(2 * MaxJumpHeight) / Mathf.Pow(TimeToJumpApex, 2); }
 }

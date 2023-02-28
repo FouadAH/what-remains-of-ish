@@ -227,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator DownAttackLock()
     {
         canDownAttack = false;
-        yield return new WaitWhile(() => isAirborne || IsAttacking);
+        yield return new WaitWhile(() => IsAttacking);
         canDownAttack = true;
     }
 
@@ -539,8 +539,14 @@ public class PlayerMovement : MonoBehaviour
 
         DetectLedges();
 
+        if (playerDash.isDashing)
+        {
+            targetVelocityX = dashSpeed;
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, playerSettings.DashSpeedTime);
+        }
+
         //Calculating X velocity
-        if (controller.collitions.below)
+        else if (controller.collitions.below)
         {
             if (IsAttacking && attackStop && !isKnockedback_Damage && !isKnockedback_Hit && !hasDetectedLedge)
             {
@@ -566,11 +572,6 @@ public class PlayerMovement : MonoBehaviour
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
             }
 
-        }
-        else if (playerDash.isDashing)
-        {
-            targetVelocityX = dashSpeed;
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, playerSettings.DashSpeedTime);
         }
         else
         {
@@ -703,6 +704,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerDash.isDashing)
         {
+            jumpBufferCounter = 100;
             cayoteTimer = 100;
             canJump = false;
         }

@@ -55,10 +55,15 @@ public class Controller_2D : RayCast_Controller
 
         HorizontalCollitions(ref moveAmount);
 
-        if (moveAmount.y != 0)
+        if (moveAmount.y == 0)
+        {
+            VertCol(ref moveAmount);
+        }
+        else
         {
             VerticalCollitions(ref moveAmount);
         }
+
         if (standingOnPlatform == true)
         {
             collitions.below = true;
@@ -136,6 +141,28 @@ public class Controller_2D : RayCast_Controller
         }
     }
 
+    void VertCol(ref Vector2 moveAmount)
+    {
+        float directionY = -1;
+        float rayLength = 0.01f + skinWidth;
+
+        for (int i = 0; i < verticalRayCount; i++)
+        {
+            Vector2 rayOrigin = raycastorigins.bottomLeft;
+            rayOrigin += Vector2.right * (verticalRaySapacing * i);
+
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collitionMask);
+
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.magenta);
+
+            if (hit)
+            {
+                rayLength = hit.distance;
+                collitions.below = true;
+            }
+        }
+    }
+
     /// <summary>
     /// Method that handles vertical collition logic 
     /// </summary>
@@ -151,8 +178,7 @@ public class Controller_2D : RayCast_Controller
             rayOrigin += Vector2.right * (verticalRaySapacing * i + moveAmount.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collitionMask);
 
-
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
 
             if (hit)
             {

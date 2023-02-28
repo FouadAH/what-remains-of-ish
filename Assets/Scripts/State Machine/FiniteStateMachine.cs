@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class FiniteStateMachine
 {
-    public State currentState { get; private set; }
-    public State previousState { get; private set; }
+    public BaseState currentState { get; private set; }
+    public BaseState previousState { get; private set; }
 
-    public void Initialize(State startingState)
+    public void Initialize(BaseState startingState)
     {
         currentState = startingState;
         currentState.Enter();
     }
 
-    public void ChangeState(State newState)
+    public void ChangeState(BaseState newState)
     {
         previousState = currentState;
 

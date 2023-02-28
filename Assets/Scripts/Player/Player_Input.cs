@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -20,8 +21,10 @@ public class Player_Input : MonoBehaviour
 
     public float attackRate = 0.3f;
     public float attackRateFast = 0.2f;
+    public float downAttackRate= 0.5f;
 
     private float nextAttackTime;
+    private float nextDownAttackTime;
 
     public event Action OnFire = delegate{};
     public event Action OnAim = delegate { };
@@ -157,13 +160,6 @@ public class Player_Input : MonoBehaviour
         inputActions.Player.Enable();
     }
 
-
-    private void Jump_canceled(InputAction.CallbackContext obj)
-    {
-        jumping = false;
-        OnJumpUp();
-    }
-
     private void Aim_canceled(InputAction.CallbackContext obj)
     {
         aiming = false;
@@ -199,18 +195,41 @@ public class Player_Input : MonoBehaviour
 
     private void Teleport_performed(InputAction.CallbackContext obj)
     {
-        OnTeleport();
+        OnTeleport?.Invoke();
     }
 
     private void Heal_performed(InputAction.CallbackContext obj)
     {
-        OnHeal();
+        OnHeal?.Invoke();
     }
 
     private void Jump_performed(InputAction.CallbackContext obj)
     {
+        jumpBufferCounter = 0;
         jumping = true;
-        OnJumpDown();
+        OnJumpDown?.Invoke();
+    }
+
+    private void Jump_canceled(InputAction.CallbackContext obj)
+    {
+        jumping = false;
+        OnJumpUp?.Invoke();
+    }
+
+    private int jumpBufferCounter = 100;
+    private int MaxJumpBufferFrames = 10;
+    
+    public bool CheckJumpBuffer()
+    {
+        return jumpBufferCounter < MaxJumpBufferFrames;
+    }
+
+    void JumpBuffer()
+    {
+        if (jumpBufferCounter < MaxJumpBufferFrames)
+        {
+            jumpBufferCounter += 1;
+        }
     }
 
     private void Aim_started(InputAction.CallbackContext obj)
@@ -268,7 +287,7 @@ public class Player_Input : MonoBehaviour
                     }
                     else if (directionalInput.y < 0)
                     {
-                        OnDownAttack?.Invoke();
+                        HandleDownAttack();
                     }
                     else
                     {
@@ -287,7 +306,7 @@ public class Player_Input : MonoBehaviour
                     }
                     else if ((angle >= -120 && angle <= -60))
                     {
-                        OnDownAttack?.Invoke();
+                        HandleDownAttack();
                     }
                     else
                     {
@@ -303,7 +322,7 @@ public class Player_Input : MonoBehaviour
                 }
                 else if (directionalInput.y < 0)
                 {
-                    OnDownAttack.Invoke();
+                    HandleDownAttack();
                 }
                 else
                 {
@@ -314,8 +333,27 @@ public class Player_Input : MonoBehaviour
         //OnAttack();
     }
 
+    void HandleDownAttack()
+    {
+        if (CanDownAttack())
+        {
+            nextDownAttackTime = Time.time + downAttackRate;
+            OnDownAttack?.Invoke();
+        }
+    }
 
     private void Update()
+    {
+        CheckInputDeviceType();
+        StickInput();
+    }
+
+    private void FixedUpdate()
+    {
+        JumpBuffer();
+    }
+
+    private void CheckInputDeviceType()
     {
         if (Gamepad.all.Count > 0)
         {
@@ -325,7 +363,10 @@ public class Player_Input : MonoBehaviour
         {
             controllerConnected = false;
         }
+    }
 
+    private void StickInput()
+    {
         mapRightStickInput = inputActions.UI.MapMovement.ReadValue<Vector2>();
         leftStickInputRaw = inputActions.Player.Move.ReadValue<Vector2>();
         rightStickInputRaw = inputActions.Player.Look.ReadValue<Vector2>();
@@ -356,12 +397,15 @@ public class Player_Input : MonoBehaviour
             rightStickInput = rightStickInput.normalized * ((rightStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
         }
         rightStickInput = new Vector2(Mathf.Round(rightStickInput.x), Mathf.Round(rightStickInput.y));
-
-       
     }
 
     private bool CanAttack()
     {
         return Time.time >= nextAttackTime;
+    }
+
+    private bool CanDownAttack()
+    {
+        return Time.time >= nextDownAttackTime;
     }
 }
