@@ -54,6 +54,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump settings")]
     public float jumpForceX = 25f;
     public float jumpApexGravityModifier = 0.8f;
+
+    [Range(0f, 1f)]
+    public float jumpAttackGravityModifier = 0.5f;
+
     public bool canJump;
     public bool canDoubleJump;
     float MAX_JUMP_ASSIST_TIME;
@@ -213,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
 
     void CancelDownAttack()
     {
-        Debug.Log("DOWN ATTACK CANCEL");
+        //Debug.Log("DOWN ATTACK CANCEL");
 
         if (controller.collitions.below || controller.collitions.right || controller.collitions.left)
         {
@@ -549,8 +553,8 @@ public class PlayerMovement : MonoBehaviour
         float smoothTimeReduced = (controller.collitions.below ? accelReducedGrounded : accelReducedAirborne);
 
         currentJumpHeight = transform.position.y - initialHeight;
-        float mult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? jumpApexGravityModifier : 1f;
-        mult = (playerTeleport.doBoost) ? boostGravityMultiplier : mult;
+        float gravityMult = (currentJumpHeight >= playerSettings.MaxJumpHeight) ? jumpApexGravityModifier : 1f;
+        gravityMult = (playerTeleport.doBoost) ? boostGravityMultiplier : gravityMult;
 
         DetectLedges();
 
@@ -601,6 +605,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
             }
+
+            if (IsAttacking && attackStop && !isKnockedback_Damage && !isKnockedback_Hit)
+            {
+                if (velocity.y < 0) 
+                    gravityMult = jumpAttackGravityModifier;
+            }
         }
 
         //Calculating Y velocity
@@ -610,7 +620,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            velocity.y += gravity * mult * Time.deltaTime;
+            velocity.y += gravity * gravityMult * Time.deltaTime;
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
         }
     }
