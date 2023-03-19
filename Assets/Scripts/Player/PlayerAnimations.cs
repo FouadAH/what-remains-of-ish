@@ -89,6 +89,7 @@ public class PlayerAnimations
 
     public void CancelDownAttack()
     {
+        animator.SetBool("DownAttack", false);
         animator.SetTrigger("isAttackingDown");
     }
 

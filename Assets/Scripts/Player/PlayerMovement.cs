@@ -175,6 +175,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (canDownAttack)
             {
+                if (playerInput.directionalInput.x != 0)
+                    downAttackDirection = playerInput.directionalInput.x;
+                else
+                    downAttackDirection = transformToMove.localScale.x;
+
                 StartCoroutine(DownAttackLock());
                 ExecuteDownAttack();
                 StartCoroutine(DownAttackTimer());
@@ -192,6 +197,8 @@ public class PlayerMovement : MonoBehaviour
     public float downAttackSmoothingY = 0.15f;
     public float downAttackSmoothingX = 0.15f;
 
+    float downAttackDirection = 0;
+
     bool canDownAttack = true;
 
     void ExecuteDownAttack()
@@ -208,13 +215,20 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("DOWN ATTACK CANCEL");
 
-        if (controller.collitions.below && isKnockedback_Hit)
+        if (controller.collitions.below || controller.collitions.right || controller.collitions.left)
         {
             isKnockedback_Hit = false;
         }
 
         StartCoroutine(player.DamageIFrames(0.1f));
         playerAnimations.CancelDownAttack();
+
+        if (isKnockedback_Hit)
+        {
+            StopCoroutine(DownAttackLock());
+            canDownAttack = true;
+        }
+
         IsAttacking = false;
         inDownAttack = false;
         velocity.y = 0;
@@ -241,18 +255,19 @@ public class PlayerMovement : MonoBehaviour
 
         downAttackCurrentTime = 0;
         inDownAttack = false;
+        IsAttacking = false;
+        playerAnimations.CancelDownAttack();
 
+        foreach (ParticleSystem ps in downAttackEffects)
+        {
+            ps.Stop();
+        }
         yield return null;
     }
 
     void HandleDownAttack()
     {
-        float targetVelocityX;
-
-        if (playerInput.directionalInput.x != 0) 
-            targetVelocityX = downAttackForceX * MathF.Sign(playerInput.directionalInput.x);
-        else
-            targetVelocityX = downAttackForceX * transformToMove.localScale.x;
+        float targetVelocityX = downAttackForceX * MathF.Sign(downAttackDirection);
 
         if (controller.collitions.below || isKnockedback_Hit || isKnockedback_Damage)
         {
