@@ -830,6 +830,15 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Button"",
+                    ""id"": ""e648b067-ca40-44fe-a4f9-a7d7aed88f3a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1547,6 +1556,17 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""463c43eb-dd79-4823-b109-591db8101011"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1649,6 +1669,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         m_UI_BroocheEquip = m_UI.FindAction("BroocheEquip", throwIfNotFound: true);
         m_UI_GameMenu_Navigate = m_UI.FindAction("GameMenu_Navigate", throwIfNotFound: true);
         m_UI_GameMenu_Back = m_UI.FindAction("GameMenu_Back", throwIfNotFound: true);
+        m_UI_Debug = m_UI.FindAction("Debug", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1855,6 +1876,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_BroocheEquip;
     private readonly InputAction m_UI_GameMenu_Navigate;
     private readonly InputAction m_UI_GameMenu_Back;
+    private readonly InputAction m_UI_Debug;
     public struct UIActions
     {
         private @PlayerInputMaster m_Wrapper;
@@ -1877,6 +1899,7 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         public InputAction @BroocheEquip => m_Wrapper.m_UI_BroocheEquip;
         public InputAction @GameMenu_Navigate => m_Wrapper.m_UI_GameMenu_Navigate;
         public InputAction @GameMenu_Back => m_Wrapper.m_UI_GameMenu_Back;
+        public InputAction @Debug => m_Wrapper.m_UI_Debug;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1940,6 +1963,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @GameMenu_Back.started -= m_Wrapper.m_UIActionsCallbackInterface.OnGameMenu_Back;
                 @GameMenu_Back.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnGameMenu_Back;
                 @GameMenu_Back.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnGameMenu_Back;
+                @Debug.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDebug;
+                @Debug.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDebug;
+                @Debug.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDebug;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1998,6 +2024,9 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
                 @GameMenu_Back.started += instance.OnGameMenu_Back;
                 @GameMenu_Back.performed += instance.OnGameMenu_Back;
                 @GameMenu_Back.canceled += instance.OnGameMenu_Back;
+                @Debug.started += instance.OnDebug;
+                @Debug.performed += instance.OnDebug;
+                @Debug.canceled += instance.OnDebug;
             }
         }
     }
@@ -2083,5 +2112,6 @@ public partial class @PlayerInputMaster : IInputActionCollection2, IDisposable
         void OnBroocheEquip(InputAction.CallbackContext context);
         void OnGameMenu_Navigate(InputAction.CallbackContext context);
         void OnGameMenu_Back(InputAction.CallbackContext context);
+        void OnDebug(InputAction.CallbackContext context);
     }
 }

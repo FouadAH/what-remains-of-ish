@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class DeathController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public DeathDrop deathDropPrefab;
+
+    public PlayerDataSO playerData;
+    public PlayerRuntimeDataSO PlayerRuntimeDataSO;
+
+    DeathDrop deathDrop;
+
+    public void OnPlayerDeath()
     {
-        
+        int lostCurrency = Mathf.FloorToInt(playerData.playerCurrency.Value / 2);
+        deathDrop = Instantiate(deathDropPrefab, PlayerRuntimeDataSO.lastPlayerGroundedPosition, Quaternion.identity, transform);
+        deathDrop.InitializeDeathDrop(lostCurrency, PlayerRuntimeDataSO.lastPlayerGroundedPosition);
+        deathDrop.pickUpEvent += OnPickupDeathDrop;
+        playerData.playerCurrency.Value -= lostCurrency;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnPickupDeathDrop(int pickupAmount)
     {
-        
+        playerData.playerCurrency.Value += pickupAmount;
+        deathDrop.pickUpEvent -= OnPickupDeathDrop;
+
+        Destroy(deathDrop.gameObject);
     }
+
 }

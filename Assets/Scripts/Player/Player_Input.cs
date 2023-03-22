@@ -46,6 +46,8 @@ public class Player_Input : MonoBehaviour
     public event Action OnDialogueNext = delegate { };
 
     public event Action OnInputDeviceChanged = delegate { };
+    public event Action<bool> OnPause;
+    public event Action OnDebug;
 
     public bool controllerConnected = false;
 
@@ -57,6 +59,8 @@ public class Player_Input : MonoBehaviour
     public GameEvent inputChangedEvent;
     public GameEvent interactEvent;
     public GlobalConfigSO globalConfig;
+
+    bool startDisabled;
 
     private void Awake()
     {
@@ -83,10 +87,19 @@ public class Player_Input : MonoBehaviour
 
         inputActions.Player.Dash.canceled += Dash_canceled; 
         inputActions.Player.Aim.canceled += Aim_canceled; 
-        inputActions.Player.Jump.canceled += Jump_canceled; 
+        inputActions.Player.Jump.canceled += Jump_canceled;
+        inputActions.UI.Pause.started += Pause_started;
+
+        inputActions.UI.Debug.started += Debug_started;
+
 
         InputSystem.onDeviceChange += InputSystem_onDeviceChange;
         
+    }
+
+    private void Debug_started(InputAction.CallbackContext obj)
+    {
+        OnDebug?.Invoke();
     }
 
     private void OnDestroy()
@@ -106,7 +119,62 @@ public class Player_Input : MonoBehaviour
         inputActions.Player.Aim.canceled -= Aim_canceled;
         inputActions.Player.Jump.canceled -= Jump_canceled;
 
+        inputActions.UI.Pause.started -= Pause_started;
+        inputActions.UI.Debug.started -= Debug_started;
+
         InputSystem.onDeviceChange -= InputSystem_onDeviceChange;
+    }
+
+
+    private void Update()
+    {
+        if (Gamepad.all.Count > 0)
+        {
+            controllerConnected = true;
+        }
+        else
+        {
+            controllerConnected = false;
+        }
+
+        mapRightStickInput = inputActions.UI.MapMovement.ReadValue<Vector2>();
+        leftStickInputRaw = inputActions.Player.Move.ReadValue<Vector2>();
+        rightStickInputRaw = inputActions.Player.Look.ReadValue<Vector2>();
+
+        if (!freeAimMode)
+        {
+            Vector2 leftStickInput = leftStickInputRaw;
+
+            if (leftStickInput.magnitude < inputDeadZone)
+            {
+                leftStickInput = Vector2.zero;
+            }
+            else
+            {
+                leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
+            }
+            directionalInput = new Vector2(Mathf.Round(leftStickInput.x), Mathf.Round(leftStickInput.y));
+        }
+
+        rightStickInput = inputActions.Player.CameraLook.ReadValue<Vector2>();
+
+        if (rightStickInput.magnitude < inputDeadZone)
+        {
+            rightStickInput = Vector2.zero;
+        }
+        else
+        {
+            rightStickInput = rightStickInput.normalized * ((rightStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
+        }
+        rightStickInput = new Vector2(Mathf.Round(rightStickInput.x), Mathf.Round(rightStickInput.y));
+
+
+    }
+
+
+    private void Pause_started(InputAction.CallbackContext obj)
+    {
+        OnPause?.Invoke(false);
     }
 
     private void Submit_started(InputAction.CallbackContext obj)
@@ -128,8 +196,6 @@ public class Player_Input : MonoBehaviour
     {
         OnQuickThrow();
     }
-
-    bool startDisabled;
 
     public void DisablePlayerInput()
     {
@@ -195,6 +261,7 @@ public class Player_Input : MonoBehaviour
         controllerConnected = Gamepad.all.Count > 0;
         globalConfig.gameSettings.controllerConnected = controllerConnected;
         inputChangedEvent.Raise();
+        OnPause?.Invoke(true);
     }
 
     private void Teleport_performed(InputAction.CallbackContext obj)
@@ -314,51 +381,6 @@ public class Player_Input : MonoBehaviour
         //OnAttack();
     }
 
-
-    private void Update()
-    {
-        if (Gamepad.all.Count > 0)
-        {
-            controllerConnected = true;
-        }
-        else
-        {
-            controllerConnected = false;
-        }
-
-        mapRightStickInput = inputActions.UI.MapMovement.ReadValue<Vector2>();
-        leftStickInputRaw = inputActions.Player.Move.ReadValue<Vector2>();
-        rightStickInputRaw = inputActions.Player.Look.ReadValue<Vector2>();
-
-        if (!freeAimMode)
-        {
-            Vector2 leftStickInput = leftStickInputRaw;
-
-            if (leftStickInput.magnitude < inputDeadZone)
-            {
-                leftStickInput = Vector2.zero;
-            }
-            else
-            {
-                leftStickInput = leftStickInput.normalized * ((leftStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
-            }
-            directionalInput = new Vector2(Mathf.Round(leftStickInput.x), Mathf.Round(leftStickInput.y));
-        }
-
-        rightStickInput = inputActions.Player.CameraLook.ReadValue<Vector2>();
-
-        if (rightStickInput.magnitude < inputDeadZone)
-        {
-            rightStickInput = Vector2.zero;
-        }
-        else
-        {
-            rightStickInput = rightStickInput.normalized * ((rightStickInput.magnitude - inputDeadZone) / (1 - inputDeadZone));
-        }
-        rightStickInput = new Vector2(Mathf.Round(rightStickInput.x), Mathf.Round(rightStickInput.y));
-
-       
-    }
 
     private bool CanAttack()
     {

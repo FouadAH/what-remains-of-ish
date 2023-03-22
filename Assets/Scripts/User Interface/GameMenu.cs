@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameMenu : MonoBehaviour
 {
     PlayerInputMaster inputActions;
+    Player_Input player_Input;
 
     public Canvas gameMenu;
     public GameObject mapScreen;
@@ -38,9 +39,11 @@ public class GameMenu : MonoBehaviour
     private void Start()
     {
         eventSystem = EventSystem.current;
-        inputActions = FindObjectOfType<Player_Input>().inputActions;
+        player_Input = FindObjectOfType<Player_Input>();
+        inputActions = player_Input.inputActions;
+
         inputActions.UI.GameMenu_Navigate.started += GameMenu_Navigate_started;
-        inputActions.UI.Pause.started += Pause_started;
+        player_Input.OnPause += TogglePause;
 
         for (int i = 0; i < navButtonsParent.childCount; i++)
         {
@@ -54,7 +57,6 @@ public class GameMenu : MonoBehaviour
     private void Pause_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         TogglePause();
-        pauseClicked.Raise();
     }
 
     private void GameMenu_Navigate_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -76,8 +78,16 @@ public class GameMenu : MonoBehaviour
         }
     }
 
-    public void TogglePause()
+    public void TogglePause(bool isForced = false)
     {
+        pauseClicked.Raise();
+
+        if (isForced)
+        {
+            Pause();
+            return;
+        }
+
         if (ShopManager.instance.shopIsActive)
             return;
 

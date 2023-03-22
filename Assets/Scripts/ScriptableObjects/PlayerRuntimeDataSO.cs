@@ -6,5 +6,7 @@ using UnityEngine;
 public class PlayerRuntimeDataSO : ScriptableObject
 {
     public Vector2 playerPosition;
+    public Vector2 lastPlayerGroundedPosition;
+
     public Vector2 velocity;
 }

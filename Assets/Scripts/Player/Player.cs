@@ -77,6 +77,7 @@ public class Player : MonoBehaviour, IAttacker {
     public InventoryItemSO healingBrooche;
 
     [Header("Player Events")]
+    public GameEvent PlayerDeathEvent;
     public IntegerGameEvent PlayerHitEvent;
     public IntegerGameEvent PlayerHealEvent;
 
@@ -119,6 +120,7 @@ public class Player : MonoBehaviour, IAttacker {
 
         playerInput = GetComponent<Player_Input>();
         playerInput.OnHeal += Heal;
+        playerInput.OnDebug += PlayerInput_OnDebug;
 
         flashEffect = GetComponentInChildren<ColouredFlash>();
         cameraController = Camera.main.GetComponent<CameraController>();
@@ -135,18 +137,39 @@ public class Player : MonoBehaviour, IAttacker {
         }
 
 #if UNITY_EDITOR
-        //if (playerDebugMode)
-        //{
-        //    gm.lastCheckpointPos = transform.position;
-        //    gm.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
-        //    gm.lastCheckpointLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        if (playerDebugMode)
+        {
+            playerData.lastCheckpointPos.X = transform.position.x;
+            playerData.lastCheckpointPos.Y = transform.position.y;
 
-        //    gm.lastSavepointPos = transform.position;
-        //    gm.lastSavepointLevelPath = SceneManager.GetActiveScene().path;
-        //    gm.lastSavepointLevelIndex = SceneManager.GetActiveScene().buildIndex;
-        //}
+            playerData.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
+            playerData.lastCheckpointLevelIndex.Value = SceneManager.GetActiveScene().buildIndex;
+
+            playerData.lastSavepointPos.X = transform.position.x;
+            playerData.lastSavepointPos.Y = transform.position.y;
+
+            playerData.lastSavepointLevelPath = SceneManager.GetActiveScene().path;
+            playerData.lastSavepointLevelIndex.Value = SceneManager.GetActiveScene().buildIndex;
+        }
 #endif
 
+    }
+
+    private void PlayerInput_OnDebug()
+    {
+        playerDebugMode = true;
+
+        playerData.lastCheckpointPos.X = transform.position.x;
+        playerData.lastCheckpointPos.Y = transform.position.y;
+
+        playerData.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
+        playerData.lastCheckpointLevelIndex.Value = SceneManager.GetActiveScene().buildIndex;
+
+        playerData.lastSavepointPos.X = transform.position.x;
+        playerData.lastSavepointPos.Y = transform.position.y;
+
+        playerData.lastSavepointLevelPath = SceneManager.GetActiveScene().path;
+        playerData.lastSavepointLevelIndex.Value = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void Update()
@@ -241,6 +264,8 @@ public class Player : MonoBehaviour, IAttacker {
     /// <returns></returns>
     private IEnumerator PlayerDeath()
     {
+        PlayerDeathEvent.Raise();
+
         playerMovement.isDead = true;
         playerInput.DisablePlayerInput();
         

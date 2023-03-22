@@ -224,8 +224,8 @@ public class PlayerMovement : MonoBehaviour
             isKnockedback_Hit = false;
         }
 
-        StartCoroutine(player.DamageIFrames(0.1f));
-        playerAnimations.CancelDownAttack();
+        StartCoroutine(player.DamageIFrames(0.15f));
+        StartCoroutine(CancelDownAttackRoutine());
 
         if (isKnockedback_Hit)
         {
@@ -241,6 +241,12 @@ public class PlayerMovement : MonoBehaviour
         {
             ps.Stop();
         }
+    }
+
+    IEnumerator CancelDownAttackRoutine()
+    {
+        yield return new WaitForFixedUpdate();
+        playerAnimations.CancelDownAttack();
     }
     IEnumerator DownAttackLock()
     {
@@ -358,6 +364,11 @@ public class PlayerMovement : MonoBehaviour
             landed = false;
         }
 
+        if(controller.collitions.below)
+        {
+            playerRuntimeData.lastPlayerGroundedPosition = transform.position;
+        }
+
         if (landed && !wasThouchingGround)
         {
             jumpLandParticles.Play();
@@ -416,6 +427,8 @@ public class PlayerMovement : MonoBehaviour
             velocity.x = 0;
             velocity.y += gravity * Time.deltaTime;
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
+
+            IsAttacking = false;
             return;
         }
      
