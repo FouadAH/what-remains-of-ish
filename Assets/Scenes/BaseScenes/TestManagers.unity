@@ -618,6 +618,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.49999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.50000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
       objectReference: {fileID: 0}
@@ -639,22 +649,47 @@ PrefabInstance:
     - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1356
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 762
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022005915223, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0.000061035156
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022005915224, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: m_Type
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712162022005915224, guid: bca427563cbfdf9459bc5fbfa3607995,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1712162022005915224, guid: bca427563cbfdf9459bc5fbfa3607995,
         type: 3}
