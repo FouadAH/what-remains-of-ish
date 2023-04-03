@@ -11,6 +11,7 @@ public class ShopManager : MonoBehaviour
     [Header("UI")]
 
     public Canvas shopCanvas;
+    public Scrollbar scrollbar;
     public RectTransform shopContent;
     public GameObject shopView;
     public GameObject confirmPanel;
@@ -74,6 +75,7 @@ public class ShopManager : MonoBehaviour
 
         shopCanvas.enabled = true;
         ClearItems();
+        scrollbar.value = 0;
     }
 
     public void DisableShopUI()
@@ -108,12 +110,22 @@ public class ShopManager : MonoBehaviour
 
         }
 
-        //Select first item
+        //Select first interatable item
         if (currentShopItems.Count > 0)
         {
-            EventSystem.current.SetSelectedGameObject(shopContent.GetChild(0).gameObject);
+            //EventSystem.current.SetSelectedGameObject(shopContent.GetChild(0).gameObject);
+            foreach (var item in shopContent.transform.GetComponentsInChildren<Button>())
+            {
+                if (item.interactable)
+                {
+                    EventSystem.current.SetSelectedGameObject(item.gameObject);
+                }
+            }
+
             Debug.Log(EventSystem.current.currentSelectedGameObject);
         }
+
+
     }
 
     void InitItem(ShopItemSO shopItem)

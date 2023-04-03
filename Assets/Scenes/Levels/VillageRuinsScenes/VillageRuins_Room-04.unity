@@ -3446,6 +3446,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
@@ -73785,7 +73786,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -80763,7 +80764,7 @@ PrefabInstance:
     - target: {fileID: 5781173815511787618, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
         type: 3}
       propertyPath: m_Size.x
-      value: 5.916046
+      value: 12.210602
       objectReference: {fileID: 0}
     - target: {fileID: 5781173815511787618, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
         type: 3}
@@ -80772,8 +80773,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5781173815511787618, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781173815511787618, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
+        type: 3}
       propertyPath: m_Offset.x
-      value: 8.442947
+      value: 0.89704895
       objectReference: {fileID: 0}
     - target: {fileID: 5781173815511787618, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
         type: 3}
@@ -80812,13 +80818,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7902904172216396626, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
         type: 3}
+      propertyPath: m_Size.x
+      value: 12.483032
+      objectReference: {fileID: 0}
+    - target: {fileID: 7902904172216396626, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
+        type: 3}
       propertyPath: m_Size.y
       value: 3.4524593
       objectReference: {fileID: 0}
     - target: {fileID: 7902904172216396626, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
         type: 3}
+      propertyPath: m_Offset.x
+      value: 4.335663
+      objectReference: {fileID: 0}
+    - target: {fileID: 7902904172216396626, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
+        type: 3}
       propertyPath: m_Offset.y
       value: -0.18203449
+      objectReference: {fileID: 0}
+    - target: {fileID: 7902904172216396628, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.05
       objectReference: {fileID: 0}
     - target: {fileID: 7902904172216396629, guid: 7cc0aad1314ceab4f9e13756491ee8e8,
         type: 3}
@@ -89037,6 +89058,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
@@ -91577,6 +91599,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2

@@ -18,32 +18,44 @@ public class GameLoader : MonoBehaviour
     public PlayerDataSO playerData;
 
     int currentSceneIndex;
+    bool isNewGame;
+
+    public static GameLoader Instance { get; private set; }
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         currentSceneIndex = gameObject.scene.buildIndex;
-    }
-    public void StartGame()
-    {
-        StartCoroutine(NewGame());
+        DontDestroyOnLoad(this);
     }
 
-    public void LoadEvent()
+    public void OnStartLoading()
     {
-        StartCoroutine(Loading());
+        loadingStartEvent.Raise();
+    }
+
+    public void OnLoadNewGame()
+    {
+        isNewGame = true;
+        loadingStartEvent.Raise();
     }
 
     public void QuitGame()
     {
         Application.Quit();
-        Debug.Log("Quit");
     }
 
-    private IEnumerator NewGame()
+    public void StartLoadingScene()
     {
-        loadingStartEvent.Raise();
         SceneManager.UnloadSceneAsync(currentSceneIndex).completed += CurrentSceneUnload;
-        yield return null;
     }
 
     private void CurrentSceneUnload(AsyncOperation obj)
@@ -58,8 +70,6 @@ public class GameLoader : MonoBehaviour
     {
         if (obj.isDone)
         {
-            //GameManager.instance.InitialSpawn();
-            spawnPlayerEvent.Raise();
             SceneManager.LoadSceneAsync(playerData.lastSavepointLevelIndex.Value, LoadSceneMode.Additive).completed += LoadLevelComplete;
         }
     }
@@ -69,16 +79,10 @@ public class GameLoader : MonoBehaviour
         if (obj.isDone)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(playerData.lastSavepointLevelIndex.Value));
+
+            spawnPlayerEvent.Raise();
             loadInitialScene.Raise();
             loadingEndEvent.Raise();
         }
-    }
-
-    private IEnumerator Loading()
-    {
-        loadingStartEvent.Raise();
-        SceneManager.UnloadSceneAsync(currentSceneIndex).completed += CurrentSceneUnload;
-
-        yield return null;
     }
 }

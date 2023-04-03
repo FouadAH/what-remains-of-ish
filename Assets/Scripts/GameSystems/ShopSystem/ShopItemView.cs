@@ -11,6 +11,11 @@ public class ShopItemView : MonoBehaviour, ISelectHandler, IPointerEnterHandler
     public Button selectButton;
     public ShopItemSO itemSO;
 
+    private void Start()
+    {
+        selectButton.interactable = (ShopManager.instance.playerCurrency.Value >= itemSO.GetCost());
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         ShopManager.instance.itemName.text = itemSO.GetName();

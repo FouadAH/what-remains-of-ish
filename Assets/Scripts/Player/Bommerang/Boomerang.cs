@@ -66,6 +66,18 @@ public class Boomerang : MonoBehaviour
 
     Rumbler rumbler;
 
+    int bounceCount;
+    int enemiesDamaged;
+
+    float startTime;
+    float boomerangDuration;
+
+    bool isComingBack;
+    bool hasExploded;
+    bool hasFrozen;
+    bool isStopped ;
+    bool isInCollider;
+
     private void Awake()
     {
         player = FindObjectOfType<Player>();
@@ -106,8 +118,6 @@ public class Boomerang : MonoBehaviour
         }
     }
 
-    float startTime;
-    bool isComingBack = false;
     private void FixedUpdate()
     {
         if (isComingBack)
@@ -133,9 +143,6 @@ public class Boomerang : MonoBehaviour
         //}
     }
 
-    bool hasExploded = false;
-    bool hasFrozen = false;
-
     void InitiateExplosion()
     {
         if (!hasExploded)
@@ -158,14 +165,11 @@ public class Boomerang : MonoBehaviour
         }
     }
 
-    bool firstTake = true;
-
     public void Launch()
     {
         rgd2D.AddForce(transform.up * boomerangLauncher.throwForce, ForceMode2D.Impulse);
     }
 
-    float boomerangDuration;
     private IEnumerator BoomerangCountdown()
     {
         back = false;
@@ -234,7 +238,6 @@ public class Boomerang : MonoBehaviour
         }
     }
 
-    bool isStopped = false;
     public void StopBoomerang()
     {
         if (!isStopped)
@@ -261,7 +264,6 @@ public class Boomerang : MonoBehaviour
         col2D.isTrigger = true;
     }
 
-    int bounceCount = 0;
     void BounceOffWall()
     {
         foreach(Transform wallDetectionObject in wallDetectionObjs)
@@ -321,7 +323,6 @@ public class Boomerang : MonoBehaviour
         }
     }
 
-    int enemiesDamaged = 0;
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.interactable))
@@ -344,11 +345,8 @@ public class Boomerang : MonoBehaviour
         }
     }
 
-    public static bool IsInLayerMask(int layer, LayerMask layermask)
-    {
-        return layermask == (layermask | (1 << layer));
-    }
     public float wallCheckersDistance = 1.5f;
+
     public bool IsInaccesable()
     {
         RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, wallCheckersDistance, boomerangLauncher.hittable);
@@ -357,7 +355,14 @@ public class Boomerang : MonoBehaviour
         RaycastHit2D hitR = Physics2D.Raycast(transform.position, Vector2.right, wallCheckersDistance, boomerangLauncher.hittable);
         RaycastHit2D hitL = Physics2D.Raycast(transform.position, Vector2.left, wallCheckersDistance, boomerangLauncher.hittable);
 
-        return ((hitUp.collider != null) && (hitDown.collider != null)) || ((hitR.collider != null) && (hitL.collider != null));
+        var collider = Physics2D.OverlapPoint(transform.position, boomerangLauncher.hittable);
+        bool isNearWall = ((hitUp.collider != null) && (hitDown.collider != null)) || ((hitR.collider != null) && (hitL.collider != null));
+        return isNearWall || collider != null;
+    }
+
+    public static bool IsInLayerMask(int layer, LayerMask layermask)
+    {
+        return layermask == (layermask | (1 << layer));
     }
 
     private void OnDrawGizmos()
@@ -367,6 +372,8 @@ public class Boomerang : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * wallCheckersDistance);
         Gizmos.DrawLine(transform.position, transform.position + Vector3.left * wallCheckersDistance);
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * wallCheckersDistance);
+
+        Gizmos.color = Color.yellow;
 
         foreach (Transform item in wallDetectionObjs)
         {

@@ -80,8 +80,6 @@ public class GameMenu : MonoBehaviour
 
     public void TogglePause(bool isForced = false)
     {
-        pauseClicked.Raise();
-
         if (isForced)
         {
             Pause();

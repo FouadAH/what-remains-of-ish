@@ -44,6 +44,12 @@ public class BirdbeeEnemy_PlayerDetectedState : PlayerDetectedState
             enemy.IsAggro = false;
             stateMachine.ChangeState(enemy.flyState);
         }
+
+        int directionX = (enemy.transform.position.x < enemy.playerRuntimeDataSO.playerPosition.x) ? 1 : -1;
+        if (entity.facingDirection != directionX)
+        {
+            entity.Flip();
+        }
     }
 
     public override void PhysicsUpdate()
@@ -59,11 +65,5 @@ public class BirdbeeEnemy_PlayerDetectedState : PlayerDetectedState
             ? targetPositionLeft : targetPositionRight;
 
         enemy.TargetPoint.transform.position = targetPos;
-
-        int directionX = (enemy.transform.position.x < playerPos.x) ? 1 : -1;
-        if (entity.facingDirection != directionX)
-        {
-            entity.Flip();
-        }
     }
 }

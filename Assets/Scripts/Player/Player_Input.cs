@@ -50,14 +50,17 @@ public class Player_Input : MonoBehaviour
     public event Action OnDebug;
 
     public bool controllerConnected = false;
+    bool controllerWasConnected = false;
 
     float inputDeadZone = 0.19f;
 
     [HideInInspector] public PlayerInputMaster inputActions;
 
+    public GameEvent pauseClicked;
     public GameEvent submitClicked;
     public GameEvent inputChangedEvent;
     public GameEvent interactEvent;
+
     public GlobalConfigSO globalConfig;
 
     bool startDisabled;
@@ -175,6 +178,7 @@ public class Player_Input : MonoBehaviour
     private void Pause_started(InputAction.CallbackContext obj)
     {
         OnPause?.Invoke(false);
+        pauseClicked.Raise();
     }
 
     private void Submit_started(InputAction.CallbackContext obj)
@@ -259,9 +263,15 @@ public class Player_Input : MonoBehaviour
         }
 
         controllerConnected = Gamepad.all.Count > 0;
+        
+        if(!controllerConnected && controllerWasConnected)
+        {
+            OnPause?.Invoke(true);
+        }
+
         globalConfig.gameSettings.controllerConnected = controllerConnected;
+        controllerWasConnected = controllerConnected;
         inputChangedEvent.Raise();
-        OnPause?.Invoke(true);
     }
 
     private void Teleport_performed(InputAction.CallbackContext obj)

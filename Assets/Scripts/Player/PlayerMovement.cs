@@ -429,6 +429,10 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
 
             IsAttacking = false;
+            isKnockedback_Damage = false;
+            isKnockedback_Hit = false;
+            isSprinting = false;
+            IsInAttackAnimation= false;
             return;
         }
      

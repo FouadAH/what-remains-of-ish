@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
     public GameEvent loadDataEvent;
     public GameEvent saveDataEvent;
 
+    public GameEvent loadingStartEvent;
+    public GameEvent loadingEndEvent;
+
     public GameEvent addHealingFlask;
 
     public GameEvent stopAllAudioEvent;
@@ -83,20 +86,11 @@ public class GameManager : MonoBehaviour
         astarPath = FindObjectOfType<AstarPath>();
         animator = gameObject.GetComponent<Animator>();
 
-        playerData.lastSavepointLevelPath = initalPlayerData.initialLevelPath;
-        playerData.lastCheckpointLevelPath = initalPlayerData.initialLevelPath;
-        levelToLoadPath = initalPlayerData.initialLevelPath;
-
-        playerData.lastCheckpointPos.X = initalPlayerData.initialPlayerPosition.x;
-        playerData.lastCheckpointPos.Y = initalPlayerData.initialPlayerPosition.y;
-
-        playerData.lastSavepointPos.X = initalPlayerData.initialPlayerPosition.x;
-        playerData.lastSavepointPos.Y = initalPlayerData.initialPlayerPosition.y;
-
 #if UNITY_EDITOR
         playerData.playerHealth.Value = initalPlayerData.health;
         playerData.playerMaxHealth.Value = initalPlayerData.maxHealth;
 #endif
+
     }
 
     public ref bool GetBool(int broochID)
@@ -178,7 +172,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SoftRespawnRoutine()
     {
-        animator.Play("Fade_Out");
+        loadingStartEvent.Raise();
         player.GetComponent<Player>().enabled = false;
 
         yield return new WaitForSecondsRealtime(1f);
@@ -189,7 +183,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1f);
 
-        StartCoroutine(FadeIn());
+        loadingEndEvent.Raise();
 
         player.GetComponent<Player>().enabled = true;
         player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
@@ -224,7 +218,7 @@ public class GameManager : MonoBehaviour
     {
         SaveManager.instance.SaveSceneData();
 
-        animator.Play("Fade_Out");
+        loadingStartEvent.Raise();
         yield return new WaitForSeconds(1f);
 
         if (astarPath != null)
@@ -261,7 +255,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().movePlayerLoadingState = true;
             isRespawning = false;
 
-            StartCoroutine(FadeIn());
+            loadingEndEvent.Raise();
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoadPath));
             playerData.currentSceneBuildIndex.Value = SceneManager.GetActiveScene().buildIndex;
@@ -284,38 +278,15 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator LoadMainMenu()
     {
-        animator.Play("Fade_Out");
+        loadingStartEvent.Raise();
         stopAllAudioEvent.Raise();
 
         yield return new WaitForSeconds(1f);
 
         SaveManager.instance.SaveGame();
-        StartCoroutine(FadeIn());
+        loadingEndEvent.Raise();
 
         SceneManager.LoadScene(0);
-    }
-
-    private IEnumerator FadeIn()
-    {
-        yield return new WaitForSeconds(0.2f);
-        animator.Play("Fade_in");
-    }
-
-    public void PlayLoadingScreen()
-    {
-        isLoading = true;
-        animator.Play("Fade_Out");
-    }
-
-    public void StopLoadingScreen()
-    {
-        isLoading = false;
-        StartCoroutine(FadeIn());
-    }
-
-    public void OnFadeInDone()
-    {
-        isLoading = false;
     }
 
     private void OnDrawGizmos()

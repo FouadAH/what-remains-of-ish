@@ -47,6 +47,7 @@ ScriptedImporter:
     flipbookRows: 0
     flipbookColumns: 0
     ignorePngGamma: 0
+    cookieMode: 0
     filterMode: 1
     aniso: 1
     mipBias: 0
@@ -89,6 +90,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
   - name: DaoudTent_0-Ground
@@ -112,6 +114,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 3602, y: 1612}
+    spritePosition: {x: 133, y: 0}
   - name: DaoudTent_1-Top
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -132,7 +135,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -76, y: -574}
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 80, y: 578}
   - name: DaoudTent_1.1-Light
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -153,7 +157,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 6129, y: -543}
+    uvTransform: {x: 7997, y: 863}
+    spritePosition: {x: 1868, y: 1406}
   - name: DaoudTent_2-InnerTop
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -174,7 +179,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -169, y: 1672}
+    uvTransform: {x: 4, y: 2080}
+    spritePosition: {x: 173, y: 408}
   - name: DaoudTent_2.1-Light
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -195,7 +201,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 5345, y: -389}
+    uvTransform: {x: 7191, y: 810}
+    spritePosition: {x: 1846, y: 1199}
   - name: DaoudTent_2.2-Light
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -216,7 +223,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 5716, y: -641}
+    uvTransform: {x: 7487, y: 810}
+    spritePosition: {x: 1771, y: 1451}
   - name: DaoudTent_2.3-Light
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -237,7 +245,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4716, y: -379}
+    uvTransform: {x: 7081, y: 810}
+    spritePosition: {x: 2365, y: 1189}
   - name: DaoudTent_2.4-Light
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -258,7 +267,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 5855, y: -445}
+    uvTransform: {x: 7277, y: 810}
+    spritePosition: {x: 1422, y: 1255}
   - name: DaoudTent_2.5-DAOUD
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -279,7 +289,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 6266, y: -344}
+    uvTransform: {x: 7081, y: 4}
+    spritePosition: {x: 815, y: 348}
   - name: DaoudTent_3-Clutter
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -301,6 +312,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -220, y: 5524}
+    spritePosition: {x: 224, y: 545}
   - name: DaoudTent_3.1-Hanging
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -321,7 +333,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 7068, y: 428}
+    uvTransform: {x: 8024, y: 1612}
+    spritePosition: {x: 956, y: 1184}
   - name: DaoudTent_3.2-Hanging
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -342,7 +355,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 6413, y: 180}
+    uvTransform: {x: 7425, y: 1612}
+    spritePosition: {x: 1012, y: 1432}
   - name: DaoudTent_3.3-Hanging
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -363,7 +377,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 2684, y: 944}
+    uvTransform: {x: 3735, y: 2223}
+    spritePosition: {x: 1051, y: 1279}
   - name: DaoudTent_3.4-Hanging
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -384,7 +399,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 5607, y: -582}
+    uvTransform: {x: 7652, y: 810}
+    spritePosition: {x: 2045, y: 1392}
   - name: DaoudTent_3.5-Hanging
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -405,7 +421,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 5940, y: -849}
+    uvTransform: {x: 7584, y: 810}
+    spritePosition: {x: 1644, y: 1659}
   - name: DaoudTent_3.6-Hanging
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -426,7 +443,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 5807, y: -1146}
+    uvTransform: {x: 7997, y: 4}
+    spritePosition: {x: 2190, y: 1150}
   - name: DaoudTent_3.7-Hanging
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -447,7 +465,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 6196, y: -496}
+    uvTransform: {x: 7367, y: 810}
+    spritePosition: {x: 1171, y: 1306}
   - name: DaoudTent_4-Curtains
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -468,7 +487,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -127, y: 3643}
+    uvTransform: {x: 4, y: 3643}
+    spritePosition: {x: 131, y: 583}
   - name: DaoudTent_5-Back
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -489,7 +509,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 3392, y: -573}
+    uvTransform: {x: 3735, y: 4}
+    spritePosition: {x: 343, y: 577}
   characterData:
     bones: []
     parts: []
