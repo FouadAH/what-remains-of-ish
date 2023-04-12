@@ -16,13 +16,13 @@ public class GameSettingsSO : ScriptableObject
 
     public bool UseDirectionalMouseAttacks
     {
-        get => PlayerPrefs.GetInt("useDirectionalMouseAttacks") == 0;
+        get => PlayerPrefs.GetInt("useDirectionalMouseAttacks", 1) == 0;
         set => PlayerPrefs.SetInt("useDirectionalMouseAttacks", (useDirectionalMouseAttacks) ? 0 : 1);
     }
 
     public bool AimAssistOn
     {
-        get => PlayerPrefs.GetInt("aimAssistOn") == 0;
+        get => PlayerPrefs.GetInt("aimAssistOn", 0) == 0;
         set => PlayerPrefs.SetInt("aimAssistOn", (aimAssistOn) ? 0 : 1);
     }
 }

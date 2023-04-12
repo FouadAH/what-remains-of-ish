@@ -140,7 +140,6 @@ public class DialogueTimelineTrigger : Savable
 
         if (!timelineData.hasPlayed)
         {
-            if (playOnStart && !timelineData.hasPlayed)
                 StartTimeline();
         }
 #endif

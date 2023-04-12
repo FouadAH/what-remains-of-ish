@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
     {
         loadingStartEvent.Raise();
         player.GetComponent<Player>().enabled = false;
-
+        player.GetComponent<PlayerMovement>().enabled = false;
         yield return new WaitForSecondsRealtime(1f);
 
         playerRespawn.Raise();
@@ -185,6 +185,7 @@ public class GameManager : MonoBehaviour
 
         loadingEndEvent.Raise();
 
+        player.GetComponent<PlayerMovement>().enabled = true;
         player.GetComponent<Player>().enabled = true;
         player.GetComponentInChildren<BoomerangLauncher>().canFire = true;
     }
@@ -253,6 +254,7 @@ public class GameManager : MonoBehaviour
             }
 
             player.GetComponent<PlayerMovement>().movePlayerLoadingState = true;
+            player.GetComponent<Player>().enabled = true;
             isRespawning = false;
 
             loadingEndEvent.Raise();

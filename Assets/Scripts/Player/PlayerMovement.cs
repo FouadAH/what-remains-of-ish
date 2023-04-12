@@ -86,10 +86,34 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed = 30f;
     float maxFallSpeed = -30;
 
+    [Header("Down Attack Settings")]
+
+    public float downAttackDuration = 0.35f;
+
+    public float downAttackForceX = 25;
+    public float downAttackForceY = -35;
+
+    public float downAttackSmoothingY = 0.15f;
+    public float downAttackSmoothingX = 0.15f;
+
+    [Range(1, 2)]
+    public float downAttackDirectionInfluenceMax = 1.5f;
+
+    [Range(0, 1)]
+    public float downAttackDirectionInfluenceMin = 0f;
+
+    [Range(0, 1)]
+    public float downAttackDirectionInfluenceAcceleration = 0.05f;
+
+    float downAttackDirection = 0;
+    float downAttackCurrentTime;
+    float directionInfluence = 1;
+
+    bool canDownAttack = true;
+
     [Header("LedgeDetection")]
     public Transform ledgeDetectionOrigin;
     public float ledgeDetectionDistance;
-
 
     [Header("Effects")]
     public ParticleSystem dustParticles;
@@ -184,26 +208,13 @@ public class PlayerMovement : MonoBehaviour
                 else
                     downAttackDirection = transformToMove.localScale.x;
 
+                directionInfluence = 1;
                 StartCoroutine(DownAttackLock());
                 ExecuteDownAttack();
                 StartCoroutine(DownAttackTimer());
             }
         }
     }
-
-    float downAttackCurrentTime;
-
-    public float downAttackDuration = 1f;
-
-    public float downAttackForceX = 2;
-    public float downAttackForceY = -5f;
-
-    public float downAttackSmoothingY = 0.15f;
-    public float downAttackSmoothingX = 0.15f;
-
-    float downAttackDirection = 0;
-
-    bool canDownAttack = true;
 
     void ExecuteDownAttack()
     {
@@ -277,7 +288,29 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleDownAttack()
     {
-        float targetVelocityX = downAttackForceX * MathF.Sign(downAttackDirection);
+        //Calculating down attack direction influence. Total velocity must remain the same
+        float directionInfluenceY = 1;
+        if (playerInput.directionalInput.x != 0)
+        {
+            if (Mathf.Sign(playerInput.directionalInput.x) != Mathf.Sign(downAttackDirection))
+            {
+                directionInfluence = Mathf.Lerp(directionInfluence, downAttackDirectionInfluenceMin, downAttackDirectionInfluenceAcceleration);
+                directionInfluenceY = 1  + Mathf.Abs(1 - Mathf.Abs(directionInfluence));
+            }
+            else
+            {
+                directionInfluence = Mathf.Lerp(directionInfluence, downAttackDirectionInfluenceMax, downAttackDirectionInfluenceAcceleration);
+                directionInfluenceY = 1 - Mathf.Abs(1 - Mathf.Abs(directionInfluence));
+            }
+        }
+        else
+        {
+            directionInfluence = Mathf.Lerp(directionInfluence, 1, downAttackDirectionInfluenceAcceleration);
+            directionInfluenceY = 1;
+        }
+
+        float targetVelocityX = downAttackForceX * (MathF.Sign(downAttackDirection) * directionInfluence);
+        float targetVelocityY = downAttackForceY * directionInfluenceY;
 
         if (controller.collitions.below || isKnockedback_Hit || isKnockedback_Damage)
         {
@@ -286,7 +319,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, downAttackSmoothingX);
-        velocity.y = Mathf.SmoothDamp(velocity.y, downAttackForceY, ref velocityYSmoothing, downAttackSmoothingY);
+        velocity.y = Mathf.SmoothDamp(velocity.y, targetVelocityY, ref velocityYSmoothing, downAttackSmoothingY);
     }
 
     bool wasThouchingGround = false;
@@ -392,7 +425,23 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void Movement()
     {
-        //Debug.Log("<color=cyan>" + movementState + "</color>");
+        if (isDead || GameManager.instance.isPaused || DialogManager.instance.dialogueIsActive)
+        {
+            movementState = PlayerMovementState.Dead;
+
+            velocity.x = 0;
+            velocity.y += gravity * Time.deltaTime;
+            velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
+
+            IsAttacking = false;
+            isKnockedback_Damage = false;
+            isKnockedback_Hit = false;
+            isSprinting = false;
+            IsInAttackAnimation = false;
+            inDownAttack = false;
+            return;
+        }
+
         if (inDownAttack)
         {
             HandleDownAttack();
@@ -420,22 +469,6 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (isDead || GameManager.instance.isPaused || DialogManager.instance.dialogueIsActive)
-        {
-            movementState = PlayerMovementState.Dead;
-
-            velocity.x = 0;
-            velocity.y += gravity * Time.deltaTime;
-            velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, 1000);
-
-            IsAttacking = false;
-            isKnockedback_Damage = false;
-            isKnockedback_Hit = false;
-            isSprinting = false;
-            IsInAttackAnimation= false;
-            return;
-        }
-     
         if (playerTeleport.doBoost)
         {
             movementState = PlayerMovementState.Teleport;

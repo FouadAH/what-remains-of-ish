@@ -55,7 +55,7 @@ public class Player : MonoBehaviour, IAttacker {
     public ParticleSystem dustParticles;
     public ParticleSystem damageParticle;
     public ParticleSystem healingParticles;
-
+    public ParticleSystem knockbackParticles;
 
     [Header("Damage Time Stop")]
     public float changeTime = 0.05f;
@@ -179,7 +179,8 @@ public class Player : MonoBehaviour, IAttacker {
 
         Look();
 
-        if (GameManager.instance.isInDebugMode)
+#if UNITY_EDITOR
+        if (playerDebugMode)
         {
             if (Input.GetKey(KeyCode.X))
             {
@@ -187,6 +188,8 @@ public class Player : MonoBehaviour, IAttacker {
                 transform.position = targetPos;
             }
         }
+#endif
+
     }
 
     public void EmitRunParticle()
@@ -464,7 +467,10 @@ public class Player : MonoBehaviour, IAttacker {
     IEnumerator KnockbackOnDamageRoutine()
     {
         playerMovement.isKnockedback_Damage = true;
+        knockbackParticles.Play();
+
         yield return new WaitForSeconds(knockbackOnDamageTimer);
+        
         playerMovement.isKnockedback_Damage = false;
     }
 
