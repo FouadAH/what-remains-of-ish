@@ -8,12 +8,18 @@ public class DeathController : MonoBehaviour
 
     public PlayerDataSO playerData;
     public PlayerRuntimeDataSO PlayerRuntimeDataSO;
-
+    public float dropPrecentage = 30f;
     DeathDrop deathDrop;
 
     public void OnPlayerDeath()
     {
-        int lostCurrency = Mathf.FloorToInt(playerData.playerCurrency.Value / 2);
+        int lostCurrency = Mathf.FloorToInt(playerData.playerCurrency.Value * (dropPrecentage/100));
+
+        if(deathDrop != null)
+        {
+            Destroy(deathDrop.gameObject);
+        }
+
         deathDrop = Instantiate(deathDropPrefab, PlayerRuntimeDataSO.lastPlayerGroundedPosition, Quaternion.identity, transform);
         deathDrop.InitializeDeathDrop(lostCurrency, PlayerRuntimeDataSO.lastPlayerGroundedPosition);
         deathDrop.pickUpEvent += OnPickupDeathDrop;

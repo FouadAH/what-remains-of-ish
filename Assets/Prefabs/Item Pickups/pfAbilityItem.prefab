@@ -56,6 +56,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
@@ -5142,6 +5143,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
@@ -5272,6 +5274,8 @@ MonoBehaviour:
   pickUpPaticles: {fileID: 0}
   itemSprite: {fileID: 0}
   itemCanvas: {fileID: 0}
+  abilityType: 0
+  pickupChannel: {fileID: 11400000, guid: 65da9e86f79399a4599a2e36b0f86cc8, type: 2}
 --- !u!1 &5041800556775980900
 GameObject:
   m_ObjectHideFlags: 0

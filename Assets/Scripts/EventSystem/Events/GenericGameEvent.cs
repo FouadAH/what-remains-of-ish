@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "newGenericEvent", menuName = "Game Events/New Generic Event")]
 public class GenericGameEvent<T> : ScriptableObject
 {
     /// <summary>

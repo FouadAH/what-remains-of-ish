@@ -5,10 +5,11 @@ using UnityEngine;
 public class AbilityItem : MonoBehaviour
 {
     public GameEvent abilityEvent;
-
     public ParticleSystem pickUpPaticles;
     public GameObject itemSprite;
     public GameObject itemCanvas;
+    public AbilityType abilityType;
+    public AbilityPickupChannel pickupChannel;
 
     Animator promptAnimator;
     bool hasPickedUp;
@@ -23,6 +24,7 @@ public class AbilityItem : MonoBehaviour
         if (abilityEvent != null && !hasPickedUp)
         {
             abilityEvent.Raise();
+            pickupChannel.RaiseOnPickupAbility(abilityType);
             hasPickedUp = true;
         }
         else

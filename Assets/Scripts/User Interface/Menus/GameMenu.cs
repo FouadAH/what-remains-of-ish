@@ -65,7 +65,6 @@ public class GameMenu : MonoBehaviour
         {
             return;
         }
-
         menuNavigationDirection = (int)inputActions.UI.GameMenu_Navigate.ReadValue<float>();
 
         if (menuNavigationDirection > 0)
@@ -162,13 +161,13 @@ public class GameMenu : MonoBehaviour
         switch (menuIndex)
         {
             case 0:
-                OnClickMap();
+                OnClickInventory();
                 break;
             case 1:
-                OnClickBrooches();
+                OnClickMap();
                 break;
             case 2:
-                OnClickJournal();
+                OnClickBrooches();
                 break;
             case 3:
                 OnClickSettings();
@@ -240,6 +239,8 @@ public class GameMenu : MonoBehaviour
         inventoryScreen.SetActive(true);
         journalScreen.SetActive(false);
         settingsScreen.SetActive(false);
+
+        eventSystem.SetSelectedGameObject(inventoryScreen.GetComponentInChildren<Selectable>().gameObject);
     }
 
     public void OnClickBrooches()

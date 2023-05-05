@@ -110,7 +110,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         volume = FindObjectOfType<Volume>();
         volume.profile.TryGet(out chromaticAberration);
 
-        Cursor.visible = false;
         playerInput.OnQuickThrow += PlayerInput_OnQuickThrow;
     }
 
@@ -139,11 +138,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         Vector2 targetPos;
         if (playerInput.controllerConnected)
         {
-            if (Cursor.visible)
-            {
-                Cursor.visible = false;
-            }
-
             if (isAiming)
             {
                 crosshair.enabled = true;
@@ -170,12 +164,6 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         }
         else
         {
-            if (!Cursor.visible)
-            {
-                Cursor.visible = true;
-                Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-            }
-
             if (isAiming)
             {
                 secondCrosshair.enabled = true;

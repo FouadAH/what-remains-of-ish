@@ -8,7 +8,6 @@ public class UI_HUD : MonoBehaviour
     [SerializeField] private Animator anim;
 
     [Header("HUD UI elements")]
-    public TMP_Text currencyText;
 
     public Transform heartBar;
     public GameObject heartPrefab;
@@ -30,8 +29,6 @@ public class UI_HUD : MonoBehaviour
 
     [Header("Data")]
     public PlayerDataSO playerData;
-
-    float previousCurrency = 0;
 
     List<HealingPod> healingFlasks = new();
 
@@ -60,14 +57,8 @@ public class UI_HUD : MonoBehaviour
 
     void Update()
     {
-        UpdateCurrencyUI();
         UpdateFlaskUI();
         UpdateHealthBar();
-    }
-
-    void UpdateCurrencyUI()
-    {
-        currencyText.SetText(playerData.playerCurrency.Value.ToString());
     }
 
     void UpdateFlaskUI()
@@ -84,23 +75,6 @@ public class UI_HUD : MonoBehaviour
         {
             RefreshHealthUI();
         }
-    }
-
-    IEnumerator CurrencyCounter()
-    {
-        float currencyDiff = playerData.playerCurrency.Value - previousCurrency;
-
-        while (currencyDiff > 0)
-        {
-            yield return new WaitForSeconds(0.05f);
-            currencyDiff = playerData.playerCurrency.Value - previousCurrency;
-            previousCurrency++;
-        }
-
-        previousCurrency = playerData.playerCurrency.Value;
-        currencyText.SetText(playerData.playerCurrency.Value.ToString());
-
-        yield return new WaitForEndOfFrame();
     }
 
     void RefreshHealthUI()

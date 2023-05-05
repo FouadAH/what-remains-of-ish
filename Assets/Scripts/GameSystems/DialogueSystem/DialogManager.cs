@@ -234,10 +234,16 @@ public class DialogManager : MonoBehaviour
     public void EndDialogue()
     {
         inputLock = true;
-        dialogueIsActive = false;
+        StartCoroutine(EndDelay());
         OnDialogueClipEnd.Invoke(this, null);
-        player_Input.EnablePlayerInput();
         animator.SetBool("isOpen", false);
+    }
+
+    IEnumerator EndDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        dialogueIsActive = false;
+        player_Input.EnablePlayerInput();
     }
 
     public void OnInteractStart()

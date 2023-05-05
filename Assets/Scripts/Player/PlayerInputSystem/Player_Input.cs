@@ -2,15 +2,25 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using static UnityEngine.InputSystem.UI.VirtualMouseInput;
 /// <summary>
 /// Class responsible for handling player input. 
 /// </summary>
 public class Player_Input : MonoBehaviour
 {
+    [HideInInspector]
     public Vector2 directionalInput;
+
+    [HideInInspector]
     public Vector2 rightStickInput;
+
+    [HideInInspector]
     public Vector2 leftStickInputRaw;
+
+    [HideInInspector]
     public Vector2 rightStickInputRaw;
+
+    [HideInInspector]
     public Vector2 mapRightStickInput;
 
     public bool jumping { get; set; }
@@ -56,12 +66,17 @@ public class Player_Input : MonoBehaviour
 
     [HideInInspector] public PlayerInputMaster inputActions;
 
+    [Header("Game Events")]
     public GameEvent pauseClicked;
     public GameEvent submitClicked;
     public GameEvent inputChangedEvent;
     public GameEvent interactEvent;
 
+    [Header("Config")]
     public GlobalConfigSO globalConfig;
+
+    [Header("Cursor")]
+    public Texture2D cursorTexture;
 
     bool startDisabled;
 
@@ -97,7 +112,8 @@ public class Player_Input : MonoBehaviour
 
 
         InputSystem.onDeviceChange += InputSystem_onDeviceChange;
-        
+
+        Cursor.SetCursor(cursorTexture, Vector2.zero, UnityEngine.CursorMode.Auto);
     }
 
     private void Debug_started(InputAction.CallbackContext obj)
@@ -263,7 +279,23 @@ public class Player_Input : MonoBehaviour
         }
 
         controllerConnected = Gamepad.all.Count > 0;
-        
+
+        if (controllerConnected)
+        {
+            if (Cursor.visible)
+            {
+                Cursor.visible = false;
+            }
+        }
+        else
+        {
+            if (!Cursor.visible)
+            {
+                Cursor.visible = true;
+                Cursor.SetCursor(cursorTexture, Vector2.zero, UnityEngine.CursorMode.Auto);
+            }
+        }
+
         if(!controllerConnected && controllerWasConnected)
         {
             OnPause?.Invoke(true);
