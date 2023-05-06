@@ -57,7 +57,6 @@ public class SpikeChargerEnemy : Entity, IAttacker
     [Header("Aggro Settings")]
     [SerializeField] public float AggroTime;
     private IEnumerator aggroRangeRoutine;
-    public bool IsAggro = false;
 
     public bool CanSeePlayer()
     {

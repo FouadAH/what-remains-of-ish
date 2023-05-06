@@ -10,12 +10,29 @@ public class Spawner : MonoBehaviour
 
     List<Entity> enemies = new List<Entity>();
     public bool allEnemiesDead;
+    public bool showSpawnPoints = true;
+    public ParticleSystem spawnEffect;
 
     public void SpawnEnemies()
     {
+        StartCoroutine(SpawnRoutine());
+    }
+
+    IEnumerator SpawnRoutine()
+    {
+        yield return new WaitForSeconds(0.65f);
+
         foreach (Transform spawnPoint in spawnPoints)
         {
-            GameObject enemyGO = Instantiate(enemyPrefab, spawnPoint);
+            Instantiate(spawnEffect, spawnPoint.transform.position, Quaternion.identity, spawnPoint);
+        }
+
+        yield return new WaitForSeconds(0.15f);
+
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            GameObject enemyGO = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity, spawnPoint);
+
             Entity entity = enemyGO.GetComponentInChildren<Entity>();
             enemies.Add(entity);
             entity.OnDeath += OnEnemyDeath;
@@ -37,6 +54,20 @@ public class Spawner : MonoBehaviour
         {
             allEnemiesDead = true;
             SpawnerEnemiesDeadEvent.Raise();
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!showSpawnPoints)
+        {
+            return;
+        }
+
+        Gizmos.color = Color.red;
+        foreach (var item in spawnPoints)
+        {
+            Gizmos.DrawSphere(item.transform.position, 0.3f);
         }
     }
 }

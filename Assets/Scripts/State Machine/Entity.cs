@@ -59,6 +59,8 @@ public class Entity : Savable, IDamagable
     [Header("Aggro Settings")]
     public float minAggroRange = 5f;
     public float maxAggroRange = 8f;
+    public bool IsAggro = false;
+
 
     [Header("Movement Settings")]
     public bool isAffectedByGravity;

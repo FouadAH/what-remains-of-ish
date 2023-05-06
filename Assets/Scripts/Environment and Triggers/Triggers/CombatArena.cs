@@ -20,6 +20,11 @@ public class CombatArena : Savable
     bool allRoundsOver;
     int currentCombatRound = 0;
 
+    private void Start()
+    {
+        LoadDefaultData();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (hasBeenActivated || allRoundsOver)
@@ -27,6 +32,7 @@ public class CombatArena : Savable
 
         if (collision.GetComponent<Player>())
         {
+            Debug.Log("player");
             hasBeenActivated = true;
             foreach (Door door in arenaDoors)
             {
@@ -75,8 +81,8 @@ public class CombatArena : Savable
                 for (int i = 0; i < spawner.spawnPoints.Length; i++)
                 {
                     Gizmos.color = Color.red;
-                    Gizmos.DrawSphere(spawner.spawnPoints[i].position + transform.position, 0.5f);
-                    GizmosUtils.DrawText(GUI.skin, spawner.enemyPrefab.name, spawner.spawnPoints[i].position + transform.position, Color.black, 10, -25);
+                    Gizmos.DrawSphere(spawner.spawnPoints[i].position, 0.5f);
+                    GizmosUtils.DrawText(GUI.skin, spawner.enemyPrefab.name, spawner.spawnPoints[i].position, Color.white, 10, -25);
                 }
             }
         }
@@ -89,6 +95,8 @@ public class CombatArena : Savable
 
     public override void LoadDefaultData()
     {
+        Debug.Log("loading default combat arena state: " + combatArenaData.isDone);
+
         combatArenaData.isDone = false;
         foreach (Door door in arenaDoors)
         {

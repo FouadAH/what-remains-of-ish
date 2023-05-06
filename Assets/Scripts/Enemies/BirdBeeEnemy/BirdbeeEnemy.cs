@@ -118,9 +118,6 @@ public class BirdbeeEnemy : Entity
         isKnockback = false;
     }
 
-    [Header("Aggro Settings")]
-    public bool IsAggro = false;
-
     public bool CheckPlayerInAttackLine()
     {
         return Physics2D.Linecast(transform.position, attackDetectionPosition.transform.position, entityData.whatIsPlayer);
