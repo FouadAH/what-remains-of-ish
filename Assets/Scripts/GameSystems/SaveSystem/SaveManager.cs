@@ -285,6 +285,8 @@ public class SaveManager : MonoBehaviour
         //Reseting enemy cache, has the additional effect of respawning enemies
         enemyDataCache.data_entries = new Dictionary<string, string>();
 
+
+        //
         foreach (KeyValuePair<string, ISaveable> saveablePair in m_RegisteredSaveables)
         {
             switch((saveablePair.Value as Savable).savableType)

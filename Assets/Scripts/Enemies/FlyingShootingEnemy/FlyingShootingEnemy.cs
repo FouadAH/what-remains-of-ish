@@ -85,9 +85,6 @@ public class FlyingShootingEnemy : Entity, FiringAI
             aIPath.canMove = true;
     }
 
-    [Header("Aggro Settings")]
-    public bool IsAggro = false;
-
     public void RaiseOnFireEvent()
     {
         var eh = OnFire;

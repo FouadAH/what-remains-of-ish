@@ -18,9 +18,6 @@ public class BirbEnemy : Entity
     public PlayerDetectedState playerDetectedState { get; private set; }
     public DeadState deadState { get; private set; }
 
-    [Header("Aggro Settings")]
-    public bool IsAggro = false;
-
     [Header("States")]
     [SerializeField] private D_FlyState flyStateData;
     [SerializeField] private D_PlayerDetected playerDetectedData;
