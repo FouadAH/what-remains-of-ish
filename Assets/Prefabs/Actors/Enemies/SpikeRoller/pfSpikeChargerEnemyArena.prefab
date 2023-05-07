@@ -10394,6 +10394,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 1
@@ -10725,7 +10726,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &4653366144423054844
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10742,7 +10743,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3164663711363972739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10852,6 +10854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4af3fe3e08d20479f3ebbac1d1ed31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savableType: 2
   atsm: {fileID: 3160052033769545245}
   entityData: {fileID: 11400000, guid: 1bf5e4545c909a94081ded58d301b310, type: 2}
   wallCheck: {fileID: 9028494437875909179}
@@ -10870,6 +10873,7 @@ MonoBehaviour:
   FlaskRefillParticles: {fileID: 0}
   minAggroRange: 5
   maxAggroRange: 8
+  IsAggro: 0
   isAffectedByGravity: 1
   gravity: -18
   accelerationTimeGrounded: 0.2
@@ -10923,7 +10927,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   chargeDustParticles: {fileID: 480116222}
   AggroTime: 0
-  IsAggro: 0
 --- !u!114 &4511328792219610261
 MonoBehaviour:
   m_ObjectHideFlags: 0

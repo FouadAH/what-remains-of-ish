@@ -57,6 +57,7 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
     public override void LoadDefaultData()
     {
         base.LoadDefaultData();
+        stateMachine.Initialize(moveState);
     }
 
     public void RaiseOnFireEvent()

@@ -5939,7 +5939,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &5244434402209060745
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5956,7 +5956,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4622462325230076347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6107,6 +6108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d420a04143bf35418c761762fb87bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savableType: 2
   atsm: {fileID: 2560621856071451752}
   entityData: {fileID: 11400000, guid: 55504f44fc48ae14abe9bfcf44e4a08c, type: 2}
   wallCheck: {fileID: 8437578894273878094}
@@ -6126,6 +6128,7 @@ MonoBehaviour:
     type: 3}
   minAggroRange: 9
   maxAggroRange: 13
+  IsAggro: 0
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.05
@@ -6140,7 +6143,6 @@ MonoBehaviour:
   TargetPoint: {fileID: 4160164624712619051}
   startPosition: {x: 0, y: 0}
   knockbackFrames: 5
-  IsAggro: 0
   flyStateData: {fileID: 11400000, guid: ebc1d581a6a6fd7498f5dedd5ef3f685, type: 2}
   playerDetectedData: {fileID: 11400000, guid: bdfa97e20ac9ed64b8793dc72413ea45, type: 2}
   deadStateData: {fileID: 11400000, guid: af43533b85cd41247bde16f1684ffcac, type: 2}

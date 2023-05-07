@@ -92,6 +92,8 @@ public class Entity : Savable, IDamagable
     public override void Awake()
     {
         spawnPoint = transform.position;
+        aliveGO = gameObject;
+        facingDirection = (int)Mathf.Sign(transform.localScale.x);
 
         if (shouldSaveState)
             base.Awake();
@@ -102,14 +104,12 @@ public class Entity : Savable, IDamagable
         if(shouldSaveState)
             base.Start();
 
-        facingDirection = (int)Mathf.Sign(transform.localScale.x);
         MaxHealth = (int)entityData.maxHealth;
 
         currentStunResistance = entityData.stunResistance;
 
         Health = MaxHealth;
 
-        aliveGO = gameObject;
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
         atsm = aliveGO.GetComponent<AnimationToStatemachine>();
@@ -300,6 +300,12 @@ public class Entity : Savable, IDamagable
         facingDirection *= -1;
         aliveGO.transform.Rotate(0f, 180f, 0f);
         stateDebugText.transform.Rotate(0f, 180f, 0f);
+    }
+
+    public bool IsFacingPlayer()
+    {
+        float dirToPlayer = (playerRuntimeDataSO.playerPosition - (Vector2)transform.position).normalized.x;
+        return facingDirection == (int)Mathf.Sign(dirToPlayer);
     }
 
     public void ProcessStunDamage(int amount, float stunDamageMod = 1)

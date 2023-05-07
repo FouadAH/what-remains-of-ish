@@ -310,7 +310,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &3459189303690971285
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -327,7 +327,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6592906338439117802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,6 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a4dda64e7bd1642a5b98b447932506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savableType: 2
   atsm: {fileID: 6579568941174823796}
   entityData: {fileID: 11400000, guid: 30a860e10d639724f9f8e47c6f565ef6, type: 2}
   wallCheck: {fileID: 999295926345500498}
@@ -532,6 +534,7 @@ MonoBehaviour:
   FlaskRefillParticles: {fileID: 0}
   minAggroRange: 15
   maxAggroRange: 20
+  IsAggro: 0
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.05
@@ -556,7 +559,6 @@ MonoBehaviour:
     type: 2}
   deadStateData: {fileID: 11400000, guid: a8486f7a11e1e4d4b889fdd7af3fa6e6, type: 2}
   projectileController: {fileID: 0}
-  IsAggro: 0
 --- !u!114 &3454983247869283656
 MonoBehaviour:
   m_ObjectHideFlags: 0

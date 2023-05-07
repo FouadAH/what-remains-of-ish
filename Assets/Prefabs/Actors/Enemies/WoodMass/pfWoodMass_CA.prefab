@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &1689456841838987917
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,7 +104,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1778699612
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +669,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 1
@@ -970,7 +972,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &410004533724213442
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -987,7 +989,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &959567164222416624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,6 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cf1ad10f64d494d8cf2430de843c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savableType: 2
   atsm: {fileID: 7997955044489143075}
   entityData: {fileID: 11400000, guid: 3d92f508dbc28e54f871d558ab71d809, type: 2}
   wallCheck: {fileID: 4066492021893447429}
@@ -1054,6 +1058,7 @@ MonoBehaviour:
     type: 3}
   minAggroRange: 13
   maxAggroRange: 18
+  IsAggro: 1
   isAffectedByGravity: 1
   gravity: -18
   accelerationTimeGrounded: 0.05
@@ -1082,7 +1087,6 @@ MonoBehaviour:
   - {fileID: 8864161690563877917}
   - {fileID: 2293382028885755011}
   AggroTime: 0
-  IsAggro: 1
 --- !u!114 &7997955044489143075
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     [FMODUnity.EventRef] public string currentTheme;
+    [FMODUnity.EventRef] public string previousTheme;
+
     [FMODUnity.EventRef] public string currentAmbiance;
 
     public FMOD.Studio.EventInstance areaThemeInstance;
@@ -64,6 +66,7 @@ public class AudioManager : MonoBehaviour
         if (newTheme == currentTheme)
             return;
 
+        previousTheme = currentTheme;
         currentTheme = newTheme;
 
         areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(newTheme);
@@ -78,9 +81,10 @@ public class AudioManager : MonoBehaviour
     {
         if (theme != currentTheme)
         {
-            Debug.Log("Switching level theme music");
+            Debug.Log("Switching level music to: " + theme);
 
             StopAreaThemeWithFade();
+            previousTheme = currentTheme;
             currentTheme = theme;
             areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(currentTheme);
             areaThemeInstance.start();
@@ -91,7 +95,7 @@ public class AudioManager : MonoBehaviour
     {
         if (ambiance != currentAmbiance)
         {
-            Debug.Log("Switching level ambiance");
+            Debug.Log("Switching level ambiance to: " + ambiance);
 
             StopAreaAmbianceWithFade();
             currentAmbiance = ambiance;

@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
     List<Entity> enemies = new List<Entity>();
     public bool allEnemiesDead;
     public bool showSpawnPoints = true;
+    public FacingDirection spawnFacingDirection = FacingDirection.Left;
     public ParticleSystem spawnEffect;
 
     public void SpawnEnemies()
@@ -34,6 +35,12 @@ public class Spawner : MonoBehaviour
             GameObject enemyGO = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity, spawnPoint);
 
             Entity entity = enemyGO.GetComponentInChildren<Entity>();
+
+            if (!entity.IsFacingPlayer()) 
+            {
+                entity.Flip(); 
+            }
+
             enemies.Add(entity);
             entity.OnDeath += OnEnemyDeath;
         }
@@ -70,4 +77,10 @@ public class Spawner : MonoBehaviour
             Gizmos.DrawSphere(item.transform.position, 0.3f);
         }
     }
+}
+
+public enum FacingDirection
+{
+    Left,
+    Right,
 }

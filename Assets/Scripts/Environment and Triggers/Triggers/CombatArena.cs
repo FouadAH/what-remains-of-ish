@@ -16,14 +16,19 @@ public class CombatArena : Savable
     public List<Door> arenaDoors;
     public List<CombatRound> combatRounds;
 
+    public Cinemachine.CinemachineVirtualCamera areaCamBrain;
+
+    [FMODUnity.EventRef]
+    public string combatArenaMusic;
+
     bool hasBeenActivated;
     bool allRoundsOver;
     int currentCombatRound = 0;
 
-    private void Start()
-    {
-        LoadDefaultData();
-    }
+    //private void Start()
+    //{
+    //    LoadDefaultData();
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -32,16 +37,23 @@ public class CombatArena : Savable
 
         if (collision.GetComponent<Player>())
         {
-            Debug.Log("player");
-            hasBeenActivated = true;
-            foreach (Door door in arenaDoors)
-            {
-                door.SetState(false);
-            }
-
-            combatRounds[currentCombatRound].StartRound();
-            AudioManager.instance.SetIntensity(75);
+            StartCombat();
         }
+    }
+
+    public void StartCombat()
+    {
+        hasBeenActivated = true;
+        foreach (Door door in arenaDoors)
+        {
+            door.SetState(false);
+        }
+
+        combatRounds[currentCombatRound].StartRound();
+        areaCamBrain.gameObject.SetActive(true);
+
+        AudioManager.instance.SwitchLevelMusicEvent(combatArenaMusic);
+        AudioManager.instance.SetIntensity(50);
     }
 
     public void OnCombatRoundOver()
@@ -51,14 +63,19 @@ public class CombatArena : Savable
         foreach (CombatRound combatRound in combatRounds)
         {
             if (!combatRound.IsAllEnemiesDead())
+            {
                 allRoundsOver = false;
+            }
         }
 
         if (allRoundsOver)
         {
+            areaCamBrain.gameObject.SetActive(false);
             combatArenaData.isDone = true;
-            AudioManager.instance.SetIntensity(0);
 
+            AudioManager.instance.SwitchLevelMusicEvent(AudioManager.instance.previousTheme);
+            AudioManager.instance.SetIntensity(0);
+            
             foreach (Door door in arenaDoors)
             {
                 door.SetState(true);
@@ -100,7 +117,7 @@ public class CombatArena : Savable
         combatArenaData.isDone = false;
         foreach (Door door in arenaDoors)
         {
-            door.SetState(true);
+            door.SetStateInitial(true);
         }
 
     }
@@ -112,7 +129,7 @@ public class CombatArena : Savable
 
         foreach (Door door in arenaDoors)
         {
-            door.SetState(true);
+            door.SetStateInitial(true);
         }
         if (combatArenaData.isDone)
         {

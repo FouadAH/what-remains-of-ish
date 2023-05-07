@@ -49,6 +49,11 @@ public class ObjectBuilderEditor : Editor
             saveManager.LoadSavedGame(saveManager.testSaveFile);
         }
 
+        if (GUILayout.Button("Reset and load data"))
+        {
+            saveManager.ResetAndLoad();
+        }
+
         serializedObject.ApplyModifiedProperties();
 
         if (saveManager.currentSaveFile != null)

@@ -46,7 +46,7 @@ public class BlueBirdEnemy_PlayerDetectedState : PlayerDetectedState
         base.PhysicsUpdate();
 
         Vector2 playerPos = enemy.playerRuntimeDataSO.playerPosition;
-        Vector2 targetPos = new Vector2(playerPos.x, playerPos.y + 0.5f);
+        Vector2 targetPos = new Vector2(playerPos.x, playerPos.y + 1f);
         enemy.TargetPoint.transform.position = targetPos;
 
         int directionX = (enemy.transform.position.x < playerPos.x) ? 1 : -1;

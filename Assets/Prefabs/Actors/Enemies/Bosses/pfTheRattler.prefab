@@ -14824,7 +14824,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &77970200740909261
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -14841,7 +14841,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &77970200740909248
 Rigidbody2D:
   serializedVersion: 4
@@ -14875,6 +14876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c253387b77d92246af1d08430eb4f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savableType: 3
   atsm: {fileID: 77970200740909252}
   entityData: {fileID: 11400000, guid: ea2cfeefaf97bb54db2131e8b94157eb, type: 2}
   wallCheck: {fileID: 77970201346238129}
@@ -14894,6 +14896,7 @@ MonoBehaviour:
     type: 3}
   minAggroRange: 30
   maxAggroRange: 60
+  IsAggro: 0
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.5

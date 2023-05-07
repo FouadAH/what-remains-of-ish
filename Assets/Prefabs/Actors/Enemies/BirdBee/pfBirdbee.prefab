@@ -6293,7 +6293,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &7167848793649646303
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6310,7 +6310,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7753194368622025965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6411,6 +6412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567d91e7ff7da3644b151e71bb1b657f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savableType: 2
   atsm: {fileID: 592084604992411966}
   entityData: {fileID: 11400000, guid: 845453b1ee4870142aae7043b891f349, type: 2}
   wallCheck: {fileID: 6820389931072242968}
@@ -6430,6 +6432,7 @@ MonoBehaviour:
     type: 3}
   minAggroRange: 8
   maxAggroRange: 20
+  IsAggro: 0
   isAffectedByGravity: 0
   gravity: -12
   accelerationTimeGrounded: 0.05
@@ -6451,7 +6454,6 @@ MonoBehaviour:
   attackStateData: {fileID: 11400000, guid: 64ea609bb350dce4b9fbe769d6aaa843, type: 2}
   deadStateData: {fileID: 11400000, guid: 764646bb507bfa44ea8db4cb689a8977, type: 2}
   birdbeeFlyLoop: event:/SFX/Enemies/Idle/Birdbee_Idle
-  IsAggro: 0
 --- !u!114 &1366236473883835881
 MonoBehaviour:
   m_ObjectHideFlags: 0

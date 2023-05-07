@@ -126,7 +126,7 @@ Rigidbody2D:
   m_Constraints: 4
 --- !u!95 &1814319934256925559
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -143,7 +143,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6370593800507702240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88774a543bc21b489816982d7a51450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savableType: 2
   atsm: {fileID: 8242452709017688214}
   entityData: {fileID: 11400000, guid: d01d9e0c36d6e3744b068b83133517a4, type: 2}
   wallCheck: {fileID: 2662320483148367024}
@@ -176,6 +178,7 @@ MonoBehaviour:
     type: 3}
   minAggroRange: 8
   maxAggroRange: 8
+  IsAggro: 0
   isAffectedByGravity: 1
   gravity: -12
   accelerationTimeGrounded: 0.05
