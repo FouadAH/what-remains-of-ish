@@ -32,7 +32,9 @@ public class SaveManager : MonoBehaviour
 
     SceneData sceneDataCache;
     EnemyData enemyDataCache;
-    
+    EnemyData bossEnemyDataCache;
+
+
     private void Awake()
     {
         savePath = Application.persistentDataPath + "/SaveFiles";
@@ -280,12 +282,28 @@ public class SaveManager : MonoBehaviour
             m_RegisteredSaveables = new Dictionary<string, ISaveable>();
         }
 
+        //Reseting enemy cache, has the additional effect of respawning enemies
+        enemyDataCache.data_entries = new Dictionary<string, string>();
+
         foreach (KeyValuePair<string, ISaveable> saveablePair in m_RegisteredSaveables)
         {
-            sceneDataCache.data_entries[saveablePair.Key.ToString()] = saveablePair.Value.SaveData();
-        }
+            switch((saveablePair.Value as Savable).savableType)
+            {
+                case SavableType.Default:
+                    sceneDataCache.data_entries[saveablePair.Key.ToString()] = saveablePair.Value.SaveData();
+                    break;
+                
+                case SavableType.BossEntity:
+                    enemyDataCache.data_entries[saveablePair.Key.ToString()] = saveablePair.Value.SaveData();
+                    break;
+                
+                case SavableType.SceneObject:
+                    sceneDataCache.data_entries[saveablePair.Key.ToString()] = saveablePair.Value.SaveData();
+                    break;
 
-        enemyDataCache.data_entries = new Dictionary<string, string>();
+            }
+
+        }
 
         WriteDataToDisk();
         DataCacheToSaveables();

@@ -7,7 +7,10 @@ using UnityEngine;
 public abstract class Savable : MonoBehaviour, ISaveable
 {
     protected GuidComponent m_ID;
-    public string ID { get => m_ID.GetGuid().ToString(); } 
+    public string ID { get => m_ID.GetGuid().ToString(); }
+
+    [Header("Save Settings")]
+    public SavableType savableType = SavableType.Default;
 
     public virtual void Awake()
     {
@@ -49,4 +52,12 @@ public interface ISaveable
     string SaveData();
     void LoadDefaultData();
     void LoadData(string data, string version);
+}
+
+public enum SavableType
+{
+    Default,
+    SceneObject,
+    Entity,
+    BossEntity
 }
