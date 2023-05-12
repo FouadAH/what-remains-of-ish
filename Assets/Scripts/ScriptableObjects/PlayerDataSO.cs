@@ -17,6 +17,7 @@ public class PlayerDataSO : ScriptableObject
     public IntegerReference playerHealingAmountPerPod;
     public IntegerReference playerHealthShardAmount;
     public IntegerReference playerHealingFlaskShards;
+    public IntegerReference playerYarnAmount;
     public IntegerReference playerCurrency;
 
     public Vector2Variable playerPosition;

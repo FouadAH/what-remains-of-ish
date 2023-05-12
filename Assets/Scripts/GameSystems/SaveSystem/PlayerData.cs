@@ -13,6 +13,7 @@ public class PlayerData
 
     public int healthShardAmount;
     public int healingShardAmount;
+    public int yarnAmount;
 
     public int[] healingPods;
     public float[] playerPosition;

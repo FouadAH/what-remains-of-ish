@@ -645,6 +645,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e976680bf7f74d041a0bef0f31ee0470, type: 3}
+--- !u!1 &1402865692 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1357350285661412862, guid: 8653945fd5c673d409de53af2e8cdfa8,
+    type: 3}
+  m_PrefabInstance: {fileID: 961182852}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1402865698 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1357350285661412860, guid: 8653945fd5c673d409de53af2e8cdfa8,
+    type: 3}
+  m_PrefabInstance: {fileID: 961182852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402865692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6bcf68a94c8c438868b1df061943c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1402865700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402865692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08985d1421b3b544e881c5644b327c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 5ce71f8657c930c459d17c6e2c9806ce, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1402865698}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnReceivedYarn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1439018731
 PrefabInstance:
   m_ObjectHideFlags: 0

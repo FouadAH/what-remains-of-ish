@@ -142,6 +142,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OnReceivedYarn()
+    {
+        playerData.playerYarnAmount.Value++;
+        debugTextEvent.Raise("Picked Up Yarn. Increased the number of brooche slots");
+    }
+
+
     public void OnReceivedArtifact()
     {
         debugTextEvent.Raise("Picked up an artifact!");

@@ -537,6 +537,8 @@ public class SaveManager : MonoBehaviour
 
         playerData.healthShardAmount = playerDataSO.playerHealthShardAmount.Value;
         playerData.healingShardAmount = playerDataSO.playerHealingFlaskShards.Value;
+        playerData.yarnAmount = playerDataSO.playerYarnAmount.Value;
+
 
         playerData.healingPods = new int[playerData.healingPodAmount];
         for (int i = 0; i < playerData.healingPodAmount; i++)
@@ -590,6 +592,7 @@ public class SaveManager : MonoBehaviour
 
         playerDataSO.playerHealingFlaskShards.Value = data.healingShardAmount;
         playerDataSO.playerHealthShardAmount.Value = data.healthShardAmount;
+        playerDataSO.playerYarnAmount.Value = data.yarnAmount;
 
         playerDataSO.playerHealingPodFillAmounts.Clear();
         for (int i = 0; i < data.healingPodAmount; i++)
