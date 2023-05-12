@@ -2185,12 +2185,12 @@ PrefabInstance:
     - target: {fileID: 1580175236390049138, guid: 62f16c30091552e4fa1b75ad34ed84e9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.6
+      value: 83.4
       objectReference: {fileID: 0}
     - target: {fileID: 1580175236390049138, guid: 62f16c30091552e4fa1b75ad34ed84e9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.125
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1580175236390049138, guid: 62f16c30091552e4fa1b75ad34ed84e9,
         type: 3}
@@ -2434,12 +2434,12 @@ PrefabInstance:
     - target: {fileID: 2235271394185185041, guid: 469a166d94d5ccd49869eac4e8db1a02,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.6
+      value: 83.4
       objectReference: {fileID: 0}
     - target: {fileID: 2235271394185185041, guid: 469a166d94d5ccd49869eac4e8db1a02,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.13
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2235271394185185041, guid: 469a166d94d5ccd49869eac4e8db1a02,
         type: 3}
@@ -2644,6 +2644,48 @@ PrefabInstance:
       propertyPath: cursorTexture
       value: 
       objectReference: {fileID: 2800000, guid: c9cb9c4914dcff949aee74164ae88e7a, type: 3}
+    - target: {fileID: 3193800506365020806, guid: 4d1345c3556595f4d89a987bc72a9652,
+        type: 3}
+      propertyPath: iFrameUp
+      value: 
+      objectReference: {fileID: 11400000, guid: 82ae154972b64484893cced73b76c921,
+        type: 2}
+    - target: {fileID: 3193800506365020806, guid: 4d1345c3556595f4d89a987bc72a9652,
+        type: 3}
+      propertyPath: RefillEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 201ec829e5d8ed24f9a6c2a654133316,
+        type: 2}
+    - target: {fileID: 3193800506365020806, guid: 4d1345c3556595f4d89a987bc72a9652,
+        type: 3}
+      propertyPath: attackUp_LowHP
+      value: 
+      objectReference: {fileID: 11400000, guid: bc540afa9d362a741b11d1ecdc5340ba,
+        type: 2}
+    - target: {fileID: 3193800506365020806, guid: 4d1345c3556595f4d89a987bc72a9652,
+        type: 3}
+      propertyPath: attackUp_MaxHP
+      value: 
+      objectReference: {fileID: 11400000, guid: d8256135e7d868340b8f858ceedab64d,
+        type: 2}
+    - target: {fileID: 3193800506365020806, guid: 4d1345c3556595f4d89a987bc72a9652,
+        type: 3}
+      propertyPath: damageBuffBrooche
+      value: 
+      objectReference: {fileID: 11400000, guid: 65e24caadec54124385bb9292c6150c9,
+        type: 2}
+    - target: {fileID: 3193800506365020806, guid: 4d1345c3556595f4d89a987bc72a9652,
+        type: 3}
+      propertyPath: kockbackDownBrooche
+      value: 
+      objectReference: {fileID: 11400000, guid: c39074281b548ba48990284a6f441838,
+        type: 2}
+    - target: {fileID: 3193800506365020806, guid: 4d1345c3556595f4d89a987bc72a9652,
+        type: 3}
+      propertyPath: flaskRefillOnDamageBrooche
+      value: 
+      objectReference: {fileID: 11400000, guid: 067c4497e9ad60c4a9777377abf33fc6,
+        type: 2}
     - target: {fileID: 3297389817868415596, guid: 4d1345c3556595f4d89a987bc72a9652,
         type: 3}
       propertyPath: m_Name
@@ -2664,6 +2706,12 @@ PrefabInstance:
       propertyPath: boomerangAirTime
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 3298665632121598025, guid: 4d1345c3556595f4d89a987bc72a9652,
+        type: 3}
+      propertyPath: boomerangAttackUpBrooche
+      value: 
+      objectReference: {fileID: 11400000, guid: 4525e63c811098640a9e24d4938a0ac0,
+        type: 2}
     - target: {fileID: 3298665632696715984, guid: 4d1345c3556595f4d89a987bc72a9652,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -2687,12 +2735,12 @@ PrefabInstance:
     - target: {fileID: 3302963428054370896, guid: 4d1345c3556595f4d89a987bc72a9652,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.6
+      value: 83.4
       objectReference: {fileID: 0}
     - target: {fileID: 3302963428054370896, guid: 4d1345c3556595f4d89a987bc72a9652,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.13
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3302963428054370896, guid: 4d1345c3556595f4d89a987bc72a9652,
         type: 3}
@@ -5219,6 +5267,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -474.945
       objectReference: {fileID: 0}
+    - target: {fileID: 781995568, guid: 6b07de83273b86643953abf1e5096920, type: 3}
+      propertyPath: compassBrooche
+      value: 
+      objectReference: {fileID: 11400000, guid: 15933687ec7a13646b448d24f9ec3d47,
+        type: 2}
     - target: {fileID: 785440959, guid: 6b07de83273b86643953abf1e5096920, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -9035,7 +9088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1942765227, guid: 6b07de83273b86643953abf1e5096920, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 72165920
+      value: 73913864
       objectReference: {fileID: 0}
     - target: {fileID: 1945221546, guid: 6b07de83273b86643953abf1e5096920, type: 3}
       propertyPath: m_AnchorMax.y

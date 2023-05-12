@@ -72,6 +72,8 @@ public class InventoryGrid : MonoBehaviour
     {
         grid.GetGridObject(x, y).isBlocked = true;
         InventoryItem inventoryItem = InventoryItem.CreateCanvas(itemContainer, grid.GetWorldPosition(x, y), new Vector2Int(x, y), unblockableTileSO);
+        BlockedInventoryItem blocked = inventoryItem as BlockedInventoryItem;
+        blocked.OnUnblocked += UnblockTile;
         grid.GetGridObject(x, y).inventoryItem = inventoryItem;
     }
 

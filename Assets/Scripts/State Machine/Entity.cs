@@ -323,6 +323,11 @@ public class Entity : Savable, IDamagable
         if (!isHittable)
             return;
 
+        if (debug)
+        {
+            SpawnDamagePoints(amount);
+        }
+
         StartCoroutine(StunTimer());
         lastDamageTime = Time.time;
 

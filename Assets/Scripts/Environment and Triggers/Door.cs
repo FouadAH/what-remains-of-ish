@@ -11,7 +11,7 @@ public class Door : Savable
     }
 
     [SerializeField]
-    private Data doorData;
+    protected Data doorData;
     public bool isOpenDefault;
 
     public Lever lever;

@@ -56,10 +56,26 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     [SerializeField] private float damageMod = 1;
     [SerializeField] private float hitKnockbackAmount = 15;
 
+    [Header("Brooches")]
+    public InventoryItemSO boomerangAttackUpBrooche;
+
+
     private AttackProcessor attackProcessor;
     public int MinRangeDamage { get => minDamage; set => minDamage = value; }
     public int MaxRangeDamage { get => maxDamage; set => maxDamage = value; }
-    public float RangedAttackMod { get => damageMod; set => damageMod = value; }
+    public float RangedAttackMod 
+    { 
+        get 
+        { 
+            if (boomerangAttackUpBrooche.isEquipped) 
+            {
+                damageMod = 2;
+            }
+
+            return damageMod;
+        } 
+        set => damageMod = value; 
+    }
     public float HitKnockbackAmount { get => hitKnockbackAmount; set => hitKnockbackAmount = value; }
 
 

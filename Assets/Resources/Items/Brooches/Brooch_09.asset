@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2cd14364805f74c9fdd795718bbc89, type: 3}
+  m_Name: Brooch_09
+  m_EditorClassIdentifier: 
+  Id: 5ad2a8e6-b577-43cb-8ba9-6e4e0fc13e8a
+  isOwnedByPlayer: 0
+  itemName: Wealth Stone
+  itemDescription: Equip to increase the amount of scraps dropped by enemies
+  itemCost: 400
+  itemIcon: {fileID: -1916876650, guid: 3edf8270182515e4dbea149a2cfe7780, type: 3}
+  hasBeenSold: 0
+  prefab: {fileID: 3070440436462063202, guid: b330644ee4d56004abe90c7ffafe5d5f, type: 3}
+  broochID: 9
+  width: 2
+  height: 2
+  isEquipped: 0
+  hasBeenPlacedOnGrid: 0
+  gridCoordinates: {x: 0, y: 0}
+  broocheData:
+    isEquipped: 0
+    hasBeenPlacedOnGrid: 0
+    gridCoordinates: {x: 0, y: 0}
+  debugTextEvent: {fileID: 11400000, guid: 930b323e290dbd8448d3fe716383aad9, type: 2}

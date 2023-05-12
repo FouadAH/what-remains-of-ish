@@ -34,7 +34,38 @@ public class Player : MonoBehaviour, IAttacker {
     public float knockbackOnDamageTimer = 0.4f;
     public float knockbackOnHitTimer = 0.25f;
 
-    public int MeleeDamage { get => minMeleeDamage; set => minMeleeDamage = value; }
+    public int MeleeDamage 
+    { 
+        get 
+        {
+            float damageModifier = 1;
+            if (attackUp_LowHP.isEquipped)
+            {
+                if(playerData.playerHealth.Value <= 2)
+                {
+                    damageModifier = 1.5f;
+                }
+            }
+
+            if (attackUp_MaxHP.isEquipped)
+            {
+                if(playerData.playerHealth.Value == playerData.playerMaxHealth.Value)
+                {
+                    damageModifier = 1.5f;
+                }
+            }
+
+            if (damageBuffBrooche.isEquipped)
+            {
+                damageModifier += 0.5f;
+            }
+
+            return Mathf.CeilToInt(minMeleeDamage * damageModifier); 
+        } 
+
+        set => minMeleeDamage = value; 
+    }
+
     public int MaxMeleeDamage { get => maxMeleeDamage; set => maxMeleeDamage = value; }
     public float MeleeAttackMod { get => meleeAttackMod; set => meleeAttackMod = value; }
 
@@ -75,9 +106,18 @@ public class Player : MonoBehaviour, IAttacker {
 
     [Header("Player Brooches")]
     public InventoryItemSO healingBrooche;
+    public InventoryItemSO attackUp_LowHP;
+    public InventoryItemSO attackUp_MaxHP;
+    public InventoryItemSO iFrameUp;
+    public InventoryItemSO flaskRefillOnDamageBrooche;
+    public InventoryItemSO damageBuffBrooche;
+    public InventoryItemSO kockbackDownBrooche;
 
     [Header("Player Events")]
     public GameEvent PlayerDeathEvent;
+
+    public IntegerGameEvent RefillEvent;
+
     public IntegerGameEvent PlayerHitEvent;
     public IntegerGameEvent PlayerHealEvent;
 
@@ -202,6 +242,12 @@ public class Player : MonoBehaviour, IAttacker {
     {
         invinsible = true;
         iFrames = iFrameTime;
+
+        if (iFrameUp.isEquipped)
+        {
+            iFrames += 4;
+        }
+
         while (iFrames > 0)
         {
             iFrames -= Time.deltaTime;
@@ -375,6 +421,11 @@ public class Player : MonoBehaviour, IAttacker {
         if (!invinsible && playerData.playerHealth.Value > 0 && !gm.isRespawning)
         {
             TakeDamage(amount);
+
+            if(flaskRefillOnDamageBrooche.isEquipped)
+            {
+                RefillEvent.Raise(30);
+            }
         }
     }
 
@@ -446,8 +497,12 @@ public class Player : MonoBehaviour, IAttacker {
     bool knockBackOnHit = false;
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
+        if (!playerMovement.isAirborne && kockbackDownBrooche.isEquipped)
+        {
+            return;
+        }
+
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 0);
-        //playerMovement.Knockback(playerMovement.dirKnockback, playerMovement.knockbackDistance);
 
         StopCoroutine(KnockbackOnHitRoutine());
         StartCoroutine(KnockbackOnHitRoutine());

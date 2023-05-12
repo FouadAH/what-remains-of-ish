@@ -12,6 +12,9 @@ public class MapSystem : MonoBehaviour
     public ScrollRect scrollRect;
     public float scrollSpeed = 2f;
 
+    [Header("Brooches")]
+    public InventoryItemSO compassBrooche;
+
     GameObject WorldObject;
     Vector3 initialPos;
     Player_Input playerInput;
@@ -28,6 +31,8 @@ public class MapSystem : MonoBehaviour
     {
         playerIcon.anchoredPosition = WorldObject.transform.position - initialPos;
         mapContent.anchoredPosition -= playerInput.mapRightStickInput * scrollSpeed;
+
+        playerIcon.gameObject.SetActive(compassBrooche.isEquipped);
     }
 
     public void OnNewLevelLoad()

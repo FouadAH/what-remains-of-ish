@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class BlockedInventoryItem : InventoryItem
 {
     public PlayerDataSO PlayerDataSO;
     public GameEvent OnUseYarn;
+    public UnityAction<int,int> OnUnblocked;
+
     Selectable selectable;
     bool isDestroying; 
 
@@ -43,6 +46,6 @@ public class BlockedInventoryItem : InventoryItem
         PlayerDataSO.playerYarnAmount.Value--;
         OnUseYarn.Raise();
 
-        DestroySelf();
+        OnUnblocked?.Invoke(GetGridPosition().x, GetGridPosition().y);
     }
 }

@@ -62,7 +62,7 @@ public class InventoryItemSO : ShopItemSO
     public override void ReceiveItem()
     {
         base.ReceiveItem();
-        debugTextEvent.Raise("Picked Up A Brooche!");
+        debugTextEvent.Raise($"Picked the \"{itemName}\" Brooche! ");
         isOwnedByPlayer = true;
     }
 
