@@ -12,7 +12,11 @@ public class InventoryGrid : MonoBehaviour
     public int gridHeight;
     public RectTransform itemContainer;
     public bool isEquipScreen;
+
     public InventoryItemSO blockedTileSO;
+    public InventoryItemSO unblockableTileSO;
+
+    public PlayerDataSO PlayerDataSO;
 
     private void Awake()
     {
@@ -23,10 +27,24 @@ public class InventoryGrid : MonoBehaviour
 
         if (isEquipScreen)
         {
+            //corners
             BlockTile(0, 0);
-            BlockTile(1, 0);
-            BlockTile(2, 0);
-            BlockTile(2, 1);
+            BlockTile(0, 3);
+            BlockTile(3, 0);
+            BlockTile(3, 3);
+
+            //ulockable
+            AddUnblockableTile(1, 0);
+            AddUnblockableTile(2, 0);
+
+            AddUnblockableTile(0, 1);
+            AddUnblockableTile(0, 2);
+
+            AddUnblockableTile(3, 1);
+            AddUnblockableTile(3, 2);
+
+            AddUnblockableTile(1, 3);
+            AddUnblockableTile(2, 3);
         }
     }
 
@@ -35,12 +53,34 @@ public class InventoryGrid : MonoBehaviour
         Setup();
     }
 
+    public void OnUnlockTile(int x, int y)
+    {
+        if (isEquipScreen)
+        {
+            UnblockTile(x, y);
+        }
+    }
+
     void BlockTile(int x, int y)
     {
         grid.GetGridObject(x, y).isBlocked = true;
         InventoryItem inventoryItem = InventoryItem.CreateCanvas(itemContainer, grid.GetWorldPosition(x, y), new Vector2Int(x, y), blockedTileSO);
         grid.GetGridObject(x, y).inventoryItem = inventoryItem;
     }
+
+    void AddUnblockableTile(int x, int y)
+    {
+        grid.GetGridObject(x, y).isBlocked = true;
+        InventoryItem inventoryItem = InventoryItem.CreateCanvas(itemContainer, grid.GetWorldPosition(x, y), new Vector2Int(x, y), unblockableTileSO);
+        grid.GetGridObject(x, y).inventoryItem = inventoryItem;
+    }
+
+    void UnblockTile(int x, int y)
+    {
+        grid.GetGridObject(x, y).isBlocked = false;
+        grid.GetGridObject(x, y).inventoryItem.DestroySelf();
+    }
+
 
     public void Setup()
     {

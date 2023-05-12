@@ -57,6 +57,14 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
     public override void LoadDefaultData()
     {
         base.LoadDefaultData();
+
+
+        moveState = new HedgehogCorruptedEnemy_MoveState(this, stateMachine, "move", moveStateData, this);
+        idleState = new HedgehogCorrutedEnemy_IdleState(this, stateMachine, "idle", idleStateData, this);
+        shootState = new HedgehogCorruptedEnemy_ShootState(this, stateMachine, "block", transform,
+            rangedAttackStateData, projectileController, this);
+        deadState = new HedgehogCorruptedEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
+
         stateMachine.Initialize(moveState);
     }
 
