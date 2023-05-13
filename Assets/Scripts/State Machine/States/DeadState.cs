@@ -47,7 +47,8 @@ public class DeadState : State
 
     public void CoinSpawner()
     {
-        for (int i = 0; i < stateData.coinDrop; i++)
+        float coinDropAmount = stateData.coinDrop * entity.playerRuntimeDataSO.entityCoinDropModidier;
+        for (int i = 0; i < coinDropAmount; i++)
         {
             GameObject.Instantiate(stateData.coinPrefab, entity.transform.position, Quaternion.identity);
         }

@@ -19,6 +19,7 @@ public class Player : MonoBehaviour, IAttacker {
     public bool invinsible = false;
     
     public PlayerDataSO playerData;
+    public PlayerRuntimeDataSO PlayerRuntimeDataSO;
 
     public PlayerMovement playerMovement { get; private set; }
 
@@ -112,6 +113,8 @@ public class Player : MonoBehaviour, IAttacker {
     public InventoryItemSO flaskRefillOnDamageBrooche;
     public InventoryItemSO damageBuffBrooche;
     public InventoryItemSO kockbackDownBrooche;
+    public InventoryItemSO coinDropRateUPBrooche;
+    public InventoryItemSO stunTimeUpBrooche;
 
     [Header("Player Events")]
     public GameEvent PlayerDeathEvent;
@@ -193,23 +196,6 @@ public class Player : MonoBehaviour, IAttacker {
         }
 #endif
 
-    }
-
-    private void PlayerInput_OnDebug()
-    {
-        playerDebugMode = true;
-
-        playerData.lastCheckpointPos.X = transform.position.x;
-        playerData.lastCheckpointPos.Y = transform.position.y;
-
-        playerData.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
-        playerData.lastCheckpointLevelIndex.Value = SceneManager.GetActiveScene().buildIndex;
-
-        playerData.lastSavepointPos.X = transform.position.x;
-        playerData.lastSavepointPos.Y = transform.position.y;
-
-        playerData.lastSavepointLevelPath = SceneManager.GetActiveScene().path;
-        playerData.lastSavepointLevelIndex.Value = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void Update()
@@ -534,6 +520,50 @@ public class Player : MonoBehaviour, IAttacker {
         playerMovement.isKnockedback_Hit = true;
         yield return new WaitForSeconds(knockbackOnHitTimer);
         playerMovement.isKnockedback_Hit = false;
+    }
+
+
+    private void PlayerInput_OnDebug()
+    {
+        playerDebugMode = true;
+
+        playerData.lastCheckpointPos.X = transform.position.x;
+        playerData.lastCheckpointPos.Y = transform.position.y;
+
+        playerData.lastCheckpointLevelPath = SceneManager.GetActiveScene().path;
+        playerData.lastCheckpointLevelIndex.Value = SceneManager.GetActiveScene().buildIndex;
+
+        playerData.lastSavepointPos.X = transform.position.x;
+        playerData.lastSavepointPos.Y = transform.position.y;
+
+        playerData.lastSavepointLevelPath = SceneManager.GetActiveScene().path;
+        playerData.lastSavepointLevelIndex.Value = SceneManager.GetActiveScene().buildIndex;
+    }
+
+    public void OnBroocheEquiped()
+    {
+        if(coinDropRateUPBrooche.isEquipped)
+        {
+            PlayerRuntimeDataSO.entityCoinDropModidier = 1.5f;
+        }
+
+        if (stunTimeUpBrooche.isEquipped)
+        {
+            PlayerRuntimeDataSO.entityStunTimeModifier = 1.5f;
+        }
+    }
+
+    public void OnBroocheUnequip()
+    {
+        if (!coinDropRateUPBrooche.isEquipped)
+        {
+            PlayerRuntimeDataSO.entityCoinDropModidier = 1f;
+        }
+
+        if (!stunTimeUpBrooche.isEquipped)
+        {
+            PlayerRuntimeDataSO.entityStunTimeModifier = 1.5f;
+        }
     }
 
     private void OnParticleCollision(GameObject other)

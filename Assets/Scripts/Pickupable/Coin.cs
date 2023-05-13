@@ -15,6 +15,7 @@ public class Coin : MonoBehaviour
     public Collider2D coinCollider;
     public ParticleSystem coinCollecterEffect;
     public IntegerReference playerCurrency;
+    //public InventoryItemSO autoCollectBrooche;
 
     float waitTime = 0.2f;
     /// <summary>
@@ -27,6 +28,11 @@ public class Coin : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = new Vector2(xForce, yForce);
         coinCollider.enabled = false;
         StartCoroutine(Timer());
+
+        //if (autoCollectBrooche.isEquipped)
+        //{
+
+        //}
     }
 
     /// <summary>

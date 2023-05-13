@@ -8,12 +8,17 @@ public class DeathController : MonoBehaviour
 
     public PlayerDataSO playerData;
     public PlayerRuntimeDataSO PlayerRuntimeDataSO;
-    public float dropPrecentage = 30f;
+    public InventoryItemSO deathDropModifierBrooche;
+
+    public float dropPrecentageHigh = 65f;
+    public float dropPrecentageLow = 45f;
+
     DeathDrop deathDrop;
 
     public void OnPlayerDeath()
     {
-        int lostCurrency = Mathf.FloorToInt(playerData.playerCurrency.Value * (dropPrecentage/100));
+        float dropPercentage = (deathDropModifierBrooche.isEquipped) ? dropPrecentageLow : dropPrecentageHigh;
+        int lostCurrency = Mathf.FloorToInt(playerData.playerCurrency.Value * (dropPercentage/100));
 
         if(deathDrop != null)
         {

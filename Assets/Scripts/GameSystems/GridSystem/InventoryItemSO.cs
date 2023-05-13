@@ -18,6 +18,9 @@ public class InventoryItemSO : ShopItemSO
     public BroocheData broocheData;
 
     [Header("Events")]
+    public GameEvent broocheEquipedEvent;
+    public GameEvent broocheUnequipedEvent;
+
     public StringEvent debugTextEvent;
 
     public delegate void BroochItemSOEventHandler();
@@ -80,6 +83,7 @@ public class InventoryItemSO : ShopItemSO
             isEquipped = true;
             Debug.Log("Equipped brooch: " + itemName);
             GameManager.instance.GetBool(broochID) = true;
+            broocheEquipedEvent.Raise();
         }
     }
 
@@ -90,6 +94,7 @@ public class InventoryItemSO : ShopItemSO
             isEquipped = false;
             Debug.Log("Unequipped brooch: " + itemName);
             GameManager.instance.GetBool(broochID) = false;
+            broocheUnequipedEvent.Raise();
         }
     }
 

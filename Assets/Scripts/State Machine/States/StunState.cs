@@ -12,6 +12,8 @@ public class StunState : State
     protected bool performCloseRangeAction;
     protected bool isPlayerInMinAgroRange;
 
+    float stunTime;
+
     public StunState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_StunState stateData) : base(etity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
@@ -33,6 +35,7 @@ public class StunState : State
         isStunTimeOver = false;
         isMovementStopped = false;
         entity.SetVelocity(stateData.stunKnockbackSpeed, stateData.stunKnockbackAngle, entity.lastDamageDirection);
+        stunTime = stateData.stunTime * entity.playerRuntimeDataSO.entityStunTimeModifier;
     }
 
     public override void Exit()
@@ -46,7 +49,7 @@ public class StunState : State
         base.LogicUpdate();
         //entity.SetVelocityX(0f);
 
-        if (Time.time >= startTime + stateData.stunTime)
+        if (Time.time >= startTime + stunTime)
         {
             isStunTimeOver = true;
         }

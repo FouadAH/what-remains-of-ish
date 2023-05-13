@@ -7,6 +7,8 @@ public class PlayerRuntimeDataSO : ScriptableObject
 {
     public Vector2 playerPosition;
     public Vector2 lastPlayerGroundedPosition;
-
     public Vector2 velocity;
+
+    public float entityCoinDropModidier = 1;
+    public float entityStunTimeModifier = 1;
 }
