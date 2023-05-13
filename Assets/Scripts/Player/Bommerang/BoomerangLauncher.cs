@@ -17,7 +17,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
 
-    [SerializeField] private Transform firingPoint;
+    public Transform firingPoint;
     
     public bool canFire = true;
 
@@ -90,7 +90,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     private Volume volume;
     private ChromaticAberration chromaticAberration;
 
-    [HideInInspector] public Boomerang boomerangReference;
+    public Boomerang boomerangReference;
 
     TimeStop timeStop;
     Player_Input playerInput;
@@ -127,6 +127,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         volume.profile.TryGet(out chromaticAberration);
 
         playerInput.OnQuickThrow += PlayerInput_OnQuickThrow;
+        boomerangReference.OnRangedHit += RangedHit;
     }
 
     private void PlayerInput_OnQuickThrow()
@@ -363,12 +364,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         if (canFire)
         {
             canFire = false;
-            var Boomerang = Instantiate(boomerangPrefab, firingPoint.position, firingPoint.rotation);
-
-            boomerangReference = Boomerang.GetComponent<Boomerang>();
-            boomerangReference.OnRangedHit += RangedHit;
-            boomerangReference.Launch();
-            //OnBoomerangLaunched.Invoke();
+            boomerangReference.Launch(transform.up);
 
             FMODUnity.RuntimeManager.PlayOneShot(boomerangSpinSFX, transform.position);
         }

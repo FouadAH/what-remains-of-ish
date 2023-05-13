@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Boomerang : MonoBehaviour
 {
@@ -26,6 +27,15 @@ public class Boomerang : MonoBehaviour
 
     public float maxSpeedBonus = 20f;
     public float maxAirTime = 2.5f;
+
+    [Header("Follow Settings")]
+    public float offsetX = 1.5f;
+    public float offsetY = 0.5f;
+    public float followLerpRate = 0.5f;
+
+    [Header("Rotate Speed")]
+    public float followRotateSpeed;
+    public float launchRotateSpeed;
 
     float speedBonus = 0;
 
@@ -77,6 +87,13 @@ public class Boomerang : MonoBehaviour
     bool hasFrozen;
     bool isStopped ;
     bool isInCollider;
+    bool isLaunched;
+    bool followPlayer;
+
+    float initalGravity;
+    float initalDrag;
+    float initalAngularDrag;
+
 
     private void Awake()
     {
@@ -95,12 +112,24 @@ public class Boomerang : MonoBehaviour
         speedBonus = 0;
         startTime = Time.time;
         rumbler = playerMovement.gameObject.GetComponent<Rumbler>();
+
+        isStopped = true;
+
+        initalAngularDrag = rgd2D.angularDrag;
+        initalDrag = rgd2D.drag;
+        initalGravity = rgd2D.gravityScale;
+
+        rgd2D.isKinematic = true;
+        rgd2D.velocity = Vector2.zero;
+
+        followPlayer = true;
     }
 
     private void Update()
     {
         //spriteRenderer.color = IsAccesable() ? Color.white : Color.red;
-        boomerangSprite.transform.Rotate(Vector3.forward * (boomerangLauncher.rotateSpeed * Time.deltaTime));
+        float rotateSpeed = (followPlayer? followRotateSpeed : launchRotateSpeed);
+        boomerangSprite.transform.Rotate(Vector3.forward * (rotateSpeed * Time.deltaTime));
 
         if (isComingBack)
             return;
@@ -125,17 +154,32 @@ public class Boomerang : MonoBehaviour
 
         BounceOffWall();
 
-        while (!back)
+        if (isLaunched)
         {
-            if (timer == null)
+            while (!back)
             {
-                timer = StartCoroutine(BoomerangCountdown());
+                if (timer == null)
+                {
+                    timer = StartCoroutine(BoomerangCountdown());
+                }
+                return;
             }
+        }
+
+
+        if (!isStopped && isLaunched && back && !isComingBack)
+        {
+            isComingBack = true;
+            Callback();
             return;
         }
 
-        Callback(); 
-
+        if (followPlayer)
+        {
+            Vector3 playerPos = player.transform.position;
+            Vector3 targetPos = new Vector3(playerPos.x + offsetX * -player.transform.localScale.x, playerPos.y + offsetY, playerPos.z);
+            rgd2D.transform.position = Vector3.Lerp(rgd2D.transform.position, targetPos, followLerpRate);
+        }
         //if (Input.GetKeyDown(KeyCode.R))
         //{
         //    isComingBack = true;
@@ -165,9 +209,26 @@ public class Boomerang : MonoBehaviour
         }
     }
 
-    public void Launch()
+    public void Launch(Vector2 dir)
     {
-        rgd2D.AddForce(transform.up * boomerangLauncher.throwForce, ForceMode2D.Impulse);
+        Debug.Log("Launch");
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+
+        isLaunched = true;
+        back = false;
+        isStopped = false;
+        followPlayer = false;
+
+        rgd2D.isKinematic = false;
+        rgd2D.angularDrag = initalAngularDrag;
+        rgd2D.drag = initalDrag;
+        rgd2D.gravityScale = initalGravity;
+
+        bounceCount = 0;
+        enemiesDamaged = 0;
+
+        rgd2D.AddForce(dir * boomerangLauncher.throwForce, ForceMode2D.Impulse);
     }
 
     private IEnumerator BoomerangCountdown()
@@ -217,6 +278,8 @@ public class Boomerang : MonoBehaviour
 
     IEnumerator Recall()
     {
+        Debug.Log("Recall");
+
         back = true;
         col2D.isTrigger = true;
 
@@ -231,7 +294,7 @@ public class Boomerang : MonoBehaviour
 
             if (Vector2.Distance(transform.position, player.transform.position) <= 0.8f)
             {
-                DestroyBoomerang();
+                StopBoomerang();
             }
 
             yield return null;
@@ -240,12 +303,18 @@ public class Boomerang : MonoBehaviour
 
     public void StopBoomerang()
     {
+        Debug.Log("StopBoomerang");
         if (!isStopped)
         {
             isStopped = true;
+            isLaunched = false;
+            isComingBack = false;
+            followPlayer = true;
+
             StopAllCoroutines();
             rgd2D.isKinematic = true;
             rgd2D.velocity = Vector2.zero;
+            boomerangLauncher.canFire = true;
         }
     }
 
@@ -325,6 +394,11 @@ public class Boomerang : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        if (followPlayer)
+        {
+            return;
+        }
+
         if (IsInLayerMask(collider.gameObject.layer, boomerangLauncher.interactable))
         {
             Instantiate(boomerangLauncher.hitEffect, transform.position, Quaternion.identity);
@@ -375,9 +449,12 @@ public class Boomerang : MonoBehaviour
 
         Gizmos.color = Color.yellow;
 
-        foreach (Transform item in wallDetectionObjs)
+        if (wallDetectionObjs != null)
         {
-            Gizmos.DrawLine(item.position, item.position + transform.up * wallDetectionDistance);
+            foreach (Transform item in wallDetectionObjs)
+            {
+                Gizmos.DrawLine(item.position, item.position + transform.up * wallDetectionDistance);
+            }
         }
     }
 
