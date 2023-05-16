@@ -364,8 +364,11 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         if (canFire)
         {
             canFire = false;
-            boomerangReference.Launch(transform.up);
+            var Boomerang = Instantiate(boomerangPrefab, firingPoint.position, firingPoint.rotation);
 
+            boomerangReference = Boomerang.GetComponent<Boomerang>();
+            boomerangReference.OnRangedHit += RangedHit;
+            boomerangReference.Launch(transform.up);
             FMODUnity.RuntimeManager.PlayOneShot(boomerangSpinSFX, transform.position);
         }
     }

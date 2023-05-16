@@ -211,9 +211,9 @@ public class Boomerang : MonoBehaviour
 
     public void Launch(Vector2 dir)
     {
-        Debug.Log("Launch");
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        //Debug.Log("Launch");
+        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        //transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
         isLaunched = true;
         back = false;
@@ -294,7 +294,7 @@ public class Boomerang : MonoBehaviour
 
             if (Vector2.Distance(transform.position, player.transform.position) <= 0.8f)
             {
-                StopBoomerang();
+                DestroyBoomerang();
             }
 
             yield return null;

@@ -387,12 +387,14 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     public void ResetAndLoad()
     {
         GameData gameData = DefaultGameData();
         testSaveFile.gameData = gameData;
         DataCacheToSaveables();
     }
+#endif
 
     public void LoadSavedGame(SaveFileSO saveFile)
     {
