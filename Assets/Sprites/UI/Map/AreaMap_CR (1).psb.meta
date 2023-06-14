@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -88,7 +90,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 0, y: 0}
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
@@ -112,7 +113,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 467, y: 527}
     spritePosition: {x: 1184, y: 388}
   - name: mappiece_cr_26
@@ -134,7 +134,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 753, y: 159}
     spritePosition: {x: 1335, y: 411}
   - name: mappiece_cr_25
@@ -156,7 +155,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 963}
     spritePosition: {x: 1243, y: 489}
   - name: mappiece_cr_24
@@ -178,7 +176,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 789, y: 527}
     spritePosition: {x: 1031, y: 447}
   - name: mappiece_cr_23
@@ -200,7 +197,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 442, y: 670}
     spritePosition: {x: 1034, y: 537}
   - name: mappiece_cr_22
@@ -222,7 +218,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 821}
     spritePosition: {x: 1338, y: 525}
   - name: mappiece_cr_21
@@ -244,7 +239,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 426, y: 4}
     spritePosition: {x: 1351, y: 643}
   - name: mappiece_cr_20
@@ -266,7 +260,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 768, y: 670}
     spritePosition: {x: 1554, y: 551}
   - name: mappiece_cr_19
@@ -288,7 +281,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 464}
     spritePosition: {x: 1711, y: 398}
   - name: mappiece_cr_18
@@ -310,7 +302,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 271, y: 828}
     spritePosition: {x: 1586, y: 393}
   - name: mappiece_cr_17
@@ -332,7 +323,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 881, y: 101}
     spritePosition: {x: 1693, y: 285}
   - name: mappiece_cr_16
@@ -354,7 +344,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 271, y: 670}
     spritePosition: {x: 1534, y: 248}
   - name: mappiece_cr_15
@@ -376,7 +365,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 874, y: 363}
     spritePosition: {x: 1408, y: 223}
   - name: mappiece_cr_14
@@ -398,7 +386,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 409, y: 828}
     spritePosition: {x: 1188, y: 237}
   - name: mappiece_cr_13
@@ -420,7 +407,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 626}
     spritePosition: {x: 1042, y: 259}
   - name: mappiece_cr_12
@@ -442,7 +428,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 271, y: 292}
     spritePosition: {x: 436, y: 236}
   - name: mappiece_cr_11
@@ -464,7 +449,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 467, y: 614}
     spritePosition: {x: 506, y: 220}
   - name: mappiece_cr_10
@@ -486,7 +470,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 271, y: 527}
     spritePosition: {x: 332, y: 209}
   - name: mappiece_cr_09
@@ -508,7 +491,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 408, y: 159}
     spritePosition: {x: 32, y: 385}
   - name: 'mappiece_cr_08 '
@@ -530,7 +512,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 546, y: 363}
     spritePosition: {x: 363, y: 305}
   - name: mappiece_cr_07
@@ -552,7 +533,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 271, y: 363}
     spritePosition: {x: 555, y: 360}
   - name: mappiece_cr_06
@@ -574,7 +554,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 442, y: 745}
     spritePosition: {x: 816, y: 361}
   - name: mappiece_cr_05
@@ -596,7 +575,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 874, y: 462}
     spritePosition: {x: 690, y: 509}
   - name: mappiece_cr_04
@@ -618,7 +596,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 292}
     spritePosition: {x: 790, y: 422}
   - name: mappiece_cr_03_secret
@@ -640,7 +617,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 746, y: 614}
     spritePosition: {x: 921, y: 690}
   - name: mappiece_cr_03
@@ -662,7 +638,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 4}
     spritePosition: {x: 644, y: 582}
   - name: mappiece_cr_02
@@ -684,7 +659,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 159}
     spritePosition: {x: 967, y: 626}
   - name: mappiece_cr_01
@@ -706,7 +680,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 881, y: 4}
     spritePosition: {x: 837, y: 725}
   characterData:
@@ -714,6 +687,7 @@ ScriptedImporter:
     parts: []
     dimension: {x: 0, y: 0}
     characterGroups: []
+    pivot: {x: 0, y: 0}
     boneReadOnly: 0
   sharedRigSpriteImportData: []
   sharedRigCharacterData:
@@ -721,6 +695,7 @@ ScriptedImporter:
     parts: []
     dimension: {x: 0, y: 0}
     characterGroups: []
+    pivot: {x: 0, y: 0}
     boneReadOnly: 0
   platformSettings: []
   mosaicLayers: 1
@@ -733,6 +708,8 @@ ScriptedImporter:
   paperDollMode: 0
   keepDupilcateSpriteName: 1
   skeletonAssetReferenceID: 
+  padding: 4
+  spriteSizeExpand: 0
   spriteCategoryList:
     categories: []
   spritePackingTag: 
@@ -1021,6 +998,9 @@ ScriptedImporter:
     isVisible: 1
   sharedRigPSDLayers: []
   pSDLayerImportSetting: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
   generateGOHierarchy: 0
   textureAssetName: 
   prefabAssetName: 

@@ -3,7 +3,7 @@ guid: 146b96e72e62e2a44ba6f8b96b3c20f1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,17 +64,20 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -387,22 +393,21 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      rattler_attack_spin_2: 826643750
-      rattler_attack_spin_1: 178310005
-      rattler_attack_spin_9: -1729869949
-      rattler_attack_spin_10: -807023351
-      rattler_attack_spin_4: -401870099
-      rattler_attack_spin_6: -1252239499
-      rattler_attack_spin_8: -839865827
-      rattler_attack_spin_3: 801772677
       rattler_attack_spin_0: -1946752486
+      rattler_attack_spin_1: 178310005
+      rattler_attack_spin_10: -807023351
       rattler_attack_spin_11: 1407591877
       rattler_attack_spin_12: 1037536995
-      rattler_attack_spin_7: -369612324
+      rattler_attack_spin_2: 826643750
+      rattler_attack_spin_3: 801772677
+      rattler_attack_spin_4: -401870099
       rattler_attack_spin_5: 859790547
-  spritePackingTag: 
+      rattler_attack_spin_6: -1252239499
+      rattler_attack_spin_7: -369612324
+      rattler_attack_spin_8: -839865827
+      rattler_attack_spin_9: -1729869949
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

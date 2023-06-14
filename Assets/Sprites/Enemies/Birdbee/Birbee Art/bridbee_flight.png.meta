@@ -30,7 +30,7 @@ TextureImporter:
       213: 6147795669749018808
     second: bridbee_flight_8
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -47,11 +47,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -90,17 +91,20 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -113,6 +117,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -318,18 +336,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bridbee_flight_7: 828045520566992948
-      bridbee_flight_3: 6641580644051743095
-      bridbee_flight_6: 4101544376833774498
-      bridbee_flight_8: 6147795669749018808
-      bridbee_flight_4: 6894465571793658205
-      bridbee_flight_2: 3606114012528820496
       bridbee_flight_0: 3233667925603063867
-      bridbee_flight_5: -6185210727282951099
       bridbee_flight_1: -5605091284000101214
-  spritePackingTag: 
+      bridbee_flight_2: 3606114012528820496
+      bridbee_flight_3: 6641580644051743095
+      bridbee_flight_4: 6894465571793658205
+      bridbee_flight_5: -6185210727282951099
+      bridbee_flight_6: 4101544376833774498
+      bridbee_flight_7: 828045520566992948
+      bridbee_flight_8: 6147795669749018808
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

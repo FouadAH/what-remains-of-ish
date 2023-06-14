@@ -3,7 +3,7 @@ guid: dd677c22e9f887542ab1cf38f1ce10e3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,17 +64,20 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -514,27 +520,26 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       random_greenery_0: 1088405432
-      random_greenery_8: 1861102740
+      random_greenery_1: 676366424
+      random_greenery_10: -1256987294
+      random_greenery_11: 1190462139
       random_greenery_12: 630028929
+      random_greenery_13: 972004572
+      random_greenery_14: -847637050
       random_greenery_15: 1806374782
+      random_greenery_16: -1603482453
+      random_greenery_17: 1186115774
+      random_greenery_18: -694048814
+      random_greenery_2: -1359821158
       random_greenery_3: 1210702678
       random_greenery_4: -347766617
-      random_greenery_14: -847637050
-      random_greenery_17: 1186115774
-      random_greenery_11: 1190462139
-      random_greenery_10: -1256987294
-      random_greenery_2: -1359821158
-      random_greenery_13: 972004572
-      random_greenery_7: 2000951908
       random_greenery_5: -1439818484
       random_greenery_6: 2031341582
-      random_greenery_1: 676366424
+      random_greenery_7: 2000951908
+      random_greenery_8: 1861102740
       random_greenery_9: 101773656
-      random_greenery_18: -694048814
-      random_greenery_16: -1603482453
-  spritePackingTag: 
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

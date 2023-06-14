@@ -39,7 +39,7 @@ TextureImporter:
       213: -7216379365965205059
     second: rollypolly_attack_11
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -56,11 +56,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -99,17 +100,20 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -122,6 +126,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -390,21 +408,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      rollypolly_attack_10: -6026325999342071723
-      rollypolly_attack_9: 8101438973660215263
-      rollypolly_attack_4: -8370438497112698671
-      rollypolly_attack_11: -7216379365965205059
       rollypolly_attack_0: 5221260270619230296
-      rollypolly_attack_3: 2920488513465829799
-      rollypolly_attack_6: 8947179029055971978
-      rollypolly_attack_5: -9133404554125541428
-      rollypolly_attack_8: 3003217815638065948
-      rollypolly_attack_2: 8948868800552004134
-      rollypolly_attack_7: 6726354357386892297
       rollypolly_attack_1: -6724572077834193113
-  spritePackingTag: 
+      rollypolly_attack_10: -6026325999342071723
+      rollypolly_attack_11: -7216379365965205059
+      rollypolly_attack_2: 8948868800552004134
+      rollypolly_attack_3: 2920488513465829799
+      rollypolly_attack_4: -8370438497112698671
+      rollypolly_attack_5: -9133404554125541428
+      rollypolly_attack_6: 8947179029055971978
+      rollypolly_attack_7: 6726354357386892297
+      rollypolly_attack_8: 3003217815638065948
+      rollypolly_attack_9: 8101438973660215263
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

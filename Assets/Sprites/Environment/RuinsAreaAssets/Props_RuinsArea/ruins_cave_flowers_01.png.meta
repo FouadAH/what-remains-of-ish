@@ -39,7 +39,7 @@ TextureImporter:
       213: -5689224904466058532
     second: WhiteFlower_2
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -56,11 +56,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -99,17 +100,20 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -122,6 +126,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -390,21 +408,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      YellowFlower_2: -7085801188692324395
-      YellowFlowerBush_V1: -335666707000537567
-      YellowFlowerBush_V2: 3237259275400804711
-      YellowFlower_1: 2830825385710137687
       LavenderFlower_2: -1538389477753656572
       LavenderFlowers: -42826184446185969
-      ruins_cave_flowers_01_6: 7517875010649787641
-      YellowFlower_3: -4096739662373386457
-      YellowFlowerBush_V3: -227307411361420511
-      WhiteFlower_3: 7772090978982339925
       WhiteFlower_1: -4257278769167607066
       WhiteFlower_2: -5689224904466058532
-  spritePackingTag: 
+      WhiteFlower_3: 7772090978982339925
+      YellowFlowerBush_V1: -335666707000537567
+      YellowFlowerBush_V2: 3237259275400804711
+      YellowFlowerBush_V3: -227307411361420511
+      YellowFlower_1: 2830825385710137687
+      YellowFlower_2: -7085801188692324395
+      YellowFlower_3: -4096739662373386457
+      ruins_cave_flowers_01_6: 7517875010649787641
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

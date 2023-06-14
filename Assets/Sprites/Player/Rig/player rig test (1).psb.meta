@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -88,7 +90,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 0, y: 0}
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
@@ -655,7 +656,6 @@ ScriptedImporter:
     - {x: 22, y: 23}
     - {x: 23, y: 24}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 414}
     spritePosition: {x: 261, y: 299}
   - name: head Merged
@@ -1087,7 +1087,6 @@ ScriptedImporter:
     - {x: 28, y: 29}
     - {x: 29, y: 30}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 295, y: 126}
     spritePosition: {x: 281, y: 347}
   - name: scarf Merged
@@ -1606,7 +1605,6 @@ ScriptedImporter:
     - {x: 34, y: 35}
     - {x: 35, y: 36}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 295, y: 4}
     spritePosition: {x: 261, y: 258}
   - name: dress Merged
@@ -2953,7 +2951,6 @@ ScriptedImporter:
     - {x: 85, y: 86}
     - {x: 86, y: 87}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 242}
     spritePosition: {x: 278, y: 184}
   - name: Layer 16(pasted)
@@ -3493,7 +3490,6 @@ ScriptedImporter:
     - {x: 20, y: 21}
     - {x: 21, y: 22}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 295, y: 292}
     spritePosition: {x: 271, y: 212}
   - name: Copy of Layer 14 Merged
@@ -4016,7 +4012,6 @@ ScriptedImporter:
     - {x: 19, y: 20}
     - {x: 20, y: 21}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 106, y: 466}
     spritePosition: {x: 276, y: 261}
   - name: Copy of Layer 16(pasted)
@@ -4605,7 +4600,6 @@ ScriptedImporter:
     - {x: 20, y: 21}
     - {x: 21, y: 22}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 295, y: 356}
     spritePosition: {x: 343, y: 242}
   - name: Copy of Layer 14 Merged
@@ -5038,7 +5032,6 @@ ScriptedImporter:
     - {x: 19, y: 20}
     - {x: 20, y: 21}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 295, y: 420}
     spritePosition: {x: 335, y: 291}
   - name: back dress Merged
@@ -6401,7 +6394,6 @@ ScriptedImporter:
     - {x: 91, y: 92}
     - {x: 92, y: 93}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 173, y: 289}
     spritePosition: {x: 268, y: 184}
   - name: back leg
@@ -7025,7 +7017,6 @@ ScriptedImporter:
     - {x: 22, y: 23}
     - {x: 23, y: 24}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 106, y: 362}
     spritePosition: {x: 322, y: 108}
   - name: front leg
@@ -7837,7 +7828,6 @@ ScriptedImporter:
     - {x: 23, y: 69}
     - {x: 23, y: 24}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 106, y: 242}
     spritePosition: {x: 278, y: 107}
   - name: Layer 8(pasted)
@@ -8332,7 +8322,6 @@ ScriptedImporter:
     - {x: 21, y: 22}
     - {x: 22, y: 23}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 54, y: 414}
     spritePosition: {x: 313, y: 258}
   - name: Layer 7(pasted)
@@ -9051,7 +9040,6 @@ ScriptedImporter:
     - {x: 22, y: 62}
     - {x: 22, y: 23}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 295, y: 230}
     spritePosition: {x: 296, y: 316}
   - name: Layer 39(pasted)
@@ -10153,7 +10141,6 @@ ScriptedImporter:
     - {x: 54, y: 55}
     - {x: 55, y: 56}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: -65, y: 4}
     spritePosition: {x: 238, y: 147}
   - name: staff
@@ -13364,7 +13351,6 @@ ScriptedImporter:
     - {x: 124, y: 125}
     - {x: 125, y: 126}
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 4}
     spritePosition: {x: 236, y: 200}
   - name: Layer 1
@@ -13386,7 +13372,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 54, y: 482}
     spritePosition: {x: 0, y: 600}
   characterData:
@@ -13754,6 +13739,7 @@ ScriptedImporter:
       order: 0
     dimension: {x: 0, y: 0}
     characterGroups: []
+    pivot: {x: 0, y: 0}
     boneReadOnly: 0
   sharedRigSpriteImportData: []
   sharedRigCharacterData:
@@ -13761,10 +13747,12 @@ ScriptedImporter:
     parts: []
     dimension: {x: 0, y: 0}
     characterGroups: []
+    pivot: {x: 0, y: 0}
     boneReadOnly: 0
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -13776,6 +13764,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   - name: Standalone
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -13787,6 +13776,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   - name: Server
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -13806,6 +13796,8 @@ ScriptedImporter:
   paperDollMode: 0
   keepDupilcateSpriteName: 1
   skeletonAssetReferenceID: 
+  padding: 4
+  spriteSizeExpand: 0
   spriteCategoryList:
     categories: []
   spritePackingTag: 
@@ -14044,6 +14036,9 @@ ScriptedImporter:
     isVisible: 0
   sharedRigPSDLayers: []
   pSDLayerImportSetting: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
   generateGOHierarchy: 0
   textureAssetName: 
   prefabAssetName: 

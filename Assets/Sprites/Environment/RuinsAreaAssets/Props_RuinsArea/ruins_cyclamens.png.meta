@@ -84,7 +84,7 @@ TextureImporter:
       213: -9010636032571196415
     second: cyclamens_4_blur-15
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -101,11 +101,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -144,17 +145,20 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -167,6 +171,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -179,6 +184,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -7338,26 +7344,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      cyclamens_4_blur-15: -9010636032571196415
-      cyclamens_3_blur-12: 6183988751554244924
-      cyclamens_1_blur-8: 4797933073948388513
-      cyclamens_1_blur-15: 3201322325447651505
-      cyclamens_3_blur-15: 1393866231123667075
-      cyclamens_4_blur-8: -7460281854696583166
-      cyclamens_2_blur-12: -8578711555805798038
-      cyclamens_4_blur-0: -5683669826620876356
-      cyclamens_3_blur-0: 6811839419841544806
-      cyclamens_2_blur-8: 7038690111140795115
-      cyclamens_2_blur-15: 3019085691359071483
-      cyclamens_1_blur-12: -7414248970509646390
       cyclamens_1_blur-0: -3869138907177689390
+      cyclamens_1_blur-12: -7414248970509646390
+      cyclamens_1_blur-15: 3201322325447651505
+      cyclamens_1_blur-8: 4797933073948388513
       cyclamens_2_blur-0: -836224479336834429
-      cyclamens_4_blur-12: 8619377963546438756
-      ruins_cyclamens_23: -1309430369939039911
+      cyclamens_2_blur-12: -8578711555805798038
+      cyclamens_2_blur-15: 3019085691359071483
+      cyclamens_2_blur-8: 7038690111140795115
+      cyclamens_3_blur-0: 6811839419841544806
+      cyclamens_3_blur-12: 6183988751554244924
+      cyclamens_3_blur-15: 1393866231123667075
       cyclamens_3_blur-8: -6699061111762141582
-  spritePackingTag: 
+      cyclamens_4_blur-0: -5683669826620876356
+      cyclamens_4_blur-12: 8619377963546438756
+      cyclamens_4_blur-15: -9010636032571196415
+      cyclamens_4_blur-8: -7460281854696583166
+      ruins_cyclamens_23: -1309430369939039911
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
