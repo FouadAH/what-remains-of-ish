@@ -209,7 +209,7 @@ public class Boomerang : MonoBehaviour
         }
     }
 
-    public void Launch(Vector2 dir)
+    public void Launch(Vector2 dir, float multiplier)
     {
         //Debug.Log("Launch");
         //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -228,7 +228,7 @@ public class Boomerang : MonoBehaviour
         bounceCount = 0;
         enemiesDamaged = 0;
 
-        rgd2D.AddForce(dir * boomerangLauncher.throwForce, ForceMode2D.Impulse);
+        rgd2D.AddForce(dir * boomerangLauncher.throwForce * multiplier, ForceMode2D.Impulse);
     }
 
     private IEnumerator BoomerangCountdown()

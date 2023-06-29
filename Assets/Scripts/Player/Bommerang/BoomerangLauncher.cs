@@ -50,6 +50,11 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public float aimSnapTime = 0.02f;
     [Range(0,6)] public float aimAssistAmount = 3f;
 
+    [Header("Hold multiplier values")]
+    float throwMultiplier = 1f;
+    public float throwMultiplierTarget = 2f;
+    public float throwMultiplerDuration = 0.6f;
+
     [Header("Damage values")]
     [SerializeField] private int minDamage = 1;
     [SerializeField] private int maxDamage = 5;
@@ -98,6 +103,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     bool slowDown;
     bool isAiming;
     Coroutine aimTimer;
+    Coroutine throwMultiplierCO;
 
     float currentAngleVelocity;
     float digitalAngle = 0;
@@ -108,6 +114,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     [FMODUnity.EventRef] public string boomerangSpinSFX;
     public UnityEvent OnBoomerangLaunched;
     public UnityEvent OnBoomerangHit;
+
 
     private void Awake()
     {
@@ -329,9 +336,11 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     }
     void FiringLogic()
     {
+
         if (canFire && playerInput.aiming && !isAiming)
         {
-            //playerInput.aiming = true;
+            throwMultiplier = 1f;
+            StartCoroutine(LerpFunction(throwMultiplierTarget, slowDownTime));
             aimTimer = StartCoroutine(AimTimer());
         }
         else if (isAiming && canFire && !playerInput.aiming)
@@ -339,10 +348,26 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             if (aimTimer != null)
                 StopCoroutine(aimTimer);
 
+            if(throwMultiplierCO != null)
+                StopCoroutine(throwMultiplierCO);
+
             Launch();
             slowDown = false;
-            //playerInput.aiming = false;
         }
+    }
+
+    IEnumerator LerpFunction(float endValue, float duration)
+    {
+        float time = 0;
+        float startValue = throwMultiplier;
+        while (time < duration)
+        {
+            throwMultiplier = Mathf.Lerp(startValue, endValue, time / duration);
+            time += Time.fixedDeltaTime;
+            yield return null;
+        }
+
+        throwMultiplier = endValue;
     }
 
     IEnumerator AimTimer()
@@ -368,7 +393,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
 
             boomerangReference = Boomerang.GetComponent<Boomerang>();
             boomerangReference.OnRangedHit += RangedHit;
-            boomerangReference.Launch(transform.up);
+            boomerangReference.Launch(transform.up, throwMultiplier);
             FMODUnity.RuntimeManager.PlayOneShot(boomerangSpinSFX, transform.position);
         }
     }
