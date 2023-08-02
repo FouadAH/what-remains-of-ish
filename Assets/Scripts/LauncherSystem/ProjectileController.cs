@@ -9,17 +9,19 @@ public class ProjectileController : MonoBehaviour, FiringAI
 
     [Header("Projectile Firing Settings")]
     public float fireRate;
-    [HideInInspector] public float nextFireTime;
+    public float nextFireTime;
     public event System.Action OnFire = delegate { };
-
+    float lastFireTime;
     public void RaiseOnFireEvent()
     {
-        var eh = OnFire;
-        if (eh != null)
-            OnFire();
+        if (CanFire())
+        {
+            lastFireTime = Time.time;
+            OnFire?.Invoke();
+        }
     }
     public bool CanFire()
     {
-        return Time.time >= nextFireTime;
+        return Time.time >= lastFireTime + fireRate;
     }
 }

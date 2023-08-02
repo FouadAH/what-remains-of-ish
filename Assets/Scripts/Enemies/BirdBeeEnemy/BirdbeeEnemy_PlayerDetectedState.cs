@@ -34,6 +34,7 @@ public class BirdbeeEnemy_PlayerDetectedState : PlayerDetectedState
         {
             lastAttackTime = Time.time;
             stateMachine.ChangeState(enemy.attackState);
+            return;
         }
         else if (enemy.CheckPlayerInMaxAggroRadius())
         {

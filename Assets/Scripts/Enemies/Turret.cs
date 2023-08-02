@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Entity;
 
 public class Turret : MonoBehaviour, FiringAI, IDamagable
 {
@@ -65,9 +66,14 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
         }
 
 
-        if (Time.time >= lastDamageTime + stunRecoveryTime)
+        if (Time.time >= lastDamageTime + stunRecoveryTime && isStunned)
         {
             ResetStunResistance();
+        }
+
+        if (!isStunned)
+        {
+            currentStunResistance = Mathf.Lerp(currentStunResistance, stunResistance, 0.004f);
         }
 
         if (targeting)
@@ -83,11 +89,6 @@ public class Turret : MonoBehaviour, FiringAI, IDamagable
         {
             nextFireTime = Time.time + fireRate;
             RaiseOnFireEvent();
-        }
-
-        if (isStunned)
-        {
-
         }
 
     }

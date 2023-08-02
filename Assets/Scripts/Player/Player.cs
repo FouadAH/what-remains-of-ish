@@ -480,6 +480,11 @@ public class Player : MonoBehaviour, IAttacker {
         cameraOffset.m_Offset.y = Mathf.Lerp(cameraOffset.m_Offset.y, cameraOffsetTarget, 0.1f);
     }
 
+    public void LookTowards(Vector2 cameraOffsetDir, float amount)
+    {
+        cameraOffset.m_Offset = Vector2.Lerp(cameraOffset.m_Offset, cameraOffsetDir * amount, 0.1f);
+    }
+
     bool knockBackOnHit = false;
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
@@ -499,6 +504,7 @@ public class Player : MonoBehaviour, IAttacker {
         if (invinsible)
             return;
         
+        dirY = Mathf.Clamp(dirY, -0.1f, 1);
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
         playerMovement.knockbackDistance = amount;
         StopCoroutine(KnockbackOnDamageRoutine());

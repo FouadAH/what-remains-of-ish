@@ -88,6 +88,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
     public GameObject hitEffect;
     public float slowDownTime = 0.6f;
     public float cameraZoom = 15f;
+    public float cameraAimOffset = 3.5f;
     float fixedDeltaTime;
 
     CameraController cameraController;
@@ -134,7 +135,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         volume.profile.TryGet(out chromaticAberration);
 
         playerInput.OnQuickThrow += PlayerInput_OnQuickThrow;
-        boomerangReference.OnRangedHit += RangedHit;
+        //boomerangReference.OnRangedHit += RangedHit;
     }
 
     private void PlayerInput_OnQuickThrow()
@@ -154,6 +155,15 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         BoomerangAimingEffects();
         AimingLogic();
         Crosshair();
+
+        if (isAiming)
+        {
+            LookTowards(firingPoint.transform.up, cameraAimOffset);
+        }
+        else
+        {
+            LookTowards(Vector2.zero, 0);
+        }
     }
 
     Vector2 referencePos;
@@ -278,7 +288,7 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
         {
             Vector2 rightStickInput = playerInput.rightStickInputRaw;
 
-            if (playerInput.globalConfig.gameSettings)
+            if (playerInput.globalConfig.gameSettings.AimAssistOn)
             {
                 Transform target = LookForEnemyWithThickRaycast(firingPoint.transform.position, rightStickInput, aimAssistAmount);
 
@@ -307,6 +317,12 @@ public class BoomerangLauncher : MonoBehaviour, ILauncher
             transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         }
     }
+
+    public void LookTowards(Vector2 cameraOffsetDir, float amount)
+    {
+        cameraOffset.m_Offset = Vector2.Lerp(cameraOffset.m_Offset, cameraOffsetDir * amount, 0.05f);
+    }
+
     void BoomerangAimingEffects()
     {
         if (timeStop.timeStopIsActive)

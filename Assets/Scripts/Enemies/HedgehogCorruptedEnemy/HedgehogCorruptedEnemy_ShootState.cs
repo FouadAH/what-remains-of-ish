@@ -21,6 +21,14 @@ public class HedgehogCorruptedEnemy_ShootState : ShootState
     {
         base.Enter();
 
+        Vector3 directionToPlayer = (entity.playerRuntimeDataSO.playerPosition - (Vector2)enemy.transform.position).normalized;
+        if (Mathf.Sign(directionToPlayer.x) != entity.facingDirection)
+        {
+            Debug.Log($"{directionToPlayer.x}, {entity.facingDirection}");
+            entity.Flip();
+        }
+
+
         isAnimationFinished = false;
         entity.SetVelocity(0f);
     }

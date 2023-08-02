@@ -22,7 +22,13 @@ public class GameSettingsSO : ScriptableObject
 
     public bool AimAssistOn
     {
-        get => PlayerPrefs.GetInt("aimAssistOn", 0) == 0;
+        get => PlayerPrefs.GetInt("aimAssistOn", 1) == 0;
         set => PlayerPrefs.SetInt("aimAssistOn", (aimAssistOn) ? 0 : 1);
+    }
+
+    private void OnValidate()
+    {
+        AimAssistOn = aimAssistOn;
+        UseDirectionalMouseAttacks = useDirectionalMouseAttacks;
     }
 }

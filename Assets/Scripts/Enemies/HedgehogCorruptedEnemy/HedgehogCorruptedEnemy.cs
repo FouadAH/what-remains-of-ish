@@ -52,6 +52,10 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
         {
             stateMachine.ChangeState(deadState);
         }
+        else
+        {
+            stateMachine.ChangeState(shootState);
+        }
     }
 
     public override void LoadDefaultData()
@@ -71,6 +75,7 @@ public class HedgehogCorruptedEnemy : Entity, FiringAI
     public void RaiseOnFireEvent()
     {
         var eh = OnFire;
+
         if (eh != null)
             OnFire();
     }

@@ -32,7 +32,7 @@ public class Entity : Savable, IDamagable
 
     public DamageBox damageBox;
 
-    private float currentStunResistance;
+    public float currentStunResistance;
     private float lastDamageTime;
 
     protected Vector2 spawnPoint;
@@ -53,7 +53,7 @@ public class Entity : Savable, IDamagable
     public ParticleSystem NearDeathEffect;
     public ParticleSystem FlaskRefillParticles;
 
-    public event Action<float, float> OnHitEnemy = delegate { };
+    public event Action<float, float, float, float> OnHitEnemy = delegate { };
     public event Action OnDeath = delegate { };
 
     [Header("Aggro Settings")]
@@ -132,9 +132,14 @@ public class Entity : Savable, IDamagable
 
         //anim.SetFloat("yVelocity", rb.velocity.y);
 
-        if(Time.time >= lastDamageTime + entityData.stunRecoveryTime)
+        if(Time.time >= lastDamageTime + entityData.stunRecoveryTime && isStunned)
         {
             ResetStunResistance();
+        }
+
+        if(!isStunned)
+        {
+            currentStunResistance = Mathf.Lerp(currentStunResistance, entityData.stunResistance, 0.004f);
         }
     }
 
@@ -278,13 +283,6 @@ public class Entity : Savable, IDamagable
         currentStunResistance = entityData.stunResistance;
     }
 
-    protected void RaiseOnHitEnemyEvent(float health, float maxHealth)
-    {
-        var eh = OnHitEnemy;
-        if (eh != null)
-            OnHitEnemy(health, maxHealth);
-    }
-
     public void SpawnDamagePoints(int damage)
     {
         float x = UnityEngine.Random.Range(transform.position.x - 1f, transform.position.x + 1f);
@@ -334,7 +332,8 @@ public class Entity : Savable, IDamagable
         float damageAmount = (isStunned) ? amount : amount;
         Health -= damageAmount;
 
-        RaiseOnHitEnemyEvent(Health, MaxHealth);
+        OnHitEnemy?.Invoke(Health, MaxHealth, currentStunResistance, entityData.stunResistance);
+
         impulseListener.GenerateImpulse();
 
         if(BloodEffect != null)

@@ -740,6 +740,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void OnJumpInputDown()
     {
+        isPressingJump = true;
+
         jumpBufferCounter = 0;
         initialHeight = transform.position.y;
 
@@ -752,11 +754,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    bool isPressingJump = false;
     /// <summary>
     /// Method that handles jump logic when the player lets go of the jump button, allows the player to control the jump amount 
     /// </summary>
     public void OnJumpInputUp()
     {
+        isPressingJump = false;
+
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
@@ -850,6 +855,11 @@ public class PlayerMovement : MonoBehaviour
                 velocity.x += jumpVelocityX * playerInput.directionalInput.x;
             }
             spriteObj.localScale = new Vector2(.7f, 1.3f);
+        }
+
+        if (!isPressingJump)
+        {
+            velocity.y = minJumpVelocity;
         }
     }
 

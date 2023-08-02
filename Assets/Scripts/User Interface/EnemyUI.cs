@@ -7,31 +7,43 @@ public class EnemyUI : MonoBehaviour
 {
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Slider healthSliderGhost;
+
+    [SerializeField] private Slider stunSlider;
+
     private float previousHealthPercent;
 
     private float MaxHealth = 1f;
     private float Health = 1f;
+    private float StunResistance = 1f;
+    private float CurrentStunResistance = 1f;
+
     [SerializeField] private Canvas canvas;
-    private Transform enemy;
     public float offset =1f;
 
+    Entity entity;
     void Awake()
     {
+        entity = GetComponent<Entity>();
         previousHealthPercent = 1;
-        enemy = GetComponent<Entity>().transform;
         GetComponent<Entity>().OnHitEnemy += OnHitEnemy;
     }
 
-    private void OnHitEnemy(float health, float maxHealth)
+    private void OnHitEnemy(float health, float maxHealth, float currentStunResistance, float stunResistance)
     {
-        if (canvas.enabled == false) canvas.enabled = true;
+        if (canvas.enabled == false) 
+            canvas.enabled = true;
+        
         Health = health;
         MaxHealth = maxHealth;
+        StunResistance = stunResistance;
+        CurrentStunResistance = currentStunResistance;
     }
 
     void Update()
     {
         healthSlider.value = CalculateHealthPercent();
+        stunSlider.value = CalculateStunPercent();
+
         healthSliderGhost.value = Mathf.MoveTowards(previousHealthPercent, CalculateHealthPercent(), 0.05f * Time.deltaTime);
         previousHealthPercent = healthSliderGhost.value;
     }
@@ -39,6 +51,11 @@ public class EnemyUI : MonoBehaviour
     private float CalculateHealthPercent()
     {
         return Health / MaxHealth;
+    }
+
+    private float CalculateStunPercent()
+    {
+        return (entity.entityData.stunResistance - entity.currentStunResistance) / entity.entityData.stunResistance;
     }
 
 }
