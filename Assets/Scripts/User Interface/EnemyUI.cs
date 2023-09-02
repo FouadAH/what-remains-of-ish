@@ -42,7 +42,11 @@ public class EnemyUI : MonoBehaviour
     void Update()
     {
         healthSlider.value = CalculateHealthPercent();
-        stunSlider.value = CalculateStunPercent();
+        
+        if (stunSlider != null)
+        {
+            stunSlider.value = CalculateStunPercent();
+        }
 
         healthSliderGhost.value = Mathf.MoveTowards(previousHealthPercent, CalculateHealthPercent(), 0.05f * Time.deltaTime);
         previousHealthPercent = healthSliderGhost.value;

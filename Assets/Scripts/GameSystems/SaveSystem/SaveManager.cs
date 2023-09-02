@@ -95,7 +95,7 @@ public class SaveManager : MonoBehaviour
     private void SetupTestingSaveFile()
     {
         string testFileName = "TestSaveFile.json";
-        string path = testSavePath + "/" + testFileName;
+        string path = Application.persistentDataPath + "/TestSaveFiles/" + testFileName;
 
         if (!File.Exists(path))
         {
@@ -113,6 +113,11 @@ public class SaveManager : MonoBehaviour
         testSaveFile.gameData = gameDataTest;
 
         currentSaveFile = testSaveFile;
+
+        currentSaveFile.gameData = new GameData();
+        currentSaveFile.gameData.scene_data = new SceneData();
+        currentSaveFile.gameData.enemy_data = new EnemyData();
+
         sceneDataCache = currentSaveFile.gameData.scene_data;
         enemyDataCache = currentSaveFile.gameData.enemy_data;
 
