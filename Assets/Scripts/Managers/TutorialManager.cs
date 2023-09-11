@@ -8,6 +8,8 @@ public class TutorialManager : MonoBehaviour
     public GameObject healingTutorial;
     public GameObject wallJumpTutorial;
     public GameObject dashTutorial;
+    public GameObject airDashTutorial;
+
     public GameObject teleportTutorial;
     public GameObject boomerangTutorial;
     public GameObject restingTutorial;
@@ -77,6 +79,10 @@ public class TutorialManager : MonoBehaviour
                 Display(dashTutorial);
                 break;
 
+            case TutorialType.AirDash:
+                Display(airDashTutorial);
+                break;
+
             case TutorialType.Teleport:
                 Display(teleportTutorial);
                 break;
@@ -101,6 +107,11 @@ public class TutorialManager : MonoBehaviour
     public void BoomerangTutorial()
     {
         DisplayTutorial(TutorialType.Boomerang);
+    }
+
+    public void AirDashTutorial()
+    {
+        DisplayTutorial(TutorialType.AirDash);
     }
 
     void Display(GameObject tutorial)
@@ -139,5 +150,6 @@ public enum TutorialType
     Teleport = 3,
     Boomerang = 4,
     Resting = 5,
-    Attack = 6
+    Attack = 6,
+    AirDash = 7
 }

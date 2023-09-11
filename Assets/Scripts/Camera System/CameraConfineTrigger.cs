@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CameraConfineTrigger : MonoBehaviour
 {
+    
+    public PolygonCollider2D cameraConfines;
+    public bool isSameAsTrigger = true;
     PolygonCollider2D polygonCollider2D;
     PolygonCollider2D globalPolygonCollider2D;
     CameraController cameraController;
@@ -21,7 +24,15 @@ public class CameraConfineTrigger : MonoBehaviour
         {
             StopAllCoroutines();
             cameraController.confiner.m_Damping = 4;
-            cameraController.confiner.m_BoundingShape2D = polygonCollider2D;
+
+            if (isSameAsTrigger)
+            {
+                cameraController.confiner.m_BoundingShape2D = polygonCollider2D;
+            }
+            else
+            {
+                cameraController.confiner.m_BoundingShape2D = cameraConfines;
+            }
         }
     }
 
