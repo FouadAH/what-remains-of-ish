@@ -14,7 +14,7 @@ public class InventoryMenu : MonoBehaviour
     public List<AbilityInventoryItem> abilityItems;
 
     public AbilityPickupChannel pickupChannel;
-
+    public PlayerDataSO PlayerDataSO;
     private void Start()
     {
         pickupChannel.OnPickupAbility += EnableAbilityItem;
@@ -22,6 +22,31 @@ public class InventoryMenu : MonoBehaviour
         foreach(var item in abilityItems)
         {
             item.OnSelectItem += OnSelectInventoryItem;
+        }
+
+        if (PlayerDataSO.hasBoomerangAbility)
+        {
+            EnableAbilityItem(AbilityType.Boomerang);
+        }
+        else if(PlayerDataSO.hasAirDashAbility)
+        {
+            EnableAbilityItem(AbilityType.AirDash);
+        }
+        else if(PlayerDataSO.hasDashAbility)
+        {
+
+        }
+        else if (PlayerDataSO.hasTeleportAbility)
+        {
+
+        }
+        else if (PlayerDataSO.hasWallJumpAbility)
+        {
+
+        }
+        else if (PlayerDataSO.hasDoubleJumpAbility)
+        {
+
         }
     }
 

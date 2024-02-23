@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour
     public void OnReceivedArtifact()
     {
         debugTextEvent.Raise("Picked up an artifact!");
+        playerData.artifactAmount.Value++;
     }
 
     public void InitialSpawn()
@@ -199,7 +200,11 @@ public class GameManager : MonoBehaviour
 
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath, Vector3 playerPos)
     {
+        if (isLoading)
+            return;
+
         isLoading = true;
+        Debug.Log($"unload scene: {levelToUnloadPath} ");
 
         player.GetComponent<Player_Input>().DisablePlayerInput();
         newPlayerPos = playerPos;
@@ -212,6 +217,9 @@ public class GameManager : MonoBehaviour
 
     public void LoadScenePath(string levelToUnloadPath, string levelToLoadPath)
     {
+        if (isLoading)
+            return;
+
         isLoading = true;
 
         player.GetComponent<Player>().enabled = false;
@@ -228,12 +236,16 @@ public class GameManager : MonoBehaviour
 
         loadingStartEvent.Raise();
         yield return new WaitForSeconds(1f);
+        //yield return new WaitForEndOfFrame();
+
 
         if (astarPath != null)
         {
             astarPath.gameObject.SetActive(false);
             astarPath.enabled = false;
         }
+
+        //Debug.Log($"unload scene: {levelToUnloadPath} ");
         SceneManager.UnloadSceneAsync(levelToUnloadPath).completed += UnloadScene_completed;
     }
 

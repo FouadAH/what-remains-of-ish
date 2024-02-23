@@ -9,16 +9,22 @@ public class CurrencyUIController : MonoBehaviour
     public TMP_Text currencyText;
 
     [Header("Data")]
-    public PlayerDataSO playerData;
+    public IntegerReference playerCurrency;
 
+    private int lastCurrency; 
     void Update()
     {
         UpdateCurrencyUI();
     }
 
+#warning: causing garbage collection spike
     void UpdateCurrencyUI()
     {
-        currencyText.SetText(playerData.playerCurrency.Value.ToString());
+        if (lastCurrency != playerCurrency.Value)
+        {
+            currencyText.SetText(playerCurrency.Value.ToString());
+            lastCurrency = playerCurrency.Value;
+        }
     }
 
     //IEnumerator CurrencyCounter()

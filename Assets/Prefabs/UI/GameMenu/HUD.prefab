@@ -832,7 +832,7 @@ RectTransform:
   - {fileID: 7633672582074613595}
   - {fileID: 7633672583165072079}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -856,7 +856,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -412088369
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2250,12 +2252,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currencyText: {fileID: 886218055558830071}
-  playerData: {fileID: 11400000, guid: 73bd1f18bf17ffb49afcca9bf6d2ad9f, type: 2}
+  playerCurrency:
+    Variable: {fileID: 11400000, guid: 6178b6f8abe9a924a87e040b10ec70d0, type: 2}
 --- !u!1001 &220649001660398151
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 886218054871964677}
     m_Modifications:
     - target: {fileID: 1099896153959132766, guid: f943302ba5c350e489815a742e0814ca,
@@ -2369,6 +2373,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f943302ba5c350e489815a742e0814ca, type: 3}
 --- !u!224 &886218056153322520 stripped
 RectTransform:
