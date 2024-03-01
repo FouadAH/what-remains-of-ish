@@ -23,8 +23,12 @@ MonoBehaviour:
     Variable: {fileID: 11400000, guid: 676ea8913b1b89e41a07139e7893f09f, type: 2}
   playerHealingFlaskShards:
     Variable: {fileID: 11400000, guid: 7b00d3c85911d66439c15514aa4a1a37, type: 2}
+  playerYarnAmount:
+    Variable: {fileID: 0}
   playerCurrency:
     Variable: {fileID: 11400000, guid: 6178b6f8abe9a924a87e040b10ec70d0, type: 2}
+  artifactAmount:
+    Variable: {fileID: 11400000, guid: 1a861eb9d9d2fd544b8565c1c35bdb4d, type: 2}
   playerPosition: {fileID: 11400000, guid: 4b227e8fc7c890841b86d5d6d2be56c0, type: 2}
   lastCheckpointPos: {fileID: 11400000, guid: 300308f31fd13a8488af4ae101a04237, type: 2}
   lastCheckpointLevelIndex:
@@ -38,7 +42,10 @@ MonoBehaviour:
     Variable: {fileID: 11400000, guid: d422d666cd4f25641be98dceb20f61c3, type: 2}
   hasBoomerangAbility: 1
   hasDashAbility: 0
+  hasAirDashAbility: 0
   hasTeleportAbility: 0
   hasWallJumpAbility: 0
   hasSprintAbility: 0
   hasDoubleJumpAbility: 0
+  hasBoomerangExplosion: 0
+  hasBoomerangFreeze: 0

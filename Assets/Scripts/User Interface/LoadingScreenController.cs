@@ -11,6 +11,7 @@ public class LoadingScreenController : MonoBehaviour
 
     public void PlayLoadingScreen()
     {
+        Debug.Log("PlayLoadingScreen");
         GameManager.instance.isLoading = true;
         canvasGroup.DOFade(1, 1f).OnComplete(() =>
         {

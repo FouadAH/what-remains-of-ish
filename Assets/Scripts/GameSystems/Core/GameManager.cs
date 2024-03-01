@@ -162,11 +162,10 @@ public class GameManager : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("Hard Respawn");
+        Debug.Log($"Hard Respawn: {isRespawning}");
         if (!isRespawning)
         {
             isRespawning = true;
-            isLoading = true;
             player.GetComponent<Player>().enabled = false;
             LoadScenePath(SceneManager.GetActiveScene().path, playerData.lastSavepointLevelPath);
         }
@@ -233,6 +232,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator LoadSceneRoutine()
     {
         SaveManager.instance.SaveSceneData();
+        Debug.Log($"LoadSceneRoutine: {levelToLoadPath} ");
 
         loadingStartEvent.Raise();
         yield return new WaitForSeconds(1f);
@@ -245,7 +245,7 @@ public class GameManager : MonoBehaviour
             astarPath.enabled = false;
         }
 
-        //Debug.Log($"unload scene: {levelToUnloadPath} ");
+        Debug.Log($"unload scene: {levelToUnloadPath} ");
         SceneManager.UnloadSceneAsync(levelToUnloadPath).completed += UnloadScene_completed;
     }
 
