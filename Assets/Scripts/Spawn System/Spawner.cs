@@ -54,7 +54,10 @@ public class Spawner : MonoBehaviour
         foreach (Entity enemy in enemies)
         {
             if (!enemy.isDead)
+            {
                 enemiesDeadTemp = false;
+                return;
+            }
         }
 
         if (enemiesDeadTemp)

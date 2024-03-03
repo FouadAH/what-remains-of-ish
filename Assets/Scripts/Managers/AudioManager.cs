@@ -79,13 +79,16 @@ public class AudioManager : MonoBehaviour
 
     public void SwitchLevelMusicEvent(string theme)
     {
-        if (theme != currentTheme)
+        string newTheme = theme;
+
+        if (newTheme != currentTheme && string.IsNullOrEmpty(newTheme) == false)
         {
-            Debug.Log("Switching level music to: " + theme);
+            Debug.Log("Switching level music to: " + newTheme);
 
             StopAreaThemeWithFade();
+
             previousTheme = currentTheme;
-            currentTheme = theme;
+            currentTheme = newTheme;
             areaThemeInstance = FMODUnity.RuntimeManager.CreateInstance(currentTheme);
             areaThemeInstance.start();
         }

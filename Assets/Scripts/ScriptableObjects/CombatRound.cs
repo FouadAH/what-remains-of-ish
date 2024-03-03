@@ -8,15 +8,14 @@ public class CombatRound : MonoBehaviour
 
     public bool IsAllEnemiesDead()
     {
-        bool allDead = true;
         foreach (Spawner spawner in spawners)
         {
             if (!spawner.allEnemiesDead)
             {
-                allDead = false;
+                return false;
             }
         }
-        return allDead;
+        return true;
     }
 
     public void OnSpawnerEnemiesDead()

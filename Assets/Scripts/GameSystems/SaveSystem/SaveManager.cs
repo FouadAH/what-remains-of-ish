@@ -533,7 +533,9 @@ public class SaveManager : MonoBehaviour
 
     private PlayerData GetPlayerData()
     {
-        PlayerData playerData = currentSaveFile.gameData.player_data;
+        PlayerData playerData = new PlayerData();
+        //Debug.Log(currentSaveFile.gameData);
+        //Debug.Log(currentSaveFile.gameData.player_data);
 
         playerData.maxHealth = playerDataSO.playerMaxHealth.Value;
         playerData.health = playerDataSO.playerHealth.Value;

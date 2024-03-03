@@ -89,8 +89,10 @@ public class PlayerAnimations
 
     public void CancelDownAttack()
     {
-        animator.SetBool("DownAttack", false);
-        animator.SetTrigger("isAttackingDown");
+        //animator.SetBool("DownAttack", false);
+        //animator.SetTrigger("isAttackingDown");
+        animator.Play("Default", 3);
+
     }
 
     public void UnsubscribeAnimationsFromInput()

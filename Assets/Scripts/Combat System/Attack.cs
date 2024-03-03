@@ -73,16 +73,16 @@ public class Attack : MonoBehaviour, IHitboxResponder
         player.attackDir = attackDirection;
 
         player.knockbackDistance = knockbackDownAttack;
-        CheckHitboxes();
+        CheckHitboxes(true);
     }
 
-    private void CheckHitboxes()
+    private void CheckHitboxes(bool stayAwake = false)
     {
         hasHitWall = false;
         foreach (var hitbox in hitboxes)
         {
             hitbox.useResponder(this);
-            hitbox.startCheckingCollision();
+            hitbox.startCheckingCollision(stayAwake);
         }
     }
 

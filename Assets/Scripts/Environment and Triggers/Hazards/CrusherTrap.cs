@@ -149,10 +149,18 @@ public class CrusherTrap : MonoBehaviour
         Collider2D collider2D = GetComponentInChildren<BoxCollider2D>();
         Gizmos.color = Color.blue;
 
-        Vector3 from = new (transform.position.x, transform.position.y - collider2D.bounds.extents.y, transform.position.z);
-        Vector3 to = new (transform.position.x, transform.position.y - collider2D.bounds.extents.y - moveDistanceY, transform.position.z);
-
-        Gizmos.DrawLine(from, to);
+        if (crusherType == CrusherType.VerticalCrusher)
+        {
+            Vector3 from = new(transform.position.x, transform.position.y - collider2D.bounds.extents.y, transform.position.z);
+            Vector3 to = new(transform.position.x, transform.position.y - collider2D.bounds.extents.y - moveDistanceY, transform.position.z);
+            Gizmos.DrawLine(from, to);
+        }
+        else
+        {
+            Vector3 from = new(transform.position.x - collider2D.bounds.extents.x ,transform.position.y , transform.position.z);
+            Vector3 to = new(transform.position.x - collider2D.bounds.extents.x - moveDistanceX, transform.position.y, transform.position.z);
+            Gizmos.DrawLine(from, to);
+        }
     }
 
 }

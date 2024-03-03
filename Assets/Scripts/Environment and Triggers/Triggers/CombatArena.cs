@@ -73,7 +73,11 @@ public class CombatArena : Savable
             areaCamBrain.gameObject.SetActive(false);
             combatArenaData.isDone = true;
 
-            AudioManager.instance.SwitchLevelMusicEvent(AudioManager.instance.previousTheme);
+            if (AudioManager.instance.previousTheme != null)
+            {
+                AudioManager.instance.SwitchLevelMusicEvent(AudioManager.instance.previousTheme);
+            }
+
             AudioManager.instance.SetIntensity(0);
             
             foreach (Door door in arenaDoors)
@@ -83,9 +87,12 @@ public class CombatArena : Savable
         }
         else
         {
-            currentCombatRound++;
-            Debug.Log("Current: " + currentCombatRound);
-            combatRounds[currentCombatRound].StartRound();
+            if (currentCombatRound + 1 < combatRounds.Count)
+            {
+                currentCombatRound++;
+                combatRounds[currentCombatRound].StartRound();
+                Debug.Log("Current: " + currentCombatRound);
+            }
         }
     }
 

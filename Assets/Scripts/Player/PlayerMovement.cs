@@ -230,10 +230,10 @@ public class PlayerMovement : MonoBehaviour
     {
         //Debug.Log("DOWN ATTACK CANCEL");
 
-        if (controller.collitions.below || controller.collitions.right || controller.collitions.left)
-        {
-            isKnockedback_Hit = false;
-        }
+        //if (controller.collitions.below || controller.collitions.right || controller.collitions.left)
+        //{
+        //    isKnockedback_Hit = false;
+        //}
 
         StartCoroutine(player.DamageIFrames(0.15f));
         StartCoroutine(CancelDownAttackRoutine());

@@ -495,8 +495,11 @@ public class Player : MonoBehaviour, IAttacker {
 
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 0);
 
-        StopCoroutine(KnockbackOnHitRoutine());
-        StartCoroutine(KnockbackOnHitRoutine());
+        if (knockbackOnHitRoutine != null)
+        {
+            StopCoroutine(knockbackOnHitRoutine);
+        }
+        knockbackOnHitRoutine = StartCoroutine(KnockbackOnHitRoutine());
     }
 
     public void KnockbackOnDamage(int amount, float dirX, float dirY)
@@ -507,24 +510,51 @@ public class Player : MonoBehaviour, IAttacker {
         dirY = Mathf.Clamp(dirY, -0.1f, 1);
         playerMovement.dirKnockback = new Vector3(dirX, dirY, 1);
         playerMovement.knockbackDistance = amount;
-        StopCoroutine(KnockbackOnDamageRoutine());
-        StartCoroutine(KnockbackOnDamageRoutine());
+        if (knockbackOnDamageRoutine != null)
+        {
+            StopCoroutine(knockbackOnDamageRoutine);
+        }
+        knockbackOnDamageRoutine = StartCoroutine(KnockbackOnDamageRoutine());
     }
 
+    float knockbackOnDamageTimer_Current;
+    Coroutine knockbackOnDamageRoutine;
     IEnumerator KnockbackOnDamageRoutine()
     {
+        yield return new WaitForFixedUpdate();
+
+        knockbackOnDamageTimer_Current = 0;
         playerMovement.isKnockedback_Damage = true;
         knockbackParticles.Play();
 
-        yield return new WaitForSeconds(knockbackOnDamageTimer);
-        
+        while (knockbackOnDamageTimer_Current < knockbackOnDamageTimer)
+        {
+            knockbackOnDamageTimer_Current += Time.smoothDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        knockbackOnDamageTimer_Current = 0;
         playerMovement.isKnockedback_Damage = false;
     }
 
+    float knockbackOnHitTimer_Current;
+    Coroutine knockbackOnHitRoutine;
+
     IEnumerator KnockbackOnHitRoutine()
     {
+        yield return new WaitForFixedUpdate();
+
+        knockbackOnHitTimer_Current = 0;
         playerMovement.isKnockedback_Hit = true;
-        yield return new WaitForSeconds(knockbackOnHitTimer);
+
+        while(knockbackOnHitTimer_Current < knockbackOnHitTimer)
+        {
+            knockbackOnHitTimer_Current += Time.smoothDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        knockbackOnHitTimer_Current = 0;
+        //yield return new WaitForSeconds(knockbackOnHitTimer);
         playerMovement.isKnockedback_Hit = false;
     }
 

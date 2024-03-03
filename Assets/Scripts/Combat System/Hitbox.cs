@@ -15,14 +15,19 @@ public class Hitbox : MonoBehaviour
 
     private IHitboxResponder _responder = null;
     private ColliderState _state;
-
-    private void Update()
+    private bool stayAwake;
+    private void FixedUpdate()
     {
         hitboxUpdate();
     }
 
     public void hitboxUpdate()
     {
+        //if (gameObject.activeInHierarchy == false)
+        //{
+        //    stopCheckingCollision();
+        //}
+
         if (_state == ColliderState.Closed) 
         { 
             return; 
@@ -36,8 +41,11 @@ public class Hitbox : MonoBehaviour
             _responder?.collisionedWith(aCollider);
         }
         _state = colliders.Length > 0 ? ColliderState.Colliding : ColliderState.Open;
-        stopCheckingCollision();
 
+        if (stayAwake == false)
+        {
+            stopCheckingCollision();
+        }
     }
 
     public void useResponder(IHitboxResponder responder)
@@ -45,9 +53,10 @@ public class Hitbox : MonoBehaviour
         _responder = responder;
     }
 
-    public void startCheckingCollision()
+    public void startCheckingCollision(bool stayAwake = false)
     {
         _state = ColliderState.Open;
+        this.stayAwake = stayAwake;
     }
 
     public void stopCheckingCollision()
