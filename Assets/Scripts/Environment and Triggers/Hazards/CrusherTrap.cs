@@ -6,6 +6,7 @@ using Cinemachine;
 
 public class CrusherTrap : MonoBehaviour
 {
+    public Collider2D colliderObstacle;
     public CrusherType crusherType = CrusherType.VerticalCrusher;
     public float initialPause = 0;
 
@@ -146,19 +147,19 @@ public class CrusherTrap : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Collider2D collider2D = GetComponentInChildren<BoxCollider2D>();
+        
         Gizmos.color = Color.blue;
 
         if (crusherType == CrusherType.VerticalCrusher)
         {
-            Vector3 from = new(transform.position.x, transform.position.y - collider2D.bounds.extents.y, transform.position.z);
-            Vector3 to = new(transform.position.x, transform.position.y - collider2D.bounds.extents.y - moveDistanceY, transform.position.z);
+            Vector3 from = new(transform.position.x, transform.position.y - colliderObstacle.bounds.extents.y, transform.position.z);
+            Vector3 to = new(transform.position.x, transform.position.y - colliderObstacle.bounds.extents.y - moveDistanceY, transform.position.z);
             Gizmos.DrawLine(from, to);
         }
         else
         {
-            Vector3 from = new(transform.position.x - collider2D.bounds.extents.x ,transform.position.y , transform.position.z);
-            Vector3 to = new(transform.position.x - collider2D.bounds.extents.x - moveDistanceX, transform.position.y, transform.position.z);
+            Vector3 from = new(transform.position.x - colliderObstacle.bounds.extents.x ,transform.position.y , transform.position.z);
+            Vector3 to = new(transform.position.x - colliderObstacle.bounds.extents.x - moveDistanceX, transform.position.y, transform.position.z);
             Gizmos.DrawLine(from, to);
         }
     }

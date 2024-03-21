@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
@@ -103,7 +104,7 @@ public class PlayerDash : MonoBehaviour
     public IEnumerator DashLogic(float dashCooldown)
     {
         dashLock = true;
-        yield return new WaitForSeconds(dashCooldown);
+        yield return Timer(dashCooldown);
         dashRechargeEffect.Play();
         yield return new WaitWhile(() => wasAirborne && playerMovement.isAirborne);
         dashLock = false;
@@ -112,14 +113,27 @@ public class PlayerDash : MonoBehaviour
     public IEnumerator FloatTime(float floatTime)
     {
         isDashing = true;
-        yield return new WaitForSeconds(floatTime);
+        yield return Timer(floatTime);
         isDashing = false;
     }
 
+    public IEnumerator Timer(float time)
+    {
+        yield return new WaitForFixedUpdate();
+
+        float currentTime = 0;
+        while (currentTime < time)
+        {
+            currentTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        yield return true;
+    }
     public IEnumerator DashIFrames(float floatTime)
     {
         player.invinsible = true;
-        yield return new WaitForSeconds(floatTime);
+        yield return Timer(floatTime);
         player.invinsible = false;
     }
 
@@ -132,7 +146,7 @@ public class PlayerDash : MonoBehaviour
             jumpTrail.emitting = true;
         }
 
-        yield return new WaitForSeconds(effectTime);
+        yield return Timer(effectTime);
 
         isDashingAnimation = false;
         foreach (TrailRenderer jumpTrail in dashTrailParent.GetComponentsInChildren<TrailRenderer>())
