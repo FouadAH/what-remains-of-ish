@@ -4,32 +4,49 @@ using UnityEngine;
 
 public class AbilityPickup : MonoBehaviour
 {
-    public bool isDashPickup = false;
-    public bool isTeleportPickup = false;
-    public bool isWallJumpPickup = false;
+    public PlayerAbilities playerAbility;
+    public PlayerDataSO playerData;
+    public StringEvent debugText;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();
-        if (playerMovement != null)
+        if (collision.TryGetComponent<PlayerMovement>(out _))
         {
-            if (isDashPickup)
+            switch (playerAbility)
             {
-                GameManager.instance.hasDashAbility = true;
-                UI_HUD.instance.SetDebugText("Picked Up Dash Ability");
-            }
-            else if (isTeleportPickup)
-            {
-                GameManager.instance.hasTeleportAbility = true;
-                UI_HUD.instance.SetDebugText("Picked Up Teleport Ability");
-            }
-            else if (isWallJumpPickup)
-            {
-                GameManager.instance.hasWallJump = true;
-                UI_HUD.instance.SetDebugText("Picked Up Wall Jump Ability");
+                case PlayerAbilities.Boomerang:
+                    playerData.hasBoomerangAbility = true;
+                    debugText.Raise("Unlocked Boomerang Ability");
+                    break;
+
+                case PlayerAbilities.Dash:
+                    playerData.hasDashAbility = true;
+                    debugText.Raise("Unlocked Air Dash Ability");
+                    break;
+
+                case PlayerAbilities.WallJump:
+                    playerData.hasWallJumpAbility = true;
+                    debugText.Raise("Unlocked Wall Jump Ability");
+                    break;
+
+                case PlayerAbilities.Teleport:
+                    playerData.hasTeleportAbility = true;
+                    debugText.Raise("Unlocked Teleport Ability");
+                    break;
+
+                default:
+                    break;
             }
 
             Destroy(gameObject);
         }
     }
+}
+
+public enum PlayerAbilities
+{
+    Boomerang = 0,
+    Dash = 1,
+    WallJump = 2,
+    Teleport = 3,
 }

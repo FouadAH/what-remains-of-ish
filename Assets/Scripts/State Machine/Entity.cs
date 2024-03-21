@@ -5,13 +5,12 @@ using UnityEngine;
 using TMPro;
 using Cinemachine;
 
-public class Entity : MonoBehaviour, IDamagable
+public class Entity : Savable, IDamagable
 {
     public FiniteStateMachine stateMachine;
     public AnimationToStatemachine atsm;
 
     public D_Entity entityData;
-
     public int facingDirection { get; private set; }
     public Rigidbody2D rb { get; private set; }
     public Animator anim { get; private set; }
@@ -33,8 +32,10 @@ public class Entity : MonoBehaviour, IDamagable
 
     public DamageBox damageBox;
 
-    private float currentStunResistance;
+    public float currentStunResistance;
     private float lastDamageTime;
+
+    protected Vector2 spawnPoint;
 
     private Vector2 velocityWorkspace;
 
@@ -42,16 +43,23 @@ public class Entity : MonoBehaviour, IDamagable
     public bool isDead;
 
     [Header("Debug")]
+    public bool debug;
     public TMP_Text stateDebugText;
 
-    [Header("Hit Effects")]
+    [Header("Entity Particle Effects")]
     [SerializeField] private GameObject damageNumberPrefab;
+    public ParticleSystem BloodEffect;
+    public ParticleSystem HitEffect;
+    public ParticleSystem NearDeathEffect;
+    public ParticleSystem FlaskRefillParticles;
 
-    public event Action<float, float> OnHitEnemy = delegate { };
+    public event Action<float, float, float, float> OnHitEnemy = delegate { };
+    public event Action OnDeath = delegate { };
 
     [Header("Aggro Settings")]
     public float minAggroRange = 5f;
     public float maxAggroRange = 8f;
+    public bool IsAggro = false;
 
 
     [Header("Movement Settings")]
@@ -60,48 +68,92 @@ public class Entity : MonoBehaviour, IDamagable
     public float accelerationTimeGrounded = 0.05f;
     private float velocityXSmoothing = 0;
 
+    [Header("Knockback Settings")]
+    public float knockbackTime = 0.5f;
+    protected float knockbackTimeElapsed;
+
+    public float smoothTime = 0.1f;
+    protected Vector2 velocitySmoothing;
+    protected bool canMove = true;
+
     protected ColouredFlash colouredFlash;
     protected CinemachineImpulseSource impulseListener;
-    public virtual void Start()
+
+    [Header("Save Settings")]
+    public bool shouldSaveState = true;
+
+    [Header("Player Runtime Data")]
+    public PlayerRuntimeDataSO playerRuntimeDataSO;
+
+    [Header("Events")]
+    public IntegerGameEvent reffilEvent;
+
+
+    public override void Awake()
     {
-        facingDirection = 1;
+        spawnPoint = transform.position;
+        aliveGO = gameObject;
+        facingDirection = (int)Mathf.Sign(transform.localScale.x);
+
+        if (shouldSaveState)
+            base.Awake();
+    }
+
+    public override void Start()
+    {
+        if(shouldSaveState)
+            base.Start();
+
         MaxHealth = (int)entityData.maxHealth;
 
         currentStunResistance = entityData.stunResistance;
 
         Health = MaxHealth;
 
-        aliveGO = gameObject;
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
         atsm = aliveGO.GetComponent<AnimationToStatemachine>();
         colouredFlash = GetComponent<ColouredFlash>();
         impulseListener = GetComponent<CinemachineImpulseSource>();
-        stateMachine = new FiniteStateMachine();
+
+        if (stateMachine == null)
+            stateMachine = new FiniteStateMachine();
     }
 
     public virtual void Update()
     {
-        string state = stateMachine.currentState.ToString().Split('_')[1];
-        stateDebugText.SetText(state);
+        if (debug)
+        {
+            string state = stateMachine.currentState.ToString().Split('_')[1];
+            stateDebugText.SetText(state);
+        }
+
         stateMachine.currentState.LogicUpdate();
 
         //anim.SetFloat("yVelocity", rb.velocity.y);
 
-        if(Time.time >= lastDamageTime + entityData.stunRecoveryTime)
+        if(Time.time >= lastDamageTime + entityData.stunRecoveryTime && isStunned)
         {
             ResetStunResistance();
+        }
+
+        if(!isStunned)
+        {
+            currentStunResistance = Mathf.Lerp(currentStunResistance, entityData.stunResistance, 0.004f);
         }
     }
 
     public virtual void FixedUpdate()
     {
-        stateMachine.currentState.PhysicsUpdate();
-
-        if (isAffectedByGravity)
+        if (canMove)
         {
-            float velocityY = CheckGround() ? 0 : rb.velocity.y + gravity * Time.deltaTime;
-            SetVelocityY(velocityY);
+            stateMachine.currentState.PhysicsUpdate();
+
+            if (isAffectedByGravity)
+            {
+                float velocityY = CheckGround() ? 0 : rb.velocity.y + gravity * Time.deltaTime;
+                SetVelocityY(velocityY);
+            }
         }
     }
 
@@ -115,7 +167,6 @@ public class Entity : MonoBehaviour, IDamagable
         float targetVelocity = velocity * facingDirection;
         velocityWorkspace.x = Mathf.SmoothDamp(velocityWorkspace.x, targetVelocity, ref velocityXSmoothing, accelerationTimeGrounded);
         velocityWorkspace.y = rb.velocity.y;
-
         rb.velocity = velocityWorkspace;
     }
 
@@ -139,7 +190,32 @@ public class Entity : MonoBehaviour, IDamagable
         rb.velocity = velocityWorkspace;
     }
 
-    public virtual bool CheckWall()
+    IEnumerator KnockbackImpulse(float knockbackForce)
+    {
+        canMove = false;
+
+        velocityWorkspace.Set(knockbackForce, rb.velocity.y);
+        rb.velocity = velocityWorkspace;
+
+        knockbackTimeElapsed = 0;
+        while (knockbackTimeElapsed < knockbackTime)
+        {
+            if (CheckWall())
+            {
+                velocityWorkspace = Vector2.zero;
+                rb.velocity = velocityWorkspace;
+                break;
+            }
+
+            knockbackTimeElapsed += Time.deltaTime;
+            velocityWorkspace = Vector2.SmoothDamp(velocityWorkspace, Vector2.zero, ref velocitySmoothing, smoothTime);
+            rb.velocity = velocityWorkspace;
+            yield return new WaitForFixedUpdate();
+        }
+        canMove = true;
+    }
+
+    public virtual bool CheckWallFront()
     {
         return Physics2D.Raycast(wallCheck.position, aliveGO.transform.right, entityData.wallCheckDistance, entityData.whatIsGround);
     }
@@ -147,6 +223,11 @@ public class Entity : MonoBehaviour, IDamagable
     public virtual bool CheckWallBack()
     {
         return Physics2D.Raycast(wallCheck.position, -aliveGO.transform.right, entityData.wallCheckDistance, entityData.whatIsGround);
+    }
+
+    public virtual bool CheckWall()
+    {
+        return CheckWallFront() || CheckWallBack();
     }
 
     public virtual bool CheckLedge()
@@ -161,14 +242,16 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual bool CheckPlayerInMinAgroRange()
     {
-        bool hit = Physics2D.Linecast(transform.position, GameManager.instance.player.transform.position, entityData.whatIsGround);
-        return !hit && Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
+        bool obstacleCheck = Physics2D.Raycast(transform.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsGround);
+        bool playerChecker = Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAgroDistance, entityData.whatIsPlayer);
+        return !obstacleCheck && playerChecker;
     }
 
     public virtual bool CheckPlayerInMaxAgroRange()
     {
-        bool hit = Physics2D.Linecast(transform.position, GameManager.instance.player.transform.position, entityData.whatIsGround);
-        return !hit && Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
+        bool obstacleCheck = Physics2D.Raycast(transform.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsGround);
+        bool playerChecker = Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
+        return !obstacleCheck && playerChecker;
     }
 
     public virtual bool CheckPlayerInCloseRangeAction()
@@ -188,10 +271,9 @@ public class Entity : MonoBehaviour, IDamagable
 
     public virtual void DamageHop(float velocity)
     {
-        if (!CheckWall() && !CheckWallBack())
+        if (!CheckWallFront() && !CheckWallBack())
         {
-            velocityWorkspace.Set(velocity, rb.velocity.y);
-            rb.velocity = velocityWorkspace;
+            StartCoroutine(KnockbackImpulse(velocity));
         }
     }
 
@@ -199,13 +281,6 @@ public class Entity : MonoBehaviour, IDamagable
     {
         isStunned = false;
         currentStunResistance = entityData.stunResistance;
-    }
-
-    protected void RaiseOnHitEnemyEvent(float health, float maxHealth)
-    {
-        var eh = OnHitEnemy;
-        if (eh != null)
-            OnHitEnemy(health, maxHealth);
     }
 
     public void SpawnDamagePoints(int damage)
@@ -225,32 +300,126 @@ public class Entity : MonoBehaviour, IDamagable
         stateDebugText.transform.Rotate(0f, 180f, 0f);
     }
 
-    public virtual void ModifyHealth(int amount)
+    public bool IsFacingPlayer()
     {
+        float dirToPlayer = (playerRuntimeDataSO.playerPosition - (Vector2)transform.position).normalized.x;
+        return facingDirection == (int)Mathf.Sign(dirToPlayer);
+    }
+
+    public void ProcessStunDamage(int amount, float stunDamageMod = 1)
+    {
+        if (!isHittable)
+            return;
+
+        currentStunResistance -= amount * stunDamageMod;
+        if (currentStunResistance <= 0)
+            isStunned = true;
+    }
+
+    public virtual void ProcessHit(int amount, DamageType type)
+    {
+        if (!isHittable)
+            return;
+
+        if (debug)
+        {
+            SpawnDamagePoints(amount);
+        }
+
+        StartCoroutine(StunTimer());
         lastDamageTime = Time.time;
 
-        Health -= amount;
-        currentStunResistance -= amount;
+        float damageAmount = (isStunned) ? amount : amount;
+        Health -= damageAmount;
 
-        RaiseOnHitEnemyEvent(Health, MaxHealth);
+        OnHitEnemy?.Invoke(Health, MaxHealth, currentStunResistance, entityData.stunResistance);
+
         impulseListener.GenerateImpulse();
+
+        if(BloodEffect != null)
+            BloodEffect.Play();
+
+        if (HitEffect != null)
+        {
+            Vector3 randomEulerRotation = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
+            Quaternion randomQuaternionRotation = Quaternion.Euler(randomEulerRotation.x, randomEulerRotation.y, randomEulerRotation.z);
+            ParticleSystem hitEffectInstance = Instantiate(HitEffect, transform.position, randomQuaternionRotation);
+            hitEffectInstance.Play();
+        }
 
         if (colouredFlash != null)
             colouredFlash.Flash(Color.white);
 
-        if(currentStunResistance <= 0)
-            isStunned = true;
+        if (type == DamageType.Melee)
+        {
+            //UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount/2);
+            reffilEvent.Raise((int)(entityData.flaskReffilAmount / 2));
 
-        if (Health <= 0)
+            if (FlaskRefillParticles != null)
+            {
+                ParticleSystem refillParticlesInstance = GameObject.Instantiate(FlaskRefillParticles,
+                    transform.position, Quaternion.identity);
+
+                refillParticlesInstance.emission.SetBurst(0, new ParticleSystem.Burst(0f, entityData.flaskReffilAmount / 4));
+                refillParticlesInstance.Play();
+            }
+        }
+
+        if (NearDeathEffect != null)
+        {
+            if (Health <= 10 && !NearDeathEffect.isPlaying)
+            {
+                NearDeathEffect.Play();
+            }
+        }
+
+        if (Health <= 0 && !isDead)
         {
             isDead = true;
-            UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
+            OnDeath();
+
+            if (type == DamageType.Melee)
+            {
+                //UI_HUD.instance.RefillFlask(entityData.flaskReffilAmount);
+                reffilEvent.Raise((int)entityData.flaskReffilAmount);
+
+                if (FlaskRefillParticles != null)
+                {
+                    ParticleSystem refillParticlesInstance = GameObject.Instantiate(FlaskRefillParticles,
+                        transform.position, Quaternion.identity);
+
+                    refillParticlesInstance.emission.SetBurst(0, new ParticleSystem.Burst(0f, entityData.flaskReffilAmount / 2));
+                    refillParticlesInstance.Play();
+                }
+            }
         }
+    }
+
+    private int currentFrames;
+    private readonly int ignoreFrames = 2;
+    protected bool isHittable = true;
+
+    private IEnumerator StunTimer()
+    {
+        isHittable = false;
+        currentFrames = 0;
+        while (currentFrames <= ignoreFrames)
+        {
+            currentFrames++;
+            yield return null;
+        }
+        isHittable = true;
     }
 
     public virtual void KnockbackOnDamage(int amount, float dirX, float dirY)
     {
         DamageHop(entityData.damageHopSpeed*dirX);
+    }
+
+    public override void OnDestroy()
+    {
+        if(shouldSaveState)
+            base.OnDestroy();
     }
 
     public virtual void OnDrawGizmos()
@@ -268,11 +437,113 @@ public class Entity : MonoBehaviour, IDamagable
 
         Gizmos.DrawWireSphere(groundCheck.transform.position, entityData.groundCheckRadius);
 
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * -facingDirection * entityData.wallCheckDistance));
+        if (facingDirection != 0)
+        {
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * -facingDirection * entityData.wallCheckDistance));
+        }
+        else
+        {
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * 1 * entityData.wallCheckDistance));
+            Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * -1 * entityData.wallCheckDistance));
+        }
 
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
-
     }
 
+    public struct EntityData 
+    {
+        public bool isDead;
+    }
+
+    [SerializeField]
+    private EntityData entitySavedData;
+
+    public override string SaveData()
+    {
+        entitySavedData.isDead = isDead;
+        return JsonUtility.ToJson(entitySavedData);
+    }
+
+    public override void LoadDefaultData()
+    {
+        Debug.Log("loading default entity state");
+        entitySavedData.isDead = false;
+        isDead = false;
+        isStunned = false;
+        isHittable = true;
+        canMove = true;
+        
+
+        //facingDirection = 1;
+        MaxHealth = (int)entityData.maxHealth;
+
+        currentStunResistance = entityData.stunResistance;
+
+        Health = MaxHealth;
+
+        aliveGO = gameObject;
+        rb = aliveGO.GetComponent<Rigidbody2D>();
+        anim = aliveGO.GetComponent<Animator>();
+        atsm = aliveGO.GetComponent<AnimationToStatemachine>();
+        colouredFlash = GetComponent<ColouredFlash>();
+        impulseListener = GetComponent<CinemachineImpulseSource>();
+
+        ResetAnimatorParamaters();
+        colouredFlash.ResetMaterial();
+
+        if (stateMachine == null)
+        {
+            stateMachine = new FiniteStateMachine();
+        }
+
+        damageBox.gameObject.SetActive(true);
+        velocityWorkspace = Vector2.zero;
+        transform.position = spawnPoint;
+        gameObject.SetActive(true);
+    }
+
+    void ResetAnimatorParamaters()
+    {
+        foreach (AnimatorControllerParameter param in anim.parameters)
+        {
+            anim.SetBool(param.name, false);
+        }
+    }
+
+    public override void LoadData(string data, string version)
+    {
+        entitySavedData = JsonUtility.FromJson<EntityData>(data);
+        isDead = entitySavedData.isDead;
+        Debug.Log("loading entity state: " + data);
+
+        if (entitySavedData.isDead)
+        {
+            if (gameObject != null)
+            {
+                gameObject.SetActive(false);
+
+                if (colouredFlash != null)
+                {
+                    colouredFlash.ResetMaterial();
+                }
+            }
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            Health = MaxHealth;
+        }
+    }
+
+    public bool isVisible { get; private set; }
+    private void OnBecameVisible()
+    {
+        isVisible = true;
+    }
+
+    private void OnBecameInvisible()
+    {
+        isVisible = false;
+    }
 }

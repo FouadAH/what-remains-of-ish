@@ -19,11 +19,16 @@ public class SpikeCharger_ChargeState : ChargeState
     public override void Enter()
     {
         base.Enter();
+        enemy.accelerationTimeGrounded = 0.4f;
+        enemy.chargeDustParticles.Play();
     }
 
     public override void Exit()
     {
         base.Exit();
+        enemy.chargeDustParticles.Stop();
+        enemy.accelerationTimeGrounded = 0.1f;
+        
     }
 
     public override void LatePhysicsUpdate()
@@ -37,17 +42,36 @@ public class SpikeCharger_ChargeState : ChargeState
 
         if (isChargeTimeOver)
         {
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.MoveState);
         }
-        else if (isDetectingWall)
+        
+        if (entity.CheckWallFront())
         {
-            stateMachine.ChangeState(enemy.idleState);
+            enemy.SetVelocityX(0);
+            stateMachine.ChangeState(enemy.IdleState);
         }
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
+        if (entity.CheckWallFront())
+        {
+            enemy.SetVelocityX(0);
+            return;
+        }
+
+        //Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+        //int directionX = (entity.transform.position.x < playerPos.x) ? 1 : -1;
+
+        //if(directionX != entity.facingDirection)
+        //{
+        //    entity.Flip();
+        //}
+
+        entity.SetVelocity(stateData.chargeSpeed);
+
+        //Debug.Log(enemy.chargeSpeedCurve.Evaluate(Time.time - startTime));
+
     }
 
 }

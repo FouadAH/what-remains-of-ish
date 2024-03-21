@@ -1,0 +1,261 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+public class DialogManager : MonoBehaviour
+{
+    public Animator animator;
+    public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI speakerText;
+
+    [Header("Typing Settings")]
+    public float typingSpeed;
+    public float typingSpeedSkip;
+
+    [Header("SFX")]
+    [FMODUnity.EventRef] public string writingSFX;
+
+    float currentTypingSpeed;
+
+    public bool dialogueIsActive = false;
+
+    int index;
+    StringBuilder sb = new StringBuilder("", 50);
+    Queue<string> sentences;
+
+    public event EventHandler OnDialogueClipEnd = delegate { };
+    public static DialogManager instance;
+    Player_Input player_Input;
+
+    bool isTyping = false;
+    string currentSentence;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(this);
+    }
+
+    void Start()
+    {
+        player_Input = FindObjectOfType<Player_Input>();
+        player_Input.OnDialogueNext += Player_Input_OnDialogueNext;
+        sentences = new Queue<string>();
+    }
+
+    private void Player_Input_OnDialogueNext()
+    {
+        //Debug.Log("Player_Input_OnDialogueNext");
+
+        //if (!dialogueIsActive || GameManager.instance.isPaused)
+        //    return;
+
+        //if (!inputLock)
+        //{
+        //    Debug.Log("inputlock check");
+
+        //    if (isTyping)
+        //    {
+        //        Debug.Log("Skip");
+
+        //        SkipToEndOfSentence();
+        //    }
+        //    else
+        //    {
+        //        DisplayNextSentence();
+        //        Debug.Log("Next");
+
+        //    }
+        //}
+    }
+
+    public bool inputLock = true;
+    private void Update()
+    {
+
+        if (!dialogueIsActive || GameManager.instance.isPaused)
+            return;
+
+        if (player_Input.inputActions.UI.DialogueNext.WasPressedThisFrame())
+        {
+            if (!inputLock)
+            {
+                if (isTyping)
+                {
+                    SkipToEndOfSentence();
+                }
+                else
+                {
+                    DisplayNextSentence();
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Text Skip", GetComponent<Transform>().position);
+                }
+            }
+        }
+    }
+
+    public void DisplaySentence(string sentence)
+    {
+        Debug.Log(sentence);
+    }
+
+    IEnumerator InputLock()
+    {
+        inputLock = true;
+        yield return new WaitForSeconds(0.05f);
+        inputLock = false;
+        //Debug.Log(inputLock);
+    }
+    Type currentContext;
+    public void StartDialogue(Dialog dialogue, Type context)
+    {
+        currentContext = context;
+
+        inputLock = true;
+        StartCoroutine(InputLock());
+
+        if (!dialogueIsActive)
+        {
+            dialogueIsActive = true;
+            player_Input.DisablePlayerInput();
+            animator.SetBool("isOpen", true);
+        }
+
+        sentences.Clear();
+        foreach (string sentence in dialogue.sentences)
+        {
+            sentences.Enqueue(sentence);
+        }
+
+        speakerText.text = dialogue.speakerName;
+        DisplayNextSentence();
+    }
+
+    Coroutine typeSentenceRoutine;
+    public void DisplayNextSentence()
+    {
+        if (sentences.Count == 0)
+        {
+            //Debug.Log(currentContext);
+            if(currentContext.Equals(typeof(DialogueTriggerBehaviour)))
+            {
+                EndDialogueClip();
+            }
+            else
+            {
+                EndDialogue();
+            }
+            return;
+        }
+
+        currentSentence = sentences.Dequeue();
+
+        if(typeSentenceRoutine!=null)
+            StopCoroutine(typeSentenceRoutine);
+
+        currentTypingSpeed = typingSpeed;
+        typeSentenceRoutine = StartCoroutine(TypeSentence(currentSentence));
+    }
+
+    int maxCharCountInLine = 60;
+    IEnumerator TypeSentence(string sentence)
+    {
+        isTyping = true;
+        dialogueText.text = "";
+        sb.Clear();
+
+        string[] words = sentence.Split(' ');
+        int charCounter = 0;
+        for(int i = 0; i< words.Length; i++)
+        {
+            foreach (char letter in words[i].ToCharArray())
+            {
+                charCounter++;
+                sb.Append(letter);
+                dialogueText.text = sb.ToString();
+                FMODUnity.RuntimeManager.PlayOneShot(writingSFX);
+
+                yield return new WaitForSeconds(currentTypingSpeed);
+            }
+
+            if (i < words.Length - 1)
+            {
+                if (charCounter + words[i + 1].ToCharArray().Length >= maxCharCountInLine)
+                {
+                    sb.Append("\n");
+                    charCounter = 0;
+                }
+                else
+                {
+                    charCounter++;
+                    sb.Append(' ');
+                }
+            }
+        }
+        //foreach (char letter in sentence.ToCharArray())
+        //{
+        //    sb.Append(letter);
+        //    dialogueText.text = sb.ToString();
+        //    FMODUnity.RuntimeManager.PlayOneShot(writingSFX);
+        //    yield return new WaitForSeconds(currentTypingSpeed);
+        //}
+        isTyping = false;
+    }
+
+    void SkipToEndOfSentence()
+    {
+        isTyping = false;
+        if (typeSentenceRoutine != null)
+            StopCoroutine(typeSentenceRoutine);
+
+        dialogueText.text = currentSentence;
+    }
+
+    void EndDialogueClip()
+    {
+        Debug.Log("End dialogue from clip");
+        inputLock = true;
+        dialogueIsActive = false;
+        OnDialogueClipEnd.Invoke(this, null);
+        animator.SetBool("isOpen", false);
+    }
+
+    public void EndDialogue()
+    {
+        inputLock = true;
+        StartCoroutine(EndDelay());
+        OnDialogueClipEnd.Invoke(this, null);
+        animator.SetBool("isOpen", false);
+    }
+
+    IEnumerator EndDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        dialogueIsActive = false;
+        player_Input.EnablePlayerInput();
+    }
+
+    public void OnInteractStart()
+    {
+        dialogueIsActive = true;
+        player_Input.DisablePlayerInput();
+    }
+
+    public void OnInteractEnd()
+    {
+        dialogueIsActive = false;
+        player_Input.EnablePlayerInput();
+    }
+
+}

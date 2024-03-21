@@ -13,7 +13,14 @@ public class HedgehogCorruptedEnemy_MoveState : MoveState
 
     public override void Enter()
     {
-        base.Enter();
+        if (enemy.isVertical)
+        {
+            entity.SetVelocityY(-enemy.facingDirection * stateData.movementSpeed);
+        }
+        else
+        {
+            base.PhysicsUpdate();
+        }
     }
 
     public override void Exit()
@@ -21,23 +28,63 @@ public class HedgehogCorruptedEnemy_MoveState : MoveState
         base.Exit();
     }
 
+    public override void DoChecks()
+    {
+        if (enemy.isVertical)
+        {
+            isDetectingLedge = entity.CheckWallFront();
+            isDetectingWall = entity.CheckLedge();
+
+        }
+        else
+        {
+            isDetectingLedge = entity.CheckLedge();
+            isDetectingWall = entity.CheckWallFront();
+        }
+
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (entity.CheckPlayerInMaxAgroRange())
+        if (entity.CheckPlayerInMaxAgroRange() || entity.CheckPlayerInMinAgroRange())
         {
-            stateMachine.ChangeState(enemy.playerDetectedState);
+            if (enemy.projectileController.CanFire())
+            {
+                stateMachine.ChangeState(enemy.shootState);
+            }
         }
-        else if (isDetectingWall || !isDetectingLedge)
+
+        if (enemy.isVertical)
         {
-            enemy.idleState.SetFlipAfterIdle(true);
-            stateMachine.ChangeState(enemy.idleState);
+            if (isDetectingWall)
+            {
+                enemy.idleState.SetFlipAfterIdle(true);
+                stateMachine.ChangeState(enemy.idleState);
+            }
+
+        }
+        else
+        {
+            if (isDetectingWall || !isDetectingLedge)
+            {
+                enemy.idleState.SetFlipAfterIdle(true);
+                stateMachine.ChangeState(enemy.idleState);
+            }
         }
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
+        if (enemy.isVertical)
+        {
+            entity.SetVelocityY(-enemy.facingDirection * stateData.movementSpeed);
+        }
+        else
+        {
+            base.PhysicsUpdate();
+        }
     }
 }

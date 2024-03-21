@@ -1,5 +1,6 @@
 using UnityEditor;
 
+[CanEditMultipleObjects]
 [CustomEditor(typeof(Level), true)]
 public class LevelEditor : Editor
 {
@@ -10,17 +11,14 @@ public class LevelEditor : Editor
         var scenePath = AssetDatabase.LoadAssetAtPath<SceneAsset>(level.scenePath);
         serializedObject.Update();
 
-        EditorGUI.BeginChangeCheck();
-        var newSceneToLoad = EditorGUILayout.ObjectField("Scene", scenePath, typeof(SceneAsset), false) as SceneAsset;
-        if (EditorGUI.EndChangeCheck())
+        var scenePathPropertyToLoad = serializedObject.FindProperty("scenePath");
+        if (!scenePathPropertyToLoad.hasMultipleDifferentValues)
         {
+            var newSceneToLoad = EditorGUILayout.ObjectField("Scene", scenePath, typeof(SceneAsset), false) as SceneAsset;
             var newPathToLoad = AssetDatabase.GetAssetPath(newSceneToLoad);
-
-            var scenePathPropertyToLoad = serializedObject.FindProperty("scenePath");
-
             scenePathPropertyToLoad.stringValue = newPathToLoad;
-
         }
+
         serializedObject.ApplyModifiedProperties();
     }
 }

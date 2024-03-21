@@ -11,7 +11,7 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
     public MeleeAttackState meleeAttackState { get; private set; }
     public StunState stunState { get; private set; }
     public DeadState deadState { get; private set; }
-
+    public GameObject stunnedSprite;
     [SerializeField] private int meleeDamage;
     [SerializeField] private int hitKnockbackAmount;
     public int MeleeDamage { get => meleeDamage; set => meleeDamage = value; }
@@ -48,7 +48,7 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
         playerDetectedState = new BasicMeleeEnemy_PlayerDetectedState(this, stateMachine, "move", playerDetectedData, this);
         lookForPlayerState = new BasicMeleeEnemy_LookForPlayerState(this, stateMachine, "idle", lookForPlayerStateData, this);
         meleeAttackState = new BasicMeleeEnemy_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
-        stunState = new BasicMeleeEnemy_StunState(this, stateMachine, "stun", stunStateData, this);
+        stunState = new BasicMeleeEnemy_StunState(this, stateMachine, "idle", stunStateData, this);
         deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "idle", deadStateData, this);
 
         stateMachine.Initialize(moveState);
@@ -73,21 +73,20 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
     [Header("Aggro Settings")]
     [SerializeField] public float AggroTime;
     private IEnumerator aggroRangeRoutine;
-    public bool IsAggro = false;
 
     public bool CanSeePlayer()
     {
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, GameManager.instance.playerCurrentPosition.position, entityData.whatIsGround);
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, playerRuntimeDataSO.playerPosition, entityData.whatIsGround);
         return !hit;
     }
 
-    public override void ModifyHealth(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
-        base.ModifyHealth(amount);
+        base.ProcessHit(amount, type);
 
         IsAggro = true;
 
-        if (isDead)
+        if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }
@@ -100,5 +99,21 @@ public class BasicMeleeAttackEnemy : Entity, IAttacker
     public void KnockbackOnHit(int amount, float dirX, float dirY)
     {
         //Debug.Log("KnockbackOnHit");
+    }
+
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
+        IsAggro = false;
+
+        moveState = new BasicMeleeEnemy_MoveState(this, stateMachine, "move", moveStateData, this);
+        idleState = new BasicMeleeEnemy_IdleState(this, stateMachine, "idle", idleStateData, this);
+        playerDetectedState = new BasicMeleeEnemy_PlayerDetectedState(this, stateMachine, "move", playerDetectedData, this);
+        lookForPlayerState = new BasicMeleeEnemy_LookForPlayerState(this, stateMachine, "idle", lookForPlayerStateData, this);
+        meleeAttackState = new BasicMeleeEnemy_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
+        stunState = new BasicMeleeEnemy_StunState(this, stateMachine, "idle", stunStateData, this);
+        deadState = new BasicMeleeEnemy_DeadState(this, stateMachine, "idle", deadStateData, this);
+
+        stateMachine.Initialize(idleState);
     }
 }

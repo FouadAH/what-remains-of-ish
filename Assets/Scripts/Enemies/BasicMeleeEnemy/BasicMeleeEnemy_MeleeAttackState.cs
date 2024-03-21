@@ -22,6 +22,7 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxRespond
     {
         base.Enter();
         wallDetectionFirstTake = true;
+        entity.SetVelocity(0);
     }
 
     public override void Exit()
@@ -54,19 +55,18 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxRespond
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        entity.SetVelocity(0);
     }
 
     public override void LatePhysicsUpdate()
     {
         base.LatePhysicsUpdate();
-        if (entity.CheckWall()  && wallDetectionFirstTake)
+        if (entity.CheckWallFront()  && wallDetectionFirstTake)
         {
             wallDetectionFirstTake = false;
             wallDetectedPos = enemy.transform.position;
             enemy.transform.position = wallDetectedPos;
         }
-        else if (entity.CheckWall())
+        else if (entity.CheckWallFront())
         {
             enemy.transform.position = wallDetectedPos;
         }
@@ -89,7 +89,7 @@ public class BasicMeleeEnemy_MeleeAttackState : MeleeAttackState, IHitboxRespond
         {
             Vector2 direction = (hurtbox.transform.position - enemy.transform.position).normalized;
             Vector2 knockBackDirection = (direction.x > 0) ? new Vector2(-1, direction.y) : new Vector2(1, direction.y);
-            hurtbox.getHitBy(entity.GetComponent<IAttacker>(), (knockBackDirection.x), (knockBackDirection.y));
+            hurtbox.getHitBy(entity.GetComponent<IAttacker>(), (knockBackDirection.x), -1);
         }
     }
 }

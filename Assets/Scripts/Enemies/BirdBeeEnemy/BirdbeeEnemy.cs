@@ -8,6 +8,7 @@ public class BirdbeeEnemy : Entity
 {
     [HideInInspector]public AIDestinationSetter destinationSetter;
     [HideInInspector] public AIPath aIPath;
+    Seeker seeker;
 
     [Header("Fly Settings")]
     public GameObject TargetPoint;
@@ -29,6 +30,8 @@ public class BirdbeeEnemy : Entity
     [SerializeField] private D_MeleeAttack attackStateData;
     [SerializeField] private D_DeadState deadStateData;
 
+    [FMODUnity.EventRef] public string birdbeeFlyLoop;
+
     public override void Start()
     {
         base.Start();
@@ -42,6 +45,32 @@ public class BirdbeeEnemy : Entity
         deadState = new BirdbeeEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(flyState);
+        GetComponent<EnemyAudio>().PlayEventOnce(birdbeeFlyLoop);
+    }
+
+    public override void LateUpdate()
+    {
+        base.LateUpdate();
+        if (!isKnockback)
+        {
+            return;
+        }
+
+        if (CheckGround())
+        {
+            rb.velocity = Vector2.zero;
+        }
+    }
+
+    public override void FixedUpdate()
+    {
+        stateMachine.currentState.PhysicsUpdate();
+
+        if (CheckGround())
+        {
+            rb.velocity = Vector2.zero;
+        }
+
     }
 
     public override void DamageHop(float velocity){}
@@ -50,30 +79,44 @@ public class BirdbeeEnemy : Entity
     {
         Vector3 knockbackForce = new Vector3(entityData.damageHopSpeed * dirX, entityData.damageHopSpeed * dirY, 0);
         StartCoroutine(KnockbackTimer(knockbackForce));
+        rb.AddForce(knockbackForce, ForceMode2D.Impulse);
+        //rb.velocity = knockbackForce;
     }
 
     int frames;
+
+    bool isKnockback = false;
     IEnumerator KnockbackTimer(Vector3 knockbackForce)
     {
         frames = 0;
         aIPath.canMove = false;
+        aIPath.canSearch = false;
+        isKnockback = true;
 
         yield return new WaitForEndOfFrame();
 
         rb.velocity = knockbackForce;
-        while (frames < knockbackFrames)
+        knockbackTimeElapsed = 0;
+        while (knockbackTimeElapsed < knockbackTime)
         {
-            frames++;
+            knockbackTimeElapsed += Time.deltaTime;
+            rb.velocity = Vector2.SmoothDamp(rb.velocity, Vector2.zero, ref velocitySmoothing, smoothTime);
+            if (CheckGround())
+            {
+                rb.velocity = Vector2.zero;
+                break;
+            }
+
             yield return null;
         }
-        rb.velocity = Vector3.zero;
 
         if (stateMachine.currentState != attackState)
+        {
             aIPath.canMove = true;
+            aIPath.canSearch = true;
+        }
+        isKnockback = false;
     }
-
-    [Header("Aggro Settings")]
-    public bool IsAggro = false;
 
     public bool CheckPlayerInAttackLine()
     {
@@ -81,14 +124,27 @@ public class BirdbeeEnemy : Entity
     }
 
 
-    public override void ModifyHealth(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
-        base.ModifyHealth(amount);
+        base.ProcessHit(amount, type);
         IsAggro = true;
-        if (isDead)
+        if (isDead && stateMachine.currentState != deadState)
         {
+            GetComponent<EnemyAudio>().StopPlayingEvent();
             stateMachine.ChangeState(deadState);
         }
+    }
+
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
+
+        flyState = new BirdbeeEnemy_FlyState(this, stateMachine, "move", flyStateData, this);
+        playerDetectedState = new BirdbeeEnemy_PlayerDetectedState(this, stateMachine, "detected", playerDetectedData, this);
+        attackState = new BirdbeeEnemy_AttackState(this, stateMachine, "attack", attackDetectionPosition.transform, attackStateData, this);
+        deadState = new BirdbeeEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
+
+        stateMachine.Initialize(flyState);
     }
 
     public override void OnDrawGizmos()
@@ -100,6 +156,5 @@ public class BirdbeeEnemy : Entity
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackDetectionPosition.transform.position, 0.5f);
-        
     }
 }

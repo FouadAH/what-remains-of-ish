@@ -12,13 +12,18 @@ public class ColouredFlash : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Material originalMaterial;
-    private Color originalColor;
+    private Color originalColor = Color.white;
 
     private Coroutine flashRoutine;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
         originalMaterial = spriteRenderer.material;
         originalColor = spriteRenderer.color;
         flashMaterial = new Material(flashMaterial);
@@ -32,6 +37,30 @@ public class ColouredFlash : MonoBehaviour
         }
 
         flashRoutine = StartCoroutine(FlashRoutine(color));
+    }
+
+    public void ResetMaterial()
+    {
+        if(spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer == null)
+            {
+                spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            }
+        }
+
+        if (originalMaterial != null)
+        {
+            spriteRenderer.material = originalMaterial;
+        }
+
+        if (originalColor != null)
+        {
+            spriteRenderer.color = originalColor;
+        }
+
+        flashRoutine = null;
     }
 
     private IEnumerator FlashRoutine(Color color)

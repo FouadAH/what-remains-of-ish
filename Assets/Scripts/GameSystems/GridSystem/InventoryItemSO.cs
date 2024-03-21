@@ -1,0 +1,119 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+[CreateAssetMenu(fileName = "newBrooch", menuName = "Items/New Brooch", order = 1)]
+public class InventoryItemSO : ShopItemSO
+{
+    [Header("Brooch Info")]
+    public Transform prefab;
+    public int broochID;
+    public int width;
+    public int height;
+    public bool isEquipped;
+    public bool hasBeenPlacedOnGrid;
+    public Vector2Int gridCoordinates;
+    public BroocheData broocheData;
+
+    [Header("Events")]
+    public GameEvent broocheEquipedEvent;
+    public GameEvent broocheUnequipedEvent;
+
+    public StringEvent debugTextEvent;
+
+    public delegate void BroochItemSOEventHandler();
+    public BroochItemSOEventHandler equipEffectDelegate;
+
+    public void CreateVisualGrid(Transform visualParentTransform, InventoryItemSO itemTetrisSO, float cellSize)
+    {
+        Transform visualTransform = Instantiate(prefab, visualParentTransform);
+
+        // Create background
+        //Transform template = visualTransform.Find("Template");
+        //template.gameObject.SetActive(false);
+
+        //for (int x = 0; x < itemTetrisSO.width; x++)
+        //{
+        //    for (int y = 0; y < itemTetrisSO.height; y++)
+        //    {
+        //        Transform backgroundSingleTransform = Instantiate(template, visualTransform);
+        //        backgroundSingleTransform.gameObject.SetActive(true);
+        //    }
+        //}
+
+        visualTransform.GetComponent<GridLayoutGroup>().cellSize = Vector2.one * cellSize;
+        visualTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(itemTetrisSO.width, itemTetrisSO.height) * cellSize;
+        visualTransform.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        visualTransform.SetAsFirstSibling();
+    }
+
+    public List<Vector2Int> GetGridPositionList(Vector2Int offset)
+    {
+        List<Vector2Int> gridPositionList = new List<Vector2Int>();
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                gridPositionList.Add(offset + new Vector2Int(x, y));
+            }
+        }
+        return gridPositionList;
+    }
+
+    public override void ReceiveItem()
+    {
+        base.ReceiveItem();
+        debugTextEvent.Raise($"Picked the \"{itemName}\" Brooche! ");
+        isOwnedByPlayer = true;
+    }
+
+    public override void OnBuyItem()
+    {
+        base.OnBuyItem();
+        debugTextEvent.Raise("Purchased a brooche!");
+        isOwnedByPlayer = true;
+    }
+
+    public void Equip()
+    {
+        if (!isEquipped)
+        {
+            isEquipped = true;
+            Debug.Log("Equipped brooch: " + itemName);
+            GameManager.instance.GetBool(broochID) = true;
+            broocheEquipedEvent.Raise();
+        }
+    }
+
+    public void Unequip()
+    {
+        if (isEquipped)
+        {
+            isEquipped = false;
+            Debug.Log("Unequipped brooch: " + itemName);
+            GameManager.instance.GetBool(broochID) = false;
+            broocheUnequipedEvent.Raise();
+        }
+    }
+
+    public void ApplyEffect_OnEquip()
+    {
+        equipEffectDelegate();
+    }
+
+    public void ApplyEffect_OnUpdate()
+    {
+        equipEffectDelegate();
+    }
+
+}
+
+[Serializable]
+public class BroocheData
+{
+    public bool isEquipped;
+    public bool hasBeenPlacedOnGrid;
+    public Vector2Int gridCoordinates;
+}

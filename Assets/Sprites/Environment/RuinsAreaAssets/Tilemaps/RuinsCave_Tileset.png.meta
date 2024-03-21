@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a8f18805efde734429fedb6d0b8eb0e8
+guid: f5471aa43aedfa848ac35708fcfa34e7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -24,6 +24,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -32,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -65,10 +66,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -77,10 +78,22 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -91,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RuinsCave_Tileset_8
+      name: RuinsCave_Tileset 1_8
       rect:
         serializedVersion: 2
         x: 240
@@ -105,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d402862405e84b750800000000000000
-      internalID: 6319832652470296653
+      spriteID: 96c4a7509bc930844b17233163a4c679
+      internalID: 1415908382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_9
+      name: RuinsCave_Tileset 1_9
       rect:
         serializedVersion: 2
         x: 320
@@ -126,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6ff779a9192cc700800000000000000
-      internalID: 561869243708604269
+      spriteID: ce74688f69213b14aafd0aeef122dd60
+      internalID: -1114281673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_10
+      name: RuinsCave_Tileset 1_10
       rect:
         serializedVersion: 2
         x: 400
@@ -147,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08d12a830cb50cc00800000000000000
-      internalID: 918835205125578112
+      spriteID: fcd324b8e0f635b4b9886202476eaeae
+      internalID: -1202807938
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_11
+      name: RuinsCave_Tileset 1_11
       rect:
         serializedVersion: 2
         x: 480
@@ -168,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44589b1016db3a910800000000000000
-      internalID: 1847528496490448196
+      spriteID: 7fc4c29d266305540a486e483a070947
+      internalID: 1765271762
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_12
+      name: RuinsCave_Tileset 1_12
       rect:
         serializedVersion: 2
         x: 560
@@ -189,14 +202,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a3ad94837b04c840800000000000000
-      internalID: 5243328456940168100
+      spriteID: 69af317f07121d9469805ab533b1a336
+      internalID: 1646314931
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_15
+      name: RuinsCave_Tileset 1_15
       rect:
         serializedVersion: 2
         x: 240
@@ -210,14 +223,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 979306339132f1e60800000000000000
-      internalID: 7935099659593202041
+      spriteID: b265e0d6e0900e8478392c8545cfcde9
+      internalID: -908376458
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_16
+      name: RuinsCave_Tileset 1_16
       rect:
         serializedVersion: 2
         x: 320
@@ -231,14 +244,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e80e84f4152446c0800000000000000
-      internalID: -4160159383850972959
+      spriteID: 76ce4b15ce45dfa42923a3d5c8e354bc
+      internalID: -1599241175
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_17
+      name: RuinsCave_Tileset 1_17
       rect:
         serializedVersion: 2
         x: 400
@@ -252,14 +265,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e37ceb49bf2a1d890800000000000000
-      internalID: -7434982308395956418
+      spriteID: b474a307868505d45b9d4f796c9d3377
+      internalID: 1506442416
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_18
+      name: RuinsCave_Tileset 1_18
       rect:
         serializedVersion: 2
         x: 480
@@ -273,14 +286,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04123e63536b1b410800000000000000
-      internalID: 1491173291306721600
+      spriteID: b1b53212b48408c47842cd0c17d42765
+      internalID: -1684988714
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_19
+      name: RuinsCave_Tileset 1_19
       rect:
         serializedVersion: 2
         x: 560
@@ -294,14 +307,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7230656f02d4ab310800000000000000
-      internalID: 1421533436355937063
+      spriteID: d672e9f20639f0040b5ac2259cde9acf
+      internalID: 1767057768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_22
+      name: RuinsCave_Tileset 1_22
       rect:
         serializedVersion: 2
         x: 240
@@ -315,14 +328,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c6f42b793a82ae70800000000000000
-      internalID: 9125007774489835203
+      spriteID: b9d84de48e13e174c80be88af88c2745
+      internalID: 1937452436
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_23
+      name: RuinsCave_Tileset 1_23
       rect:
         serializedVersion: 2
         x: 320
@@ -336,14 +349,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e56c1a30ddc7e0fe0800000000000000
-      internalID: -1220901160280275362
+      spriteID: 804fc5885aaac1b4183cb7a3a4adb04a
+      internalID: -1393268990
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_24
+      name: RuinsCave_Tileset 1_24
       rect:
         serializedVersion: 2
         x: 400
@@ -357,14 +370,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 376b4defc09137720800000000000000
-      internalID: 2842643333406570099
+      spriteID: 5ac887f7fa6f5f64486144f0b084fc1a
+      internalID: 1520964545
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_25
+      name: RuinsCave_Tileset 1_25
       rect:
         serializedVersion: 2
         x: 480
@@ -378,14 +391,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c9961bf0e6397c00800000000000000
-      internalID: 898809940550261186
+      spriteID: 91f8d09ef48bebd4480e10e1431537bc
+      internalID: -683894790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_26
+      name: RuinsCave_Tileset 1_26
       rect:
         serializedVersion: 2
         x: 560
@@ -399,14 +412,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1673731a3d8c7c1c0800000000000000
-      internalID: -4483394092755634335
+      spriteID: 4932952e19a548346837557d3fa0c6f9
+      internalID: 1029121624
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_36
+      name: RuinsCave_Tileset 1_36
       rect:
         serializedVersion: 2
         x: 240
@@ -420,14 +433,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9497fabb77b505570800000000000000
-      internalID: 8453357070382496073
+      spriteID: afabaff99458f594e8c31335a6aaa647
+      internalID: -1414812393
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_37
+      name: RuinsCave_Tileset 1_37
       rect:
         serializedVersion: 2
         x: 320
@@ -441,14 +454,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24f51ce52041c3490800000000000000
-      internalID: -7765309657081356478
+      spriteID: 61711c25a4a82fe49b54cea64197f725
+      internalID: -1684276915
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_38
+      name: RuinsCave_Tileset 1_38
       rect:
         serializedVersion: 2
         x: 400
@@ -462,14 +475,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 940618414f4e87ae0800000000000000
-      internalID: -1551238334661959607
+      spriteID: 24b36f46fdc4e5c4aaddb68d37f7184f
+      internalID: 845344028
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_39
+      name: RuinsCave_Tileset 1_39
       rect:
         serializedVersion: 2
         x: 480
@@ -483,14 +496,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a59f1b1f1fb8f7c0800000000000000
-      internalID: -4037266925617703514
+      spriteID: 36a51ffa3dd357a498d8f069bee72f59
+      internalID: -1736017918
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_40
+      name: RuinsCave_Tileset 1_40
       rect:
         serializedVersion: 2
         x: 560
@@ -504,14 +517,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71716079146279170800000000000000
-      internalID: 8185052910917654295
+      spriteID: 8af87e53276ac514598ca66a5a91d1b4
+      internalID: -1631842850
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_54
+      name: RuinsCave_Tileset 1_54
       rect:
         serializedVersion: 2
         x: 240
@@ -525,14 +538,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b90b4441f8ef1b800800000000000000
-      internalID: 626561713655034011
+      spriteID: e8b2e59085e41c246b8efaf11790f95f
+      internalID: -1920953903
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_55
+      name: RuinsCave_Tileset 1_55
       rect:
         serializedVersion: 2
         x: 320
@@ -546,14 +559,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6673b4c3fe7f76d40800000000000000
-      internalID: 5577699270402455398
+      spriteID: e78785004b62391479d080a0458c51e9
+      internalID: 1746902477
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_56
+      name: RuinsCave_Tileset 1_56
       rect:
         serializedVersion: 2
         x: 400
@@ -567,14 +580,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c651fbbe215169320800000000000000
-      internalID: 2564260208842839404
+      spriteID: 6d92711b64ef44d409181aa77e2f6dca
+      internalID: 1717411055
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_57
+      name: RuinsCave_Tileset 1_57
       rect:
         serializedVersion: 2
         x: 480
@@ -588,14 +601,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5abf92135c6d8cea0800000000000000
-      internalID: -5852191573346223195
+      spriteID: c42b3cb078155384ba0f8e6b19ed2976
+      internalID: -251834187
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_58
+      name: RuinsCave_Tileset 1_58
       rect:
         serializedVersion: 2
         x: 560
@@ -609,14 +622,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee46bc644adebc6e0800000000000000
-      internalID: -1816096734895708946
+      spriteID: 1ffe78e2f36470f48b08aa8432a39b22
+      internalID: -547467879
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_60
+      name: RuinsCave_Tileset 1_60
       rect:
         serializedVersion: 2
         x: 720
@@ -627,22 +640,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -8, y: -3}
-        - {x: -40, y: -23}
-        - {x: -40, y: -40}
-        - {x: 40, y: -40}
-        - {x: 40, y: -3}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9149efc213c77b240800000000000000
-      internalID: 4807447677891417113
+      spriteID: 5c4f708e53db9494a8456019789efdf7
+      internalID: 627488081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_61
+      name: RuinsCave_Tileset 1_61
       rect:
         serializedVersion: 2
         x: 800
@@ -653,21 +661,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -40, y: -14}
-        - {x: -40, y: -40}
-        - {x: 40, y: -40}
-        - {x: 40, y: -14}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68da6ebcb31fec610800000000000000
-      internalID: 1643516153163066758
+      spriteID: ce03c6f047c4c5b4882fafb73acefcb8
+      internalID: -909303485
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_62
+      name: RuinsCave_Tileset 1_62
       rect:
         serializedVersion: 2
         x: 880
@@ -678,22 +682,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -40, y: -14}
-        - {x: -40, y: -40}
-        - {x: 40, y: -40}
-        - {x: 40, y: 39}
-        - {x: 40, y: -14}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 703982802b652d310800000000000000
-      internalID: 1428299354470912775
+      spriteID: 874ca47652ac66f4bb7edb0eb376ed6d
+      internalID: 1174348417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_63
+      name: RuinsCave_Tileset 1_63
       rect:
         serializedVersion: 2
         x: 960
@@ -704,21 +703,17 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -40, y: -14}
-        - {x: -40, y: -40}
-        - {x: 40, y: -40}
-        - {x: 40, y: -14}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42e93b2a2b75cd980800000000000000
-      internalID: -8512832770891604444
+      spriteID: 3d2b3c25bd646554f8d799d620f17978
+      internalID: -1619768235
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_64
+      name: RuinsCave_Tileset 1_64
       rect:
         serializedVersion: 2
         x: 1040
@@ -732,14 +727,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8840a74d8d92a990800000000000000
-      internalID: -7376160009561814897
+      spriteID: 8b68b0cdb319ae242909c8c5981c1271
+      internalID: 1252458008
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_65
+      name: RuinsCave_Tileset 1_65
       rect:
         serializedVersion: 2
         x: 1120
@@ -753,14 +748,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1dd90140ceefef10800000000000000
-      internalID: 2301320444101909788
+      spriteID: 186914f75a302054a9bba94b068bf7fe
+      internalID: 238164362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_66
+      name: RuinsCave_Tileset 1_66
       rect:
         serializedVersion: 2
         x: 1200
@@ -774,14 +769,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79f2201c5d1f8e7b0800000000000000
-      internalID: -5194636269803393129
+      spriteID: 5613c458e64eea446a03397965965512
+      internalID: 1376340151
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_67
+      name: RuinsCave_Tileset 1_67
       rect:
         serializedVersion: 2
         x: 1280
@@ -795,14 +790,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85c307e2aeb7e1320800000000000000
-      internalID: 2530596286360468568
+      spriteID: 50ec0f1bc03858e4f8ef19f956dc778b
+      internalID: -78341557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_68
+      name: RuinsCave_Tileset 1_68
       rect:
         serializedVersion: 2
         x: 1360
@@ -816,14 +811,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9178af4cf104a41d0800000000000000
-      internalID: -3365807266313107687
+      spriteID: 2ac62adc9245c7f41840ea0c2b669294
+      internalID: 1042889676
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_69
+      name: RuinsCave_Tileset 1_69
       rect:
         serializedVersion: 2
         x: 1440
@@ -837,14 +832,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98a92b96c4ddb58a0800000000000000
-      internalID: -6315210732196423031
+      spriteID: a1a16a529be3a7a4ba9ff75a17e53d5f
+      internalID: -1472222587
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_70
+      name: RuinsCave_Tileset 1_70
       rect:
         serializedVersion: 2
         x: 1520
@@ -858,14 +853,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99d4a143b1cbb1ed0800000000000000
-      internalID: -2442151547894084199
+      spriteID: 4abc7396e1895eb4b9ac70c8f56664fb
+      internalID: 775330138
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_73
+      name: RuinsCave_Tileset 1_73
       rect:
         serializedVersion: 2
         x: 240
@@ -879,14 +874,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93bc806c3fbf81440800000000000000
-      internalID: 4906948818438245177
+      spriteID: d44b7c0168ac1f741961477aa28716c0
+      internalID: -1318032736
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_74
+      name: RuinsCave_Tileset 1_74
       rect:
         serializedVersion: 2
         x: 320
@@ -900,14 +895,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ec3b0a026a5c53c0800000000000000
-      internalID: -4369518161334420252
+      spriteID: 00cda9fccb8b79749805b1e63b8500dd
+      internalID: -2090317198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_75
+      name: RuinsCave_Tileset 1_75
       rect:
         serializedVersion: 2
         x: 400
@@ -921,14 +916,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 379effe6514239960800000000000000
-      internalID: 7607463870034078067
+      spriteID: 23db94fde35a25e478e72f487cdb47c9
+      internalID: -925548288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_76
+      name: RuinsCave_Tileset 1_76
       rect:
         serializedVersion: 2
         x: 480
@@ -942,14 +937,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8f2f84943feb74c0800000000000000
-      internalID: -4288571211030515830
+      spriteID: 98d311152a4cf1746bbbd0b7714d61f9
+      internalID: 313397166
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_77
+      name: RuinsCave_Tileset 1_77
       rect:
         serializedVersion: 2
         x: 560
@@ -963,14 +958,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6c91f365fd1adba0800000000000000
-      internalID: -6063501008519979926
+      spriteID: 06cd31bf5960d61489dd7babef60002a
+      internalID: 286976427
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_79
+      name: RuinsCave_Tileset 1_79
       rect:
         serializedVersion: 2
         x: 720
@@ -984,14 +979,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd1b62c4a98651d50800000000000000
-      internalID: 6707382231950078431
+      spriteID: 5e4c7347f43a47847a9f624cc0242937
+      internalID: -644737807
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_80
+      name: RuinsCave_Tileset 1_80
       rect:
         serializedVersion: 2
         x: 800
@@ -1005,14 +1000,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 548f3989643723510800000000000000
-      internalID: 1527409970676758597
+      spriteID: 8baed972cfa37324c9872ccbb5b1f025
+      internalID: 3410547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_81
+      name: RuinsCave_Tileset 1_81
       rect:
         serializedVersion: 2
         x: 880
@@ -1026,14 +1021,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5df5ceed589ca4120800000000000000
-      internalID: 2398951328336076757
+      spriteID: 64d267b70572846469b57c948a1e78b9
+      internalID: 151643704
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_82
+      name: RuinsCave_Tileset 1_82
       rect:
         serializedVersion: 2
         x: 960
@@ -1047,14 +1042,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edf347484164f34d0800000000000000
-      internalID: -3152724160200556578
+      spriteID: b5d764c33fc7f4c4c8abb7e501a695bf
+      internalID: -629537632
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_83
+      name: RuinsCave_Tileset 1_83
       rect:
         serializedVersion: 2
         x: 1040
@@ -1068,14 +1063,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e16b7d6140c36f10800000000000000
-      internalID: 2261862825112330724
+      spriteID: 554fcb1238c4f7b4ea8a2a13b5318db3
+      internalID: 964561391
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_84
+      name: RuinsCave_Tileset 1_84
       rect:
         serializedVersion: 2
         x: 1120
@@ -1089,14 +1084,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49ffe23ae4ac3b2b0800000000000000
-      internalID: -5569885875033145452
+      spriteID: 2d9a0128076ac214faf5add1df399f6d
+      internalID: -1062772252
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_85
+      name: RuinsCave_Tileset 1_85
       rect:
         serializedVersion: 2
         x: 1200
@@ -1110,14 +1105,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 979824bdd701f4d60800000000000000
-      internalID: 7876532406029814137
+      spriteID: 5c0923f05a72af04dbbe5708d67b215e
+      internalID: -195088456
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_86
+      name: RuinsCave_Tileset 1_86
       rect:
         serializedVersion: 2
         x: 1280
@@ -1131,14 +1126,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f047b074a64e6690800000000000000
-      internalID: -7607065048502550285
+      spriteID: 12c3fbf98875bda45a2567c9234eae89
+      internalID: -2104418746
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_87
+      name: RuinsCave_Tileset 1_87
       rect:
         serializedVersion: 2
         x: 1360
@@ -1152,14 +1147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 353a07206d3679b50800000000000000
-      internalID: 6599853549749838675
+      spriteID: 98f9bfa1a49f1884889b832a41b95e6b
+      internalID: 1091910251
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_88
+      name: RuinsCave_Tileset 1_88
       rect:
         serializedVersion: 2
         x: 1440
@@ -1173,14 +1168,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11e79e5df1e75a370800000000000000
-      internalID: 8333205360716906001
+      spriteID: a3e7071124c476d4ea520d7aefc652fe
+      internalID: -313325768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_89
+      name: RuinsCave_Tileset 1_89
       rect:
         serializedVersion: 2
         x: 1520
@@ -1194,14 +1189,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03029f64406ffe910800000000000000
-      internalID: 1868982868613079088
+      spriteID: 63b5a9192d2be5f4a8d3ecf04033cb73
+      internalID: -1651622790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_100
+      name: RuinsCave_Tileset 1_100
       rect:
         serializedVersion: 2
         x: 720
@@ -1215,14 +1210,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a8bc4a974997fe10800000000000000
-      internalID: 2231420673195817124
+      spriteID: 86124227d66317b4eac9f13b6fcf617f
+      internalID: -1410115851
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_101
+      name: RuinsCave_Tileset 1_101
       rect:
         serializedVersion: 2
         x: 800
@@ -1236,14 +1231,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f4e92ec00ca77610800000000000000
-      internalID: 1618951710521812212
+      spriteID: 5bd3b331ad1311a4f92ab5f0cb352cdb
+      internalID: -496149748
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_102
+      name: RuinsCave_Tileset 1_102
       rect:
         serializedVersion: 2
         x: 880
@@ -1257,14 +1252,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27e0dbe6331b119e0800000000000000
-      internalID: -1652344753808929166
+      spriteID: 0b163ac19f64fdc46ac34ec633d99c99
+      internalID: 1122299268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_103
+      name: RuinsCave_Tileset 1_103
       rect:
         serializedVersion: 2
         x: 960
@@ -1278,14 +1273,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77dabd09630f43cc0800000000000000
-      internalID: -3732094074034082441
+      spriteID: bd66a20e99a6782409a7d12bc475ed66
+      internalID: 316744970
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_104
+      name: RuinsCave_Tileset 1_104
       rect:
         serializedVersion: 2
         x: 1040
@@ -1299,14 +1294,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85b62c54ed0232bc0800000000000000
-      internalID: -3809164720800109736
+      spriteID: 2d2f1c1118332eb448263f3bda781d1e
+      internalID: 532838658
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_105
+      name: RuinsCave_Tileset 1_105
       rect:
         serializedVersion: 2
         x: 1120
@@ -1320,14 +1315,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3841aa5d536baa5f0800000000000000
-      internalID: -744582446042180477
+      spriteID: 590a14fe083ccec4a8b282fbb3a3824d
+      internalID: 1737868240
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_106
+      name: RuinsCave_Tileset 1_106
       rect:
         serializedVersion: 2
         x: 1200
@@ -1341,14 +1336,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 150d918478557d490800000000000000
-      internalID: -7721608996584828847
+      spriteID: 790d81eedface8a4085e3ef48be253ce
+      internalID: -326239874
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_107
+      name: RuinsCave_Tileset 1_107
       rect:
         serializedVersion: 2
         x: 1280
@@ -1362,14 +1357,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2157b42d5651cd50800000000000000
-      internalID: 6755775874080395566
+      spriteID: 4face2c003486414dae42d39548b6125
+      internalID: 1582159120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_108
+      name: RuinsCave_Tileset 1_108
       rect:
         serializedVersion: 2
         x: 1360
@@ -1383,14 +1378,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8d0b8fc0bd405070800000000000000
-      internalID: 8093053952176360842
+      spriteID: 7df96ee3d0332624687996ac6302bf76
+      internalID: 269319870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_109
+      name: RuinsCave_Tileset 1_109
       rect:
         serializedVersion: 2
         x: 1440
@@ -1404,14 +1399,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73cb37e57bfeaf150800000000000000
-      internalID: 5907297432092523575
+      spriteID: d325b8090a41bbc4ab35118f18c389bb
+      internalID: -558417838
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_110
+      name: RuinsCave_Tileset 1_110
       rect:
         serializedVersion: 2
         x: 1520
@@ -1425,14 +1420,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a47ae6e0802cccc00800000000000000
-      internalID: 922325363561768778
+      spriteID: 44855a2ac59a37d4c8e009d1b8fa6e88
+      internalID: -572310721
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_121
+      name: RuinsCave_Tileset 1_121
       rect:
         serializedVersion: 2
         x: 80
@@ -1446,14 +1441,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7c8e7dd3a920d510800000000000000
-      internalID: 1571802053724769405
+      spriteID: 49d4eefded8d58f4ca8495c6f1ec520b
+      internalID: 1717961529
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_122
+      name: RuinsCave_Tileset 1_122
       rect:
         serializedVersion: 2
         x: 160
@@ -1467,14 +1462,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 865750e2c42ae5d00800000000000000
-      internalID: 963385818377188712
+      spriteID: b528ebd769054a045975ee558bcf77cd
+      internalID: -864862248
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_123
+      name: RuinsCave_Tileset 1_123
       rect:
         serializedVersion: 2
         x: 240
@@ -1488,14 +1483,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e75300ee7dbea250800000000000000
-      internalID: 5957907709679589347
+      spriteID: c4c4ae76a81266e4587a330cfa3deeef
+      internalID: 1374711344
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_125
+      name: RuinsCave_Tileset 1_125
       rect:
         serializedVersion: 2
         x: 400
@@ -1509,14 +1504,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f35434623d0c9c260800000000000000
-      internalID: 7118432699148354879
+      spriteID: a07f3fbc4c9b9e94490ebd4be40ab3dc
+      internalID: 730726172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_126
+      name: RuinsCave_Tileset 1_126
       rect:
         serializedVersion: 2
         x: 480
@@ -1530,14 +1525,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1db3cafa67218a4a0800000000000000
-      internalID: -6581990554439238703
+      spriteID: 8f9df048b4f27664289d1cabe0f9ba5c
+      internalID: 449877951
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_127
+      name: RuinsCave_Tileset 1_127
       rect:
         serializedVersion: 2
         x: 560
@@ -1551,14 +1546,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce3f3a26dfbef2580800000000000000
-      internalID: -8849595269245570068
+      spriteID: 5c7962033979c4a4e9d1688e9b417b7a
+      internalID: 2145364573
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_129
+      name: RuinsCave_Tileset 1_129
       rect:
         serializedVersion: 2
         x: 720
@@ -1572,14 +1567,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bb4cb562670a4430800000000000000
-      internalID: 3767832157443869620
+      spriteID: 61167b4ffd0173b468da252a6df96946
+      internalID: 1903111705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_130
+      name: RuinsCave_Tileset 1_130
       rect:
         serializedVersion: 2
         x: 800
@@ -1593,14 +1588,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 398653498f8ff9080800000000000000
-      internalID: -9178343769035675501
+      spriteID: 4c382b4a9799eef43ae5e96cc7359996
+      internalID: 180315646
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_131
+      name: RuinsCave_Tileset 1_131
       rect:
         serializedVersion: 2
         x: 880
@@ -1614,14 +1609,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8a133e38676f1dc0800000000000000
-      internalID: -3666097874238498165
+      spriteID: a87d49b7fc2ace04da28efbb5817ab6b
+      internalID: -1755183375
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_132
+      name: RuinsCave_Tileset 1_132
       rect:
         serializedVersion: 2
         x: 960
@@ -1635,14 +1630,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1297779d88e1be90800000000000000
-      internalID: -7011567450009923044
+      spriteID: d5df2e40d18fa074bbe6f49cd67e416d
+      internalID: -1753630386
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_133
+      name: RuinsCave_Tileset 1_133
       rect:
         serializedVersion: 2
         x: 1040
@@ -1656,14 +1651,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5232f59fdcdd78260800000000000000
-      internalID: 7099887214294672165
+      spriteID: 361ee8d503521b144908799716cd6fba
+      internalID: -1664200398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_134
+      name: RuinsCave_Tileset 1_134
       rect:
         serializedVersion: 2
         x: 1120
@@ -1677,14 +1672,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8d99160713890420800000000000000
-      internalID: 2596750795065630090
+      spriteID: 7b900e8644d138b47b6f16db249fed5c
+      internalID: -67495258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_135
+      name: RuinsCave_Tileset 1_135
       rect:
         serializedVersion: 2
         x: 1200
@@ -1698,14 +1693,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a5253c15c4603ba0800000000000000
-      internalID: -6111273896597183068
+      spriteID: b4069517e7ea3d64d9c7e2d0b2ea355d
+      internalID: 1714753483
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_136
+      name: RuinsCave_Tileset 1_136
       rect:
         serializedVersion: 2
         x: 1280
@@ -1719,14 +1714,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b68581ec44375ac10800000000000000
-      internalID: 2064182743571912811
+      spriteID: d26a77cc3b027444ca0c0e7ecd70b0d1
+      internalID: 694214362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_137
+      name: RuinsCave_Tileset 1_137
       rect:
         serializedVersion: 2
         x: 1360
@@ -1740,14 +1735,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1d8633d2c1b47560800000000000000
-      internalID: 7310663545454497055
+      spriteID: 3d2ce50ad2898d9429cd1529184af15f
+      internalID: -606543295
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_138
+      name: RuinsCave_Tileset 1_138
       rect:
         serializedVersion: 2
         x: 1440
@@ -1761,14 +1756,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da302ff9d661fe630800000000000000
-      internalID: 3958407257572639661
+      spriteID: f65c27e0a71e95c47b9f23b61175b4f9
+      internalID: 2002743323
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_139
+      name: RuinsCave_Tileset 1_139
       rect:
         serializedVersion: 2
         x: 1520
@@ -1782,14 +1777,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af71a7b6fcee55850800000000000000
-      internalID: 6365256222986868730
+      spriteID: f556802bb943b2249a2396b97d5534f7
+      internalID: -126899750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_141
+      name: RuinsCave_Tileset 1_141
       rect:
         serializedVersion: 2
         x: 1680
@@ -1803,14 +1798,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: acef85e001a83c970800000000000000
-      internalID: 8774008300612681418
+      spriteID: 509fe94a035f05949899f3881b0404a4
+      internalID: -522741995
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_142
+      name: RuinsCave_Tileset 1_142
       rect:
         serializedVersion: 2
         x: 1760
@@ -1824,14 +1819,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e63e88b4a36d4e20800000000000000
-      internalID: 3336432458073519841
+      spriteID: a1463cb4f2aff034d817ba3d3391eee9
+      internalID: -941870729
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_143
+      name: RuinsCave_Tileset 1_143
       rect:
         serializedVersion: 2
         x: 1840
@@ -1845,14 +1840,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4f7c01c1ec2b44e0800000000000000
-      internalID: -1996452661690597557
+      spriteID: 1f2e8451d159d134db2af98b4a7887da
+      internalID: 2045664477
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_145
+      name: RuinsCave_Tileset 1_145
       rect:
         serializedVersion: 2
         x: 2000
@@ -1866,14 +1861,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19574e2963b92edd0800000000000000
-      internalID: -2458231787895884399
+      spriteID: 1db272515f73a244bb02ed7f4b9fc074
+      internalID: 631408867
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_146
+      name: RuinsCave_Tileset 1_146
       rect:
         serializedVersion: 2
         x: 2080
@@ -1887,14 +1882,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a2713ce44d7194a0800000000000000
-      internalID: -6588347044892413273
+      spriteID: 903a44c432cad0a4a9812e4f8b75b040
+      internalID: 1572241356
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_147
+      name: RuinsCave_Tileset 1_147
       rect:
         serializedVersion: 2
         x: 2160
@@ -1908,14 +1903,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 661cabc53a74bf420800000000000000
-      internalID: 2664802371480764774
+      spriteID: 1d14e33142a64014093c1849f39d0ab4
+      internalID: 379119310
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_150
+      name: RuinsCave_Tileset 1_150
       rect:
         serializedVersion: 2
         x: 80
@@ -1929,14 +1924,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7660d1b49d0666ed0800000000000000
-      internalID: -2421141263280699801
+      spriteID: 72d02bbfdc5c6aa4998fdd88f9d53953
+      internalID: -52788892
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_151
+      name: RuinsCave_Tileset 1_151
       rect:
         serializedVersion: 2
         x: 160
@@ -1950,14 +1945,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 644d335b03acacbc0800000000000000
-      internalID: -3761972228167314362
+      spriteID: 1c25fb74a488d6b4d9ad3e91e3cd7922
+      internalID: -1618088528
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_152
+      name: RuinsCave_Tileset 1_152
       rect:
         serializedVersion: 2
         x: 240
@@ -1971,14 +1966,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 605a52a905ad772e0800000000000000
-      internalID: -2127992259190872826
+      spriteID: 701a07f5ff237af4da7b6cc09aaf2a9e
+      internalID: -1908849652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_154
+      name: RuinsCave_Tileset 1_154
       rect:
         serializedVersion: 2
         x: 400
@@ -1992,14 +1987,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91ad3afbb262ee000800000000000000
-      internalID: 67033013797771801
+      spriteID: 5254d137b888d544ba6f6cb00c5099d0
+      internalID: 63901429
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_155
+      name: RuinsCave_Tileset 1_155
       rect:
         serializedVersion: 2
         x: 480
@@ -2013,14 +2008,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 87fd582e6fd0794b0800000000000000
-      internalID: -5433859071385673864
+      spriteID: 3bbe7105dc5d6f84fb5e6a05207c09e4
+      internalID: -296162869
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_156
+      name: RuinsCave_Tileset 1_156
       rect:
         serializedVersion: 2
         x: 560
@@ -2034,14 +2029,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 911bf62419c1db080800000000000000
-      internalID: -9170141856046010087
+      spriteID: e8e1a7b0714e4b54eb9ab19828084cf6
+      internalID: -533468299
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_158
+      name: RuinsCave_Tileset 1_158
       rect:
         serializedVersion: 2
         x: 720
@@ -2055,14 +2050,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eebe47e4147db3e70800000000000000
-      internalID: 9096100547893980142
+      spriteID: 71b012e2f57747e4ba716d295154b81b
+      internalID: -590612458
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_159
+      name: RuinsCave_Tileset 1_159
       rect:
         serializedVersion: 2
         x: 800
@@ -2076,14 +2071,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbbeba90a68c59be0800000000000000
-      internalID: -1471049345512248388
+      spriteID: 78d8bab1afab4634ea3656a67874b5e8
+      internalID: -228044512
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_160
+      name: RuinsCave_Tileset 1_160
       rect:
         serializedVersion: 2
         x: 880
@@ -2097,14 +2092,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21c8264c4282c5df0800000000000000
-      internalID: -190232945877677038
+      spriteID: 40e8f92931bd6694981ed1e5ac68f554
+      internalID: -416836736
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_161
+      name: RuinsCave_Tileset 1_161
       rect:
         serializedVersion: 2
         x: 960
@@ -2118,14 +2113,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b74dbc4a3b43a900800000000000000
-      internalID: 694481481312847793
+      spriteID: c915af41b950d16499fbdf275734857c
+      internalID: -1049300833
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_162
+      name: RuinsCave_Tileset 1_162
       rect:
         serializedVersion: 2
         x: 1040
@@ -2139,14 +2134,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2af5bdd78f09bb870800000000000000
-      internalID: 8699706502134063010
+      spriteID: 063b43d9baa0b984ba23c9288c6413e2
+      internalID: 612376156
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_163
+      name: RuinsCave_Tileset 1_163
       rect:
         serializedVersion: 2
         x: 1120
@@ -2160,14 +2155,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b663f307d380961a0800000000000000
-      internalID: -6815907501079316885
+      spriteID: acd1501b1866da94c8baa07a4f26731b
+      internalID: -1484024933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_164
+      name: RuinsCave_Tileset 1_164
       rect:
         serializedVersion: 2
         x: 1200
@@ -2181,14 +2176,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1db8028422fffc90800000000000000
-      internalID: -7133717046117221089
+      spriteID: 4a513b2905c95184b820e1ab581ae0b6
+      internalID: 684767926
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_165
+      name: RuinsCave_Tileset 1_165
       rect:
         serializedVersion: 2
         x: 1280
@@ -2202,14 +2197,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b21431b12350088b0800000000000000
-      internalID: -5152112260951097045
+      spriteID: 6ebda0481914c1a418faa28dd8364197
+      internalID: 1009136135
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_166
+      name: RuinsCave_Tileset 1_166
       rect:
         serializedVersion: 2
         x: 1360
@@ -2223,14 +2218,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 507446430a4f8aa60800000000000000
-      internalID: 7685661733018683141
+      spriteID: c915acb1b939ab04085d299929272b52
+      internalID: -550086755
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_167
+      name: RuinsCave_Tileset 1_167
       rect:
         serializedVersion: 2
         x: 1440
@@ -2244,14 +2239,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 813837c1ea93739b0800000000000000
-      internalID: -5100544633009372392
+      spriteID: 2c08c3590df08c742bb7fac0052f0ec9
+      internalID: -686792416
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_168
+      name: RuinsCave_Tileset 1_168
       rect:
         serializedVersion: 2
         x: 1520
@@ -2265,14 +2260,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d655ba0325eb41a50800000000000000
-      internalID: 6491022223160857965
+      spriteID: cb74ca8820d008844b9df4c2dd14eaab
+      internalID: -1701795257
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_170
+      name: RuinsCave_Tileset 1_170
       rect:
         serializedVersion: 2
         x: 1680
@@ -2286,14 +2281,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f53c502528c3c81d0800000000000000
-      internalID: -3347233892623596705
+      spriteID: 9d5c5833035f0fb4e86c8b061003bd73
+      internalID: 2108142514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_171
+      name: RuinsCave_Tileset 1_171
       rect:
         serializedVersion: 2
         x: 1760
@@ -2307,14 +2302,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11d8b64f52e062df0800000000000000
-      internalID: -205461176821510895
+      spriteID: 0fc1c2060f48bab4b863bbc2a19e8fbd
+      internalID: 1485924949
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_172
+      name: RuinsCave_Tileset 1_172
       rect:
         serializedVersion: 2
         x: 1840
@@ -2328,14 +2323,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b6e60dd93491beb0800000000000000
-      internalID: -4705817159383193935
+      spriteID: 607955f53c324b34a944bf34c3dd5e90
+      internalID: -487440085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_174
+      name: RuinsCave_Tileset 1_174
       rect:
         serializedVersion: 2
         x: 2000
@@ -2349,14 +2344,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d99d2b1a9e9b87d80800000000000000
-      internalID: -8252641904065062499
+      spriteID: 67b4fcfa1de09fd4584fbb0105b08ae5
+      internalID: 2004250238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_175
+      name: RuinsCave_Tileset 1_175
       rect:
         serializedVersion: 2
         x: 2080
@@ -2370,14 +2365,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c5db7884abf8f160800000000000000
-      internalID: 7059669099986277826
+      spriteID: 46d25c119f5f778479908db16302b4f8
+      internalID: -861532240
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_176
+      name: RuinsCave_Tileset 1_176
       rect:
         serializedVersion: 2
         x: 2160
@@ -2391,14 +2386,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6680ac7ac71f797c0800000000000000
-      internalID: -4064514620985309082
+      spriteID: 40dcf0d4faace634a92d03e0a8bdec74
+      internalID: -782073077
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_179
+      name: RuinsCave_Tileset 1_179
       rect:
         serializedVersion: 2
         x: 80
@@ -2412,14 +2407,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e89ae3d5dea11b800800000000000000
-      internalID: 626311429955168654
+      spriteID: 50c546a52a44659489ba6a557a9826a7
+      internalID: 125500084
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_180
+      name: RuinsCave_Tileset 1_180
       rect:
         serializedVersion: 2
         x: 160
@@ -2433,14 +2428,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 141ade698b7f8bda0800000000000000
-      internalID: -5928716537255059135
+      spriteID: bc0b909a5ddd4c84093f06fee1008bfa
+      internalID: -348066620
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_181
+      name: RuinsCave_Tileset 1_181
       rect:
         serializedVersion: 2
         x: 240
@@ -2454,14 +2449,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b065e162cb271230800000000000000
-      internalID: 3609401740226814128
+      spriteID: 045e1aa1866f1d64db61c8569a7feb28
+      internalID: -2126026472
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_183
+      name: RuinsCave_Tileset 1_183
       rect:
         serializedVersion: 2
         x: 400
@@ -2475,14 +2470,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcf7a1ae79f022490800000000000000
-      internalID: -7772632861745971249
+      spriteID: 321045ca99d125147aee0e9f3a7ef7e1
+      internalID: 1362946894
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_184
+      name: RuinsCave_Tileset 1_184
       rect:
         serializedVersion: 2
         x: 480
@@ -2496,14 +2491,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57d23cd36fd6348a0800000000000000
-      internalID: -6322088547532460683
+      spriteID: fb0bb390c941a1842b22f557fed71734
+      internalID: -1654668046
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_185
+      name: RuinsCave_Tileset 1_185
       rect:
         serializedVersion: 2
         x: 560
@@ -2517,14 +2512,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a1177fb206e3b330800000000000000
-      internalID: 3725574216242106792
+      spriteID: 4d97d7e46869bd741b074c838bd4c940
+      internalID: 2002677975
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_187
+      name: RuinsCave_Tileset 1_187
       rect:
         serializedVersion: 2
         x: 720
@@ -2538,14 +2533,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9902241015cf0a240800000000000000
-      internalID: 4801114627620610201
+      spriteID: 247abd102396f7a428278bb03a4592c5
+      internalID: -1509118751
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_188
+      name: RuinsCave_Tileset 1_188
       rect:
         serializedVersion: 2
         x: 800
@@ -2559,14 +2554,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29a7d90f46e5d1f60800000000000000
-      internalID: 8006659500161202834
+      spriteID: 325a56114e2f4ea45831319c3695ebd6
+      internalID: -1515567815
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_189
+      name: RuinsCave_Tileset 1_189
       rect:
         serializedVersion: 2
         x: 880
@@ -2580,14 +2575,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b697bbbff6b78bc0800000000000000
-      internalID: -3780852152671955276
+      spriteID: 68d027f33ea4e814097b9e54e5c4a8fa
+      internalID: -1495241125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_190
+      name: RuinsCave_Tileset 1_190
       rect:
         serializedVersion: 2
         x: 960
@@ -2601,14 +2596,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17858dbe3ec72b3a0800000000000000
-      internalID: -6651116381316556687
+      spriteID: 8d51f6d13b549e4488080d53842f4170
+      internalID: 1827188947
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_191
+      name: RuinsCave_Tileset 1_191
       rect:
         serializedVersion: 2
         x: 1040
@@ -2622,14 +2617,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34f975bca567655b0800000000000000
-      internalID: -5379982572516827325
+      spriteID: 8dea4f76b6a5ccc48ba087864f6e2919
+      internalID: -105281673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_192
+      name: RuinsCave_Tileset 1_192
       rect:
         serializedVersion: 2
         x: 1120
@@ -2643,14 +2638,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0ecc8fbc495c0aa0800000000000000
-      internalID: -6193477201375212019
+      spriteID: ceb9e942255a5b64d8f80b399f3cc3e9
+      internalID: 1949193702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_193
+      name: RuinsCave_Tileset 1_193
       rect:
         serializedVersion: 2
         x: 1200
@@ -2664,14 +2659,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29a791343dc53ffb0800000000000000
-      internalID: -4615243130691028334
+      spriteID: 0171fb63b099472489f103b181752b56
+      internalID: 1194585027
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_194
+      name: RuinsCave_Tileset 1_194
       rect:
         serializedVersion: 2
         x: 1280
@@ -2685,14 +2680,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06a134d643c392bb0800000000000000
-      internalID: -4960367318702810528
+      spriteID: 8829b750ec8c89046afa77286822a570
+      internalID: 1752256046
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_195
+      name: RuinsCave_Tileset 1_195
       rect:
         serializedVersion: 2
         x: 1360
@@ -2706,14 +2701,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5a99b26719f38e00800000000000000
-      internalID: 1045953417315981916
+      spriteID: 6fccf489b53f2cb439992b29287437ff
+      internalID: 552605384
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_196
+      name: RuinsCave_Tileset 1_196
       rect:
         serializedVersion: 2
         x: 1440
@@ -2727,14 +2722,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09673ef8c7cefe200800000000000000
-      internalID: 211647727243851408
+      spriteID: 465bc54c782f3b74f8978755af0e468b
+      internalID: 248056546
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_197
+      name: RuinsCave_Tileset 1_197
       rect:
         serializedVersion: 2
         x: 1520
@@ -2748,14 +2743,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 604437638b3e543f0800000000000000
-      internalID: -917076568773016570
+      spriteID: 343f5669fb605ec48908640b23abccd0
+      internalID: 1689518418
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_199
+      name: RuinsCave_Tileset 1_199
       rect:
         serializedVersion: 2
         x: 1680
@@ -2769,14 +2764,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 539b2ebc2905064c0800000000000000
-      internalID: -4296345453095372491
+      spriteID: 17ce1aa22fb46dc47923adcbfc8d621c
+      internalID: 374408267
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_200
+      name: RuinsCave_Tileset 1_200
       rect:
         serializedVersion: 2
         x: 1760
@@ -2790,14 +2785,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 725ce2bef448d1480800000000000000
-      internalID: -8926833407595461337
+      spriteID: 132c74057c857394b968d5da4ad26c0a
+      internalID: 505015153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_201
+      name: RuinsCave_Tileset 1_201
       rect:
         serializedVersion: 2
         x: 1840
@@ -2811,14 +2806,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce5b9350533464b10800000000000000
-      internalID: 1965332182393796076
+      spriteID: ef60e90dfb11a13489e6d6ade886af90
+      internalID: 1301027319
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_203
+      name: RuinsCave_Tileset 1_203
       rect:
         serializedVersion: 2
         x: 2000
@@ -2832,14 +2827,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cbbd1b411e106070800000000000000
-      internalID: 8097505189635668928
+      spriteID: 9058b6c55e4422e47a23e539f1d1939e
+      internalID: -1377280620
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_204
+      name: RuinsCave_Tileset 1_204
       rect:
         serializedVersion: 2
         x: 2080
@@ -2853,14 +2848,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95488d3860c034420800000000000000
-      internalID: 2612945430926361689
+      spriteID: f1b196ede3e45ef40989762a2323ad9c
+      internalID: -1715683785
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_205
+      name: RuinsCave_Tileset 1_205
       rect:
         serializedVersion: 2
         x: 2160
@@ -2874,14 +2869,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2bafee2fb8242d00800000000000000
-      internalID: 946926623245970220
+      spriteID: 9db4e9539b8d4444d9e2df153e68063e
+      internalID: -1647134658
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_208
+      name: RuinsCave_Tileset 1_208
       rect:
         serializedVersion: 2
         x: 80
@@ -2895,14 +2890,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5cf8fc807168d1d0800000000000000
-      internalID: -3325801188783752102
+      spriteID: 83fff5799e6f4e54e9b3f949dea9d14c
+      internalID: 831750250
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_209
+      name: RuinsCave_Tileset 1_209
       rect:
         serializedVersion: 2
         x: 160
@@ -2916,14 +2911,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6549ae0c4fdf0e220800000000000000
-      internalID: 2513287819723183190
+      spriteID: 2fef68e49796dbb499e12adaadb043b1
+      internalID: -422940948
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_210
+      name: RuinsCave_Tileset 1_210
       rect:
         serializedVersion: 2
         x: 240
@@ -2937,14 +2932,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21bef892efa882a00800000000000000
-      internalID: 731987763671329554
+      spriteID: 5e1dca883b2cad548b109eda2c76a4b1
+      internalID: -1538737816
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_212
+      name: RuinsCave_Tileset 1_212
       rect:
         serializedVersion: 2
         x: 400
@@ -2958,14 +2953,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e15a74b0359ea440800000000000000
-      internalID: 4949057076945637863
+      spriteID: 426ea6ae6bb45334087dc1e1064912aa
+      internalID: 1885846354
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_213
+      name: RuinsCave_Tileset 1_213
       rect:
         serializedVersion: 2
         x: 480
@@ -2979,14 +2974,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d12fa7165991e4d00800000000000000
-      internalID: 958731900052763165
+      spriteID: 005d3f2374a7a2040967327069defb69
+      internalID: -547607783
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_214
+      name: RuinsCave_Tileset 1_214
       rect:
         serializedVersion: 2
         x: 560
@@ -3000,14 +2995,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20e487f3020dd45c0800000000000000
-      internalID: -4229495638108647934
+      spriteID: d25dc05e32b9b1f48a2e13920d8402fb
+      internalID: -1792874734
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_216
+      name: RuinsCave_Tileset 1_216
       rect:
         serializedVersion: 2
         x: 720
@@ -3021,14 +3016,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02f1b3ca12da92d00800000000000000
-      internalID: 948479556673281824
+      spriteID: 37f7d1125f2d1ef46bca34b2f011e0f8
+      internalID: -1077220845
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_217
+      name: RuinsCave_Tileset 1_217
       rect:
         serializedVersion: 2
         x: 800
@@ -3042,14 +3037,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0055a1ccb6c602e0800000000000000
-      internalID: -2159820457272586227
+      spriteID: 381853d44805438479eb71e599e82a64
+      internalID: 504987785
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_218
+      name: RuinsCave_Tileset 1_218
       rect:
         serializedVersion: 2
         x: 880
@@ -3063,14 +3058,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bf4d59caa5316230800000000000000
-      internalID: 3630241782276378553
+      spriteID: 4e05ddc1586df3b4091277a012b31d7d
+      internalID: 2110118600
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_219
+      name: RuinsCave_Tileset 1_219
       rect:
         serializedVersion: 2
         x: 960
@@ -3084,14 +3079,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a05f3ec914daa150800000000000000
-      internalID: 5884749070412501156
+      spriteID: 54982d3b912d58142a9587af9eb078d2
+      internalID: 660956987
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_220
+      name: RuinsCave_Tileset 1_220
       rect:
         serializedVersion: 2
         x: 1040
@@ -3105,14 +3100,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65645f87e36e510d0800000000000000
-      internalID: -3452600383317916074
+      spriteID: ac7a90237550c434890d6ed2ab9da099
+      internalID: 1679175503
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_221
+      name: RuinsCave_Tileset 1_221
       rect:
         serializedVersion: 2
         x: 1120
@@ -3126,14 +3121,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08063bfd755b2c3d0800000000000000
-      internalID: -3187786197205032832
+      spriteID: 5124fb428f9b70b488fdf3b0fe21e5fd
+      internalID: -1919910698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_222
+      name: RuinsCave_Tileset 1_222
       rect:
         serializedVersion: 2
         x: 1200
@@ -3147,14 +3142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb5ea580b44dad3b0800000000000000
-      internalID: -5486839777269717573
+      spriteID: d6c9fdebba272a34b9077fdabc62cd53
+      internalID: -1637703322
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_223
+      name: RuinsCave_Tileset 1_223
       rect:
         serializedVersion: 2
         x: 1280
@@ -3168,14 +3163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57d9c7db4cd7903f0800000000000000
-      internalID: -934077163756544651
+      spriteID: da264779e89919149a092263a89cd1db
+      internalID: 599388416
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_224
+      name: RuinsCave_Tileset 1_224
       rect:
         serializedVersion: 2
         x: 1360
@@ -3189,14 +3184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9a149f9f26763540800000000000000
-      internalID: 4987303584272226970
+      spriteID: d8eab3f0d72ef9e4ab82b732c5482313
+      internalID: 1574687034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_225
+      name: RuinsCave_Tileset 1_225
       rect:
         serializedVersion: 2
         x: 1440
@@ -3210,14 +3205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97e2143c7f88e3ae0800000000000000
-      internalID: -1567665022564225415
+      spriteID: 227646d1dd26e7240ae78b6c26fd007e
+      internalID: 899627197
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_226
+      name: RuinsCave_Tileset 1_226
       rect:
         serializedVersion: 2
         x: 1520
@@ -3231,14 +3226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0dd0c1eadee3b7f40800000000000000
-      internalID: 5727240541680963024
+      spriteID: 8f04bcdd60a4bd848bbb06e7adf84aad
+      internalID: 1459195260
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_228
+      name: RuinsCave_Tileset 1_228
       rect:
         serializedVersion: 2
         x: 1680
@@ -3252,14 +3247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8081e178c52d89da0800000000000000
-      internalID: -5937764813842278392
+      spriteID: b6a24ce5e1e0525448f9ea7bd5fc20da
+      internalID: -15284680
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_229
+      name: RuinsCave_Tileset 1_229
       rect:
         serializedVersion: 2
         x: 1760
@@ -3273,14 +3268,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68d04760181838370800000000000000
-      internalID: 8323638927469841798
+      spriteID: 7aa861c542ae6bd4bb258c1594c76755
+      internalID: 2068465153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_230
+      name: RuinsCave_Tileset 1_230
       rect:
         serializedVersion: 2
         x: 1840
@@ -3294,14 +3289,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 421aad13b4ade7220800000000000000
-      internalID: 2485664060848906532
+      spriteID: 9709642bb0f120b4fa76ee513bca9df9
+      internalID: -2141711082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_232
+      name: RuinsCave_Tileset 1_232
       rect:
         serializedVersion: 2
         x: 2000
@@ -3315,14 +3310,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7f5743ec2ea31030800000000000000
-      internalID: 3464304046192942971
+      spriteID: eeb935bb2ffbf2242a22a08bad5cdeff
+      internalID: -134871964
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_233
+      name: RuinsCave_Tileset 1_233
       rect:
         serializedVersion: 2
         x: 2080
@@ -3336,14 +3331,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecf0802cebb507740800000000000000
-      internalID: 5147715248941699022
+      spriteID: 8e8c16d869777cc4eb3d859d48f81649
+      internalID: 133555100
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_234
+      name: RuinsCave_Tileset 1_234
       rect:
         serializedVersion: 2
         x: 2160
@@ -3357,14 +3352,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d262b3df497a5f790800000000000000
-      internalID: -7496901746342812115
+      spriteID: 80c5a3ac69fbf39498f095bd62460fda
+      internalID: 1965358853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_237
+      name: RuinsCave_Tileset 1_237
       rect:
         serializedVersion: 2
         x: 80
@@ -3378,14 +3373,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 283c921f7b2120f20800000000000000
-      internalID: 3387290450970395522
+      spriteID: 0692a640c351e0441a0aa17fd581e44e
+      internalID: -446545932
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_238
+      name: RuinsCave_Tileset 1_238
       rect:
         serializedVersion: 2
         x: 160
@@ -3399,14 +3394,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb1c469904d473580800000000000000
-      internalID: -8847518003099287106
+      spriteID: 9e0431a0c4fd5fd4c91f8a3ae1bdc4ed
+      internalID: 1080492059
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_239
+      name: RuinsCave_Tileset 1_239
       rect:
         serializedVersion: 2
         x: 240
@@ -3420,14 +3415,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4354b34f10cffd90800000000000000
-      internalID: -7061714450181237939
+      spriteID: 6bcdd50eaa562bc4fa75b61bb17141e9
+      internalID: -1364584780
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_241
+      name: RuinsCave_Tileset 1_241
       rect:
         serializedVersion: 2
         x: 400
@@ -3441,14 +3436,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8079a4fd5bc85b980800000000000000
-      internalID: -8523752006965618936
+      spriteID: 143b64d620c1ef4418b69f1b00ecbc4d
+      internalID: -119358822
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_242
+      name: RuinsCave_Tileset 1_242
       rect:
         serializedVersion: 2
         x: 480
@@ -3462,14 +3457,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c716afc9913414d20800000000000000
-      internalID: 3260961382479847804
+      spriteID: fc26aa845a8513a45aa56aa67dd9023b
+      internalID: 446200088
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_243
+      name: RuinsCave_Tileset 1_243
       rect:
         serializedVersion: 2
         x: 560
@@ -3483,14 +3478,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a803bbc9dfe7a70b0800000000000000
-      internalID: -5730127948154195830
+      spriteID: 0ed44039d262ddb4b8a4a686774969bf
+      internalID: -1082734323
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_245
+      name: RuinsCave_Tileset 1_245
       rect:
         serializedVersion: 2
         x: 720
@@ -3504,14 +3499,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f68b57a4e281f4760800000000000000
-      internalID: 7444195296163510383
+      spriteID: afba50b8e225b2f4f98f55b84916b855
+      internalID: 1758504643
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_246
+      name: RuinsCave_Tileset 1_246
       rect:
         serializedVersion: 2
         x: 800
@@ -3525,14 +3520,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85f7ce89104ef8770800000000000000
-      internalID: 8615355307694784344
+      spriteID: e571524a232aebe4496637298bd1f885
+      internalID: -12894328
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_247
+      name: RuinsCave_Tileset 1_247
       rect:
         serializedVersion: 2
         x: 880
@@ -3546,14 +3541,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1420ea463c0460180800000000000000
-      internalID: -9149554385004658111
+      spriteID: 2705095f562d8794ea9d82ad4a61fd16
+      internalID: 245746509
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_248
+      name: RuinsCave_Tileset 1_248
       rect:
         serializedVersion: 2
         x: 960
@@ -3567,14 +3562,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d560b7bd7ebd97630800000000000000
-      internalID: 3925410339096299101
+      spriteID: 1c2bf4c4aad20164f9b228a30f2f6b47
+      internalID: 679697828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_249
+      name: RuinsCave_Tileset 1_249
       rect:
         serializedVersion: 2
         x: 1040
@@ -3588,14 +3583,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74b1281b284f8f6c0800000000000000
-      internalID: -4109265817814557881
+      spriteID: 603dd85247d80ef46ad2ca7ff6aadef4
+      internalID: -2046095573
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_250
+      name: RuinsCave_Tileset 1_250
       rect:
         serializedVersion: 2
         x: 1120
@@ -3609,14 +3604,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2c13ef1fd8866c30800000000000000
-      internalID: 4352316581794225194
+      spriteID: 5d9448e6faa5d53469c407c2f58c8780
+      internalID: -1760570385
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_251
+      name: RuinsCave_Tileset 1_251
       rect:
         serializedVersion: 2
         x: 1200
@@ -3630,14 +3625,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 378c474e858779c70800000000000000
-      internalID: 8977776705371687027
+      spriteID: 6c2db0295a7b41744827ed37c6286204
+      internalID: 1975864387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_252
+      name: RuinsCave_Tileset 1_252
       rect:
         serializedVersion: 2
         x: 1280
@@ -3651,14 +3646,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcb480b74986cc2e0800000000000000
-      internalID: -2104191938960274485
+      spriteID: 5b52c7f7777f9744b9d2c8eb5d077c26
+      internalID: -2007946300
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_253
+      name: RuinsCave_Tileset 1_253
       rect:
         serializedVersion: 2
         x: 1360
@@ -3672,14 +3667,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f6c05e6dd0573040800000000000000
-      internalID: 4627256054115256056
+      spriteID: da63db219583137468634a0627249309
+      internalID: -639333588
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_254
+      name: RuinsCave_Tileset 1_254
       rect:
         serializedVersion: 2
         x: 1440
@@ -3693,14 +3688,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5281b9c37ddee08f0800000000000000
-      internalID: -572258593938925531
+      spriteID: 99e7cb422a56f43429dbfce4a0ab0aea
+      internalID: -565579489
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_255
+      name: RuinsCave_Tileset 1_255
       rect:
         serializedVersion: 2
         x: 1520
@@ -3714,14 +3709,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 907fcdcdf2bc361e0800000000000000
-      internalID: -2205695986052040951
+      spriteID: 94ba9f0dd810c8c4199e2df607f58472
+      internalID: 598548933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_257
+      name: RuinsCave_Tileset 1_257
       rect:
         serializedVersion: 2
         x: 1680
@@ -3735,14 +3730,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b231a1820feb78ac0800000000000000
-      internalID: -3852901017517944021
+      spriteID: 29168ecb74660d24cad85c9e91d29e57
+      internalID: 1405856440
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_258
+      name: RuinsCave_Tileset 1_258
       rect:
         serializedVersion: 2
         x: 1760
@@ -3756,14 +3751,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c2846803932efe50800000000000000
-      internalID: 6844947598057702087
+      spriteID: f335b026b3d38eb45b7d5a854b55ce9c
+      internalID: 1937863053
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_259
+      name: RuinsCave_Tileset 1_259
       rect:
         serializedVersion: 2
         x: 1840
@@ -3777,14 +3772,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 918bf7ced9b1d5bb0800000000000000
-      internalID: -4945766450691327975
+      spriteID: 8f26863df9a72364aa00f0d41325fe49
+      internalID: -1039703284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_261
+      name: RuinsCave_Tileset 1_261
       rect:
         serializedVersion: 2
         x: 2000
@@ -3798,14 +3793,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5007249266830e5b0800000000000000
-      internalID: -5341207146631368699
+      spriteID: 9a50392a1773bd94093806a7a983e84b
+      internalID: -1376367570
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_262
+      name: RuinsCave_Tileset 1_262
       rect:
         serializedVersion: 2
         x: 2080
@@ -3819,14 +3814,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8ce220eb2d629c50800000000000000
-      internalID: 6670514033300532367
+      spriteID: 67224f30801c97b4b9c4ac10ebb7edd4
+      internalID: 517921439
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_263
+      name: RuinsCave_Tileset 1_263
       rect:
         serializedVersion: 2
         x: 2160
@@ -3840,14 +3835,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1fa5598dd556b0840800000000000000
-      internalID: 5191354449214659313
+      spriteID: 0e63214e07f14794cbc419d3cbbdddaf
+      internalID: 1898648256
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_266
+      name: RuinsCave_Tileset 1_266
       rect:
         serializedVersion: 2
         x: 80
@@ -3861,14 +3856,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 664546c8b5ef51870800000000000000
-      internalID: 8653101928213140582
+      spriteID: 1782ad128c78ede42b55a60e1bbe88c5
+      internalID: -1910577578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_267
+      name: RuinsCave_Tileset 1_267
       rect:
         serializedVersion: 2
         x: 160
@@ -3882,14 +3877,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d2b8e5e637f1e030800000000000000
-      internalID: 3522368198737965779
+      spriteID: 14623f56cd1dc1c4eba0798c4d6913c8
+      internalID: 581056979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_268
+      name: RuinsCave_Tileset 1_268
       rect:
         serializedVersion: 2
         x: 240
@@ -3903,14 +3898,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d2bbde7bf5c38f410800000000000000
-      internalID: 1511024056788171565
+      spriteID: 809dcc640b181b84286ba9b1d607da28
+      internalID: -623430305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_270
+      name: RuinsCave_Tileset 1_270
       rect:
         serializedVersion: 2
         x: 400
@@ -3924,14 +3919,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2aaf35dabb4c09e80800000000000000
-      internalID: -8173817013331559774
+      spriteID: 33424cecaaf25b342bbf5fb1f246eee7
+      internalID: -481452288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_271
+      name: RuinsCave_Tileset 1_271
       rect:
         serializedVersion: 2
         x: 480
@@ -3945,14 +3940,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82de7ff98147461b0800000000000000
-      internalID: -5664274782213378776
+      spriteID: feda7a6281a6e704ca867958815c1d2a
+      internalID: -963109969
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_272
+      name: RuinsCave_Tileset 1_272
       rect:
         serializedVersion: 2
         x: 560
@@ -3966,14 +3961,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92385cfc0aff38030800000000000000
-      internalID: 3495918801915314985
+      spriteID: f6a2c28a30fada94f81b79dd210f7674
+      internalID: 1352784881
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_274
+      name: RuinsCave_Tileset 1_274
       rect:
         serializedVersion: 2
         x: 720
@@ -3987,14 +3982,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de0dcf4f8a0db0560800000000000000
-      internalID: 7281142646657831149
+      spriteID: 46000b2a5d6eada4f9f782fdef1be814
+      internalID: 86488404
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_275
+      name: RuinsCave_Tileset 1_275
       rect:
         serializedVersion: 2
         x: 800
@@ -4008,14 +4003,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6eb6784372c88060800000000000000
-      internalID: 6956023424866500203
+      spriteID: bf363475b6d42df46beeadf1f5f619fa
+      internalID: -1261483243
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_276
+      name: RuinsCave_Tileset 1_276
       rect:
         serializedVersion: 2
         x: 880
@@ -4029,14 +4024,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27cde8a9dcb0d14f0800000000000000
-      internalID: -856515376441271182
+      spriteID: c8b67f96d449351489e3fff0af77e925
+      internalID: -1572879045
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_277
+      name: RuinsCave_Tileset 1_277
       rect:
         serializedVersion: 2
         x: 960
@@ -4050,14 +4045,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea22f8264cd9390a0800000000000000
-      internalID: -6875978739271916882
+      spriteID: 7f354e07fcd017e4c9613b511a46e501
+      internalID: 338664937
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_278
+      name: RuinsCave_Tileset 1_278
       rect:
         serializedVersion: 2
         x: 1040
@@ -4071,14 +4066,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ad765dcd8857e040800000000000000
-      internalID: 4676804104106180000
+      spriteID: 931b6c2d3a82a4d449bb5c80920248b3
+      internalID: -265807365
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_279
+      name: RuinsCave_Tileset 1_279
       rect:
         serializedVersion: 2
         x: 1120
@@ -4092,14 +4087,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69b3f9858019248d0800000000000000
-      internalID: -2863566948021617770
+      spriteID: 19d81d56d955b2741a6b800ca7118d38
+      internalID: -1529491305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_280
+      name: RuinsCave_Tileset 1_280
       rect:
         serializedVersion: 2
         x: 1200
@@ -4113,14 +4108,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 419a2ce75c8de2230800000000000000
-      internalID: 3616065893571930388
+      spriteID: 125bd3e9c92cc9346820c14ad5d830d7
+      internalID: 197792354
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_281
+      name: RuinsCave_Tileset 1_281
       rect:
         serializedVersion: 2
         x: 1280
@@ -4134,14 +4129,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8cc2dede857e5dd0800000000000000
-      internalID: -2495427887032513397
+      spriteID: f96758514c6ee2347bcf7914531b3e98
+      internalID: -1375659111
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_282
+      name: RuinsCave_Tileset 1_282
       rect:
         serializedVersion: 2
         x: 1360
@@ -4155,14 +4150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d12b7cc8a80ca5530800000000000000
-      internalID: 3844596933214056989
+      spriteID: 7f76a973485461b4694c5ea30b3cc0bb
+      internalID: -1874181023
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_283
+      name: RuinsCave_Tileset 1_283
       rect:
         serializedVersion: 2
         x: 1440
@@ -4176,14 +4171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4b4f6cb6e6971770800000000000000
-      internalID: 8581493532725824334
+      spriteID: ffb9208675bf6744193879f1a833f381
+      internalID: 1090987403
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_284
+      name: RuinsCave_Tileset 1_284
       rect:
         serializedVersion: 2
         x: 1520
@@ -4197,14 +4192,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43b8e8f3b0f770750800000000000000
-      internalID: 6271120692424379188
+      spriteID: 297eb539ccc02be4884b63aceb7c8584
+      internalID: 1857650960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_286
+      name: RuinsCave_Tileset 1_286
       rect:
         serializedVersion: 2
         x: 1680
@@ -4218,14 +4213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58e20633579c52400800000000000000
-      internalID: 298866455500304005
+      spriteID: 4aaf06764999cfe44a76e9332db9ece9
+      internalID: 380746694
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_287
+      name: RuinsCave_Tileset 1_287
       rect:
         serializedVersion: 2
         x: 1760
@@ -4239,14 +4234,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ede30d3eaf732e80800000000000000
-      internalID: -8204573709814206999
+      spriteID: bb7915e398cfd07459301d0bbdf0bb73
+      internalID: -845379276
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_288
+      name: RuinsCave_Tileset 1_288
       rect:
         serializedVersion: 2
         x: 1840
@@ -4260,14 +4255,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 428110fd6abdb4800800000000000000
-      internalID: 597812885309167652
+      spriteID: 3a022f179de77aa44920cad41ed9c0d8
+      internalID: -2069356533
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_290
+      name: RuinsCave_Tileset 1_290
       rect:
         serializedVersion: 2
         x: 2000
@@ -4281,14 +4276,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56809697428040110800000000000000
-      internalID: 1226113951300388965
+      spriteID: f98d7f853c8ccfc4e8f13620e67a8e42
+      internalID: -1877950104
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_291
+      name: RuinsCave_Tileset 1_291
       rect:
         serializedVersion: 2
         x: 2080
@@ -4302,14 +4297,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25603471bd8255d10800000000000000
-      internalID: 2113640521573533266
+      spriteID: 8c0e6c16e91ab6244ab652937855d91e
+      internalID: -776343211
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_292
+      name: RuinsCave_Tileset 1_292
       rect:
         serializedVersion: 2
         x: 2160
@@ -4323,14 +4318,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b14a7875707a54a0800000000000000
-      internalID: -6603842253750648395
+      spriteID: 64b4161dda056e84fa3332ba42804271
+      internalID: -321253908
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_303
+      name: RuinsCave_Tileset 1_303
       rect:
         serializedVersion: 2
         x: 720
@@ -4344,14 +4339,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b62d1233b74bf6c80800000000000000
-      internalID: -8327238744752926101
+      spriteID: 5d0b3fb403575f6468af3872ff487603
+      internalID: 437450640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_304
+      name: RuinsCave_Tileset 1_304
       rect:
         serializedVersion: 2
         x: 800
@@ -4365,14 +4360,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd0b20dfaac982590800000000000000
-      internalID: -7698731304786677539
+      spriteID: 0f029ed70c4cf3945b971f0cb0bcee1d
+      internalID: 1464233034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_305
+      name: RuinsCave_Tileset 1_305
       rect:
         serializedVersion: 2
         x: 880
@@ -4386,14 +4381,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 004b759e4526032c0800000000000000
-      internalID: -4453951914637806592
+      spriteID: f9a28c0972b310c4dbffdcca5b8a8f80
+      internalID: -376360208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_306
+      name: RuinsCave_Tileset 1_306
       rect:
         serializedVersion: 2
         x: 960
@@ -4407,14 +4402,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3879d52212edd6f80800000000000000
-      internalID: -8111583119932549245
+      spriteID: ea5760b434204a544af89059b09c2dbe
+      internalID: -834769478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_307
+      name: RuinsCave_Tileset 1_307
       rect:
         serializedVersion: 2
         x: 1040
@@ -4428,14 +4423,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47585bf11e7d1bd30800000000000000
-      internalID: 4445571669090993524
+      spriteID: ce748d9d3d41bab468fc99f87b49453b
+      internalID: 312758038
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_308
+      name: RuinsCave_Tileset 1_308
       rect:
         serializedVersion: 2
         x: 1120
@@ -4449,14 +4444,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16b0191045746bb10800000000000000
-      internalID: 1996861910914501473
+      spriteID: 6925d971a3e171e429be310cf540a5ff
+      internalID: 1492677713
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_309
+      name: RuinsCave_Tileset 1_309
       rect:
         serializedVersion: 2
         x: 1200
@@ -4470,14 +4465,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e7a0be3904ae0330800000000000000
-      internalID: 3679058305221699554
+      spriteID: e18ddb0a3405d4141adeeb20ab04a67b
+      internalID: 406997786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_310
+      name: RuinsCave_Tileset 1_310
       rect:
         serializedVersion: 2
         x: 1280
@@ -4491,14 +4486,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d58e6b5bb05e7000800000000000000
-      internalID: 35554612688618961
+      spriteID: fa065b03d4cbb574d96f34167689238e
+      internalID: -607307096
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_311
+      name: RuinsCave_Tileset 1_311
       rect:
         serializedVersion: 2
         x: 1360
@@ -4512,14 +4507,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 545886778c1ea7be0800000000000000
-      internalID: -1478621276524739259
+      spriteID: 94005bf9d0529084fb480ec241e34c64
+      internalID: -2065359953
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_312
+      name: RuinsCave_Tileset 1_312
       rect:
         serializedVersion: 2
         x: 1440
@@ -4533,14 +4528,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbe6a09659e9cd4d0800000000000000
-      internalID: -3108435278242877765
+      spriteID: 5cb1bd650dfb12e46b25e308f4ab00bc
+      internalID: -1890257184
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_313
+      name: RuinsCave_Tileset 1_313
       rect:
         serializedVersion: 2
         x: 1520
@@ -4554,14 +4549,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f83d1759ec9712c0800000000000000
-      internalID: -4460924379884341005
+      spriteID: d96a7aa83dac3e34c8f0f0cab6f7b21f
+      internalID: -1564421315
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_324
+      name: RuinsCave_Tileset 1_324
       rect:
         serializedVersion: 2
         x: 720
@@ -4575,14 +4570,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b0e04f213648fe660800000000000000
-      internalID: 7417292672357109259
+      spriteID: 93d1e0a37629bcd45b2eea1184450c62
+      internalID: -1706319061
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_325
+      name: RuinsCave_Tileset 1_325
       rect:
         serializedVersion: 2
         x: 800
@@ -4596,14 +4591,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcbb8151181921c20800000000000000
-      internalID: 3175760670840372171
+      spriteID: 00954c1ec3e21ea4998f3beafb61e128
+      internalID: -1560126034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_326
+      name: RuinsCave_Tileset 1_326
       rect:
         serializedVersion: 2
         x: 880
@@ -4617,14 +4612,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d0f5afa843adeb40800000000000000
-      internalID: 5471208654904881369
+      spriteID: 153705e87c912844a8dfac463b59eaf0
+      internalID: -363458677
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_327
+      name: RuinsCave_Tileset 1_327
       rect:
         serializedVersion: 2
         x: 960
@@ -4638,14 +4633,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b8eae1ef12f81fc0800000000000000
-      internalID: -3523800489669236559
+      spriteID: ddd0ea9302b92a940a8388c84f86f682
+      internalID: 576463061
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_328
+      name: RuinsCave_Tileset 1_328
       rect:
         serializedVersion: 2
         x: 1040
@@ -4659,14 +4654,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73bbcd6f6eda97890800000000000000
-      internalID: -7459740100266771657
+      spriteID: 94e2b260c78598d48ab15046688d8296
+      internalID: -1375936769
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_329
+      name: RuinsCave_Tileset 1_329
       rect:
         serializedVersion: 2
         x: 1120
@@ -4680,14 +4675,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4192da8fda9fe5e0800000000000000
-      internalID: -1878112234692767411
+      spriteID: c1e5f8238ce71974692db0fb5659f17d
+      internalID: -209897793
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_330
+      name: RuinsCave_Tileset 1_330
       rect:
         serializedVersion: 2
         x: 1200
@@ -4701,14 +4696,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5805fcbe127acde80800000000000000
-      internalID: -8152457461315448699
+      spriteID: 969e9c8f36287c24d866ce91cfffa4c2
+      internalID: -946773653
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_331
+      name: RuinsCave_Tileset 1_331
       rect:
         serializedVersion: 2
         x: 1280
@@ -4722,14 +4717,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47d121bb93107bb60800000000000000
-      internalID: 7761673830259629428
+      spriteID: 424ad0caa71e2364fa34c4091e1f6ecb
+      internalID: 1435502148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_332
+      name: RuinsCave_Tileset 1_332
       rect:
         serializedVersion: 2
         x: 1360
@@ -4743,14 +4738,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e16bb5b9f10b38f0800000000000000
-      internalID: -559851556670053917
+      spriteID: f660be5fd7f47414aa9ab536f35064ee
+      internalID: -622980285
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_333
+      name: RuinsCave_Tileset 1_333
       rect:
         serializedVersion: 2
         x: 1440
@@ -4764,14 +4759,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0012f310f38f2930800000000000000
-      internalID: 4120657251217313807
+      spriteID: deb6d02289835df419a80906a57dd5e4
+      internalID: -43204346
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_334
+      name: RuinsCave_Tileset 1_334
       rect:
         serializedVersion: 2
         x: 1520
@@ -4785,14 +4780,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a61a778a36ec9420800000000000000
-      internalID: 2638236620787685033
+      spriteID: fc257807e846d124a82d286f81f9be50
+      internalID: 2122229343
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_337
+      name: RuinsCave_Tileset 1_337
       rect:
         serializedVersion: 2
         x: 720
@@ -4806,14 +4801,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12c088e615aa8faf0800000000000000
-      internalID: -362352503279842271
+      spriteID: 7cea86839f3752d4a8884a2be937f5ac
+      internalID: -510746066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_338
+      name: RuinsCave_Tileset 1_338
       rect:
         serializedVersion: 2
         x: 800
@@ -4827,14 +4822,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d661dd5afa64e2b50800000000000000
-      internalID: 6570266626596083309
+      spriteID: 26343b72653bd6f4797b75c88a71457b
+      internalID: -897015545
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_339
+      name: RuinsCave_Tileset 1_339
       rect:
         serializedVersion: 2
         x: 880
@@ -4848,14 +4843,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebaa6c3e2d4950660800000000000000
-      internalID: 7351445600237693630
+      spriteID: 62d32e578c9c5d94cb8d9af32d930186
+      internalID: 1376451320
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_340
+      name: RuinsCave_Tileset 1_340
       rect:
         serializedVersion: 2
         x: 960
@@ -4869,14 +4864,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5dd448fd8826e4d30800000000000000
-      internalID: 4417576624502099413
+      spriteID: edd2234fe818d8e4cbf3643a542f4be8
+      internalID: -2095167295
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_341
+      name: RuinsCave_Tileset 1_341
       rect:
         serializedVersion: 2
         x: 1040
@@ -4890,14 +4885,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdf28ce00c026b280800000000000000
-      internalID: -9027992393763770405
+      spriteID: 854fbdaebf06e9144bdc41502bfb7e8a
+      internalID: 705018437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_342
+      name: RuinsCave_Tileset 1_342
       rect:
         serializedVersion: 2
         x: 1120
@@ -4911,14 +4906,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2bad32191a3cc8580800000000000000
-      internalID: -8823462471233447246
+      spriteID: 6d49ede577390fe41b4c362df471f453
+      internalID: -622793957
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_343
+      name: RuinsCave_Tileset 1_343
       rect:
         serializedVersion: 2
         x: 1200
@@ -4932,14 +4927,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf0188cf0a98dafa0800000000000000
-      internalID: -5787818621576670980
+      spriteID: aa6400f887b06794884ab5b52e78899c
+      internalID: -1591395024
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_344
+      name: RuinsCave_Tileset 1_344
       rect:
         serializedVersion: 2
         x: 1280
@@ -4953,14 +4948,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b12db42dcfadbbe0800000000000000
-      internalID: -1459817408578641485
+      spriteID: f88455f741243c9428b1bb6be9db3b79
+      internalID: -722600501
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_345
+      name: RuinsCave_Tileset 1_345
       rect:
         serializedVersion: 2
         x: 1360
@@ -4974,14 +4969,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08057e1ba27b69680800000000000000
-      internalID: -8748603832119373696
+      spriteID: fbb9ca746cc79f848a631ba76b4c5aa8
+      internalID: -868392269
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_346
+      name: RuinsCave_Tileset 1_346
       rect:
         serializedVersion: 2
         x: 1440
@@ -4995,14 +4990,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83fa10f65e2dd6a00800000000000000
-      internalID: 751488595692465976
+      spriteID: 212bd97c7ccc82f4a9f0ecbb6c97c086
+      internalID: -1751652239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_347
+      name: RuinsCave_Tileset 1_347
       rect:
         serializedVersion: 2
         x: 1520
@@ -5016,14 +5011,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 077f43cdc2a302b30800000000000000
-      internalID: 4260469211839919984
+      spriteID: d7da24c584bf6674085c1b0dc799abc2
+      internalID: 321491269
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_372
+      name: RuinsCave_Tileset 1_372
       rect:
         serializedVersion: 2
         x: 720
@@ -5037,14 +5032,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c59356f2f0f90110800000000000000
-      internalID: 1227777299740595654
+      spriteID: a02542ccbc3eaf3469812cbe60ffbfe6
+      internalID: 724149441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_373
+      name: RuinsCave_Tileset 1_373
       rect:
         serializedVersion: 2
         x: 800
@@ -5058,14 +5053,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 649a314aa1ba05cb0800000000000000
-      internalID: -4877210265531995834
+      spriteID: 1cce22f2ab98b414d9972eeafa9ac65c
+      internalID: 1524141361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_374
+      name: RuinsCave_Tileset 1_374
       rect:
         serializedVersion: 2
         x: 880
@@ -5079,14 +5074,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed1c28a8c4f4fd630800000000000000
-      internalID: 3953966188014518750
+      spriteID: 2c06b3f24a19f084c870ab04ad7330ec
+      internalID: 623631928
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_375
+      name: RuinsCave_Tileset 1_375
       rect:
         serializedVersion: 2
         x: 960
@@ -5100,14 +5095,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0431fbae49685e040800000000000000
-      internalID: 4676291762245800768
+      spriteID: 0a633e0454865ec4f9d2df586261855a
+      internalID: -693078784
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_376
+      name: RuinsCave_Tileset 1_376
       rect:
         serializedVersion: 2
         x: 1040
@@ -5121,14 +5116,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6c10a68eacbb90c0800000000000000
-      internalID: -4567849939268264854
+      spriteID: f72b320d781a9ea41a08086ae290292a
+      internalID: -1848524753
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_377
+      name: RuinsCave_Tileset 1_377
       rect:
         serializedVersion: 2
         x: 1120
@@ -5142,14 +5137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24797e07247b673a0800000000000000
-      internalID: -6667940702285490366
+      spriteID: 58f2310334f756a4ea1940e7c97afe52
+      internalID: -1764525896
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_378
+      name: RuinsCave_Tileset 1_378
       rect:
         serializedVersion: 2
         x: 1200
@@ -5163,14 +5158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f90fb5b2b2ae6f5e0800000000000000
-      internalID: -1876054723621293921
+      spriteID: de219e489fc5d8d48b1758ed4a65aee5
+      internalID: -704886324
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_379
+      name: RuinsCave_Tileset 1_379
       rect:
         serializedVersion: 2
         x: 1280
@@ -5184,14 +5179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf55c39b57fe8f720800000000000000
-      internalID: 2880315250601383419
+      spriteID: bd769759785dab14aa87face94cf3549
+      internalID: 776442403
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_380
+      name: RuinsCave_Tileset 1_380
       rect:
         serializedVersion: 2
         x: 1360
@@ -5205,14 +5200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b83d3b587970562b0800000000000000
-      internalID: -5592055014945991797
+      spriteID: 0c984a612924b824596dc43f7820d53b
+      internalID: 142017460
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_381
+      name: RuinsCave_Tileset 1_381
       rect:
         serializedVersion: 2
         x: 1440
@@ -5226,14 +5221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b79ae10c1b312360800000000000000
-      internalID: 7143055475463591865
+      spriteID: 9ab57d9434e395c498427c69450bb1a4
+      internalID: 957758783
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_382
+      name: RuinsCave_Tileset 1_382
       rect:
         serializedVersion: 2
         x: 1520
@@ -5247,14 +5242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5d6a6edadd4593f0800000000000000
-      internalID: -894723348533449382
+      spriteID: 96b02a23642093940a880f4260f94090
+      internalID: -1505538067
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_385
+      name: RuinsCave_Tileset 1_385
       rect:
         serializedVersion: 2
         x: 720
@@ -5268,14 +5263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 922433051d6b83060800000000000000
-      internalID: 6933492636446835241
+      spriteID: 83bc5ed4a59049a409e3ffc14887c542
+      internalID: -1348864506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_386
+      name: RuinsCave_Tileset 1_386
       rect:
         serializedVersion: 2
         x: 800
@@ -5289,14 +5284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc2fde79a84c0f690800000000000000
-      internalID: -7570334874076319028
+      spriteID: 1b53d6d397d8fbb4ca83016b37d98f0f
+      internalID: 355517131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_387
+      name: RuinsCave_Tileset 1_387
       rect:
         serializedVersion: 2
         x: 880
@@ -5310,14 +5305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc8bcc4fc7567eda0800000000000000
-      internalID: -5915647998170449713
+      spriteID: 9a279796c45cdd5439f1552ee88c7d8d
+      internalID: -788540400
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_388
+      name: RuinsCave_Tileset 1_388
       rect:
         serializedVersion: 2
         x: 960
@@ -5331,14 +5326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71c182b21a1242c50800000000000000
-      internalID: 6639468726748453911
+      spriteID: 3c6c74b673aceb24aa921d744af7355c
+      internalID: 82061526
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_389
+      name: RuinsCave_Tileset 1_389
       rect:
         serializedVersion: 2
         x: 1040
@@ -5352,14 +5347,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf75a44ae1c522790800000000000000
-      internalID: -7556375938099161093
+      spriteID: d4f696b4f5c11104a91f7c16019b8a6b
+      internalID: 1087733444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_390
+      name: RuinsCave_Tileset 1_390
       rect:
         serializedVersion: 2
         x: 1120
@@ -5373,14 +5368,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd47d069fdd9924c0800000000000000
-      internalID: -4311741584609807139
+      spriteID: 80f93214041cc324e87cc97209a5fe15
+      internalID: -960926626
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_391
+      name: RuinsCave_Tileset 1_391
       rect:
         serializedVersion: 2
         x: 1200
@@ -5394,14 +5389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fcfb66c26a3ca690800000000000000
-      internalID: -7589627076115956494
+      spriteID: f9a7d1c6a236bbc41b5198ad9f250d6d
+      internalID: -727529283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_392
+      name: RuinsCave_Tileset 1_392
       rect:
         serializedVersion: 2
         x: 1280
@@ -5415,14 +5410,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e51d8ae411c536d0800000000000000
-      internalID: -3011288480248687133
+      spriteID: 641bc691a3b89d7419d049818f1f4bea
+      internalID: 994604361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_393
+      name: RuinsCave_Tileset 1_393
       rect:
         serializedVersion: 2
         x: 1360
@@ -5436,14 +5431,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 759fc2a5d0ac57750800000000000000
-      internalID: 6302165412271159639
+      spriteID: c874adbd12149c84f832c1c5a4087153
+      internalID: -1149641132
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_394
+      name: RuinsCave_Tileset 1_394
       rect:
         serializedVersion: 2
         x: 1440
@@ -5457,14 +5452,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eca88ce7373a62300800000000000000
-      internalID: 227048547672427214
+      spriteID: 78f5dcc9fad2b7e47b2ff0bc6f548fd6
+      internalID: 870745537
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_395
+      name: RuinsCave_Tileset 1_395
       rect:
         serializedVersion: 2
         x: 1520
@@ -5478,14 +5473,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56269a4b9b5a55c10800000000000000
-      internalID: 2041720223100920421
+      spriteID: ae8a601bae6e14d4bb14adc90d98336c
+      internalID: -410620441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_397
+      name: RuinsCave_Tileset 1_397
       rect:
         serializedVersion: 2
         x: 720
@@ -5499,14 +5494,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e948c50f01c2417e0800000000000000
-      internalID: -1795761900150291298
+      spriteID: bf6b4fa501fddcc4cafd04f1eb38f4ab
+      internalID: 643361341
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_398
+      name: RuinsCave_Tileset 1_398
       rect:
         serializedVersion: 2
         x: 800
@@ -5520,14 +5515,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42e663bd34050d250800000000000000
-      internalID: 5967357758636715556
+      spriteID: 41cae822b592f8a488cd23daba8e9b57
+      internalID: -1206712268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_399
+      name: RuinsCave_Tileset 1_399
       rect:
         serializedVersion: 2
         x: 880
@@ -5541,14 +5536,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9d9b0a163264da50800000000000000
-      internalID: 6544964142980898204
+      spriteID: 9ab72bf9f8d88de45a93d5b8f16a8d4b
+      internalID: -1061634668
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_400
+      name: RuinsCave_Tileset 1_400
       rect:
         serializedVersion: 2
         x: 960
@@ -5562,14 +5557,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b4a18a571a1a04e0800000000000000
-      internalID: -2014769195689859916
+      spriteID: 91faa03fa3b49884881b8bb5df774816
+      internalID: 1645493954
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_401
+      name: RuinsCave_Tileset 1_401
       rect:
         serializedVersion: 2
         x: 1040
@@ -5583,14 +5578,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a243865618e8c5470800000000000000
-      internalID: 8384733292660274218
+      spriteID: ff9265e072952314f9292aa00001a00a
+      internalID: -1793125217
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_402
+      name: RuinsCave_Tileset 1_402
       rect:
         serializedVersion: 2
         x: 1120
@@ -5604,14 +5599,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 225a09b1df4093320800000000000000
-      internalID: 2538065350135686434
+      spriteID: b9ce82bb3aec0b1488d3a708bce5a83f
+      internalID: 1029840063
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_403
+      name: RuinsCave_Tileset 1_403
       rect:
         serializedVersion: 2
         x: 1200
@@ -5625,14 +5620,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab43e874ba3ad5120800000000000000
-      internalID: 2404257732120949946
+      spriteID: 39fc458337067bb449aea2fce0a6b6c2
+      internalID: -415855698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_404
+      name: RuinsCave_Tileset 1_404
       rect:
         serializedVersion: 2
         x: 1280
@@ -5646,14 +5641,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3c51c78384d02790800000000000000
-      internalID: -7556806513344291779
+      spriteID: 68de1f28f47128645b1f69d7d8f1e8c4
+      internalID: -2025353003
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_405
+      name: RuinsCave_Tileset 1_405
       rect:
         serializedVersion: 2
         x: 1360
@@ -5667,14 +5662,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2421fe27fb25f3290800000000000000
-      internalID: -7908511438418800062
+      spriteID: 2ac91775c70e3f0418b18c5f854cfd87
+      internalID: 1641940763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_406
+      name: RuinsCave_Tileset 1_406
       rect:
         serializedVersion: 2
         x: 1440
@@ -5688,14 +5683,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67d66358dc0077790800000000000000
-      internalID: -7532550969050632842
+      spriteID: 0c4f772b013c7f646aaf2935f3f7fd54
+      internalID: -1378790783
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_407
+      name: RuinsCave_Tileset 1_407
       rect:
         serializedVersion: 2
         x: 1520
@@ -5709,14 +5704,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff1c79362e53ccab0800000000000000
-      internalID: -4986551440956210689
+      spriteID: 9d4c3529e5ecb7142af21950101802d9
+      internalID: 640684440
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_416
+      name: RuinsCave_Tileset 1_416
       rect:
         serializedVersion: 2
         x: 960
@@ -5730,14 +5725,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fce5f6d739647f430800000000000000
-      internalID: 3816596808498372303
+      spriteID: a9ba6312a865ae145a15726b292b1f86
+      internalID: -1657301461
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_417
+      name: RuinsCave_Tileset 1_417
       rect:
         serializedVersion: 2
         x: 1040
@@ -5751,14 +5746,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e7d2af2778cffcd0800000000000000
-      internalID: -2522076852078323737
+      spriteID: dde328b10b8d0f642aacf0c92a7019ce
+      internalID: -994921911
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_418
+      name: RuinsCave_Tileset 1_418
       rect:
         serializedVersion: 2
         x: 1120
@@ -5772,14 +5767,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75ed428a237081ae0800000000000000
-      internalID: -1578503755242611113
+      spriteID: 0b23c13827e026c49b974ea3cc7cd04e
+      internalID: 424615307
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_419
+      name: RuinsCave_Tileset 1_419
       rect:
         serializedVersion: 2
         x: 1200
@@ -5793,14 +5788,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a2402e93bc98dca0800000000000000
-      internalID: -5991867008950451547
+      spriteID: a6385af8cef52c844914c3310f76a675
+      internalID: -1356967990
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_420
+      name: RuinsCave_Tileset 1_420
       rect:
         serializedVersion: 2
         x: 1280
@@ -5814,14 +5809,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e48a70f953c885c70800000000000000
-      internalID: 8960065620582836302
+      spriteID: 6b60d6825ea9fa54193cdd5fd3351947
+      internalID: -376993653
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_423
+      name: RuinsCave_Tileset 1_423
       rect:
         serializedVersion: 2
         x: 960
@@ -5835,14 +5830,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 799167673fc719f10800000000000000
-      internalID: 2274736671905159575
+      spriteID: 2fd5798205b37094cbf3c2e23f340309
+      internalID: 1471552229
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_424
+      name: RuinsCave_Tileset 1_424
       rect:
         serializedVersion: 2
         x: 1040
@@ -5856,14 +5851,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06dbeb3f0d397c0f0800000000000000
-      internalID: -1096745458589581984
+      spriteID: 4fc5b98a4dfc44647afbb47c04d46f6a
+      internalID: -150284885
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_425
+      name: RuinsCave_Tileset 1_425
       rect:
         serializedVersion: 2
         x: 1120
@@ -5877,14 +5872,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f3e8d9f6abe6aaa0800000000000000
-      internalID: -6149969138738994190
+      spriteID: edf2209e8b22c7c499b9992d5c7d3e0f
+      internalID: 848544310
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_426
+      name: RuinsCave_Tileset 1_426
       rect:
         serializedVersion: 2
         x: 1200
@@ -5898,14 +5893,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e9c75319c9b7f240800000000000000
-      internalID: 4825529799014861289
+      spriteID: 09b55fc93b5a4bd4e8e85554e6b7895b
+      internalID: 389016091
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_427
+      name: RuinsCave_Tileset 1_427
       rect:
         serializedVersion: 2
         x: 1280
@@ -5919,14 +5914,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 560529ef16e269300800000000000000
-      internalID: 258445027038089317
+      spriteID: 331dcf1b237e76b4583615388469176a
+      internalID: 709887708
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_430
+      name: RuinsCave_Tileset 1_430
       rect:
         serializedVersion: 2
         x: 960
@@ -5940,14 +5935,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d6337f5158f67af0800000000000000
-      internalID: -398858488598284583
+      spriteID: b5687d08d12582346b1f18eed8b2ce54
+      internalID: 1243862065
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_431
+      name: RuinsCave_Tileset 1_431
       rect:
         serializedVersion: 2
         x: 1040
@@ -5961,14 +5956,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b57196452634d290800000000000000
-      internalID: -7866603115383786062
+      spriteID: 826db8490f6e13640be09cb6192d9c95
+      internalID: 117086361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_432
+      name: RuinsCave_Tileset 1_432
       rect:
         serializedVersion: 2
         x: 1120
@@ -5982,14 +5977,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b95d32309260fce0800000000000000
-      internalID: -1373489514890307151
+      spriteID: ec025ff99f47ae941a73aab6e9f4dcac
+      internalID: -1558161052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_433
+      name: RuinsCave_Tileset 1_433
       rect:
         serializedVersion: 2
         x: 1200
@@ -6003,14 +5998,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 951c48424cac63e40800000000000000
-      internalID: 5635914927475835225
+      spriteID: 6081b679373b69348ae5a8291b2ca60e
+      internalID: 213257036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_434
+      name: RuinsCave_Tileset 1_434
       rect:
         serializedVersion: 2
         x: 1280
@@ -6024,14 +6019,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef3a5919cc571c600800000000000000
-      internalID: 486799756209005566
+      spriteID: 8a6a1301016aea94aab7479f13882c47
+      internalID: 1433425883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_444
+      name: RuinsCave_Tileset 1_444
       rect:
         serializedVersion: 2
         x: 960
@@ -6045,14 +6040,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7209affe475eb3da0800000000000000
-      internalID: -5963920991116947417
+      spriteID: 00f5fae8dd2ce0e4380fef3f30527c6c
+      internalID: -1843010063
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_445
+      name: RuinsCave_Tileset 1_445
       rect:
         serializedVersion: 2
         x: 1040
@@ -6066,14 +6061,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c81c74f65067f32d0800000000000000
-      internalID: -3296786636498026100
+      spriteID: d70bd53f7b6c4c1469cfc8466e7c53af
+      internalID: -779390234
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_446
+      name: RuinsCave_Tileset 1_446
       rect:
         serializedVersion: 2
         x: 1120
@@ -6087,14 +6082,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 928996bad70d68b10800000000000000
-      internalID: 1983501924068595753
+      spriteID: b3e9771d7e663754fbac287ba4ab993a
+      internalID: 795548817
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_447
+      name: RuinsCave_Tileset 1_447
       rect:
         serializedVersion: 2
         x: 1200
@@ -6108,14 +6103,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a05feccd0f7d8e20800000000000000
-      internalID: 3354476994710425769
+      spriteID: b867cac51b2f2754186c7ae5a0a403a4
+      internalID: 1911796209
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_448
+      name: RuinsCave_Tileset 1_448
       rect:
         serializedVersion: 2
         x: 1280
@@ -6129,14 +6124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74ee52b77116ffdf0800000000000000
-      internalID: -144289909574341049
+      spriteID: 553952fb31003d94b96c50f1e6b48242
+      internalID: -522627165
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_451
+      name: RuinsCave_Tileset 1_451
       rect:
         serializedVersion: 2
         x: 960
@@ -6150,14 +6145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e45e4bce6b988070800000000000000
-      internalID: 8108902029240194274
+      spriteID: 6ba615d9d5b666e42903cb03ca81047c
+      internalID: 1634212925
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_452
+      name: RuinsCave_Tileset 1_452
       rect:
         serializedVersion: 2
         x: 1040
@@ -6171,14 +6166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f79b45916ba1cc230800000000000000
-      internalID: 3660329966556723583
+      spriteID: 12417c43003ad3d429797e4565bc06b9
+      internalID: 1441634377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_453
+      name: RuinsCave_Tileset 1_453
       rect:
         serializedVersion: 2
         x: 1120
@@ -6192,14 +6187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f593208e1cee65fc0800000000000000
-      internalID: -3506352743272793761
+      spriteID: fab351070f0bbfb4abfb1066f7e5511f
+      internalID: 244706070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_454
+      name: RuinsCave_Tileset 1_454
       rect:
         serializedVersion: 2
         x: 1200
@@ -6213,14 +6208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 540b341d44262d8f0800000000000000
-      internalID: -517242959486013371
+      spriteID: b788df9a3ca4c4643a5c8bcf1532f529
+      internalID: -630967054
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_455
+      name: RuinsCave_Tileset 1_455
       rect:
         serializedVersion: 2
         x: 1280
@@ -6234,14 +6229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b8c98e3a26bbf7d0800000000000000
-      internalID: -2883510843846571854
+      spriteID: 6c940bcc693fd224ea8c57f5a99df87a
+      internalID: 685335940
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_458
+      name: RuinsCave_Tileset 1_458
       rect:
         serializedVersion: 2
         x: 960
@@ -6255,14 +6250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e702eae68cce6470800000000000000
-      internalID: 8389868035676178404
+      spriteID: 3268f10a34f4fba4795f640ce338610e
+      internalID: 741449721
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_459
+      name: RuinsCave_Tileset 1_459
       rect:
         serializedVersion: 2
         x: 1040
@@ -6276,14 +6271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 865c8f81992d460c0800000000000000
-      internalID: -4583306965765536408
+      spriteID: 12265b8f53a48b24d9761ac9089a8687
+      internalID: -565972127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_460
+      name: RuinsCave_Tileset 1_460
       rect:
         serializedVersion: 2
         x: 1120
@@ -6297,14 +6292,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1fb3776e441d9c80800000000000000
-      internalID: -8314467010080424161
+      spriteID: bfdac0ebe704ef449a56c688e8f565f6
+      internalID: 1038963098
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_461
+      name: RuinsCave_Tileset 1_461
       rect:
         serializedVersion: 2
         x: 1200
@@ -6318,14 +6313,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 490f275c396c468c0800000000000000
-      internalID: -4006859430477762412
+      spriteID: fd5176a445ce7114fa7c8be1a4ff4a84
+      internalID: -1021735634
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RuinsCave_Tileset_462
+      name: RuinsCave_Tileset 1_462
       rect:
         serializedVersion: 2
         x: 1280
@@ -6339,8 +6334,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0c06a9589d0ac210800000000000000
-      internalID: 1353909585968499727
+      spriteID: ee1b347ee12c78a45827b189ed0b90f6
+      internalID: -1549741737
       vertices: []
       indices: 
       edges: []
@@ -6355,6 +6350,472 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      RuinsCave_Tileset 1_127: 2145364573
+      RuinsCave_Tileset 1_73: -1318032736
+      RuinsCave_Tileset 1_122: -864862248
+      RuinsCave_Tileset 1_324: -1706319061
+      RuinsCave_Tileset 1_77: 286976427
+      RuinsCave_Tileset 1_9: -1114281673
+      RuinsCave_Tileset 1_287: -845379276
+      RuinsCave_Tileset 1_319: -1986941412
+      RuinsCave_Tileset 1_292: -321253908
+      RuinsCave_Tileset 1_428: 1625270784
+      RuinsCave_Tileset 1_45: -1264128930
+      RuinsCave_Tileset 1_29: 715959559
+      RuinsCave_Tileset 1_373: 1524141361
+      RuinsCave_Tileset 1_93: 678083409
+      RuinsCave_Tileset 1_163: -1484024933
+      RuinsCave_Tileset 1_448: -522627165
+      RuinsCave_Tileset 1_451: 1634212925
+      RuinsCave_Tileset 1_301: 632435997
+      RuinsCave_Tileset 1_461: -1021735634
+      RuinsCave_Tileset 1_99: 1542617432
+      RuinsCave_Tileset 1_233: 133555100
+      RuinsCave_Tileset 1_462: -1549741737
+      RuinsCave_Tileset 1_289: 1559624323
+      RuinsCave_Tileset 1_336: -1139389814
+      RuinsCave_Tileset 1_299: -639845039
+      RuinsCave_Tileset 1_90: 1342712406
+      RuinsCave_Tileset 1_124: -1501855414
+      RuinsCave_Tileset 1_357: 1384348805
+      RuinsCave_Tileset 1_257: 1405856440
+      RuinsCave_Tileset 1_192: 1949193702
+      RuinsCave_Tileset 1_108: 269319870
+      RuinsCave_Tileset 1_459: -565972127
+      RuinsCave_Tileset 1_304: 1464233034
+      RuinsCave_Tileset 1_33: -810923459
+      RuinsCave_Tileset 1_264: 1889033166
+      RuinsCave_Tileset 1_402: 1029840063
+      RuinsCave_Tileset 1_419: -1356967990
+      RuinsCave_Tileset 1_183: 1362946894
+      RuinsCave_Tileset 1_458: 741449721
+      RuinsCave_Tileset 1_261: -1376367570
+      RuinsCave_Tileset 1_305: -376360208
+      RuinsCave_Tileset 1_363: -981926467
+      RuinsCave_Tileset 1_179: 125500084
+      RuinsCave_Tileset 1_344: -722600501
+      RuinsCave_Tileset 1_327: 576463061
+      RuinsCave_Tileset 1_238: 1080492059
+      RuinsCave_Tileset 1_219: 660956987
+      RuinsCave_Tileset 1_96: 799842593
+      RuinsCave_Tileset 1_114: -1567462507
+      RuinsCave_Tileset 1_271: -963109969
+      RuinsCave_Tileset 1_1: -1276080847
+      RuinsCave_Tileset 1_359: 1654407426
+      RuinsCave_Tileset 1_11: 1765271762
+      RuinsCave_Tileset 1_418: 424615307
+      RuinsCave_Tileset 1_187: -1509118751
+      RuinsCave_Tileset 1_70: 775330138
+      RuinsCave_Tileset 1_133: -1664200398
+      RuinsCave_Tileset 1_413: 1565208351
+      RuinsCave_Tileset 1_79: -644737807
+      RuinsCave_Tileset 1_95: -81233625
+      RuinsCave_Tileset 1_42: -1471655080
+      RuinsCave_Tileset 1_259: -1039703284
+      RuinsCave_Tileset 1_125: 730726172
+      RuinsCave_Tileset 1_352: 2140597344
+      RuinsCave_Tileset 1_317: -188600808
+      RuinsCave_Tileset 1_180: -348066620
+      RuinsCave_Tileset 1_433: 213257036
+      RuinsCave_Tileset 1_464: -1873848764
+      RuinsCave_Tileset 1_435: -1908355867
+      RuinsCave_Tileset 1_7: -329102358
+      RuinsCave_Tileset 1_105: 1737868240
+      RuinsCave_Tileset 1_439: -1291960481
+      RuinsCave_Tileset 1_429: -1701741242
+      RuinsCave_Tileset 1_455: 685335940
+      RuinsCave_Tileset 1_421: -390298449
+      RuinsCave_Tileset 1_239: -1364584780
+      RuinsCave_Tileset 1_66: 1376340151
+      RuinsCave_Tileset 1_27: 1887733009
+      RuinsCave_Tileset 1_397: 643361341
+      RuinsCave_Tileset 1_374: 623631928
+      RuinsCave_Tileset 1_291: -776343211
+      RuinsCave_Tileset 1_334: 2122229343
+      RuinsCave_Tileset 1_286: 380746694
+      RuinsCave_Tileset 1_51: 1690940697
+      RuinsCave_Tileset 1_31: -1353992166
+      RuinsCave_Tileset 1_61: -909303485
+      RuinsCave_Tileset 1_15: -908376458
+      RuinsCave_Tileset 1_35: -1123442779
+      RuinsCave_Tileset 1_447: 1911796209
+      RuinsCave_Tileset 1_279: -1529491305
+      RuinsCave_Tileset 1_353: 911371079
+      RuinsCave_Tileset 1_424: -150284885
+      RuinsCave_Tileset 1_145: 631408867
+      RuinsCave_Tileset 1_17: 1506442416
+      RuinsCave_Tileset 1_270: -481452288
+      RuinsCave_Tileset 1_450: 1238600485
+      RuinsCave_Tileset 1_57: -251834187
+      RuinsCave_Tileset 1_174: 2004250238
+      RuinsCave_Tileset 1_275: -1261483243
+      RuinsCave_Tileset 1_221: -1919910698
+      RuinsCave_Tileset 1_88: -313325768
+      RuinsCave_Tileset 1_249: -2046095573
+      RuinsCave_Tileset 1_40: -1631842850
+      RuinsCave_Tileset 1_120: -9285818
+      RuinsCave_Tileset 1_263: 1898648256
+      RuinsCave_Tileset 1_262: 517921439
+      RuinsCave_Tileset 1_269: 56747902
+      RuinsCave_Tileset 1_368: -1014209599
+      RuinsCave_Tileset 1_242: 446200088
+      RuinsCave_Tileset 1_160: -416836736
+      RuinsCave_Tileset 1_274: 86488404
+      RuinsCave_Tileset 1_194: 1752256046
+      RuinsCave_Tileset 1_294: 4826770
+      RuinsCave_Tileset 1_366: -1670974111
+      RuinsCave_Tileset 1_225: 899627197
+      RuinsCave_Tileset 1_370: 1142057478
+      RuinsCave_Tileset 1_391: -727529283
+      RuinsCave_Tileset 1_416: -1657301461
+      RuinsCave_Tileset 1_3: 14653693
+      RuinsCave_Tileset 1_248: 679697828
+      RuinsCave_Tileset 1_244: 790474320
+      RuinsCave_Tileset 1_345: -868392269
+      RuinsCave_Tileset 1_347: 321491269
+      RuinsCave_Tileset 1_311: -2065359953
+      RuinsCave_Tileset 1_49: -42691085
+      RuinsCave_Tileset 1_302: -1346075519
+      RuinsCave_Tileset 1_89: -1651622790
+      RuinsCave_Tileset 1_166: -550086755
+      RuinsCave_Tileset 1_307: 312758038
+      RuinsCave_Tileset 1_143: 2045664477
+      RuinsCave_Tileset 1_48: 38489583
+      RuinsCave_Tileset 1_52: -2042826420
+      RuinsCave_Tileset 1_164: 684767926
+      RuinsCave_Tileset 1_148: 1220392522
+      RuinsCave_Tileset 1_300: -709850231
+      RuinsCave_Tileset 1_146: 1572241356
+      RuinsCave_Tileset 1_212: 1885846354
+      RuinsCave_Tileset 1_276: -1572879045
+      RuinsCave_Tileset 1_24: 1520964545
+      RuinsCave_Tileset 1_322: -64347863
+      RuinsCave_Tileset 1_453: 244706070
+      RuinsCave_Tileset 1_121: 1717961529
+      RuinsCave_Tileset 1_323: -977941872
+      RuinsCave_Tileset 1_63: -1619768235
+      RuinsCave_Tileset 1_321: 1899252818
+      RuinsCave_Tileset 1_191: -105281673
+      RuinsCave_Tileset 1_26: 1029121624
+      RuinsCave_Tileset 1_60: 627488081
+      RuinsCave_Tileset 1_67: -78341557
+      RuinsCave_Tileset 1_189: -1495241125
+      RuinsCave_Tileset 1_100: -1410115851
+      RuinsCave_Tileset 1_200: 505015153
+      RuinsCave_Tileset 1_298: -120335949
+      RuinsCave_Tileset 1_414: 539061535
+      RuinsCave_Tileset 1_144: -1901046226
+      RuinsCave_Tileset 1_398: -1206712268
+      RuinsCave_Tileset 1_247: 245746509
+      RuinsCave_Tileset 1_267: 581056979
+      RuinsCave_Tileset 1_167: -686792416
+      RuinsCave_Tileset 1_361: 1284640624
+      RuinsCave_Tileset 1_58: -547467879
+      RuinsCave_Tileset 1_372: 724149441
+      RuinsCave_Tileset 1_156: -533468299
+      RuinsCave_Tileset 1_452: 1441634377
+      RuinsCave_Tileset 1_312: -1890257184
+      RuinsCave_Tileset 1_44: -851655990
+      RuinsCave_Tileset 1_283: 1090987403
+      RuinsCave_Tileset 1_420: -376993653
+      RuinsCave_Tileset 1_386: 355517131
+      RuinsCave_Tileset 1_101: -496149748
+      RuinsCave_Tileset 1_59: 1357534098
+      RuinsCave_Tileset 1_19: 1767057768
+      RuinsCave_Tileset 1_197: 1689518418
+      RuinsCave_Tileset 1_141: -522741995
+      RuinsCave_Tileset 1_12: 1646314931
+      RuinsCave_Tileset 1_0: -1468962895
+      RuinsCave_Tileset 1_126: 449877951
+      RuinsCave_Tileset 1_376: -1848524753
+      RuinsCave_Tileset 1_367: -1111095459
+      RuinsCave_Tileset 1_390: -960926626
+      RuinsCave_Tileset 1_109: -558417838
+      RuinsCave_Tileset 1_129: 1903111705
+      RuinsCave_Tileset 1_64: 1252458008
+      RuinsCave_Tileset 1_18: -1684988714
+      RuinsCave_Tileset 1_185: 2002677975
+      RuinsCave_Tileset 1_280: 197792354
+      RuinsCave_Tileset 1_415: -154251069
+      RuinsCave_Tileset 1_228: -15284680
+      RuinsCave_Tileset 1_282: -1874181023
+      RuinsCave_Tileset 1_449: 1543989780
+      RuinsCave_Tileset 1_230: -2141711082
+      RuinsCave_Tileset 1_150: -52788892
+      RuinsCave_Tileset 1_295: 1546843959
+      RuinsCave_Tileset 1_103: 316744970
+      RuinsCave_Tileset 1_4: -1096126326
+      RuinsCave_Tileset 1_253: -639333588
+      RuinsCave_Tileset 1_56: 1717411055
+      RuinsCave_Tileset 1_404: -2025353003
+      RuinsCave_Tileset 1_82: -629537632
+      RuinsCave_Tileset 1_134: -67495258
+      RuinsCave_Tileset 1_13: -505426910
+      RuinsCave_Tileset 1_81: 151643704
+      RuinsCave_Tileset 1_241: -119358822
+      RuinsCave_Tileset 1_43: -1819420223
+      RuinsCave_Tileset 1_313: -1564421315
+      RuinsCave_Tileset 1_250: -1760570385
+      RuinsCave_Tileset 1_399: -1061634668
+      RuinsCave_Tileset 1_427: 709887708
+      RuinsCave_Tileset 1_224: 1574687034
+      RuinsCave_Tileset 1_432: -1558161052
+      RuinsCave_Tileset 1_222: -1637703322
+      RuinsCave_Tileset 1_385: -1348864506
+      RuinsCave_Tileset 1_113: 1813485826
+      RuinsCave_Tileset 1_210: -1538737816
+      RuinsCave_Tileset 1_209: -422940948
+      RuinsCave_Tileset 1_328: -1375936769
+      RuinsCave_Tileset 1_346: -1751652239
+      RuinsCave_Tileset 1_234: 1965358853
+      RuinsCave_Tileset 1_62: 1174348417
+      RuinsCave_Tileset 1_405: 1641940763
+      RuinsCave_Tileset 1_218: 2110118600
+      RuinsCave_Tileset 1_277: 338664937
+      RuinsCave_Tileset 1_378: -704886324
+      RuinsCave_Tileset 1_320: 115901086
+      RuinsCave_Tileset 1_112: 1301161940
+      RuinsCave_Tileset 1_337: -510746066
+      RuinsCave_Tileset 1_260: -4606623
+      RuinsCave_Tileset 1_425: 848544310
+      RuinsCave_Tileset 1_235: 1368962526
+      RuinsCave_Tileset 1_135: 1714753483
+      RuinsCave_Tileset 1_426: 389016091
+      RuinsCave_Tileset 1_441: 131388166
+      RuinsCave_Tileset 1_69: -1472222587
+      RuinsCave_Tileset 1_158: -590612458
+      RuinsCave_Tileset 1_384: 1367705738
+      RuinsCave_Tileset 1_184: -1654668046
+      RuinsCave_Tileset 1_176: -782073077
+      RuinsCave_Tileset 1_28: 653370093
+      RuinsCave_Tileset 1_318: -791421304
+      RuinsCave_Tileset 1_130: 180315646
+      RuinsCave_Tileset 1_16: -1599241175
+      RuinsCave_Tileset 1_442: 1107558381
+      RuinsCave_Tileset 1_155: -296162869
+      RuinsCave_Tileset 1_214: -1792874734
+      RuinsCave_Tileset 1_14: 443968977
+      RuinsCave_Tileset 1_215: -1395771288
+      RuinsCave_Tileset 1_131: -1755183375
+      RuinsCave_Tileset 1_202: -723111219
+      RuinsCave_Tileset 1_268: -623430305
+      RuinsCave_Tileset 1_281: -1375659111
+      RuinsCave_Tileset 1_178: -49478661
+      RuinsCave_Tileset 1_288: -2069356533
+      RuinsCave_Tileset 1_278: -265807365
+      RuinsCave_Tileset 1_340: -2095167295
+      RuinsCave_Tileset 1_154: 63901429
+      RuinsCave_Tileset 1_285: 65931346
+      RuinsCave_Tileset 1_343: -1591395024
+      RuinsCave_Tileset 1_460: 1038963098
+      RuinsCave_Tileset 1_165: 1009136135
+      RuinsCave_Tileset 1_102: 1122299268
+      RuinsCave_Tileset 1_396: 66337403
+      RuinsCave_Tileset 1_457: -939841267
+      RuinsCave_Tileset 1_236: -2047011694
+      RuinsCave_Tileset 1_91: 305115799
+      RuinsCave_Tileset 1_172: -487440085
+      RuinsCave_Tileset 1_203: -1377280620
+      RuinsCave_Tileset 1_193: 1194585027
+      RuinsCave_Tileset 1_329: -209897793
+      RuinsCave_Tileset 1_205: -1647134658
+      RuinsCave_Tileset 1_272: 1352784881
+      RuinsCave_Tileset 1_314: -1157661895
+      RuinsCave_Tileset 1_310: -607307096
+      RuinsCave_Tileset 1_186: 733060334
+      RuinsCave_Tileset 1_32: 1929341833
+      RuinsCave_Tileset 1_380: 142017460
+      RuinsCave_Tileset 1_41: -1363836304
+      RuinsCave_Tileset 1_349: -594629961
+      RuinsCave_Tileset 1_22: 1937452436
+      RuinsCave_Tileset 1_85: -195088456
+      RuinsCave_Tileset 1_199: 374408267
+      RuinsCave_Tileset 1_94: 193623669
+      RuinsCave_Tileset 1_406: -1378790783
+      RuinsCave_Tileset 1_351: -1840701080
+      RuinsCave_Tileset 1_454: -630967054
+      RuinsCave_Tileset 1_201: 1301027319
+      RuinsCave_Tileset 1_161: -1049300833
+      RuinsCave_Tileset 1_444: -1843010063
+      RuinsCave_Tileset 1_206: 1308863848
+      RuinsCave_Tileset 1_463: -1438149328
+      RuinsCave_Tileset 1_348: -634174250
+      RuinsCave_Tileset 1_338: -897015545
+      RuinsCave_Tileset 1_407: 640684440
+      RuinsCave_Tileset 1_123: 1374711344
+      RuinsCave_Tileset 1_423: 1471552229
+      RuinsCave_Tileset 1_181: -2126026472
+      RuinsCave_Tileset 1_6: -2004020789
+      RuinsCave_Tileset 1_422: 2120783547
+      RuinsCave_Tileset 1_152: -1908849652
+      RuinsCave_Tileset 1_382: -1505538067
+      RuinsCave_Tileset 1_117: 612672056
+      RuinsCave_Tileset 1_246: -12894328
+      RuinsCave_Tileset 1_110: -572310721
+      RuinsCave_Tileset 1_303: 437450640
+      RuinsCave_Tileset 1_326: -363458677
+      RuinsCave_Tileset 1_111: 720184867
+      RuinsCave_Tileset 1_47: -1599267757
+      RuinsCave_Tileset 1_188: -1515567815
+      RuinsCave_Tileset 1_86: -2104418746
+      RuinsCave_Tileset 1_333: -43204346
+      RuinsCave_Tileset 1_362: -1485787008
+      RuinsCave_Tileset 1_50: -1929754564
+      RuinsCave_Tileset 1_53: -1334844580
+      RuinsCave_Tileset 1_371: 1747926248
+      RuinsCave_Tileset 1_65: 238164362
+      RuinsCave_Tileset 1_149: -1856178837
+      RuinsCave_Tileset 1_227: -794155005
+      RuinsCave_Tileset 1_354: 1024198490
+      RuinsCave_Tileset 1_68: 1042889676
+      RuinsCave_Tileset 1_284: 1857650960
+      RuinsCave_Tileset 1_175: -861532240
+      RuinsCave_Tileset 1_55: 1746902477
+      RuinsCave_Tileset 1_142: -941870729
+      RuinsCave_Tileset 1_97: 976785519
+      RuinsCave_Tileset 1_217: 504987785
+      RuinsCave_Tileset 1_387: -788540400
+      RuinsCave_Tileset 1_171: 1485924949
+      RuinsCave_Tileset 1_409: 1939464832
+      RuinsCave_Tileset 1_139: -126899750
+      RuinsCave_Tileset 1_400: 1645493954
+      RuinsCave_Tileset 1_78: 1512014127
+      RuinsCave_Tileset 1_410: 112039471
+      RuinsCave_Tileset 1_290: -1877950104
+      RuinsCave_Tileset 1_216: -1077220845
+      RuinsCave_Tileset 1_331: 1435502148
+      RuinsCave_Tileset 1_293: 175574582
+      RuinsCave_Tileset 1_128: -1173143873
+      RuinsCave_Tileset 1_251: 1975864387
+      RuinsCave_Tileset 1_255: 598548933
+      RuinsCave_Tileset 1_168: -1701795257
+      RuinsCave_Tileset 1_8: 1415908382
+      RuinsCave_Tileset 1_360: 1561386678
+      RuinsCave_Tileset 1_80: 3410547
+      RuinsCave_Tileset 1_395: -410620441
+      RuinsCave_Tileset 1_195: 552605384
+      RuinsCave_Tileset 1_335: -2076376439
+      RuinsCave_Tileset 1_151: -1618088528
+      RuinsCave_Tileset 1_20: 410761135
+      RuinsCave_Tileset 1_330: -946773653
+      RuinsCave_Tileset 1_98: 1342418910
+      RuinsCave_Tileset 1_119: -685254956
+      RuinsCave_Tileset 1_383: -840270820
+      RuinsCave_Tileset 1_379: 776442403
+      RuinsCave_Tileset 1_71: -1679933357
+      RuinsCave_Tileset 1_87: 1091910251
+      RuinsCave_Tileset 1_38: 845344028
+      RuinsCave_Tileset 1_147: 379119310
+      RuinsCave_Tileset 1_256: -1120857472
+      RuinsCave_Tileset 1_115: -574036144
+      RuinsCave_Tileset 1_438: -1732493725
+      RuinsCave_Tileset 1_107: 1582159120
+      RuinsCave_Tileset 1_265: 1328144954
+      RuinsCave_Tileset 1_245: 1758504643
+      RuinsCave_Tileset 1_377: -1764525896
+      RuinsCave_Tileset 1_39: -1736017918
+      RuinsCave_Tileset 1_169: -1716969569
+      RuinsCave_Tileset 1_252: -2007946300
+      RuinsCave_Tileset 1_132: -1753630386
+      RuinsCave_Tileset 1_381: 957758783
+      RuinsCave_Tileset 1_92: 676401668
+      RuinsCave_Tileset 1_266: -1910577578
+      RuinsCave_Tileset 1_375: -693078784
+      RuinsCave_Tileset 1_440: -1283584986
+      RuinsCave_Tileset 1_34: 489742823
+      RuinsCave_Tileset 1_417: -994921911
+      RuinsCave_Tileset 1_232: -134871964
+      RuinsCave_Tileset 1_403: -415855698
+      RuinsCave_Tileset 1_296: -295639626
+      RuinsCave_Tileset 1_36: -1414812393
+      RuinsCave_Tileset 1_226: 1459195260
+      RuinsCave_Tileset 1_75: -925548288
+      RuinsCave_Tileset 1_394: 870745537
+      RuinsCave_Tileset 1_446: 795548817
+      RuinsCave_Tileset 1_207: 1049193433
+      RuinsCave_Tileset 1_159: -228044512
+      RuinsCave_Tileset 1_308: 1492677713
+      RuinsCave_Tileset 1_5: -1095800940
+      RuinsCave_Tileset 1_74: -2090317198
+      RuinsCave_Tileset 1_213: -547607783
+      RuinsCave_Tileset 1_315: 1167441578
+      RuinsCave_Tileset 1_443: 1607146911
+      RuinsCave_Tileset 1_243: -1082734323
+      RuinsCave_Tileset 1_25: -683894790
+      RuinsCave_Tileset 1_306: -834769478
+      RuinsCave_Tileset 1_220: 1679175503
+      RuinsCave_Tileset 1_325: -1560126034
+      RuinsCave_Tileset 1_431: 117086361
+      RuinsCave_Tileset 1_138: 2002743323
+      RuinsCave_Tileset 1_2: -1235325995
+      RuinsCave_Tileset 1_411: 1321571257
+      RuinsCave_Tileset 1_342: -622793957
+      RuinsCave_Tileset 1_208: 831750250
+      RuinsCave_Tileset 1_54: -1920953903
+      RuinsCave_Tileset 1_37: -1684276915
+      RuinsCave_Tileset 1_430: 1243862065
+      RuinsCave_Tileset 1_137: -606543295
+      RuinsCave_Tileset 1_339: 1376451320
+      RuinsCave_Tileset 1_350: -1550106660
+      RuinsCave_Tileset 1_355: 1433155053
+      RuinsCave_Tileset 1_162: 612376156
+      RuinsCave_Tileset 1_173: 86528256
+      RuinsCave_Tileset 1_389: 1087733444
+      RuinsCave_Tileset 1_116: -1999873600
+      RuinsCave_Tileset 1_237: -446545932
+      RuinsCave_Tileset 1_223: 599388416
+      RuinsCave_Tileset 1_10: -1202807938
+      RuinsCave_Tileset 1_21: 76409329
+      RuinsCave_Tileset 1_258: 1937863053
+      RuinsCave_Tileset 1_190: 1827188947
+      RuinsCave_Tileset 1_76: 313397166
+      RuinsCave_Tileset 1_254: -565579489
+      RuinsCave_Tileset 1_364: 1545474181
+      RuinsCave_Tileset 1_204: -1715683785
+      RuinsCave_Tileset 1_83: 964561391
+      RuinsCave_Tileset 1_445: -779390234
+      RuinsCave_Tileset 1_106: -326239874
+      RuinsCave_Tileset 1_153: 1290085331
+      RuinsCave_Tileset 1_392: 994604361
+      RuinsCave_Tileset 1_369: -907942154
+      RuinsCave_Tileset 1_316: 228105101
+      RuinsCave_Tileset 1_309: 406997786
+      RuinsCave_Tileset 1_358: 2044317342
+      RuinsCave_Tileset 1_365: -996001712
+      RuinsCave_Tileset 1_412: 1956938604
+      RuinsCave_Tileset 1_182: -1231919945
+      RuinsCave_Tileset 1_104: 532838658
+      RuinsCave_Tileset 1_393: -1149641132
+      RuinsCave_Tileset 1_388: 82061526
+      RuinsCave_Tileset 1_136: 694214362
+      RuinsCave_Tileset 1_437: 1160504719
+      RuinsCave_Tileset 1_401: -1793125217
+      RuinsCave_Tileset 1_84: -1062772252
+      RuinsCave_Tileset 1_198: -1718395334
+      RuinsCave_Tileset 1_23: -1393268990
+      RuinsCave_Tileset 1_140: 323988507
+      RuinsCave_Tileset 1_177: -306963901
+      RuinsCave_Tileset 1_118: 707692826
+      RuinsCave_Tileset 1_72: 1023186583
+      RuinsCave_Tileset 1_332: -622980285
+      RuinsCave_Tileset 1_46: -74133187
+      RuinsCave_Tileset 1_229: 2068465153
+      RuinsCave_Tileset 1_434: 1433425883
+      RuinsCave_Tileset 1_436: 134364920
+      RuinsCave_Tileset 1_170: 2108142514
+      RuinsCave_Tileset 1_240: 830285777
+      RuinsCave_Tileset 1_211: -1609329842
+      RuinsCave_Tileset 1_196: 248056546
+      RuinsCave_Tileset 1_297: -1912608173
+      RuinsCave_Tileset 1_231: -1420771428
+      RuinsCave_Tileset 1_356: 1564077302
+      RuinsCave_Tileset 1_408: 12683934
+      RuinsCave_Tileset 1_456: 1119505095
+      RuinsCave_Tileset 1_157: -415449259
+      RuinsCave_Tileset 1_341: 705018437
+      RuinsCave_Tileset 1_30: -676209819
+      RuinsCave_Tileset 1_273: 98694456
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

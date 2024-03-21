@@ -22,28 +22,33 @@ public class DeadState : State
     {
         base.Enter();
         entity.damageBox.gameObject.SetActive(false);
-        //GameObject.Instantiate(stateData.deathBloodParticle, entity.aliveGO.transform.position, stateData.deathBloodParticle.transform.rotation);
-        //GameObject.Instantiate(stateData.deathChunkParticle, entity.aliveGO.transform.position, stateData.deathChunkParticle.transform.rotation);
+
+        if (stateData.deathBloodParticle != null)
+        {
+            GameObject.Instantiate(stateData.deathBloodParticle, entity.transform.parent).transform.position = entity.transform.position;
+        }
+
         entity.StartCoroutine(Die());
     }
 
     private IEnumerator Die()
     {
-        //GameManager.instance.
         entity.SetVelocity(0);
         entity.anim.SetLayerWeight(0, 0f);
         entity.anim.SetLayerWeight(1, 0f);
         entity.anim.SetLayerWeight(2, 1f);
         entity.anim.SetBool("dead", true);
+
         CoinSpawner();
-        entity.gameObject.GetComponent<Collider2D>().enabled = false;
-        yield return new WaitForSeconds(entity.anim.GetCurrentAnimatorStateInfo(0).length);
+        entity.damageBox.enabled = false;
         entity.gameObject.SetActive(false);
+        yield return null;
     }
 
     public void CoinSpawner()
     {
-        for (int i = 0; i < stateData.coinDrop; i++)
+        float coinDropAmount = stateData.coinDrop * entity.playerRuntimeDataSO.entityCoinDropModidier;
+        for (int i = 0; i < coinDropAmount; i++)
         {
             GameObject.Instantiate(stateData.coinPrefab, entity.transform.position, Quaternion.identity);
         }

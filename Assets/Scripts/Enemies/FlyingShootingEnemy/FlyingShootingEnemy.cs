@@ -35,6 +35,8 @@ public class FlyingShootingEnemy : Entity, FiringAI
     [SerializeField] private D_RangedAttackState rangedAttackStateData;
     [SerializeField] private D_DeadState deadStateData;
 
+    public ProjectileController projectileController;
+
     public override void Start()
     {
         base.Start();
@@ -42,9 +44,9 @@ public class FlyingShootingEnemy : Entity, FiringAI
         destinationSetter = GetComponent<AIDestinationSetter>();
         aIPath = GetComponent<AIPath>();
 
-        flyState = new FlyingShootingEnemy_FlyState(this, stateMachine, "move", flyStateData, this);
-        playerDetectedState = new FlyingShootingEnemy_PlayerDetectedState(this, stateMachine, "detected", playerDetectedData, this);
-        shootState = new FlyingShootingEnemy_ShootState(this, stateMachine, "attack", attackDetectionPosition.transform, rangedAttackStateData, this);
+        flyState = new FlyingShootingEnemy_FlyState(this, stateMachine, "fly", flyStateData, this);
+        playerDetectedState = new FlyingShootingEnemy_PlayerDetectedState(this, stateMachine, "fly", playerDetectedData, this);
+        shootState = new FlyingShootingEnemy_ShootState(this, stateMachine, "attack", attackDetectionPosition.transform, rangedAttackStateData, projectileController, this);
         deadState = new FlyingShootingEnemy_DeadState(this, stateMachine, "dead", deadStateData, this);
 
         stateMachine.Initialize(flyState);
@@ -83,9 +85,6 @@ public class FlyingShootingEnemy : Entity, FiringAI
             aIPath.canMove = true;
     }
 
-    [Header("Aggro Settings")]
-    public bool IsAggro = false;
-
     public void RaiseOnFireEvent()
     {
         var eh = OnFire;
@@ -98,14 +97,19 @@ public class FlyingShootingEnemy : Entity, FiringAI
         return Time.time >= nextFireTime;
     }
 
-    public override void ModifyHealth(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
-        base.ModifyHealth(amount);
+        base.ProcessHit(amount, DamageType.Melee);
         IsAggro = true;
-        if (isDead)
+        if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }
+    }
+
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
     }
 
     public override void OnDrawGizmos()

@@ -11,29 +11,41 @@ public class PlayerAnimations
     private bool jumping;
 
     PlayerMovement playerMovement;
+    PlayerDash playerDash;
+
     public PlayerAnimations(Animator animator, Transform player)
     {
         playerInput = player.GetComponent<Player_Input>();
         playerMovement = player.GetComponent<PlayerMovement>();
+        playerDash = player.GetComponent<PlayerDash>();
         this.animator = animator;
+
         playerInput.OnJumpUp += OnJumpInputUp;
         playerInput.OnJumpDown += OnJumpInputDown;
         playerInput.OnAttack += OnAttack;
+        playerInput.OnUpAttack += UpAttack;
+    }
+
+    public void DownAttack()
+    {
+        animator.Play("Down_Attack", 3);
+    }
+
+    public void UpAttack()
+    {
+        animator.SetTrigger("isAttackingUp");
     }
 
     private void OnAttack()
     {
-        if (playerInput.directionalInput.y > 0)
+
+        if (animator.GetCurrentAnimatorStateInfo(3).IsName("Attack_1"))
         {
-            animator.SetTrigger("isAttackingUp");
-        }
-        else if (playerInput.directionalInput.y < 0)
-        {
-            animator.SetTrigger("isAttackingDown");
+            animator.SetBool("Attack_2", true);
         }
         else
         {
-            animator.SetTrigger("Attack");
+            animator.SetBool("Attack_1", true);
         }
     }
 
@@ -59,6 +71,7 @@ public class PlayerAnimations
         animator.SetBool("isFalling", falling);
         animator.SetBool("isJumping", jumping);
         animator.SetBool("isWallSliding", playerMovement.WallSliding);
+        animator.SetBool("isDashing", playerDash.isDashingAnimation);
 
     }
 
@@ -72,5 +85,20 @@ public class PlayerAnimations
     {
         animator.SetBool("isJumping", false);
         jumping = false;
+    }
+
+    public void CancelDownAttack()
+    {
+        //animator.SetBool("DownAttack", false);
+        //animator.SetTrigger("isAttackingDown");
+        animator.Play("Default", 3);
+
+    }
+
+    public void UnsubscribeAnimationsFromInput()
+    {
+        playerInput.OnJumpUp -= OnJumpInputUp;
+        playerInput.OnJumpDown -= OnJumpInputDown;
+        playerInput.OnAttack -= OnAttack;
     }
 }

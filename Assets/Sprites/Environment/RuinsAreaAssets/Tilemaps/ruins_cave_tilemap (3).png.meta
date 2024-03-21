@@ -936,6 +936,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -980,7 +981,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -989,6 +990,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1580,11 +1593,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -15, y: -14}
-        - {x: -40, y: -40}
+      - - {x: -4, y: 40}
+        - {x: -40, y: 22}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 77744a2daf78153b0800000000000000
@@ -1606,10 +1619,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: faa3a471fd02554f0800000000000000
@@ -1631,10 +1644,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 5cf259b7bf1b20e00800000000000000
@@ -1656,10 +1669,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 5c9d63a7459791700800000000000000
@@ -1681,10 +1694,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: e8e8391f1b2da11e0800000000000000
@@ -1706,10 +1719,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 4886b436e2aa06290800000000000000
@@ -1731,10 +1744,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 1ef180f5abf0c86c0800000000000000
@@ -1756,10 +1769,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 08f4a87d33bc4c0d0800000000000000
@@ -1781,10 +1794,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 3381b6e41f3169640800000000000000
@@ -1806,10 +1819,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -14}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: ca3df6cdd0b09fdc0800000000000000
@@ -1831,11 +1844,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -40, y: -14}
+      - - {x: -40, y: 40}
         - {x: -40, y: -40}
         - {x: 40, y: -40}
-        - {x: 40, y: -40}
-        - {x: 17, y: -14}
+        - {x: 40, y: 21}
+        - {x: 16, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 5d236797a6e208b40800000000000000
@@ -3095,7 +3108,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -40, y: 40}
+        - {x: -40, y: -40}
+        - {x: 40, y: -40}
+        - {x: 40, y: 40}
       tessellationDetail: 0
       bones: []
       spriteID: 69ac5d5bac969f9d0800000000000000
@@ -7563,6 +7580,306 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      ruins_cave_tilemap (3)_52: -3564742900303412004
+      ruins_cave_tilemap (3)_169: -1487460738361292411
+      ruins_cave_tilemap (3)_302: 5647494149346450818
+      ruins_cave_tilemap (3)_323: 956756877320213462
+      ruins_cave_tilemap (3)_12: 5249382776680034328
+      ruins_cave_tilemap (3)_39: -4139916664327626783
+      ruins_cave_tilemap (3)_129: -2054838011121753199
+      ruins_cave_tilemap (3)_197: -8427745692429258018
+      ruins_cave_tilemap (3)_95: -2005688053128175496
+      ruins_cave_tilemap (3)_113: 6330240379778209967
+      ruins_cave_tilemap (3)_217: 7077099615972829536
+      ruins_cave_tilemap (3)_166: 8787662664730111693
+      ruins_cave_tilemap (3)_2: 5306416451793180958
+      ruins_cave_tilemap (3)_242: 9065493798029067231
+      ruins_cave_tilemap (3)_257: -7803075054664888129
+      ruins_cave_tilemap (3)_276: -2186394929134450017
+      ruins_cave_tilemap (3)_102: -409434165271696311
+      ruins_cave_tilemap (3)_157: 2950743183881599600
+      ruins_cave_tilemap (3)_100: 897731017161680354
+      ruins_cave_tilemap (3)_295: -1681038404302054492
+      ruins_cave_tilemap (3)_159: -1212622996242923910
+      ruins_cave_tilemap (3)_5: -7526719639973926877
+      ruins_cave_tilemap (3)_178: 792399911450075088
+      ruins_cave_tilemap (3)_9: 7777765604096817626
+      ruins_cave_tilemap (3)_98: 6538002794056337813
+      ruins_cave_tilemap (3)_121: 3159241648114281053
+      ruins_cave_tilemap (3)_264: -6185808667625319427
+      ruins_cave_tilemap (3)_133: -4487508066268843229
+      ruins_cave_tilemap (3)_71: -8072274649241927887
+      ruins_cave_tilemap (3)_161: -7093818150369378191
+      ruins_cave_tilemap (3)_180: -1902519132634485234
+      ruins_cave_tilemap (3)_40: -3403371994865315968
+      ruins_cave_tilemap (3)_253: -3927782903725939524
+      ruins_cave_tilemap (3)_8: -3234813068618784813
+      ruins_cave_tilemap (3)_282: -1731404477840718540
+      ruins_cave_tilemap (3)_317: -3535964519744750155
+      ruins_cave_tilemap (3)_246: -8773793262293227622
+      ruins_cave_tilemap (3)_107: 2009359553728608391
+      ruins_cave_tilemap (3)_135: 3863323512486533571
+      ruins_cave_tilemap (3)_191: 3796519248806866142
+      ruins_cave_tilemap (3)_225: -3753067511372650221
+      ruins_cave_tilemap (3)_319: -9049904451278610724
+      ruins_cave_tilemap (3)_293: 4973037115411928622
+      ruins_cave_tilemap (3)_3: 9081536662387340012
+      ruins_cave_tilemap (3)_181: -5390251287111639673
+      ruins_cave_tilemap (3)_128: 151793673290064008
+      ruins_cave_tilemap (3)_232: 2477548313146093815
+      ruins_cave_tilemap (3)_86: 7172216002147207139
+      ruins_cave_tilemap (3)_54: 5420692044853002142
+      ruins_cave_tilemap (3)_106: 6946652591216766935
+      ruins_cave_tilemap (3)_222: -288054078196071579
+      ruins_cave_tilemap (3)_139: -7235763587508721819
+      ruins_cave_tilemap (3)_118: -8737878400736308565
+      ruins_cave_tilemap (3)_261: -7509407462187867804
+      ruins_cave_tilemap (3)_13: -8262336746576665743
+      ruins_cave_tilemap (3)_200: 2962443455951607278
+      ruins_cave_tilemap (3)_151: -6080255270064014791
+      ruins_cave_tilemap (3)_194: 1633752080703910467
+      ruins_cave_tilemap (3)_314: -836482318147339061
+      ruins_cave_tilemap (3)_290: 8209424426548963573
+      ruins_cave_tilemap (3)_154: 7432593127978625584
+      ruins_cave_tilemap (3)_119: -4505423201005569563
+      ruins_cave_tilemap (3)_231: 8561658323460238207
+      ruins_cave_tilemap (3)_215: 8357066181401711112
+      ruins_cave_tilemap (3)_322: 5234051651633363645
+      ruins_cave_tilemap (3)_29: 8182226527748297084
+      ruins_cave_tilemap (3)_94: 3564823508235955561
+      ruins_cave_tilemap (3)_216: 417348458294770442
+      ruins_cave_tilemap (3)_45: -4100412546509662494
+      ruins_cave_tilemap (3)_56: 6402869038479946893
+      ruins_cave_tilemap (3)_208: -6721142014031686404
+      ruins_cave_tilemap (3)_145: -547774411972933808
+      ruins_cave_tilemap (3)_255: -4043463056050076588
+      ruins_cave_tilemap (3)_33: -5525485756461332617
+      ruins_cave_tilemap (3)_221: -1451570185610206443
+      ruins_cave_tilemap (3)_64: 6104788081499112623
+      ruins_cave_tilemap (3)_202: 6932100832711771921
+      ruins_cave_tilemap (3)_25: -4072441096516645273
+      ruins_cave_tilemap (3)_97: 629171684466291602
+      ruins_cave_tilemap (3)_125: -7924871056012212447
+      ruins_cave_tilemap (3)_34: -840729612894192977
+      ruins_cave_tilemap (3)_146: 7958276804536607486
+      ruins_cave_tilemap (3)_187: 4516156944922044671
+      ruins_cave_tilemap (3)_160: 3368734180198103655
+      ruins_cave_tilemap (3)_185: 7555071677798998591
+      ruins_cave_tilemap (3)_245: 5333362240355939965
+      ruins_cave_tilemap (3)_192: 2883588835368285533
+      ruins_cave_tilemap (3)_315: -8402866561957239895
+      ruins_cave_tilemap (3)_204: 5389085483476937791
+      ruins_cave_tilemap (3)_103: 997904122994011203
+      ruins_cave_tilemap (3)_136: 6732083743335612502
+      ruins_cave_tilemap (3)_299: 900448438803879958
+      ruins_cave_tilemap (3)_277: -3289152866223662266
+      ruins_cave_tilemap (3)_105: 8202764472126720774
+      ruins_cave_tilemap (3)_182: -3601911813324656362
+      ruins_cave_tilemap (3)_259: -1810563296261644627
+      ruins_cave_tilemap (3)_167: -8125226796056028261
+      ruins_cave_tilemap (3)_212: -3082756620678783051
+      ruins_cave_tilemap (3)_263: -5756777979017820600
+      ruins_cave_tilemap (3)_227: -6743072929943302033
+      ruins_cave_tilemap (3)_283: -3244867570499628421
+      ruins_cave_tilemap (3)_297: -978110908602809204
+      ruins_cave_tilemap (3)_162: 5751706310186428260
+      ruins_cave_tilemap (3)_27: -4181261736926477017
+      ruins_cave_tilemap (3)_88: -1798848320410434421
+      ruins_cave_tilemap (3)_73: 1412552500672743396
+      ruins_cave_tilemap (3)_108: -2740042578923238762
+      ruins_cave_tilemap (3)_70: -8020193557939692221
+      ruins_cave_tilemap (3)_244: 3645654074826856368
+      ruins_cave_tilemap (3)_42: -3604837872572574804
+      ruins_cave_tilemap (3)_77: -3951193171247923234
+      ruins_cave_tilemap (3)_228: -3196046367691875365
+      ruins_cave_tilemap (3)_179: -2898875814457153700
+      ruins_cave_tilemap (3)_4: -1738706720761573676
+      ruins_cave_tilemap (3)_72: 7895292817613080654
+      ruins_cave_tilemap (3)_183: -1016038330974987605
+      ruins_cave_tilemap (3)_256: 4656783291497096447
+      ruins_cave_tilemap (3)_184: -6675287957696075434
+      ruins_cave_tilemap (3)_10: 5276939489618046801
+      ruins_cave_tilemap (3)_298: 1959090535422787349
+      ruins_cave_tilemap (3)_164: 5593939428557360246
+      ruins_cave_tilemap (3)_58: -8504446787566436448
+      ruins_cave_tilemap (3)_96: -8830028204035933730
+      ruins_cave_tilemap (3)_115: -4303831300147139510
+      ruins_cave_tilemap (3)_140: 1304402401146055098
+      ruins_cave_tilemap (3)_172: -2572923748814091332
+      ruins_cave_tilemap (3)_260: 9191238773345325477
+      ruins_cave_tilemap (3)_313: -7610879378255432869
+      ruins_cave_tilemap (3)_59: 2466459549450032246
+      ruins_cave_tilemap (3)_150: 152964731923149342
+      ruins_cave_tilemap (3)_289: 7948235545540517708
+      ruins_cave_tilemap (3)_269: -5320966099634783242
+      ruins_cave_tilemap (3)_35: 1009564960152694725
+      ruins_cave_tilemap (3)_156: 4123605938926022331
+      ruins_cave_tilemap (3)_92: 4660617797573269215
+      ruins_cave_tilemap (3)_50: 2171185497624763779
+      ruins_cave_tilemap (3)_120: -2191940590702234708
+      ruins_cave_tilemap (3)_82: -8539374082221178584
+      ruins_cave_tilemap (3)_278: 2082701513051807114
+      ruins_cave_tilemap (3)_16: 2900127655970863125
+      ruins_cave_tilemap (3)_134: 7640230253010839125
+      ruins_cave_tilemap (3)_239: -8836960185247471426
+      ruins_cave_tilemap (3)_272: -2223804614836013976
+      ruins_cave_tilemap (3)_116: 154253704291195394
+      ruins_cave_tilemap (3)_266: -1827846935613640502
+      ruins_cave_tilemap (3)_6: -3365072906936856219
+      ruins_cave_tilemap (3)_198: -3678857480925535978
+      ruins_cave_tilemap (3)_132: -2115961278096171510
+      ruins_cave_tilemap (3)_127: 9000686249429426977
+      ruins_cave_tilemap (3)_285: -5998796691305605312
+      ruins_cave_tilemap (3)_189: -6379273063487705592
+      ruins_cave_tilemap (3)_81: 956234294109753099
+      ruins_cave_tilemap (3)_148: 4797539977616431337
+      ruins_cave_tilemap (3)_205: -3159802821208791617
+      ruins_cave_tilemap (3)_209: -6055394432874324257
+      ruins_cave_tilemap (3)_168: -6874652662068773725
+      ruins_cave_tilemap (3)_51: -3705307808874672639
+      ruins_cave_tilemap (3)_153: -4547818910215008234
+      ruins_cave_tilemap (3)_124: 4133003302846136202
+      ruins_cave_tilemap (3)_80: -5008192798773374726
+      ruins_cave_tilemap (3)_15: 6335847690138441448
+      ruins_cave_tilemap (3)_83: -4035310622649656266
+      ruins_cave_tilemap (3)_229: 7456780009019995259
+      ruins_cave_tilemap (3)_240: 6418502206298968769
+      ruins_cave_tilemap (3)_280: 9080010107201014586
+      ruins_cave_tilemap (3)_11: -8281496101965181930
+      ruins_cave_tilemap (3)_186: 1372786852940773692
+      ruins_cave_tilemap (3)_89: 809180848618923786
+      ruins_cave_tilemap (3)_49: -2145240152934259673
+      ruins_cave_tilemap (3)_147: -8043878934153465983
+      ruins_cave_tilemap (3)_224: 1073291151158203274
+      ruins_cave_tilemap (3)_141: -164095820182604074
+      ruins_cave_tilemap (3)_93: -8658531440145293953
+      ruins_cave_tilemap (3)_91: -7297483910050685629
+      ruins_cave_tilemap (3)_190: -3189827972920846639
+      ruins_cave_tilemap (3)_296: -5532030784714163729
+      ruins_cave_tilemap (3)_152: -5473280102328206994
+      ruins_cave_tilemap (3)_219: 7539196692851383254
+      ruins_cave_tilemap (3)_311: -7008859285624833588
+      ruins_cave_tilemap (3)_55: -848092615932531355
+      ruins_cave_tilemap (3)_195: -4721527702989630234
+      ruins_cave_tilemap (3)_31: -7691755578742111175
+      ruins_cave_tilemap (3)_236: 7221973008310479784
+      ruins_cave_tilemap (3)_258: -4178069042576164348
+      ruins_cave_tilemap (3)_67: -54300458445625492
+      ruins_cave_tilemap (3)_175: -3352279640599530752
+      ruins_cave_tilemap (3)_24: 1512123717703800616
+      ruins_cave_tilemap (3)_44: 1203392200392693760
+      ruins_cave_tilemap (3)_193: 63990136083469294
+      ruins_cave_tilemap (3)_281: 8674501955774168126
+      ruins_cave_tilemap (3)_87: 6955769899998695180
+      ruins_cave_tilemap (3)_243: 258361402568655246
+      ruins_cave_tilemap (3)_206: -3168354523816943137
+      ruins_cave_tilemap (3)_230: 5202474583707319945
+      ruins_cave_tilemap (3)_99: -6526502788052789406
+      ruins_cave_tilemap (3)_273: 8992554619297805382
+      ruins_cave_tilemap (3)_188: 2707482598335100600
+      ruins_cave_tilemap (3)_122: 7298785912313309130
+      ruins_cave_tilemap (3)_66: 6116924421136842825
+      ruins_cave_tilemap (3)_211: -8790526131808205800
+      ruins_cave_tilemap (3)_318: 2057210730617265492
+      ruins_cave_tilemap (3)_177: -6878041559103458431
+      ruins_cave_tilemap (3)_149: -2705734029964195715
+      ruins_cave_tilemap (3)_223: -7408972989365117360
+      ruins_cave_tilemap (3)_37: -2226235404077265266
+      ruins_cave_tilemap (3)_300: 2656281051318622985
+      ruins_cave_tilemap (3)_79: 1090233766986573012
+      ruins_cave_tilemap (3)_109: -6469569094974536601
+      ruins_cave_tilemap (3)_63: -3143045565430893341
+      ruins_cave_tilemap (3)_220: 7368714267611859523
+      ruins_cave_tilemap (3)_111: -4841320588721124871
+      ruins_cave_tilemap (3)_284: -8464362354191245965
+      ruins_cave_tilemap (3)_155: 945153907046555307
+      ruins_cave_tilemap (3)_110: -7030162075376091270
+      ruins_cave_tilemap (3)_144: -4403819633349658597
+      ruins_cave_tilemap (3)_30: -99155945144730363
+      ruins_cave_tilemap (3)_237: 8821553114890677487
+      ruins_cave_tilemap (3)_173: 763356750525130256
+      ruins_cave_tilemap (3)_203: -2053328173457883997
+      ruins_cave_tilemap (3)_38: -7899126630196746108
+      ruins_cave_tilemap (3)_85: 355350634730230879
+      ruins_cave_tilemap (3)_196: -8463185971249006006
+      ruins_cave_tilemap (3)_171: -664219297826164824
+      ruins_cave_tilemap (3)_41: 5086274756285241395
+      ruins_cave_tilemap (3)_57: -3229192224702252490
+      ruins_cave_tilemap (3)_265: 4269508464026504214
+      ruins_cave_tilemap (3)_104: 9095047954773298084
+      ruins_cave_tilemap (3)_291: 6930069884444505671
+      ruins_cave_tilemap (3)_84: 9144677873217273683
+      ruins_cave_tilemap (3)_163: 7187083323865195650
+      ruins_cave_tilemap (3)_28: -8238808925962099880
+      ruins_cave_tilemap (3)_170: 4213721170690903928
+      ruins_cave_tilemap (3)_233: -2969576870345645381
+      ruins_cave_tilemap (3)_36: 511573436417890757
+      ruins_cave_tilemap (3)_90: -6920130666666235260
+      ruins_cave_tilemap (3)_22: 5593896675716619817
+      ruins_cave_tilemap (3)_53: 3568499299251428525
+      ruins_cave_tilemap (3)_234: -9020129608828665263
+      ruins_cave_tilemap (3)_324: -2593478064469898458
+      ruins_cave_tilemap (3)_117: 6426324391202999695
+      ruins_cave_tilemap (3)_218: -5485333853188023805
+      ruins_cave_tilemap (3)_199: -3882217076005653801
+      ruins_cave_tilemap (3)_287: 8848761376754226188
+      ruins_cave_tilemap (3)_267: 3187655048245570662
+      ruins_cave_tilemap (3)_210: 5899832688884583451
+      ruins_cave_tilemap (3)_275: -4091158432135407631
+      ruins_cave_tilemap (3)_101: 2977804035735277872
+      ruins_cave_tilemap (3)_78: 6194624966413911779
+      ruins_cave_tilemap (3)_68: -3330725777258619872
+      ruins_cave_tilemap (3)_138: 5117888119939531445
+      ruins_cave_tilemap (3)_201: -3614780962667360881
+      ruins_cave_tilemap (3)_270: -2287643550835376450
+      ruins_cave_tilemap (3)_14: 3978513838776170430
+      ruins_cave_tilemap (3)_213: -6188765691089884379
+      ruins_cave_tilemap (3)_131: 8213195038216638075
+      ruins_cave_tilemap (3)_165: -8515432797691156503
+      ruins_cave_tilemap (3)_76: -5306038623909147821
+      ruins_cave_tilemap (3)_235: 3234332818627041190
+      ruins_cave_tilemap (3)_238: 2027310566689348024
+      ruins_cave_tilemap (3)_274: -6996141065056597987
+      ruins_cave_tilemap (3)_286: 3506905344770460494
+      ruins_cave_tilemap (3)_321: -9094521031165470105
+      ruins_cave_tilemap (3)_142: -4674472492872177192
+      ruins_cave_tilemap (3)_304: -9021520378345616161
+      ruins_cave_tilemap (3)_325: 3068002334469439918
+      ruins_cave_tilemap (3)_17: -1005701121920768481
+      ruins_cave_tilemap (3)_47: -3725592253675737865
+      ruins_cave_tilemap (3)_143: -1743458555867806718
+      ruins_cave_tilemap (3)_226: -5818859160526916924
+      ruins_cave_tilemap (3)_174: 513018039623417426
+      ruins_cave_tilemap (3)_137: 3577634076994519177
+      ruins_cave_tilemap (3)_46: -2633498150486208310
+      ruins_cave_tilemap (3)_126: -5632409485349606152
+      ruins_cave_tilemap (3)_268: -5593232082040356840
+      ruins_cave_tilemap (3)_48: -6205796111656152281
+      ruins_cave_tilemap (3)_123: -3106217720180072269
+      ruins_cave_tilemap (3)_114: -5882388695345941729
+      ruins_cave_tilemap (3)_158: -4463045481226062511
+      ruins_cave_tilemap (3)_21: 8597854904667728840
+      ruins_cave_tilemap (3)_310: -4395626606433790324
+      ruins_cave_tilemap (3)_112: -8435509914580865415
+      ruins_cave_tilemap (3)_301: 8238729380101616492
+      ruins_cave_tilemap (3)_262: 2365298751193489933
+      ruins_cave_tilemap (3)_69: -7590735214721525595
+      ruins_cave_tilemap (3)_271: 3026817784570165545
+      ruins_cave_tilemap (3)_279: 1223906712989218093
+      ruins_cave_tilemap (3)_65: -7323186063231496996
+      ruins_cave_tilemap (3)_292: -3047483299353573740
+      ruins_cave_tilemap (3)_214: -4344414528134384234
+      ruins_cave_tilemap (3)_23: 7228489135870661769
+      ruins_cave_tilemap (3)_254: 1270745906522752311
+      ruins_cave_tilemap (3)_312: 7212302223802563937
+      ruins_cave_tilemap (3)_43: 5440399384702759637
+      ruins_cave_tilemap (3)_316: -2960627925487665472
+      ruins_cave_tilemap (3)_207: -1220762411200033391
+      ruins_cave_tilemap (3)_303: 3143511452850355119
+      ruins_cave_tilemap (3)_130: 3566111418439795449
+      ruins_cave_tilemap (3)_176: 4536711168218771720
+      ruins_cave_tilemap (3)_241: 6931486565527700852
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -40,23 +40,23 @@ public class SpikeCharger_MoveState : MoveState
 
         if (entity.CheckPlayerInMaxAgroRange())
         {
-            stateMachine.ChangeState(enemy.playerDetectedState);
+            stateMachine.ChangeState(enemy.PlayerDetectedState);
         }
         else if(entity.CheckPlayerInMinAgroRange())
         {
             entity.Flip();
-            stateMachine.ChangeState(enemy.playerDetectedState);
+            stateMachine.ChangeState(enemy.PlayerDetectedState);
         }
         else if (isDetectingWall || !isDetectingLedge)
         {
-            enemy.idleState.SetFlipAfterIdle(true);
-            stateMachine.ChangeState(enemy.idleState);
+            enemy.IdleState.SetFlipAfterIdle(true);
+            stateMachine.ChangeState(enemy.IdleState);
         }
     }
 
     private bool CheckPlayerPos()
     {
-        Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+        Vector2 playerPos = enemy.playerRuntimeDataSO.playerPosition;
         int directionX = (entity.transform.position.x < playerPos.x) ? 1 : -1;
         return (entity.facingDirection != directionX);
     }

@@ -19,11 +19,14 @@ public class BasicMeleeEnemy_StunState : StunState
     public override void Enter()
     {
         base.Enter();
+        entity.SetVelocity(0);
+        enemy.stunnedSprite.SetActive(true);
     }
 
     public override void Exit()
     {
         base.Exit();
+        enemy.stunnedSprite.SetActive(false);
     }
 
     public override void LogicUpdate()
@@ -36,10 +39,6 @@ public class BasicMeleeEnemy_StunState : StunState
             {
                 stateMachine.ChangeState(enemy.meleeAttackState);
             }
-            else if (isPlayerInMinAgroRange)
-            {
-                //stateMachine.ChangeState(enemy.chargeState);
-            }
             else
             {
                 enemy.lookForPlayerState.SetTurnImmediately(true);
@@ -51,5 +50,6 @@ public class BasicMeleeEnemy_StunState : StunState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        entity.SetVelocity(0);
     }
 }

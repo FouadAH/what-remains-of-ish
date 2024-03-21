@@ -34,6 +34,7 @@ public class BirdbeeEnemy_PlayerDetectedState : PlayerDetectedState
         {
             lastAttackTime = Time.time;
             stateMachine.ChangeState(enemy.attackState);
+            return;
         }
         else if (enemy.CheckPlayerInMaxAggroRadius())
         {
@@ -44,13 +45,19 @@ public class BirdbeeEnemy_PlayerDetectedState : PlayerDetectedState
             enemy.IsAggro = false;
             stateMachine.ChangeState(enemy.flyState);
         }
+
+        int directionX = (enemy.transform.position.x < enemy.playerRuntimeDataSO.playerPosition.x) ? 1 : -1;
+        if (entity.facingDirection != directionX)
+        {
+            entity.Flip();
+        }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 
-        Vector2 playerPos = GameManager.instance.playerCurrentPosition.position;
+        Vector2 playerPos = enemy.playerRuntimeDataSO.playerPosition;
 
         Vector2 targetPositionRight = new Vector2(playerPos.x - stateData.playerOffset.x, playerPos.y + stateData.playerOffset.y);
         Vector2 targetPositionLeft = new Vector2(playerPos.x + stateData.playerOffset.x, playerPos.y + stateData.playerOffset.y);
@@ -59,11 +66,5 @@ public class BirdbeeEnemy_PlayerDetectedState : PlayerDetectedState
             ? targetPositionLeft : targetPositionRight;
 
         enemy.TargetPoint.transform.position = targetPos;
-
-        int directionX = (enemy.transform.position.x < playerPos.x) ? 1 : -1;
-        if (entity.facingDirection != directionX)
-        {
-            entity.Flip();
-        }
     }
 }

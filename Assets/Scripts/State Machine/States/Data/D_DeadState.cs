@@ -8,6 +8,7 @@ public class D_DeadState : ScriptableObject
     public GameObject deathChunkParticle;
     public GameObject deathBloodParticle;
     public GameObject coinPrefab;
+    public ParticleSystem refillParticles;
     public float flaskRefillAmount;
     public int coinDrop;
 }

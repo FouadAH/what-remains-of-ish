@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class ShieldEnemy : Entity, IAttacker
 {
@@ -53,7 +54,6 @@ public class ShieldEnemy : Entity, IAttacker
     [Header("Aggro Settings")]
     [SerializeField] public float AggroTime;
     private IEnumerator aggroRangeRoutine;
-    public bool IsAggro = false;
 
     public event Action Hit = delegate { };
 
@@ -75,7 +75,7 @@ public class ShieldEnemy : Entity, IAttacker
 
     public bool CanSeePlayer()
     {
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, GameManager.instance.playerCurrentPosition.position, entityData.whatIsGround);
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, playerRuntimeDataSO.playerPosition, entityData.whatIsGround);
         return !hit;
     }
 
@@ -97,7 +97,7 @@ public class ShieldEnemy : Entity, IAttacker
         base.DamageHop(velocity);
     }
 
-    public override void ModifyHealth(int amount)
+    public override void ProcessHit(int amount, DamageType type)
     {
         Hit();
         IsAggro = true;
@@ -105,12 +105,17 @@ public class ShieldEnemy : Entity, IAttacker
         if (isProtected)
             return;
 
-        base.ModifyHealth(amount);
+        base.ProcessHit(amount, DamageType.Melee);
 
-        if (isDead)
+        if (isDead && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }
+    }
+
+    public override void LoadDefaultData()
+    {
+        base.LoadDefaultData();
     }
 
     public void KnockbackOnHit(int amount, float dirX, float dirY)

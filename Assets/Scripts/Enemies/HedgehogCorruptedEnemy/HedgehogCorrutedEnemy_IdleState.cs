@@ -25,9 +25,12 @@ public class HedgehogCorrutedEnemy_IdleState : IdleState
     {
         base.LogicUpdate();
 
-        if (isPlayerInMinAgroRange)
+        if (entity.CheckPlayerInMaxAgroRange() || entity.CheckPlayerInMinAgroRange())
         {
-            stateMachine.ChangeState(enemy.playerDetectedState);
+            if (enemy.projectileController.CanFire())
+            {
+                stateMachine.ChangeState(enemy.shootState);
+            }
         }
         else if (isIdleTimeOver)
         {
@@ -38,6 +41,11 @@ public class HedgehogCorrutedEnemy_IdleState : IdleState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        if (enemy.isVertical)
+        {
+            entity.SetVelocityY(0);
+        }
+
         entity.SetVelocity(0);
     }
 }

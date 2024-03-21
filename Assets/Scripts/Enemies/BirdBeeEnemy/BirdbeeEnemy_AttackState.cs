@@ -25,6 +25,7 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
         base.Enter();
         enemy.aIPath.canMove = false;
         enemy.aIPath.canSearch = false;
+        wallDetectionFirstTake = true;
     }
 
     public override void Exit()
@@ -33,6 +34,7 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
         enemy.aIPath.canMove = true;
         enemy.aIPath.canSearch = true;
     }
+
 
     public override void FinishAttack()
     {
@@ -54,6 +56,25 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
         base.PhysicsUpdate();
     }
 
+    bool wallDetectionFirstTake = true;
+    Vector3 wallDetectedPos;
+
+    public override void LatePhysicsUpdate()
+    {
+        base.LatePhysicsUpdate();
+        if (entity.CheckGround() && wallDetectionFirstTake)
+        {
+            wallDetectionFirstTake = false;
+            wallDetectedPos = enemy.transform.position;
+            enemy.transform.position = wallDetectedPos;
+            stateMachine.ChangeState(enemy.playerDetectedState);
+        }
+        else if (entity.CheckGround())
+        {
+            enemy.transform.position = wallDetectedPos;
+        }
+    }
+
     public override void TriggerAttack()
     {
         base.TriggerAttack(); 
@@ -70,6 +91,12 @@ public class BirdbeeEnemy_AttackState : MeleeAttackState, IHitboxResponder
         base.AttackStart();
         isAnticipation = false;
         isAttacking = true;
+    }
+
+    void DiagonalAttack()
+    {
+        Vector2 direction = ((Vector2)enemy.transform.position - enemy.playerRuntimeDataSO.playerPosition).normalized;
+        enemy.rb.AddForce(direction*5f);
     }
 
     void IHitboxResponder.collisionedWith(Collider2D collider)

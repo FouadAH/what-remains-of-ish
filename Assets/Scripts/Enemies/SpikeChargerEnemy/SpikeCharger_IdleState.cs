@@ -24,25 +24,18 @@ public class SpikeCharger_IdleState : IdleState
     {
         base.LogicUpdate();
 
-        if ((entity.CheckPlayerInMaxAgroRange() || enemy.IsAggro))
+        if ((entity.CheckPlayerInMaxAgroRange()))
         {
-            if (!entity.CheckLedge())
-            {
-                return;
-            }
-            else
-            {
-                stateMachine.ChangeState(enemy.chargeState);
-            }
+            stateMachine.ChangeState(enemy.PlayerDetectedState);
         }
         else if (isPlayerInMinAgroRange)
         {
             entity.Flip();
-            stateMachine.ChangeState(enemy.chargeState);
+            stateMachine.ChangeState(enemy.PlayerDetectedState);
         }
         else if (isIdleTimeOver)
         {
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.MoveState);
         }
     }
 

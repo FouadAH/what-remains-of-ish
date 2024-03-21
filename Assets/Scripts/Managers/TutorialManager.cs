@@ -8,10 +8,19 @@ public class TutorialManager : MonoBehaviour
     public GameObject healingTutorial;
     public GameObject wallJumpTutorial;
     public GameObject dashTutorial;
+    public GameObject airDashTutorial;
+
     public GameObject teleportTutorial;
     public GameObject boomerangTutorial;
+    public GameObject restingTutorial;
+    public GameObject attackTutorial;
 
+    [Header("State")]
     public bool tutorialIsActive = false;
+
+    [Header("Game Events")]
+    public GameEvent enablePlayerInput;
+    public GameEvent disablePlayerInput;
 
     private GameObject currentActiveTutorial;
     private GameManager gm;
@@ -52,7 +61,6 @@ public class TutorialManager : MonoBehaviour
         inputLock = true;
         yield return new WaitForSeconds(0.05f);
         inputLock = false;
-        Debug.Log(inputLock);
     }
 
     public void DisplayTutorial(TutorialType tutorialType)
@@ -71,6 +79,10 @@ public class TutorialManager : MonoBehaviour
                 Display(dashTutorial);
                 break;
 
+            case TutorialType.AirDash:
+                Display(airDashTutorial);
+                break;
+
             case TutorialType.Teleport:
                 Display(teleportTutorial);
                 break;
@@ -79,9 +91,27 @@ public class TutorialManager : MonoBehaviour
                 Display(boomerangTutorial);
                 break;
 
+            case TutorialType.Resting:
+                Display(restingTutorial);
+                break;
+
+            case TutorialType.Attack:
+                Display(attackTutorial);
+                break;
+
             default:
                 break;
         }
+    }
+
+    public void BoomerangTutorial()
+    {
+        DisplayTutorial(TutorialType.Boomerang);
+    }
+
+    public void AirDashTutorial()
+    {
+        DisplayTutorial(TutorialType.AirDash);
     }
 
     void Display(GameObject tutorial)
@@ -94,7 +124,9 @@ public class TutorialManager : MonoBehaviour
         DialogManager.instance.dialogueIsActive = true;
         tutorialIsActive = true;
 
-        gm.player.GetComponent<Player_Input>().enabled = false;
+        disablePlayerInput.Raise();
+        //gm.player.GetComponent<Player_Input>().DisablePlayerInput();
+        //gm.player.GetComponent<Player>().enabled = false;
     }
 
     void CloseTutorial()
@@ -106,7 +138,7 @@ public class TutorialManager : MonoBehaviour
         DialogManager.instance.dialogueIsActive = false;
         tutorialIsActive = false;
 
-        gm.player.GetComponent<Player_Input>().enabled = true;
+        enablePlayerInput.Raise();
     }
 }
 
@@ -116,5 +148,8 @@ public enum TutorialType
     WallJump = 1,
     Dash = 2,
     Teleport = 3,
-    Boomerang = 4
+    Boomerang = 4,
+    Resting = 5,
+    Attack = 6,
+    AirDash = 7
 }
